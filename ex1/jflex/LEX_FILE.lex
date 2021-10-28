@@ -72,9 +72,37 @@ import java_cup.runtime.*;
 /***********************/
 LineTerminator	= \r|\n|\r\n
 WhiteSpace		= {LineTerminator} | [ \t\f]
-INTEGER			= 0 | [1-9][0-9]*
-ID				= [a-z]+
-
+INT			    = 0 | [1-9][0-9]*
+LPAREN          = (
+RPAREN          = )
+LBRACK          = [
+RBRACK          = ]
+LBRACE          = {
+RBRACE          = }
+NIL             = nil
+PLUS            = +
+MINUS           = -
+TIMES           = *
+DIVIDE          = /
+COMMA           = ,
+DOT             = .
+SEMICOLON       = ;
+TYPE_INT        = int
+ASSIGN          = :=
+EQ              = =
+LT              = <
+GT              = >
+ARRAY           = array
+CLASS           = class
+EXTENDS         = extends
+RETURN          = return
+WHILE           = while
+IF              = if
+NEW             = new
+STRING          = "[a-z|A-Z]*"
+ID              = [a-z|A-Z][a-z|A-Z|0-9]*
+TYPE_STRING     = string
+ANY             = \n|.
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
 /******************************/
@@ -93,14 +121,44 @@ ID				= [a-z]+
 
 <YYINITIAL> {
 
-"+"					{ return symbol(TokenNames.PLUS);}
-"-"					{ return symbol(TokenNames.MINUS);}
-"PPP"				{ return symbol(TokenNames.TIMES);}
-"/"					{ return symbol(TokenNames.DIVIDE);}
-"("					{ return symbol(TokenNames.LPAREN);}
-")"					{ return symbol(TokenNames.RPAREN);}
-{INTEGER}			{ return symbol(TokenNames.NUMBER, new Integer(yytext()));}
-{ID}				{ return symbol(TokenNames.ID,     new String( yytext()));}   
+LPAREN { return symbol(TokenNames.LPAREN);}
+RPAREN { return symbol(TokenNames.RPAREN);}
+LBRACK { return symbol(TokenNames.LBRACK);}
+RBRACK { return symbol(TokenNames.RBRACK);}
+LBRACE { return symbol(TokenNames.LBRACE);}
+RBRACE { return symbol(TokenNames.RBRACE);}
+NIL { return symbol(TokenNames.NIL);}
+PLUS { return symbol(TokenNames.PLUS);}
+MINUS { return symbol(TokenNames.MINUS);}
+TIMES { return symbol(TokenNames.TIMES);}
+DIVIDE { return symbol(TokenNames.DIVIDE);}
+COMMA { return symbol(TokenNames.COMMA);}
+DOT { return symbol(TokenNames.DOT);}
+SEMICOLON { return symbol(TokenNames.SEMICOLON);}
+TYPE_INT { return symbol(TokenNames.TYPE_INT);}
+ASSIGN { return symbol(TokenNames.ASSIGN);}
+EQ { return symbol(TokenNames.EQ);}
+LT { return symbol(TokenNames.LT);}
+GT { return symbol(TokenNames.GT);}
+ARRAY { return symbol(TokenNames.ARRAY);}
+CLASS { return symbol(TokenNames.CLASS);}
+EXTENDS { return symbol(TokenNames.EXTENDS);}
+RETURN { return symbol(TokenNames.RETURN);}
+WHILE { return symbol(TokenNames.WHILE);}
+IF { return symbol(TokenNames.IF);}
+NEW { return symbol(TokenNames.NEW);}
+{INT}			{ Integer Num = new Integer(yytext());
+int num = Num.intValue();
+if ( num < Math.pow(2,15)){
+   return symbol(TokenNames.INT, Num);
+} else {
+    return symbol(TokenNames.ERROR);
+}
+}
+{STRING}			{ return symbol(TokenNames.STRING, new String(yytext()));}
+{ID}				{ return symbol(TokenNames.ID,     new String( yytext()));}
+{TYPE_STRING} { return symbol(TokenNames.TYPE_STRING);
 {WhiteSpace}		{ /* just skip what was found, do nothing */ }
 <<EOF>>				{ return symbol(TokenNames.EOF);}
+{ANY}   { return symbol(TokenNames.ERROR);}
 }
