@@ -14,7 +14,7 @@ public class Main
 		PrintWriter file_writer;
 		String inputFilename = argv[0];
 		String outputFilename = argv[1];
-		
+
 		try
 		{
 			/********************************/
@@ -45,21 +45,29 @@ public class Main
 				/************************/
 				/* [6] Print to console */
 				/************************/
-				System.out.print("[");
-				System.out.print(l.getLine());
-				System.out.print(",");
-				System.out.print(l.getTokenStartPosition());
-				System.out.print("]:");
-				System.out.print(s.value);
-				System.out.print("\n");
+//				System.out.print(s.sym + " " + TokenNames.mipui[s.sym] + " ");
+//
+//				System.out.print("[");
+//				System.out.print(l.getLine());
+//				System.out.print(",");
+//				System.out.print(l.getTokenStartPosition());
+//				System.out.print("]:");
+//				System.out.print(s.value);
+//				System.out.print("\n");
 				
 				/*********************/
 				/* [7] Print to file */
 				/*********************/
-				file_writer.print(l.getLine());
-				file_writer.print(": ");
-				file_writer.print(s.value);
+				file_writer.print(TokenNames.mipui[s.sym]);
+				if(s.value != null) {
+					file_writer.print("(" + s.value + ")");
+				}
+				file_writer.print("[" +l.getLine() + "," + l.getTokenStartPosition() + "]");
 				file_writer.print("\n");
+//				file_writer.print(l.getLine());
+//				file_writer.print(": ");
+//				file_writer.print(s.value);
+//				file_writer.print("\n");
 				
 				/***********************/
 				/* [8] Read next token */

@@ -7,7 +7,7 @@ public interface TokenNames {
   public static final int DIVIDE = 4;
   public static final int LPAREN = 5;
   public static final int RPAREN = 6;
-  public static final int NUMBER = 7;
+  public static final int INT = 7;
   public static final int ID = 8;
   public static final int LBRACK = 9;
   public static final int RBRACK = 10;
@@ -31,6 +31,39 @@ public interface TokenNames {
   public static final int NEW = 28;
   public static final int STRING = 29;
   public static final int TYPE_STRING = 30;
-  public static final int INT = 31;
-  public static final int ERROR = 32;
+  public static final int ERROR = 31;
+
+  public final String mipui[] = {"EOF",
+                                 "PLUS",
+                                 "MINUS",
+                                 "TIMES",
+                                 "DIVIDE",
+                                 "LPAREN",
+                                 "RPAREN",
+                                 "INT",
+                                 "ID",
+                                 "LBRACK",
+                                 "RBRACK",
+                                 "LBRACE",
+                                 "RBRACE",
+                                 "NIL",
+                                 "COMMA",
+                                 "DOT",
+                                 "SEMICOLON",
+                                 "TYPE_INT",
+                                 "ASSIGN",
+                                 "EQ",
+                                 "LT",
+                                 "GT",
+                                 "ARRAY",
+                                 "CLASS",
+                                 "EXTENDS",
+                                 "RETURN",
+                                 "WHILE",
+                                 "IF",
+                                 "NEW",
+                                 "STRING",
+                                 "TYPE_STRING",
+                                 "ERROR"
+  };
 }
