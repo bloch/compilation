@@ -58,6 +58,15 @@ public class Main
 				/*********************/
 				/* [7] Print to file */
 				/*********************/
+
+				//error handling
+				if (s.sym == TokenNames.ERROR){
+					file_writer.close();
+					file_writer = new PrintWriter(outputFilename);
+					file_writer.print("ERROR");
+					break;
+				}
+
 				file_writer.print(TokenNames.mipui[s.sym]);
 				if(s.value != null) {
 					file_writer.print("(" + s.value + ")");
