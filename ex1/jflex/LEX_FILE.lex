@@ -77,7 +77,9 @@ LETTER           = [a-z|A-Z]
 DIGIT            = [0-9]
 LineTerminator	 = \r|\n|\r\n
 WhiteSpace		 = {LineTerminator} | [ \t\f]
+WHITE_SPACE      = [ \t\f]
 INT			     = 0 | [1-9][0-9]*
+ILLEGAL_INT      = 0+{INT}?
 LPAREN           = "("
 RPAREN           = ")"
 LBRACK           = "["
@@ -112,9 +114,9 @@ QUOTES           = "\""
 STRING           = {QUOTES}{LETTER}*{QUOTES}
 ID               = [a-z|A-Z][a-z|A-Z|0-9]*
 TYPE_STRING      = string
-ANY              = \n|.
-INPUT_CHAR = [^\r\n]
-ONE_LINE_COMMENT = "//" {INPUT_CHAR}* {LineTerminator}?
+ANY              = [^]
+INPUT_CHAR       = {LETTER} | {DIGIT} | {WHITE_SPACE} | {LPAREN} | {RPAREN} | {LBRACK} | {RBRACK} | {LBRACE} | {RBRACE} | {QUESTION_MARK} | {EXCLAMATION_MARK} | {PLUS} | {MINUS} | {TIMES} | {DIVIDE} | {DOT} | {SEMICOLON}
+ONE_LINE_COMMENT = "//"{INPUT_CHAR}*{LineTerminator}
 
 
 /******************************/
@@ -168,6 +170,7 @@ ONE_LINE_COMMENT = "//" {INPUT_CHAR}* {LineTerminator}?
                       return symbol(TokenNames.ERROR);
                     }
                     }
+{ILLEGAL_INT}       { return symbol(TokenNames.ERROR);}
 {STRING}			{ return symbol(TokenNames.STRING, new String(yytext()));}
 {TYPE_STRING}       { return symbol(TokenNames.TYPE_STRING);}
 {ID}				{ return symbol(TokenNames.ID,     new String( yytext()));}
