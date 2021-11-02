@@ -87,5 +87,5 @@ all:
 	@echo "*                           *"
 	@echo "*                           *"
 	@echo "*****************************"
-	java -jar LEXER ${INPUT} ${OUTPUT}
+# 	java -jar LEXER ${INPUT} ${OUTPUT}
 
