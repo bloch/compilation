@@ -117,6 +117,7 @@ TYPE_STRING      = string
 ANY              = [^]
 INPUT_CHAR       = {LETTER} | {DIGIT} | {WHITE_SPACE} | {LPAREN} | {RPAREN} | {LBRACK} | {RBRACK} | {LBRACE} | {RBRACE} | {QUESTION_MARK} | {EXCLAMATION_MARK} | {PLUS} | {MINUS} | {TIMES} | {DIVIDE} | {DOT} | {SEMICOLON}
 ONE_LINE_COMMENT = "//"{INPUT_CHAR}*{LineTerminator}
+ERROR_ONE_LINE_COMMENT = "//"[^]*{LineTerminator}
 
 
 /******************************/
@@ -177,6 +178,7 @@ ONE_LINE_COMMENT = "//"{INPUT_CHAR}*{LineTerminator}
 {WhiteSpace}		{ /* just skip what was found, do nothing */ }
 {LEFT_COMMENT}      { yybegin(IN_COMMENT);}
 {ONE_LINE_COMMENT}  { }
+{ERROR_ONE_LINE_COMMENT} { return symbol(TokenNames.ERROR);}
 <<EOF>>				{ return symbol(TokenNames.EOF);}
 {ANY}               { return symbol(TokenNames.ERROR);}
 }
@@ -200,5 +202,6 @@ ONE_LINE_COMMENT = "//"{INPUT_CHAR}*{LineTerminator}
 {DIVIDE}            { }
 {DOT}               { }
 {SEMICOLON}         { }
+<<EOF>>				{ return symbol(TokenNames.ERROR);}
 {ANY}               { return symbol(TokenNames.ERROR);}
 }
