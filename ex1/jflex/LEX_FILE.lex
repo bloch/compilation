@@ -117,7 +117,7 @@ TYPE_STRING      = string
 ANY              = [^]
 INPUT_CHAR       = {LETTER} | {DIGIT} | {WHITE_SPACE} | {LPAREN} | {RPAREN} | {LBRACK} | {RBRACK} | {LBRACE} | {RBRACE} | {QUESTION_MARK} | {EXCLAMATION_MARK} | {PLUS} | {MINUS} | {TIMES} | {DIVIDE} | {DOT} | {SEMICOLON}
 ONE_LINE_COMMENT = "//"{INPUT_CHAR}*{LineTerminator}
-ERROR_ONE_LINE_COMMENT = "//"[^]*{LineTerminator}
+ERROR_ONE_LINE_COMMENT = "//"[^\r\n\r\n]*{LineTerminator}
 
 
 /******************************/
