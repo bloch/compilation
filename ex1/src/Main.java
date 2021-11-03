@@ -72,7 +72,7 @@ public class Main
 					file_writer.print("(" + s.value + ")");
 				}
 				file_writer.print("[" +l.getLine() + "," + l.getTokenStartPosition() + "]");
-				file_writer.print("\n");
+//				file_writer.print("\n");
 //				file_writer.print(l.getLine());
 //				file_writer.print(": ");
 //				file_writer.print(s.value);
@@ -82,6 +82,9 @@ public class Main
 				/* [8] Read next token */
 				/***********************/
 				s = l.next_token();
+				if (s.sym != TokenNames.EOF) {
+					file_writer.print("\n");
+				}
 			}
 			
 			/******************************/

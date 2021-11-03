@@ -163,13 +163,20 @@ ERROR_ONE_LINE_COMMENT = "//"[^\r\n\r\n]*{LineTerminator}
 {WHILE}             { return symbol(TokenNames.WHILE);}
 {IF}                { return symbol(TokenNames.IF);}
 {NEW}               { return symbol(TokenNames.NEW);}
-{INT}			    { Integer Num = new Integer(yytext());
-                      int num = Num.intValue();
-                      if ( num < Math.pow(2,15)){
-                      return symbol(TokenNames.INT, Num);
-                    } else {
-                      return symbol(TokenNames.ERROR);
-                    }
+{INT}			    {
+                      try {
+                        Integer Num = new Integer(yytext());
+
+                        int num = Num.intValue();
+                        if ( num < Math.pow(2,15)){
+                          return symbol(TokenNames.INT, Num);
+                        } else {
+                          return symbol(TokenNames.ERROR);
+                        }
+                      }
+                      catch  (NumberFormatException e){
+                        return symbol(TokenNames.ERROR);
+                      }
                     }
 {ILLEGAL_INT}       { return symbol(TokenNames.ERROR);}
 {STRING}			{ return symbol(TokenNames.STRING, new String(yytext()));}
