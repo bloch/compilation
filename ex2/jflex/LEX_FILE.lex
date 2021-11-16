@@ -119,6 +119,8 @@ INPUT_CHAR       = {LETTER} | {DIGIT} | {WHITE_SPACE} | {LPAREN} | {RPAREN} | {L
 ONE_LINE_COMMENT = "//"{INPUT_CHAR}*{LineTerminator}
 ERROR_ONE_LINE_COMMENT = "//"[^\r\n\r\n]*{LineTerminator}
 
+TYPE_VOID        = void
+
 
 /******************************/
 /* DOLAR DOLAR - DON'T TOUCH! */
