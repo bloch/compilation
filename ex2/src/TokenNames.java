@@ -13,7 +13,7 @@ public class TokenNames {
   public static final int CLASS = 22;
   public static final int SEMICOLON = 15;
   public static final int PLUS = 2;
-  public static final int INT = 30;
+  public static final int INT = 31;
   public static final int RBRACE = 11;
   public static final int RPAREN = 7;
   public static final int WHILE = 25;
@@ -26,8 +26,8 @@ public class TokenNames {
   public static final int LPAREN = 6;
   public static final int NIL = 12;
   public static final int LBRACE = 10;
-  public static final int ID = 31;
-  public static final int STRING = 32;
+  public static final int ID = 32;
+  public static final int STRING = 33;
   public static final int COMMA = 13;
   public static final int EOF = 0;
   public static final int DIVIDE = 5;
@@ -39,6 +39,7 @@ public class TokenNames {
   public static final int NEW = 27;
   public static final int EXTENDS = 23;
   public static final int ARRAY = 21;
+  public static final int TYPE_VOID = 30;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -70,6 +71,7 @@ public class TokenNames {
   "NEW",
   "TYPE_STRING",
   "ERROR",
+  "TYPE_VOID",
   "INT",
   "ID",
   "STRING"

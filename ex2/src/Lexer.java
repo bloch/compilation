@@ -44,8 +44,9 @@ class Lexer implements java_cup.runtime.Scanner {
     "\5\0\1\7\1\10\1\22\1\20\1\24\1\21\1\25\1\23\1\6"+
     "\11\2\1\31\1\26\1\33\1\32\1\34\1\27\1\0\32\1\1\11"+
     "\1\0\1\12\3\0\1\35\1\1\1\40\1\44\1\42\1\50\1\52"+
-    "\1\47\1\16\2\1\1\17\1\1\1\15\3\1\1\36\1\41\1\30"+
-    "\1\45\1\1\1\46\1\43\1\37\1\1\1\13\1\1\1\14\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uff92\0";
+    "\1\47\1\16\2\1\1\17\1\1\1\15\1\1\2\1\1\36\1\41"+
+    "\1\30\1\45\1\1\1\46\1\43\1\37\1\1\1\13\1\1\1\14"+
+    "\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uff92\0";
 
   /** 
    * Translates characters to character classes
@@ -356,7 +357,7 @@ class Lexer implements java_cup.runtime.Scanner {
     char [] map = new char[0x110000];
     int i = 0;  /* index in packed string  */
     int j = 0;  /* index in unpacked array */
-    while (i < 152) {
+    while (i < 154) {
       int  count = packed.charAt(i++);
       char value = packed.charAt(i++);
       do map[j++] = value; while (--count > 0);
