@@ -1,10 +1,10 @@
 package AST;
 
 public class AST_NEW_EXP extends AST_Node {
-    public String id_name;
+    public AST_TYPE t;
     public AST_EXP e;
 
-    public AST_NEW_EXP(String id_name, AST_EXP e) {
+    public AST_NEW_EXP(AST_TYPE t, AST_EXP e) {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/
@@ -19,7 +19,7 @@ public class AST_NEW_EXP extends AST_Node {
         /*******************************/
         /* COPY INPUT DATA NENBERS ... */
         /*******************************/
-        this.id_name = id_name;
+        this.t = t;
         this.e = e;
     }
 }
