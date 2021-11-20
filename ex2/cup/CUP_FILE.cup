@@ -84,7 +84,6 @@ terminal ERROR;
 
 terminal TYPE_VOID;
 
-
 /*************/
 /* TERMINALS */
 /*************/
@@ -118,21 +117,14 @@ non terminal AST_PROGRAM Program;
 /* OPERATOR PRECEDENCE */
 /***********************/
 
-precedence nonassoc SEMICOLON;
-precedence nonassoc RPAREN;
-
 precedence nonassoc ASSIGN;
 precedence left EQ;
-precedence left GT;
-precedence left LT;
-precedence left PLUS;
-precedence left MINUS;
-precedence left TIMES;
-precedence left DIVIDE;
+precedence left LT, GT;
+precedence left PLUS, MINUS;
+precedence left TIMES, DIVIDE;
 precedence nonassoc LBRACK;
 precedence nonassoc LPAREN;
 precedence left DOT;
-
 
 /************************/
 /* START WITH: Program */
@@ -143,31 +135,31 @@ start with Program;
 /* DERIVATION RULES */
 /********************/
 
-Program     ::=     decList:l                   {: RESULT = new AST_PROGRAM(l);    :}
+Program     ::=     decList:l                                                                                           {: RESULT = new AST_PROGRAM(l);    :}
                     ;
 
-dec         ::=     varDec:vd                   {: RESULT = new AST_DEC(vd, null, null, null);    :}
-                    | funcDec:fd                {: RESULT = new AST_DEC(null, fd, null, null);    :}
-                    | classDec:cd               {: RESULT = new AST_DEC(null, null, cd, null);    :}
-                    | arrayTypedef:atd          {: RESULT = new AST_DEC(null, null, null, atd);    :}
+dec         ::=     varDec:vd                                                                                           {: RESULT = new AST_DEC(vd, null, null, null);    :}
+                    | funcDec:fd                                                                                        {: RESULT = new AST_DEC(null, fd, null, null);    :}
+                    | classDec:cd                                                                                       {: RESULT = new AST_DEC(null, null, cd, null);    :}
+                    | arrayTypedef:atd                                                                                  {: RESULT = new AST_DEC(null, null, null, atd);    :}
                     ;
 
 decList     ::=		dec:d decList:l		{: RESULT = new AST_DEC_LIST(d, l);    :}
                	    | dec:d				    {: RESULT = new AST_DEC_LIST(d, null); :}
                	    ;
 
-type        ::=     TYPE_INT		            {: RESULT = new AST_TYPE_INT();    :}
-                    | TYPE_STRING				{: RESULT = new AST_TYPE_STRING(); :}
-                    | TYPE_VOID                 {: RESULT = new AST_TYPE_VOID(); :}
-                    | ID:name                   {: RESULT = new AST_TYPE_ID(name); :}
+type        ::=     TYPE_INT		                                                                                    {: RESULT = new AST_TYPE_INT();    :}
+                    | TYPE_STRING				                                                                        {: RESULT = new AST_TYPE_STRING(); :}
+                    | TYPE_VOID                                                                                         {: RESULT = new AST_TYPE_VOID(); :}
+                    | ID:name                                                                                           {: RESULT = new AST_TYPE_ID(name); :}
                     ;
 
-arrayTypedef ::=    ARRAY ID:name EQ type:t LBRACK RBRACK SEMICOLON {: RESULT = new AST_ARRAY_TYPE_DEF(name, t); :}
+arrayTypedef ::=    ARRAY ID:name EQ type:t LBRACK RBRACK SEMICOLON                                                     {: RESULT = new AST_ARRAY_TYPE_DEF(name, t); :}
                     ;
 
-varDec      ::=     type:t ID:name SEMICOLON                        {: RESULT = new AST_VAR_DEC(name, t, null, null); :}
-                    | type:t ID:name ASSIGN exp:e SEMICOLON         {: RESULT = new AST_VAR_DEC(name, t, e, null);    :}
-                    | type:t ID:name ASSIGN newExp:ne SEMICOLON     {: RESULT = new AST_VAR_DEC(name, t, null, ne);   :}
+varDec      ::=     type:t ID:name SEMICOLON                                                                            {: RESULT = new AST_VAR_DEC(name, t, null, null); :}
+                    | type:t ID:name ASSIGN exp:e SEMICOLON                                                             {: RESULT = new AST_VAR_DEC(name, t, e, null);    :}
+                    | type:t ID:name ASSIGN newExp:ne SEMICOLON                                                         {: RESULT = new AST_VAR_DEC(name, t, null, ne);   :}
                     ;
 
 funcDec     ::=     type:t ID:name LPAREN RPAREN LBRACE stmtList:l RBRACE                                               {: RESULT = new AST_FUNC_DEC(t, name, null, null, null,l); :}
@@ -191,11 +183,11 @@ stmtList	::=		stmt:s	stmtList:l		{: RESULT = new AST_STMT_LIST(s,l);    :}
 					| stmt:s				{: RESULT = new AST_STMT_LIST(s,null); :}
 					;
 
-exp			::=		| var:v								{: RESULT = new AST_EXP_VAR(v);          :}
+exp			::=		var:v								{: RESULT = new AST_EXP_VAR(v);          :}
                     | LPAREN exp:e RPAREN				{: RESULT = new AST_EXP_PARENTHESES(e);  :}
 					| exp:e1 PLUS exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 0);:}
 					| exp:e1 MINUS exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 1);:}
-					| exp:e1 TIMES exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 2);:}
+					| exp:e1 TIMES exp:e2               {: RESULT = new AST_EXP_BINOP(e1, e2, 2);:}
 					| exp:e1 DIVIDE exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 3);:}
 					| exp:e1 LT exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, 4);:}
 					| exp:e1 GT exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, 5);:}
@@ -210,7 +202,7 @@ exp			::=		| var:v								{: RESULT = new AST_EXP_VAR(v);          :}
 					| INT:i				                {: RESULT = new AST_EXP_INT(i);:}
 					| NIL				                {: RESULT = new AST_EXP_NIL();:}
 					| STRING:s				            {: RESULT = new AST_EXP_STRING(s);:}
-					;
+                    ;
 
 var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
 					| var:v DOT ID:fieldName			{: RESULT = new AST_VAR_FIELD(v,fieldName); :} 
@@ -232,8 +224,8 @@ stmt		::=		varDec:vd                                                   {: RESULT
 					| var:v DOT ID:name LPAREN exp:e psikExpList:l RPAREN SEMICOLON       {: RESULT = new AST_STMT_MODIFY(v, name, e, l); :}
 					;
 
-newExp      ::=     NEW ID:name                        {: RESULT = new AST_NEW_EXP(name, null);      :}
-                    | NEW ID:name LBRACK exp:e RBRACK  {: RESULT = new AST_NEW_EXP(name, e);      :}
+newExp      ::=     NEW type:t                         {: RESULT = new AST_NEW_EXP(t, null);      :}
+                    | NEW type:t LBRACK exp:e RBRACK   {: RESULT = new AST_NEW_EXP(t, e);      :}
                     ;
 
 cField      ::=     varDec:vd                          {: RESULT = new AST_CFIELD_VAR_DEC(vd);      :}
@@ -243,3 +235,4 @@ cField      ::=     varDec:vd                          {: RESULT = new AST_CFIEL
 cFieldList  ::=     cField:cf	cFieldList:cfl		{: RESULT = new AST_CFIELD_LIST(cf,cfl);    :}
                     | cField:cf				        {: RESULT = new AST_CFIELD_LIST(cf,null); :}
                     ;
+
