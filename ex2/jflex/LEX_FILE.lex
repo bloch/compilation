@@ -154,6 +154,7 @@ TYPE_VOID        = void
 {DOT}               { return symbol(TokenNames.DOT);}
 {SEMICOLON}         { return symbol(TokenNames.SEMICOLON);}
 {TYPE_INT}          { return symbol(TokenNames.TYPE_INT);}
+{TYPE_VOID}         { return symbol(TokenNames.TYPE_VOID);}
 {ASSIGN}            { return symbol(TokenNames.ASSIGN);}
 {EQ}                { return symbol(TokenNames.EQ);}
 {LT}                { return symbol(TokenNames.LT);}
