@@ -113,14 +113,9 @@ non terminal AST_PSIK_EXP_LIST psikExpList;
 non terminal AST_DEC_LIST decList;
 non terminal AST_PROGRAM Program;
 
-non terminal AST_DEC_LIST BINOP;                                                //to be changed
-
 /***********************/
 /* OPERATOR PRECEDENCE */
 /***********************/
-
-precedence nonassoc RPAREN;
-precedence nonassoc SEMICOLON;
 
 precedence nonassoc ASSIGN;
 precedence left EQ;
@@ -188,11 +183,11 @@ stmtList	::=		stmt:s	stmtList:l		{: RESULT = new AST_STMT_LIST(s,l);    :}
 					| stmt:s				{: RESULT = new AST_STMT_LIST(s,null); :}
 					;
 
-exp			::=		| var:v								{: RESULT = new AST_EXP_VAR(v);          :}
+exp			::=		var:v								{: RESULT = new AST_EXP_VAR(v);          :}
                     | LPAREN exp:e RPAREN				{: RESULT = new AST_EXP_PARENTHESES(e);  :}
 					| exp:e1 PLUS exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 0);:}
 					| exp:e1 MINUS exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 1);:}
-					| exp:e1 TIMES exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 2);:}
+					| exp:e1 TIMES exp:e2               {: RESULT = new AST_EXP_BINOP(e1, e2, 2);:}
 					| exp:e1 DIVIDE exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 3);:}
 					| exp:e1 LT exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, 4);:}
 					| exp:e1 GT exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, 5);:}
