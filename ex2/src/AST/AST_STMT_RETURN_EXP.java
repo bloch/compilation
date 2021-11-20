@@ -30,7 +30,12 @@ public class AST_STMT_RETURN_EXP extends AST_STMT{
         /**********************************/
         /* AST NODE TYPE = AST STMT RETURN EXP */
         /**********************************/
-        System.out.format("AST NODE STMT RETURN EXP\n");
+        System.out.format("AST NODE STMT RETURN EXP;\n");
+
+        /*****************************/
+        /* RECURSIVELY PRINT var ... */
+        /*****************************/
+        if (exp != null) exp.PrintMe();
 
         /*********************************/
         /* Print to AST GRAPHIZ DOT file */
@@ -38,5 +43,10 @@ public class AST_STMT_RETURN_EXP extends AST_STMT{
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
                 String.format("STMT\nRETURN\nEXP\n"));
+
+        /****************************************/
+        /* PRINT Edges to AST GRAPHVIZ DOT file */
+        /****************************************/
+        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
     }
 }

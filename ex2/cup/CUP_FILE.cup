@@ -138,10 +138,10 @@ start with Program;
 Program     ::=     decList:l                                                                                           {: RESULT = new AST_PROGRAM(l);    :}
                     ;
 
-dec         ::=     varDec:vd                                                                                           {: RESULT = new AST_DEC(vd, null, null, null);    :}
-                    | funcDec:fd                                                                                        {: RESULT = new AST_DEC(null, fd, null, null);    :}
-                    | classDec:cd                                                                                       {: RESULT = new AST_DEC(null, null, cd, null);    :}
-                    | arrayTypedef:atd                                                                                  {: RESULT = new AST_DEC(null, null, null, atd);    :}
+dec         ::=     varDec:vd                                                                                           {: RESULT = new AST_VAR_DEC(vd);    :}
+                    | funcDec:fd                                                                                        {: RESULT = new AST_FUNC_DEC(fd);    :}
+                    | classDec:cd                                                                                       {: RESULT = null;    :}
+                    | arrayTypedef:atd                                                                                  {: RESULT = null;    :}
                     ;
 
 decList     ::=		dec:d decList:l		{: RESULT = new AST_DEC_LIST(d, l);    :}
@@ -157,14 +157,14 @@ type        ::=     TYPE_INT		                                                  
 arrayTypedef ::=    ARRAY ID:name EQ type:t LBRACK RBRACK SEMICOLON                                                     {: RESULT = new AST_ARRAY_TYPE_DEF(name, t); :}
                     ;
 
-varDec      ::=     type:t ID:name SEMICOLON                                                                            {: RESULT = new AST_VAR_DEC(name, t, null, null); :}
-                    | type:t ID:name ASSIGN exp:e SEMICOLON                                                             {: RESULT = new AST_VAR_DEC(name, t, e, null);    :}
-                    | type:t ID:name ASSIGN newExp:ne SEMICOLON                                                         {: RESULT = new AST_VAR_DEC(name, t, null, ne);   :}
+varDec      ::=     type:t ID:name SEMICOLON                                                                            {: RESULT = new AST_VAR_DEC_1(name, t); :}
+                    | type:t ID:name ASSIGN exp:e SEMICOLON                                                             {: RESULT = new AST_VAR_DEC_2(name, t, e);    :}
+                    | type:t ID:name ASSIGN newExp:ne SEMICOLON                                                         {: RESULT = new AST_VAR_DEC_3(name, t, ne);   :}
                     ;
 
-funcDec     ::=     type:t ID:name LPAREN RPAREN LBRACE stmtList:l RBRACE                                               {: RESULT = new AST_FUNC_DEC(t, name, null, null, null,l); :}
-                    | type:t1 ID:name1 LPAREN type:t2 ID:name2 RPAREN LBRACE stmtList:l RBRACE                          {: RESULT = new AST_FUNC_DEC(t1, name1, t2, name2, null, l); :}
-                    | type:t1 ID:name1 LPAREN type:t2 ID:name2 psikTypeIdList:l1 RPAREN LBRACE stmtList:l2 RBRACE       {: RESULT = new AST_FUNC_DEC(t1, name1, t2, name2, l1, l2); :}
+funcDec     ::=     type:t ID:name LPAREN RPAREN LBRACE stmtList:l RBRACE                                               {: RESULT = new AST_FUNC_DEC_1(t, name, l); :}
+                    | type:t1 ID:name1 LPAREN type:t2 ID:name2 RPAREN LBRACE stmtList:l RBRACE                          {: RESULT = new AST_FUNC_DEC_2(t1, name1, t2, name2, l); :}
+                    | type:t1 ID:name1 LPAREN type:t2 ID:name2 psikTypeIdList:l1 RPAREN LBRACE stmtList:l2 RBRACE       {: RESULT = new AST_FUNC_DEC_3(t1, name1, t2, name2, l1, l2); :}
                     ;
 
 classDec    ::=     CLASS ID:name LBRACE cFieldList:cfl RBRACE      {: RESULT = new AST_CLASS_DEC(name, null, cfl); :}
@@ -216,12 +216,12 @@ stmt		::=		varDec:vd                                                   {: RESULT
                     | RETURN exp:e SEMICOLON                                    {: RESULT = new AST_STMT_RETURN_EXP(e); :}
 					| IF LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	    {: RESULT = new AST_STMT_IF(cond,body); :}
 					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_WHILE(cond,body); :}
-					| ID:name LPAREN RPAREN SEMICOLON                           {: RESULT = new AST_STMT_MODIFY(null, name, null, null); :}
-					| ID:name LPAREN exp:e RPAREN SEMICOLON                     {: RESULT = new AST_STMT_MODIFY(null, name, e, null); :}
-					| ID:name LPAREN exp:e psikExpList:l RPAREN SEMICOLON       {: RESULT = new AST_STMT_MODIFY(null, name, e, l); :}
-					| var:v DOT ID:name LPAREN RPAREN SEMICOLON                           {: RESULT = new AST_STMT_MODIFY(v, name, null, null); :}
-					| var:v DOT ID:name LPAREN exp:e RPAREN SEMICOLON                     {: RESULT = new AST_STMT_MODIFY(v, name, e, null); :}
-					| var:v DOT ID:name LPAREN exp:e psikExpList:l RPAREN SEMICOLON       {: RESULT = new AST_STMT_MODIFY(v, name, e, l); :}
+					| ID:name LPAREN RPAREN SEMICOLON                           {: RESULT = new AST_STMT_MODIFY_1(name); :}
+					| ID:name LPAREN exp:e RPAREN SEMICOLON                     {: RESULT = new AST_STMT_MODIFY_2(name, e); :}
+					| ID:name LPAREN exp:e psikExpList:l RPAREN SEMICOLON       {: RESULT = new AST_STMT_MODIFY_3(name, e, l); :}
+					| var:v DOT ID:name LPAREN RPAREN SEMICOLON                           {: RESULT = new AST_STMT_MODIFY_4(v, name); :}
+					| var:v DOT ID:name LPAREN exp:e RPAREN SEMICOLON                     {: RESULT = new AST_STMT_MODIFY_5(v, name, e); :}
+					| var:v DOT ID:name LPAREN exp:e psikExpList:l RPAREN SEMICOLON       {: RESULT = new AST_STMT_MODIFY_6(v, name, e, l); :}
 					;
 
 newExp      ::=     NEW type:t                         {: RESULT = new AST_NEW_EXP(t, null);      :}

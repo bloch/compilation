@@ -63,7 +63,7 @@ public class AST_EXP_BINOP extends AST_EXP
 		/***************************************/
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
-			String.format("BINOP(%s)",sOP));
+			String.format("BINOP\n(%s)",sOP));
 		
 		/****************************************/
 		/* PRINT Edges to AST GRAPHVIZ DOT file */

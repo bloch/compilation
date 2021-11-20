@@ -25,4 +25,23 @@ public class AST_TYPE_ID extends AST_TYPE {
         /*******************************/
         this.name = name;
     }
+
+    /*********************************************************/
+    /* The printing message for an assign statement AST node */
+    /*********************************************************/
+    public void PrintMe()
+    {
+        /********************************************/
+        /* AST NODE TYPE = AST ASSIGNMENT STATEMENT */
+        /********************************************/
+        System.out.print("AST NODE TYPE_ID\n");
+
+        /***************************************/
+        /* PRINT Node to AST GRAPHVIZ DOT file */
+        /***************************************/
+        AST_GRAPHVIZ.getInstance().logNode(
+                SerialNumber,
+                String.format("TYPE_ID\n(%s)\n", name));
+    }
+
 }
