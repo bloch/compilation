@@ -1,25 +1,5 @@
 package AST;
 
-public class AST_NEW_EXP extends AST_Node {
-    public AST_TYPE t;
-    public AST_EXP e;
+public abstract class AST_NEW_EXP extends AST_Node {
 
-    public AST_NEW_EXP(AST_TYPE t, AST_EXP e) {
-        /******************************/
-        /* SET A UNIQUE SERIAL NUMBER */
-        /******************************/
-        SerialNumber = AST_Node_Serial_Number.getFresh();
-
-        /***************************************/
-        /* PRINT CORRESPONDING DERIVATION RULE */
-        /***************************************/
-        if (e == null) System.out.print("====================== newExp -> NEW ID\n");
-        if (e != null) System.out.print("====================== newExp -> NEW ID [ exp ]\n");
-
-        /*******************************/
-        /* COPY INPUT DATA NENBERS ... */
-        /*******************************/
-        this.t = t;
-        this.e = e;
-    }
 }

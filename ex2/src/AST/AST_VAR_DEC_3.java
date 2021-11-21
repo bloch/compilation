@@ -1,8 +1,7 @@
 package AST;
 
 public class AST_VAR_DEC_3 extends AST_VAR_DEC {
-    public AST_TYPE type1;
-    public String id_name1;
+    public AST_TYPE_WITH_ID type_with_id1;
     public AST_NEW_EXP ne;
 
     public AST_VAR_DEC_3(String id_name1, AST_TYPE type1, AST_NEW_EXP ne) {
@@ -16,8 +15,7 @@ public class AST_VAR_DEC_3 extends AST_VAR_DEC {
         /*******************************/
         /* COPY INPUT DATA NENBERS ... */
         /*******************************/
-        this.type1 = type1;
-        this.id_name1 = id_name1;
+        this.type_with_id1 = new AST_TYPE_WITH_ID(type1, id_name1);
         this.ne = ne;
     }
 
@@ -34,7 +32,7 @@ public class AST_VAR_DEC_3 extends AST_VAR_DEC {
         /***********************************/
         /* RECURSIVELY PRINT ... */
         /***********************************/
-        if (type1 != null) type1.PrintMe();
+        if (type_with_id1 != null) type_with_id1.PrintMe();
         if (ne != null) ne.PrintMe();
 
         /***************************************/
@@ -42,12 +40,12 @@ public class AST_VAR_DEC_3 extends AST_VAR_DEC {
         /***************************************/
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
-                String.format("varDec_3\ntype ID (%s) ASSIGN newExp;\n", id_name1));
+                String.format("varDec_3"));
 
         /****************************************/
         /* PRINT Edges to AST GRAPHVIZ DOT file */
         /****************************************/
-        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type1.SerialNumber);
+        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type_with_id1.SerialNumber);
         AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,ne.SerialNumber);
 
     }

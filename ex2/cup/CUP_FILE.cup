@@ -251,8 +251,8 @@ stmt		::=		varDec:vd                                                   {: RESULT
 					| var:v DOT ID:name LPAREN exp:e psikExpList:l RPAREN SEMICOLON       {: RESULT = new AST_STMT_MODIFY_6(v, name, e, l); :}
 					;
 
-newExp      ::=     NEW type:t                         {: RESULT = new AST_NEW_EXP(t, null);      :}
-                    | NEW type:t LBRACK exp:e RBRACK   {: RESULT = new AST_NEW_EXP(t, e);      :}
+newExp      ::=     NEW type:t                         {: RESULT = new AST_NEW_EXP_1(t);      :}
+                    | NEW type:t LBRACK exp:e RBRACK   {: RESULT = new AST_NEW_EXP_2(t, e);      :}
                     ;
 
 cField      ::=     varDec:vd                          {: RESULT = new AST_CFIELD_VAR_DEC(vd);      :}

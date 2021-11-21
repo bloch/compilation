@@ -1,24 +1,24 @@
 package AST;
 
-public class AST_VAR_DEC_2 extends AST_VAR_DEC {
-    public AST_TYPE_WITH_ID type_with_id1;
-    public AST_EXP exp;
+public class AST_NEW_EXP_1 extends AST_NEW_EXP {
+    public AST_TYPE t;
 
-    public AST_VAR_DEC_2(String id_name1, AST_TYPE type1, AST_EXP exp) {
+    public AST_NEW_EXP_1(AST_TYPE t) {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/
         SerialNumber = AST_Node_Serial_Number.getFresh();
 
-        System.out.format("====================== varDec -> type ID (%s) ASSIGN exp;\n", id_name1);
+        /***************************************/
+        /* PRINT CORRESPONDING DERIVATION RULE */
+        /***************************************/
+        System.out.print("====================== newExp -> NEW type\n");
 
         /*******************************/
         /* COPY INPUT DATA NENBERS ... */
         /*******************************/
-        this.type_with_id1 = new AST_TYPE_WITH_ID(type1, id_name1);
-        this.exp = exp;
+        this.t = t;
     }
-
     /*********************************************************/
     /* The printing message for an assign statement AST node */
     /*********************************************************/
@@ -27,27 +27,24 @@ public class AST_VAR_DEC_2 extends AST_VAR_DEC {
         /********************************************/
         /* AST NODE TYPE = AST ASSIGNMENT STATEMENT */
         /********************************************/
-        System.out.print("AST NODE VAR_DEC_2\n");
+        System.out.print("AST NODE NEW_EXP_1\n");
 
         /***********************************/
         /* RECURSIVELY PRINT ... */
         /***********************************/
-        if (type_with_id1 != null) type_with_id1.PrintMe();
-        if (exp != null) exp.PrintMe();
+        if (t != null) t.PrintMe();
 
         /***************************************/
         /* PRINT Node to AST GRAPHVIZ DOT file */
         /***************************************/
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
-                String.format("varDec_2\n"));
+                String.format("newExp_1"));
 
         /****************************************/
         /* PRINT Edges to AST GRAPHVIZ DOT file */
         /****************************************/
-        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type_with_id1.SerialNumber);
-        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
+        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,t.SerialNumber);
 
     }
-
 }

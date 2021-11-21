@@ -1,10 +1,8 @@
 package AST;
 
 public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
-    public AST_TYPE type1;
-    public String id_name1;
-    public AST_TYPE type2;
-    public String id_name2;
+    public AST_TYPE_WITH_ID type_with_id1;
+    public AST_TYPE_WITH_ID type_with_id2;
     public AST_STMT_LIST stmtList;
 
     public AST_FUNC_DEC_2(AST_TYPE type1, String id_name1, AST_TYPE type2, String id_name2, AST_STMT_LIST stmtList) {
@@ -18,10 +16,8 @@ public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
         /*******************************/
         /* COPY INPUT DATA NENBERS ... */
         /*******************************/
-        this.type1 = type1;
-        this.id_name1 = id_name1;
-        this.type2 = type2;
-        this.id_name2 = id_name2;
+        this.type_with_id1 = new AST_TYPE_WITH_ID(type1, id_name1);
+        this.type_with_id2 = new AST_TYPE_WITH_ID(type2, id_name2);
         this.stmtList = stmtList;
     }
 
@@ -38,15 +34,15 @@ public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
         /***********************************/
         /* RECURSIVELY PRINT ... */
         /***********************************/
-        if (type1 != null) type1.PrintMe();
-        if (type2 != null) type2.PrintMe();
+        if (type_with_id1 != null) type_with_id1.PrintMe();
+        if (type_with_id2 != null) type_with_id2.PrintMe();
 
         /***************************************/
         /* PRINT Node to AST GRAPHVIZ DOT file */
         /***************************************/
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
-                String.format("funcDec_2\ntype1 ID1(%s) (type2 ID2(%s)) { stmtList } \n", id_name1, id_name2));
+                String.format("funcDec_2\n"));
 
 
         if (stmtList != null) stmtList.PrintMe(SerialNumber);
@@ -54,8 +50,7 @@ public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
         /****************************************/
         /* PRINT Edges to AST GRAPHVIZ DOT file */
         /****************************************/
-        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type1.SerialNumber);
-        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type2.SerialNumber);
-        //AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,stmtList.SerialNumber);
+        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type_with_id1.SerialNumber);
+        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type_with_id2.SerialNumber);
     }
 }
