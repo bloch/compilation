@@ -36,17 +36,17 @@ public class AST_STMT_MODIFY_3 extends AST_STMT{
         /*****************************/
         if (exp != null) exp.PrintMe();
 
-        /****************************************/
-        /* PRINT Edges to AST GRAPHVIZ DOT file */
-        /****************************************/
-        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
-
         /***************************************/
         /* PRINT Node to AST GRAPHVIZ DOT file */
         /***************************************/
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
                 String.format("STMT_MODIFY_3\nID(%s)\n(exp psikExpList);\n", id_name1));
+
+        /****************************************/
+        /* PRINT Edges to AST GRAPHVIZ DOT file */
+        /****************************************/
+        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
 
         this.l.PrintMe(SerialNumber);
 

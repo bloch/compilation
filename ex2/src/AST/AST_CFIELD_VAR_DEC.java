@@ -19,4 +19,31 @@ public class AST_CFIELD_VAR_DEC extends AST_CFIELD{
         /*******************************/
         this.vd = vd;
     }
+    /***********************************************/
+    /* The default message for an exp var AST node */
+    /***********************************************/
+    public void PrintMe()
+    {
+        /************************************/
+        /* AST NODE TYPE = EXP VAR AST NODE */
+        /************************************/
+        System.out.print("AST NODE CFIELD_VAR_DEC\n");
+
+        /*****************************/
+        /* RECURSIVELY PRINT var ... */
+        /*****************************/
+        if (vd != null) vd.PrintMe();
+
+        /*********************************/
+        /* Print to AST GRAPHIZ DOT file */
+        /*********************************/
+        AST_GRAPHVIZ.getInstance().logNode(
+                SerialNumber,
+                "CFIELD\nVAR_DEC");
+
+        /****************************************/
+        /* PRINT Edges to AST GRAPHVIZ DOT file */
+        /****************************************/
+        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,vd.SerialNumber);
+    }
 }

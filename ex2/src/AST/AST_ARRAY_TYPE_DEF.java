@@ -1,28 +1,51 @@
 package AST;
 
-public class AST_ARRAY_TYPE_DEF extends AST_Node {
-    String id_name;
-    public AST_TYPE type;
+public class AST_ARRAY_TYPE_DEF extends AST_DEC {
+    public AST_ARRAY_TYPE_DEF atd;
 
-    /******************/
-    /* CONSTRUCTOR(S) */
-    /******************/
-    public AST_ARRAY_TYPE_DEF(String id_name, AST_TYPE type)
-    {
+    public AST_ARRAY_TYPE_DEF() {
+
+    }
+
+    public AST_ARRAY_TYPE_DEF(AST_ARRAY_TYPE_DEF atd) {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/
         SerialNumber = AST_Node_Serial_Number.getFresh();
 
-        /***************************************/
-        /* PRINT CORRESPONDING DERIVATION RULE */
-        /***************************************/
-        System.out.print("====================== arrayTypedef -> ARRAY ID = type [];\n");
-
         /*******************************/
         /* COPY INPUT DATA NENBERS ... */
         /*******************************/
-        this.id_name = id_name;
-        this.type = type;
+        this.atd = atd;
     }
+
+    /*********************************************************/
+    /* The printing message for an assign statement AST node */
+    /*********************************************************/
+    public void PrintMe()
+    {
+        /********************************************/
+        /* AST NODE TYPE = AST ASSIGNMENT STATEMENT */
+        /********************************************/
+        System.out.print("AST NODE ARRAY_TYPE_DEF\n");
+
+        /***********************************/
+        /* RECURSIVELY PRINT ... */
+        /***********************************/
+        if (atd != null) atd.PrintMe();
+
+        /***************************************/
+        /* PRINT Node to AST GRAPHVIZ DOT file */
+        /***************************************/
+        AST_GRAPHVIZ.getInstance().logNode(
+                SerialNumber,
+                String.format("arrayTypeDef"));
+
+        /****************************************/
+        /* PRINT Edges to AST GRAPHVIZ DOT file */
+        /****************************************/
+        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,atd.SerialNumber);
+
+    }
+
 }

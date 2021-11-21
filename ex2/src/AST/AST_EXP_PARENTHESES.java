@@ -27,33 +27,33 @@ public class AST_EXP_PARENTHESES extends AST_EXP{
         this.exp = exp;
     }
 
-//    /***********************************************/
-//    /* The default message for an exp parentheses AST node */
-//    /***********************************************/
-//    public void PrintMe()
-//    {
-//        /************************************/
-//        /* AST NODE TYPE = EXP PARENTHESES AST NODE */
-//        /************************************/
-//        System.out.print("AST NODE EXP PARENTHESES\n");
-//
-//        /*****************************/
-//        /* RECURSIVELY PRINT exp ... */
-//        /*****************************/
-//        if (exp != null) exp.PrintMe();
-//
-//        /*********************************/
-//        /* Print to AST GRAPHIZ DOT file */
-//        /*********************************/
-//        AST_GRAPHVIZ.getInstance().logNode(
-//                SerialNumber,
-//                "EXP\nPARENTHESES");
-//
-//        /****************************************/
-//        /* PRINT Edges to AST GRAPHVIZ DOT file */
-//        /****************************************/
-//        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
-//
-//    }
+    /***********************************************/
+    /* The default message for an exp parentheses AST node */
+    /***********************************************/
+    public void PrintMe()
+    {
+        /************************************/
+        /* AST NODE TYPE = EXP PARENTHESES AST NODE */
+        /************************************/
+        System.out.print("AST NODE EXP PARENTHESES\n");
+
+        /*****************************/
+        /* RECURSIVELY PRINT exp ... */
+        /*****************************/
+        if (exp != null) exp.PrintMe();
+
+        /*********************************/
+        /* Print to AST GRAPHIZ DOT file */
+        /*********************************/
+        AST_GRAPHVIZ.getInstance().logNode(
+                SerialNumber,
+                "EXP\nPARENTHESES");
+
+        /****************************************/
+        /* PRINT Edges to AST GRAPHVIZ DOT file */
+        /****************************************/
+        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
+
+    }
 }
 
