@@ -13,7 +13,7 @@ public class AST_NEW_EXP_2 extends AST_NEW_EXP {
         /***************************************/
         /* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
-        System.out.print("====================== newExp -> NEW ID [ exp ]\n");
+        System.out.print("====================== newExp -> NEW type [ exp ]\n");
 
         /*******************************/
         /* COPY INPUT DATA NENBERS ... */
