@@ -43,7 +43,9 @@ public class Main
 			/* [5] 3 ... 2 ... 1 ... Parse !!! */
 			/***********************************/
 			AST = (AST_PROGRAM) p.parse().value;
-			
+
+			file_writer.print("OK");
+
 			/*************************/
 			/* [6] Print the AST ... */
 			/*************************/
