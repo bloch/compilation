@@ -21,7 +21,7 @@ public class AST_EXP_STRING extends AST_EXP{
         /*******************************/
         /* COPY INPUT DATA STRING ... */
         /*******************************/
-        this.value = value;
+        this.value = value.substring(1, value.length() - 1);
     }
 
     /************************************************/
@@ -39,6 +39,6 @@ public class AST_EXP_STRING extends AST_EXP{
         /*********************************/
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
-                String.format("STRING(%s)", value));
+                String.format("STRING(\'%s\')", value));
     }
 }

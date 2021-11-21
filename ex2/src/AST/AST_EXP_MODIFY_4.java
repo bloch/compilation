@@ -1,13 +1,10 @@
 package AST;
 
-public class AST_STMT_VAR_DEC extends AST_STMT{
-    public AST_VAR_DEC vd;
+public class AST_EXP_MODIFY_4 extends AST_EXP {
+    AST_VAR var;
+    public String id_name;
 
-    /*******************/
-    /*  CONSTRUCTOR(S) */
-    /*******************/
-    public AST_STMT_VAR_DEC(AST_VAR_DEC vd)
-    {
+    public AST_EXP_MODIFY_4(AST_VAR var, String id_name) {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/
@@ -16,12 +13,13 @@ public class AST_STMT_VAR_DEC extends AST_STMT{
         /***************************************/
         /* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
-        System.out.print("====================== stmt -> varDec\n");
+        System.out.print("====================== exp -> var . ID ( ); \n");
 
         /*******************************/
         /* COPY INPUT DATA NENBERS ... */
         /*******************************/
-        this.vd = vd;
+        this.var = var;
+        this.id_name = id_name;
     }
 
     /*********************************************************/
@@ -32,23 +30,25 @@ public class AST_STMT_VAR_DEC extends AST_STMT{
         /********************************************/
         /* AST NODE TYPE = AST ASSIGNMENT STATEMENT */
         /********************************************/
-        System.out.print("AST NODE STMT_VAR_DEC\n");
+        System.out.print("AST NODE EXP_MODIFY_4\n");
 
-        /***********************************/
-        /* RECURSIVELY PRINT VAR + EXP ... */
-        /***********************************/
-        if (vd != null) vd.PrintMe();
+        /*****************************/
+        /* RECURSIVELY PRINT var ... */
+        /*****************************/
+        if (var != null) var.PrintMe();
 
         /***************************************/
         /* PRINT Node to AST GRAPHVIZ DOT file */
         /***************************************/
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
-                "STMT_VAR_DEC\n");
+                String.format("EXP_MODIFY_4\nID(%s);\n", id_name));
 
         /****************************************/
         /* PRINT Edges to AST GRAPHVIZ DOT file */
         /****************************************/
-        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,vd.SerialNumber);
+        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
+
     }
+
 }

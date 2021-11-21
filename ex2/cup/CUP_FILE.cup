@@ -167,8 +167,8 @@ Program     ::=     decList:l                                                   
 
 dec         ::=     varDec:vd                                                                                           {: RESULT = new AST_VAR_DEC(vd);    :}
                     | funcDec:fd                                                                                        {: RESULT = new AST_FUNC_DEC(fd);    :}
-                    | classDec:cd                                                                                       {: RESULT = null;    :}
-                    | arrayTypedef:atd                                                                                  {: RESULT = null;    :}
+                    | classDec:cd                                                                                       {: RESULT = new AST_CLASS_DEC(cd);    :}
+                    | arrayTypedef:atd                                                                                  {: RESULT = new AST_ARRAY_TYPE_DEF(atd);    :}
                     ;
 
 decList     ::=		dec:d decList:l		{: RESULT = new AST_DEC_LIST(d, l);    :}
@@ -181,7 +181,7 @@ type        ::=     TYPE_INT		                                                  
                     | ID:name                                                                                           {: RESULT = new AST_TYPE_ID(name); :}
                     ;
 
-arrayTypedef ::=    ARRAY ID:name EQ type:t LBRACK RBRACK SEMICOLON                                                     {: RESULT = new AST_ARRAY_TYPE_DEF(name, t); :}
+arrayTypedef ::=    ARRAY ID:name EQ type:t LBRACK RBRACK SEMICOLON                                                     {: RESULT = new AST_ARRAY_TYPE_DEF_1(name, t); :}
                     ;
 
 varDec      ::=     type:t ID:name SEMICOLON                                                                            {: RESULT = new AST_VAR_DEC_1(name, t); :}
@@ -194,8 +194,8 @@ funcDec     ::=     type:t ID:name LPAREN RPAREN LBRACE stmtList:l RBRACE       
                     | type:t1 ID:name1 LPAREN type:t2 ID:name2 psikTypeIdList:l1 RPAREN LBRACE stmtList:l2 RBRACE       {: RESULT = new AST_FUNC_DEC_3(t1, name1, t2, name2, l1, l2); :}
                     ;
 
-classDec    ::=     CLASS ID:name LBRACE cFieldList:cfl RBRACE      {: RESULT = new AST_CLASS_DEC(name, null, cfl); :}
-                    | CLASS ID:name1 EXTENDS ID:name2 LBRACE cFieldList:cfl RBRACE      {: RESULT = new AST_CLASS_DEC(name1, name2, cfl); :}
+classDec    ::=     CLASS ID:name LBRACE cFieldList:cfl RBRACE      {: RESULT = new AST_CLASS_DEC_1(name, cfl); :}
+                    | CLASS ID:name1 EXTENDS ID:name2 LBRACE cFieldList:cfl RBRACE      {: RESULT = new AST_CLASS_DEC_2(name1, name2, cfl); :}
                     ;
 
 psikTypeIdList ::=  COMMA type:t ID:name psikTypeIdList:l           {: RESULT = new AST_PSIK_TYPE_ID_LIST(t, name, l); :}
@@ -219,12 +219,12 @@ exp			::=		var:v								{: RESULT = new AST_EXP_VAR(v);          :}
 					| exp:e1 LT exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, 4);:}
 					| exp:e1 GT exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, 5);:}
 					| exp:e1 EQ exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, 6);:}
-                    | ID:name LPAREN RPAREN                           {: RESULT = new AST_EXP_MODIFY(null, name, null, null); :}
-                    | ID:name LPAREN exp:e RPAREN                     {: RESULT = new AST_EXP_MODIFY(null, name, e, null); :}
-                    | ID:name LPAREN exp:e psikExpList:l RPAREN       {: RESULT = new AST_EXP_MODIFY(null, name, e, l); :}
-                    | var:v DOT ID:name LPAREN RPAREN                           {: RESULT = new AST_EXP_MODIFY(v, name, null, null); :}
-                    | var:v DOT ID:name LPAREN exp:e RPAREN                     {: RESULT = new AST_EXP_MODIFY(v, name, e, null); :}
-                    | var:v DOT ID:name LPAREN exp:e psikExpList:l RPAREN       {: RESULT = new AST_EXP_MODIFY(v, name, e, l); :}
+                    | ID:name LPAREN RPAREN                           {: RESULT = new AST_EXP_MODIFY_1(name); :}
+                    | ID:name LPAREN exp:e RPAREN                     {: RESULT = new AST_EXP_MODIFY_2(name, e); :}
+                    | ID:name LPAREN exp:e psikExpList:l RPAREN       {: RESULT = new AST_EXP_MODIFY_3(name, e, l); :}
+                    | var:v DOT ID:name LPAREN RPAREN                           {: RESULT = new AST_EXP_MODIFY_4(v, name); :}
+                    | var:v DOT ID:name LPAREN exp:e RPAREN                     {: RESULT = new AST_EXP_MODIFY_5(v, name, e); :}
+                    | var:v DOT ID:name LPAREN exp:e psikExpList:l RPAREN       {: RESULT = new AST_EXP_MODIFY_6(v, name, e, l); :}
 					| MINUS INT:i				        {: RESULT = new AST_EXP_INT(-i);:}
 					| INT:i				                {: RESULT = new AST_EXP_INT(i);:}
 					| NIL				                {: RESULT = new AST_EXP_NIL();:}

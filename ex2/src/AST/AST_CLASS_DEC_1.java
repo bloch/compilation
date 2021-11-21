@@ -1,13 +1,10 @@
 package AST;
 
-public class AST_STMT_VAR_DEC extends AST_STMT{
-    public AST_VAR_DEC vd;
+public class AST_CLASS_DEC_1 extends AST_CLASS_DEC {
+    public String id_name1;
+    public AST_CFIELD_LIST cfl;
 
-    /*******************/
-    /*  CONSTRUCTOR(S) */
-    /*******************/
-    public AST_STMT_VAR_DEC(AST_VAR_DEC vd)
-    {
+    public AST_CLASS_DEC_1(String id_name1, AST_CFIELD_LIST cfl) {
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/
@@ -16,12 +13,13 @@ public class AST_STMT_VAR_DEC extends AST_STMT{
         /***************************************/
         /* PRINT CORRESPONDING DERIVATION RULE */
         /***************************************/
-        System.out.print("====================== stmt -> varDec\n");
+        System.out.print("====================== classDec -> CLASS ID { cFieldList }\n");
 
         /*******************************/
         /* COPY INPUT DATA NENBERS ... */
         /*******************************/
-        this.vd = vd;
+        this.id_name1 = id_name1;
+        this.cfl = cfl;
     }
 
     /*********************************************************/
@@ -32,23 +30,17 @@ public class AST_STMT_VAR_DEC extends AST_STMT{
         /********************************************/
         /* AST NODE TYPE = AST ASSIGNMENT STATEMENT */
         /********************************************/
-        System.out.print("AST NODE STMT_VAR_DEC\n");
-
-        /***********************************/
-        /* RECURSIVELY PRINT VAR + EXP ... */
-        /***********************************/
-        if (vd != null) vd.PrintMe();
+        System.out.print("AST NODE CLASS_DEC_1\n");
 
         /***************************************/
         /* PRINT Node to AST GRAPHVIZ DOT file */
         /***************************************/
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
-                "STMT_VAR_DEC\n");
+                String.format("classDec_1\nID(%s)\n", id_name1));
 
-        /****************************************/
-        /* PRINT Edges to AST GRAPHVIZ DOT file */
-        /****************************************/
-        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,vd.SerialNumber);
+        if (cfl != null) cfl.PrintMe(SerialNumber);
+
     }
+
 }
