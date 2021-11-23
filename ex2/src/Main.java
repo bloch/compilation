@@ -44,7 +44,7 @@ public class Main
 			/***********************************/
 			AST = (AST_PROGRAM) p.parse().value;
 
-			file_writer.print("OK");
+			file_writer.println("OK");
 
 			/*************************/
 			/* [6] Print the AST ... */
@@ -65,7 +65,7 @@ public class Main
 		{
 			try {
 				file_writer = new PrintWriter(outputFilename);
-				file_writer.print(e.getMessage());
+				file_writer.println(e.getMessage());
 				file_writer.close();
 			}
 			catch (Exception e1) {
