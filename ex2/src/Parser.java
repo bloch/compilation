@@ -368,18 +368,7 @@ public class Parser extends java_cup.runtime.lr_parser {
 
     if (s.sym == TokenNames.ERROR)
     {
-        String output_file_path = "./output/ParseStatus.txt";
-        try {
-            PrintWriter file_writer = new PrintWriter(output_file_path);
-            file_writer.print("ERROR");
-            file_writer.close();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            System.exit(0);
-        }
+          throw new RuntimeException("ERROR");
     }
 	//System.out.print(s.sym);
 	System.out.print("[");
@@ -400,6 +389,8 @@ public class Parser extends java_cup.runtime.lr_parser {
     }
 
 
+
+
 	public Lexer lexer;
 
 	public Parser(Lexer lexer)
@@ -407,25 +398,9 @@ public class Parser extends java_cup.runtime.lr_parser {
 		super(lexer);
 		this.lexer = lexer;
 	}
-	public void report_error(String message, Object info)
+	public void report_error(String message, Object info) throws RuntimeException
 	{
-	    String output_file_path = "./output/ParseStatus.txt";
-	    try {
-            PrintWriter file_writer = new PrintWriter(output_file_path);
-            file_writer.print("ERROR("+lexer.getLine()+")");
-            file_writer.close();
-        }
-        catch (Exception e) {
-        	e.printStackTrace();
-        }
-
-		System.out.print("ERROR >> ");		
-		System.out.print("[");
-		System.out.print(lexer.getLine());
-		System.out.print(":");
-		System.out.print(lexer.getCharPos());
-		System.out.print("] ");		
-		System.exit(0);
+       throw new RuntimeException("ERROR("+lexer.getLine()+")");
 	}
 
 
