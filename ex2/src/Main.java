@@ -61,10 +61,21 @@ public class Main
 			/*************************************/
 			AST_GRAPHVIZ.getInstance().finalizeFile();
     	}
-			     
-		catch (Exception e)
+		catch (RuntimeException e)
 		{
-			e.printStackTrace();
+			try {
+				file_writer = new PrintWriter(outputFilename);
+				file_writer.print(e.getMessage());
+				file_writer.close();
+			}
+			catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+
+		catch (Exception e2)
+		{
+			e2.printStackTrace();
 		}
 	}
 }
