@@ -112,13 +112,4 @@ all:
 	@echo "*                                                         *"
 	@echo "***********************************************************"
 	jar cfm PARSER ${MANIFEST_FILE} -C ${BIN_DIR} .
-	@echo "\n"
-	@echo "*****************************"
-	@echo "*                           *"
-	@echo "*                           *"
-	@echo "* [6] Run resulting program *"
-	@echo "*                           *"
-	@echo "*                           *"
-	@echo "*****************************"
-	java -jar PARSER ${INPUT} ${OUTPUT}
 
