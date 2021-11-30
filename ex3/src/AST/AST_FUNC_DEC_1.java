@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_FUNC_DEC_1 extends AST_FUNC_DEC {
     public AST_TYPE_WITH_ID type_with_id1;
@@ -49,6 +51,45 @@ public class AST_FUNC_DEC_1 extends AST_FUNC_DEC {
         /* PRINT Edges to AST GRAPHVIZ DOT file */
         /****************************************/
         AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type_with_id1.SerialNumber);
+
+    }
+
+    public void SemantMe()
+    {
+        SYMBOL_TABLE symbol_table = SYMBOL_TABLE.getInstance();
+
+        TYPE return_type = null;                                // null to be removed in future
+        if (this.type_with_id1.t instanceof AST_TYPE_INT) {
+            return_type = TYPE_INT.getInstance();
+        }
+        if (this.type_with_id1.t instanceof AST_TYPE_STRING) {
+            return_type = TYPE_STRING.getInstance();
+        }
+        if (this.type_with_id1.t instanceof AST_TYPE_VOID) {
+            return_type = TYPE_VOID.getInstance();
+        }
+
+        // TODO: add conversion of AST_TYPE_ID also..
+
+        symbol_table.enter(
+                this.type_with_id1.id_name,
+                new TYPE_FUNCTION(
+                        return_type,
+                        this.type_with_id1.id_name,
+                        null));
+
+
+        symbol_table.beginScope();
+
+        this.stmtList.head.SemantMe();
+
+        AST_STMT_LIST tmp = this.stmtList.tail;
+        while(tmp != null) {
+            tmp.head.SemantMe();
+            tmp = tmp.tail;
+        }
+
+        symbol_table.endScope();
 
     }
 

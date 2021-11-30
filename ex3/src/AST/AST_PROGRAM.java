@@ -1,6 +1,7 @@
 package AST;
 
 import java.util.ArrayList;
+import SYMBOL_TABLE.*;
 
 public class AST_PROGRAM extends AST_Node{
     public AST_DEC_LIST l;
@@ -26,33 +27,6 @@ public class AST_PROGRAM extends AST_Node{
         this.l = l;
     }
 
-//    /******************************************************/
-//    /* The printing message for a statement list AST node */
-//    /******************************************************/
-//    public void PrintMe()
-//    {
-//        /**************************************/
-//        /* AST NODE TYPE = AST STATEMENT LIST */
-//        /**************************************/
-//        System.out.print("AST NODE Program\n");
-//
-//        /*************************************/
-//        /* RECURSIVELY PRINT HEAD + TAIL ... */
-//        /*************************************/
-//        if (this.l != null) this.l.PrintMe();
-//
-//        /**********************************/
-//        /* PRINT to AST GRAPHVIZ DOT file */
-//        /**********************************/
-//        AST_GRAPHVIZ.getInstance().logNode(
-//                SerialNumber,
-//                "Program\n");
-//
-//        /****************************************/
-//        /* PRINT Edges to AST GRAPHVIZ DOT file */
-//        /****************************************/
-//        if (this.l != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,this.l.SerialNumber);
-//    }
     public void PrintMe()
     {
         System.out.print("AST NODE Program\n");
@@ -62,4 +36,16 @@ public class AST_PROGRAM extends AST_Node{
         this.l.PrintMe(SerialNumber);
     }
 
+    public void SemantMe()
+    {
+        SYMBOL_TABLE symbol_table = SYMBOL_TABLE.getInstance();
+
+        this.l.head.SemantMe();
+
+        AST_DEC_LIST tmp = this.l.tail;
+        while(tmp != null) {
+            tmp.head.SemantMe();
+            tmp = tmp.tail;
+        }
+    }
 }

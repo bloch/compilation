@@ -48,4 +48,8 @@ public class AST_FUNC_DEC extends AST_DEC {
 
     }
 
+    public void SemantMe() {
+        this.fd.SemantMe();
+    }
+
 }
