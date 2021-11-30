@@ -83,7 +83,7 @@ public class SYMBOL_TABLE
 	/***********************************************/
 	/* Find the inner-most scope element with name */
 	/***********************************************/
-	public TYPE find(String name)
+	public TYPE find(String name)		// look-up function
 	{
 		SYMBOL_TABLE_ENTRY e;
 				
@@ -268,6 +268,29 @@ public class SYMBOL_TABLE
 					new TYPE_LIST(
 						TYPE_INT.getInstance(),
 						null)));
+
+			/***************************************/
+			/* [4] Enter library function PrintString */
+			/***************************************/
+			instance.enter(
+					"PrintString",
+					new TYPE_FUNCTION(
+							TYPE_VOID.getInstance(),
+							"PrintString",
+							new TYPE_LIST(
+									TYPE_STRING.getInstance(),
+									null)));
+
+			/***************************************/
+			/* [5] Enter library function PrintTrace */
+			/***************************************/
+			instance.enter(
+					"PrintTrace",
+					new TYPE_FUNCTION(
+							TYPE_VOID.getInstance(),
+							"PrintTrace",
+							null));
+
 			
 		}
 		return instance;
