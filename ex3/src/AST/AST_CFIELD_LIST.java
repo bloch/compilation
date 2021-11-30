@@ -1,6 +1,8 @@
 package AST;
 
 import java.util.ArrayList;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_CFIELD_LIST extends AST_Node {
     /****************/
@@ -55,6 +57,30 @@ public class AST_CFIELD_LIST extends AST_Node {
 
         for (int counter = 0; counter < lst.size(); counter++) {
             AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,lst.get(counter).SerialNumber);
+        }
+    }
+
+    public TYPE SemantMe() {
+
+        this.head.SemantMe();
+
+        AST_CFIELD_LIST tmp = this.tail;
+        while(tmp != null) {
+            tmp.head.SemantMe();
+            tmp = tmp.tail;
+        }
+    }
+
+    public TYPE_LIST GetSignatures() {
+        if (this.tail == null) {
+            return new TYPE_LIST(
+                    this.head.GetSiganture(),
+                    null);
+        }
+        else {
+            return new TYPE_LIST(
+                    this.head.GetSiganture(),
+                    this.tail.GetSigantures());
         }
     }
 

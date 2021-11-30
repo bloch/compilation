@@ -1,4 +1,6 @@
 package AST;
+import TYPES.*;
+import SYMBOL_TABLE.*;
 
 public class AST_CFIELD_VAR_DEC extends AST_CFIELD{
     public AST_VAR_DEC vd;
@@ -45,5 +47,8 @@ public class AST_CFIELD_VAR_DEC extends AST_CFIELD{
         /* PRINT Edges to AST GRAPHVIZ DOT file */
         /****************************************/
         AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,vd.SerialNumber);
+    }
+    public TYPE GetSignature() {
+        return this.vd.GetSignature();
     }
 }

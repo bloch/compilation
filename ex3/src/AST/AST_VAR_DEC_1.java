@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_VAR_DEC_1 extends AST_VAR_DEC {
     public AST_TYPE_WITH_ID type_with_id1;
@@ -43,7 +45,10 @@ public class AST_VAR_DEC_1 extends AST_VAR_DEC {
         /* PRINT Edges to AST GRAPHVIZ DOT file */
         /****************************************/
         AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type_with_id1.SerialNumber);
+    }
 
+    public TYPE GetSignature() {
+        return super.GetSignature(type_with_id1.t);
     }
 
 }

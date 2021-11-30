@@ -1,3 +1,5 @@
-int main(int x, int y, string z) {
-    return x;
+class Person
+{
+	int getAge()  { return age;   }
+	int birthday(){ age := age+1; return age; }
 }
