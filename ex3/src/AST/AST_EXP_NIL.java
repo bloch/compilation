@@ -24,4 +24,8 @@ public class AST_EXP_NIL extends AST_EXP{
                 SerialNumber,
                 String.format("EXP_NIL\n"));
     }
+    public String SemantMe()
+    {
+        return "nil";// "nil" will be an important keyward for input for new instances , functions , arrays and etc.
+    }
 }

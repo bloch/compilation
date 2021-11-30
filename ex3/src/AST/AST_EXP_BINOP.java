@@ -71,4 +71,28 @@ public class AST_EXP_BINOP extends AST_EXP
 		if (left  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,left.SerialNumber);
 		if (right != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,right.SerialNumber);
 	}
+	public String SemantMe()
+	{
+		String leftType = left.semantMe();
+		String rightType = right.semantMe();
+		if ((!leftType.equals(rightType)) || leftType.equals("Error") || rightType.equals("Error")){ // types aren't identical or one them returned error
+			return "Error";
+		}
+
+		if (leftType.equals("string")){
+			if (this.OP != 0){// i.e if left&right aren't integers --> semantic error
+				return "Error";
+			}
+			else {
+				return "string";
+			}
+		}
+
+		if (leftType.equals("int")){
+			return "int";
+		}
+
+		//any other type yields an error
+		return "Error";
+	}
 }
