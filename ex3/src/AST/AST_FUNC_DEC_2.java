@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
     public AST_TYPE_WITH_ID type_with_id1;
@@ -53,4 +55,68 @@ public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
         AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type_with_id1.SerialNumber);
         AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type_with_id2.SerialNumber);
     }
+
+    public void SemantMe()
+    {
+        SYMBOL_TABLE symbol_table = SYMBOL_TABLE.getInstance();
+
+        TYPE return_type = null;                                // null to be removed in future
+        if (this.type_with_id1.t instanceof AST_TYPE_INT) {
+            return_type = TYPE_INT.getInstance();
+        }
+        if (this.type_with_id1.t instanceof AST_TYPE_STRING) {
+            return_type = TYPE_STRING.getInstance();
+        }
+        if (this.type_with_id1.t instanceof AST_TYPE_VOID) {
+            return_type = TYPE_VOID.getInstance();
+        }
+
+        // TODO: add conversion of AST_TYPE_ID also..
+
+        /** Difference between AST_FUNC_DEC_1 and AST_FUNC_DEC_2:
+         *  AST_FUNC_DEC_2 has one parameter to function **/
+
+        TYPE arg1_type = null;                                // null to be removed in future
+        if (this.type_with_id2.t instanceof AST_TYPE_INT) {
+            arg1_type = TYPE_INT.getInstance();
+        }
+        if (this.type_with_id2.t instanceof AST_TYPE_STRING) {
+            arg1_type = TYPE_STRING.getInstance();
+        }
+        if (this.type_with_id2.t instanceof AST_TYPE_VOID) {
+            arg1_type = TYPE_VOID.getInstance();
+        }
+
+        // TODO: add conversion of AST_TYPE_ID also..
+
+        /** **/
+
+        symbol_table.enter(
+                this.type_with_id1.id_name,
+                new TYPE_FUNCTION(
+                        return_type,
+                        this.type_with_id1.id_name,
+                        new TYPE_LIST(arg1_type, null)));
+
+        symbol_table.beginScope();
+
+        /** Difference between AST_FUNC_DEC_1 and AST_FUNC_DEC_2:
+         *  AST_FUNC_DEC_2 has one parameter to function **/
+
+        symbol_table.enter(type_with_id2.id_name,   arg1_type);
+
+        /** **/
+
+        this.stmtList.head.SemantMe();
+
+        AST_STMT_LIST tmp = this.stmtList.tail;
+        while(tmp != null) {
+            tmp.head.SemantMe();
+            tmp = tmp.tail;
+        }
+
+        symbol_table.endScope();
+
+    }
+
 }

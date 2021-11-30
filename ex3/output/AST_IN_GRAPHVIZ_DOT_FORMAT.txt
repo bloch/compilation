@@ -1,30 +1,51 @@
 digraph
 {
 graph [ordering = "out"]
-v9 [label = "Program
+v17 [label = "Program
 "];
 v0 [label = "TYPE_INT
 "];
-v6 [label = "TYPE_WITH_ID
+v13 [label = "TYPE_WITH_ID
 ID (main);
 "];
-v6 -> v0;
-v5 [label = "funcDec_1
+v13 -> v0;
+v1 [label = "TYPE_INT
 "];
-v1 [label = "SIMPLE
+v14 [label = "TYPE_WITH_ID
+ID (x);
+"];
+v14 -> v1;
+v12 [label = "funcDec_3
+"];
+v8 [label = "SIMPLE
 VAR
 (x)"];
-v2 [label = "EXP
+v9 [label = "EXP
 VAR"];
-v2 -> v1;
-v3 [label = "STMT
+v9 -> v8;
+v10 [label = "STMT
 RETURN
 EXP
 "];
-v3 -> v2;
+v10 -> v9;
+v12 -> v10;
+v2 [label = "TYPE_INT
+"];
+v7 [label = "TYPE_WITH_ID
+ID (y);
+"];
+v7 -> v2;
+v3 [label = "TYPE_STRING
+"];
+v5 [label = "TYPE_WITH_ID
+ID (z);
+"];
 v5 -> v3;
-v5 -> v6;
-v7 [label = "funcDec"];
-v7 -> v5;
-v9 -> v7;
+v12 -> v7;
+v12 -> v5;
+v12 -> v13;
+v12 -> v14;
+v15 [label = "funcDec"];
+v15 -> v12;
+v17 -> v15;
 }
