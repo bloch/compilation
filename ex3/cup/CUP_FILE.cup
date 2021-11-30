@@ -1,0 +1,240 @@
+/*************/
+/* IMPORT(S) */
+/*************/
+import java_cup.runtime.*;
+import AST.*;
+import java.io.PrintWriter;
+
+parser code 
+{:
+
+
+	public Lexer lexer;
+
+	public Parser(Lexer lexer)
+	{
+		super(lexer);
+		this.lexer = lexer;
+	}
+	public void report_error(String message, Object info) throws RuntimeException
+	{
+       throw new RuntimeException("ERROR("+lexer.getLine()+")");
+	}
+:}
+
+/************************/
+/* CUSTOMIZE CUP PARSER */
+/************************/
+scan with
+{:
+	Symbol s;
+	s = lexer.next_token();
+
+    if (s.sym == TokenNames.ERROR)
+    {
+          throw new RuntimeException("ERROR");
+    }
+	//System.out.print(s.sym);
+	System.out.print("[");
+	System.out.print(lexer.getLine());
+	System.out.print(":");
+	System.out.print(lexer.getCharPos());
+	System.out.print("] ");
+	System.out.print(TokenNames.terminalNames[s.sym]);
+	if (s.value != null)
+	{
+		System.out.print("( ");
+		System.out.print(s.value);
+		System.out.print(" )");
+	}
+	System.out.print("\n");
+	return s; 
+:};
+
+/*************/
+/* TERMINALS */
+/*************/
+
+terminal PLUS;
+terminal MINUS;
+terminal TIMES;
+terminal DIVIDE;
+terminal LPAREN;
+terminal RPAREN;
+terminal LBRACK;
+terminal RBRACK;
+terminal LBRACE;
+terminal RBRACE;
+terminal NIL;
+terminal COMMA;
+terminal DOT;
+terminal SEMICOLON;
+terminal TYPE_INT;
+terminal ASSIGN;
+terminal EQ;
+terminal LT;
+terminal GT;
+terminal ARRAY;
+terminal CLASS;
+terminal EXTENDS;
+terminal RETURN;
+terminal WHILE;
+terminal IF;
+terminal NEW;
+terminal TYPE_STRING;
+terminal ERROR;
+
+terminal TYPE_VOID;
+
+/*************/
+/* TERMINALS */
+/*************/
+terminal Integer INT;
+terminal String ID;
+terminal String STRING;
+
+/*****************/
+/* NON TERMINALS */
+/*****************/
+non terminal AST_EXP exp;
+non terminal AST_VAR var;
+non terminal AST_STMT stmt;
+non terminal AST_STMT_LIST stmtList;
+
+non terminal AST_DEC dec;
+non terminal AST_TYPE type;
+non terminal AST_ARRAY_TYPE_DEF arrayTypedef;
+non terminal AST_VAR_DEC varDec;
+non terminal AST_NEW_EXP newExp;
+non terminal AST_FUNC_DEC funcDec;
+non terminal AST_CLASS_DEC classDec;
+non terminal AST_CFIELD cField;
+non terminal AST_CFIELD_LIST cFieldList;
+non terminal AST_PSIK_TYPE_ID_LIST psikTypeIdList;
+non terminal AST_PSIK_EXP_LIST psikExpList;
+non terminal AST_DEC_LIST decList;
+non terminal AST_PROGRAM Program;
+
+/***********************/
+/* OPERATOR PRECEDENCE */
+/***********************/
+
+precedence nonassoc ASSIGN;
+precedence left EQ;
+precedence left LT, GT;
+precedence left PLUS, MINUS;
+precedence left TIMES, DIVIDE;
+precedence nonassoc LBRACK;
+precedence nonassoc LPAREN;
+precedence left DOT;
+
+/************************/
+/* START WITH: Program */
+/************************/
+start with Program;
+
+/********************/
+/* DERIVATION RULES */
+/********************/
+
+Program     ::=     decList:l                                                                                           {: RESULT = new AST_PROGRAM(l);    :}
+                    ;
+
+dec         ::=     varDec:vd                                                                                           {: RESULT = new AST_VAR_DEC(vd);    :}
+                    | funcDec:fd                                                                                        {: RESULT = new AST_FUNC_DEC(fd);    :}
+                    | classDec:cd                                                                                       {: RESULT = new AST_CLASS_DEC(cd);    :}
+                    | arrayTypedef:atd                                                                                  {: RESULT = new AST_ARRAY_TYPE_DEF(atd);    :}
+                    ;
+
+decList     ::=		dec:d decList:l		{: RESULT = new AST_DEC_LIST(d, l);    :}
+               	    | dec:d				    {: RESULT = new AST_DEC_LIST(d, null); :}
+               	    ;
+
+type        ::=     TYPE_INT		                                                                                    {: RESULT = new AST_TYPE_INT();    :}
+                    | TYPE_STRING				                                                                        {: RESULT = new AST_TYPE_STRING(); :}
+                    | TYPE_VOID                                                                                         {: RESULT = new AST_TYPE_VOID(); :}
+                    | ID:name                                                                                           {: RESULT = new AST_TYPE_ID(name); :}
+                    ;
+
+arrayTypedef ::=    ARRAY ID:name EQ type:t LBRACK RBRACK SEMICOLON                                                     {: RESULT = new AST_ARRAY_TYPE_DEF_1(name, t); :}
+                    ;
+
+varDec      ::=     type:t ID:name SEMICOLON                                                                            {: RESULT = new AST_VAR_DEC_1(name, t); :}
+                    | type:t ID:name ASSIGN exp:e SEMICOLON                                                             {: RESULT = new AST_VAR_DEC_2(name, t, e);    :}
+                    | type:t ID:name ASSIGN newExp:ne SEMICOLON                                                         {: RESULT = new AST_VAR_DEC_3(name, t, ne);   :}
+                    ;
+
+funcDec     ::=     type:t ID:name LPAREN RPAREN LBRACE stmtList:l RBRACE                                               {: RESULT = new AST_FUNC_DEC_1(t, name, l); :}
+                    | type:t1 ID:name1 LPAREN type:t2 ID:name2 RPAREN LBRACE stmtList:l RBRACE                          {: RESULT = new AST_FUNC_DEC_2(t1, name1, t2, name2, l); :}
+                    | type:t1 ID:name1 LPAREN type:t2 ID:name2 psikTypeIdList:l1 RPAREN LBRACE stmtList:l2 RBRACE       {: RESULT = new AST_FUNC_DEC_3(t1, name1, t2, name2, l1, l2); :}
+                    ;
+
+classDec    ::=     CLASS ID:name LBRACE cFieldList:cfl RBRACE      {: RESULT = new AST_CLASS_DEC_1(name, cfl); :}
+                    | CLASS ID:name1 EXTENDS ID:name2 LBRACE cFieldList:cfl RBRACE      {: RESULT = new AST_CLASS_DEC_2(name1, name2, cfl); :}
+                    ;
+
+psikTypeIdList ::=  COMMA type:t ID:name psikTypeIdList:l           {: RESULT = new AST_PSIK_TYPE_ID_LIST(t, name, l); :}
+                    | COMMA type:t ID:name                          {: RESULT = new AST_PSIK_TYPE_ID_LIST(t, name, null); :}
+                    ;
+
+psikExpList   ::=   COMMA exp:e psikExpList:l                       {: RESULT = new AST_PSIK_EXP_LIST(e, l); :}
+                    | COMMA exp:e                                   {: RESULT = new AST_PSIK_EXP_LIST(e, null); :}
+                    ;
+
+stmtList	::=		stmt:s	stmtList:l		{: RESULT = new AST_STMT_LIST(s,l);    :}
+					| stmt:s				{: RESULT = new AST_STMT_LIST(s,null); :}
+					;
+
+exp			::=		var:v								{: RESULT = new AST_EXP_VAR(v);          :}
+                    | LPAREN exp:e RPAREN				{: RESULT = new AST_EXP_PARENTHESES(e);  :}
+					| exp:e1 PLUS exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 0);:}
+					| exp:e1 MINUS exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 1);:}
+					| exp:e1 TIMES exp:e2               {: RESULT = new AST_EXP_BINOP(e1, e2, 2);:}
+					| exp:e1 DIVIDE exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 3);:}
+					| exp:e1 LT exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, 4);:}
+					| exp:e1 GT exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, 5);:}
+					| exp:e1 EQ exp:e2				    {: RESULT = new AST_EXP_BINOP(e1, e2, 6);:}
+                    | ID:name LPAREN RPAREN                           {: RESULT = new AST_EXP_MODIFY_1(name); :}
+                    | ID:name LPAREN exp:e RPAREN                     {: RESULT = new AST_EXP_MODIFY_2(name, e); :}
+                    | ID:name LPAREN exp:e psikExpList:l RPAREN       {: RESULT = new AST_EXP_MODIFY_3(name, e, l); :}
+                    | var:v DOT ID:name LPAREN RPAREN                           {: RESULT = new AST_EXP_MODIFY_4(v, name); :}
+                    | var:v DOT ID:name LPAREN exp:e RPAREN                     {: RESULT = new AST_EXP_MODIFY_5(v, name, e); :}
+                    | var:v DOT ID:name LPAREN exp:e psikExpList:l RPAREN       {: RESULT = new AST_EXP_MODIFY_6(v, name, e, l); :}
+					| MINUS INT:i				        {: RESULT = new AST_EXP_INT(-i);:}
+					| INT:i				                {: RESULT = new AST_EXP_INT(i);:}
+					| NIL				                {: RESULT = new AST_EXP_NIL();:}
+					| STRING:s				            {: RESULT = new AST_EXP_STRING(s);:}
+                    ;
+
+var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name);       :}
+					| var:v DOT ID:fieldName			{: RESULT = new AST_VAR_FIELD(v,fieldName); :} 
+					| var:v LBRACK exp:e RBRACK			{: RESULT = new AST_VAR_SUBSCRIPT(v,e);     :} 
+					;
+
+stmt		::=		varDec:vd                                                   {: RESULT = new AST_STMT_VAR_DEC(vd); :}
+                    | var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v,e); :}
+                    | var:v ASSIGN newExp:ne SEMICOLON							{: RESULT = new AST_STMT_ASSIGN_NEW(v,ne); :}
+                    | RETURN SEMICOLON                                          {: RESULT = new AST_STMT_RETURN(); :}
+                    | RETURN exp:e SEMICOLON                                    {: RESULT = new AST_STMT_RETURN_EXP(e); :}
+					| IF LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	    {: RESULT = new AST_STMT_IF(cond,body); :}
+					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_WHILE(cond,body); :}
+					| ID:name LPAREN RPAREN SEMICOLON                           {: RESULT = new AST_STMT_MODIFY_1(name); :}
+					| ID:name LPAREN exp:e RPAREN SEMICOLON                     {: RESULT = new AST_STMT_MODIFY_2(name, e); :}
+					| ID:name LPAREN exp:e psikExpList:l RPAREN SEMICOLON       {: RESULT = new AST_STMT_MODIFY_3(name, e, l); :}
+					| var:v DOT ID:name LPAREN RPAREN SEMICOLON                           {: RESULT = new AST_STMT_MODIFY_4(v, name); :}
+					| var:v DOT ID:name LPAREN exp:e RPAREN SEMICOLON                     {: RESULT = new AST_STMT_MODIFY_5(v, name, e); :}
+					| var:v DOT ID:name LPAREN exp:e psikExpList:l RPAREN SEMICOLON       {: RESULT = new AST_STMT_MODIFY_6(v, name, e, l); :}
+					;
+
+newExp      ::=     NEW type:t                         {: RESULT = new AST_NEW_EXP_1(t);      :}
+                    | NEW type:t LBRACK exp:e RBRACK   {: RESULT = new AST_NEW_EXP_2(t, e);      :}
+                    ;
+
+cField      ::=     varDec:vd                          {: RESULT = new AST_CFIELD_VAR_DEC(vd);      :}
+                    | funcDec:fd                       {: RESULT = new AST_CFIELD_FUNC_DEC(fd);      :}
+                    ;
+
+cFieldList  ::=     cField:cf	cFieldList:cfl		{: RESULT = new AST_CFIELD_LIST(cf,cfl);    :}
+                    | cField:cf				        {: RESULT = new AST_CFIELD_LIST(cf,null); :}
+                    ;
+
