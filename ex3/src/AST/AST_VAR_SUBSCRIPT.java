@@ -56,4 +56,39 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		if (var       != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
 		if (subscript != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,subscript.SerialNumber);
 	}
+
+	public TYPE SemantMe()
+	{
+		TYPE t = null;
+		TYPE_CLASS tc = null;
+
+		/******************************/
+		/* [1] Recursively semant var */
+		/******************************/
+		if (var != null) t = var.SemantMe();
+
+		/*********************************/
+		/* [2] Make sure type is a array */
+		/*********************************/
+		if (t.isArray() == false) {
+			System.out.format(">> ERROR [%d:%d] access %s field of a non-array variable\n",6,6,fieldName);
+			System.exit(0);
+		}
+		else {
+			tc = (TYPE_ARRAY) t;
+		}
+
+		// TODO: check exp is INTEGER
+		// Logic is:
+		// if exp is INTEGER: returns type of array(implement getter of type from TYPE_ARRAY class)
+		// else: GO DOWN AND REPORT ERROR
+
+		/*********************************************/
+		/* [4] fieldName does not exist in class var */
+		/*********************************************/
+		System.out.format(">> ERROR [%d:%d] field %s does not exist in class\n",6,6,fieldName);
+		System.exit(0);
+		return null;
+	}
+
 }

@@ -10,7 +10,7 @@ public abstract class TYPE
 	/*************/
 	/* isClass() */
 	/*************/
-	public boolean isClass(){ return false;}
+	public boolean isClass(){return false;}
 
 	/*************/
 	/* isArray() */
