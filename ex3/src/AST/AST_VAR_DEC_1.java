@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_VAR_DEC_1 extends AST_VAR_DEC {
     public AST_TYPE_WITH_ID type_with_id1;
@@ -43,7 +45,47 @@ public class AST_VAR_DEC_1 extends AST_VAR_DEC {
         /* PRINT Edges to AST GRAPHVIZ DOT file */
         /****************************************/
         AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type_with_id1.SerialNumber);
+    }
 
+    public TYPE SemantMe() {
+        // We want to check if id_name1 is a good variable name, if not - error
+        // if yes - enter to symbol table
+
+        TYPE type_of_var = GetSignature(type_with_id1.t);
+
+        /****************************/
+        /* [1] Check If Type exists */
+        /****************************/
+        type_of_var = SYMBOL_TABLE.getInstance().find(type_of_var.name);
+        if (type_of_var == null)
+        {
+            System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type_of_var.name);
+
+            System.exit(0);
+        }
+
+        /**************************************/
+        /* [2] Check That Name does NOT exist */
+        /**************************************/
+        if (SYMBOL_TABLE.getInstance().find(type_with_id1.id_name) != null)
+        {
+            System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,type_with_id1.id_name);
+        }
+
+        /***************************************************/
+        /* [3] Enter the Function Type to the Symbol Table */
+        /***************************************************/
+        SYMBOL_TABLE.getInstance().enter(type_with_id1.id_name,type_of_var);
+
+        /*********************************************************/
+        /* [4] Return value is irrelevant for class declarations */
+        /*********************************************************/
+        return null;
+
+    }
+
+    public TYPE GetSignature() {
+        return GetSignature(type_with_id1.t);
     }
 
 }

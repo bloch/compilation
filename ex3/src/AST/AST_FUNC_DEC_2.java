@@ -56,9 +56,36 @@ public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
         AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type_with_id2.SerialNumber);
     }
 
-    public void SemantMe()
-    {
+    public TYPE SemantMe() {
         SYMBOL_TABLE symbol_table = SYMBOL_TABLE.getInstance();
+
+        TYPE_FUNCTION function_signature = (TYPE_FUNCTION) this.GetSignature();
+
+        symbol_table.enter(this.type_with_id1.id_name, function_signature);
+
+        symbol_table.beginScope();
+
+        /** Difference between AST_FUNC_DEC_1 and AST_FUNC_DEC_2:
+         *  AST_FUNC_DEC_2 has one parameter to function **/
+
+        symbol_table.enter(type_with_id2.id_name,   function_signature.params.head);
+
+        /** **/
+
+        this.stmtList.head.SemantMe();
+
+        AST_STMT_LIST tmp = this.stmtList.tail;
+        while(tmp != null) {
+            tmp.head.SemantMe();
+            tmp = tmp.tail;
+        }
+
+        symbol_table.endScope();
+
+        return null;
+    }
+
+    public TYPE GetSignature() {
 
         TYPE return_type = null;                                // null to be removed in future
         if (this.type_with_id1.t instanceof AST_TYPE_INT) {
@@ -89,34 +116,7 @@ public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
 
         // TODO: add conversion of AST_TYPE_ID also..
 
-        /** **/
-
-        symbol_table.enter(
-                this.type_with_id1.id_name,
-                new TYPE_FUNCTION(
-                        return_type,
-                        this.type_with_id1.id_name,
-                        new TYPE_LIST(arg1_type, null)));
-
-        symbol_table.beginScope();
-
-        /** Difference between AST_FUNC_DEC_1 and AST_FUNC_DEC_2:
-         *  AST_FUNC_DEC_2 has one parameter to function **/
-
-        symbol_table.enter(type_with_id2.id_name,   arg1_type);
-
-        /** **/
-
-        this.stmtList.head.SemantMe();
-
-        AST_STMT_LIST tmp = this.stmtList.tail;
-        while(tmp != null) {
-            tmp.head.SemantMe();
-            tmp = tmp.tail;
-        }
-
-        symbol_table.endScope();
-
+        return new TYPE_FUNCTION(return_type, this.type_with_id1.id_name, new TYPE_LIST(arg1_type, null));
     }
 
 }

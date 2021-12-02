@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_FUNC_DEC extends AST_DEC {
     public AST_FUNC_DEC fd;
@@ -48,8 +50,11 @@ public class AST_FUNC_DEC extends AST_DEC {
 
     }
 
-    public void SemantMe() {
-        this.fd.SemantMe();
+    public TYPE SemantMe() {
+        return this.fd.SemantMe();
+    }
+    public TYPE GetSignature() {
+        return this.fd.GetSignature();
     }
 
 }
