@@ -61,7 +61,6 @@ public class AST_CFIELD_LIST extends AST_Node {
     }
 
     public TYPE SemantMe() {
-
         this.head.SemantMe();
 
         AST_CFIELD_LIST tmp = this.tail;
@@ -69,18 +68,22 @@ public class AST_CFIELD_LIST extends AST_Node {
             tmp.head.SemantMe();
             tmp = tmp.tail;
         }
+        return null;
     }
+//    public TYPE SemantMe()
+//    {
+//        if (head != null) head.SemantMe();
+//        if (tail != null) tail.SemantMe();
+//
+//        return null;
+//    }
 
     public TYPE_LIST GetSignatures() {
         if (this.tail == null) {
-            return new TYPE_LIST(
-                    this.head.GetSiganture(),
-                    null);
+            return new TYPE_LIST(this.head.GetSignature(), null);
         }
         else {
-            return new TYPE_LIST(
-                    this.head.GetSiganture(),
-                    this.tail.GetSigantures());
+            return new TYPE_LIST(this.head.GetSignature(), this.tail.GetSignatures());
         }
     }
 

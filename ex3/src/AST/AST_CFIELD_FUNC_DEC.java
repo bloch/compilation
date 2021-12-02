@@ -49,6 +49,7 @@ public class AST_CFIELD_FUNC_DEC extends AST_CFIELD {
         /****************************************/
         AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,fd.SerialNumber);
     }
+    public TYPE SemantMe() { return this.fd.SemantMe(); }
     public TYPE GetSignature() {
         return this.fd.GetSignature();
     }

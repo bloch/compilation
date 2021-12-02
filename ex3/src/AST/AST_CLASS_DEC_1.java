@@ -47,6 +47,14 @@ public class AST_CLASS_DEC_1 extends AST_CLASS_DEC {
 
     public TYPE SemantMe()
     {
+        /************************************************/
+        /* [4] Enter the Class Type to the Symbol Table */
+        /************************************************/
+        TYPE_LIST class_signatures = cfl.GetSignatures();
+
+        TYPE_CLASS t = new TYPE_CLASS(null, id_name1, class_signatures);
+        SYMBOL_TABLE.getInstance().enter(id_name1,t);
+
         /*************************/
         /* [1] Begin Class Scope */
         /*************************/
@@ -62,15 +70,6 @@ public class AST_CLASS_DEC_1 extends AST_CLASS_DEC {
         /* [3] End Scope */
         /*****************/
         SYMBOL_TABLE.getInstance().endScope();
-
-        /************************************************/
-        /* [4] Enter the Class Type to the Symbol Table */
-        /************************************************/
-        TYPE_LIST class_signatures = cfl.GetSignatures();
-
-        TYPE_CLASS t = new TYPE_CLASS(null, id_name1, class_signatures);
-
-        SYMBOL_TABLE.getInstance().enter(id_name1,t);
 
         /*********************************************************/
         /* [5] Return value is irrelevant for class declarations */

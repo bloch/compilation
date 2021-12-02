@@ -50,6 +50,12 @@ public class AST_VAR_DEC extends AST_DEC {
 
     }
 
+    public TYPE SemantMe() { return this.vd.SemantMe(); }
+
+    public TYPE GetSignature() {
+        return this.vd.GetSignature();
+    }
+
     public TYPE GetSignature(AST_TYPE t) {
         TYPE return_type = null;                                // null to be removed in future
         if (t instanceof AST_TYPE_INT) {

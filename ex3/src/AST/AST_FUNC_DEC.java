@@ -53,8 +53,7 @@ public class AST_FUNC_DEC extends AST_DEC {
     public TYPE SemantMe() {
         return this.fd.SemantMe();
     }
-
-    public TYPE_FUNCTION GetSignature() {
+    public TYPE GetSignature() {
         return this.fd.GetSignature();
     }
 

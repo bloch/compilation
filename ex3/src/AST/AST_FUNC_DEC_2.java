@@ -59,7 +59,7 @@ public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
     public TYPE SemantMe() {
         SYMBOL_TABLE symbol_table = SYMBOL_TABLE.getInstance();
 
-        TYPE_FUNCTION function_signature = this.GetSignature();
+        TYPE_FUNCTION function_signature = (TYPE_FUNCTION) this.GetSignature();
 
         symbol_table.enter(this.type_with_id1.id_name, function_signature);
 
@@ -85,7 +85,7 @@ public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
         return null;
     }
 
-    public TYPE_FUNCTION GetSignature() {
+    public TYPE GetSignature() {
 
         TYPE return_type = null;                                // null to be removed in future
         if (this.type_with_id1.t instanceof AST_TYPE_INT) {

@@ -1,5 +1,8 @@
-class Person
+class Bla {
+    int getAge2()  { return age;   }
+}
+class Person extends Bla
 {
 	int getAge()  { return age;   }
-	int birthday(){ age := age+1; return age; }
+	int x := 8;
 }
