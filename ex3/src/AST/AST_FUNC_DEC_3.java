@@ -67,6 +67,9 @@ public class AST_FUNC_DEC_3 extends AST_FUNC_DEC {
         symbol_table.enter(this.type_with_id1.id_name, function_signature);
 
         symbol_table.beginScope();
+
+        // TODO: append params to current new scope(to table) + check that types exist
+
         TYPE_LIST type_list = BuildTypeList(this.ptil);
         /** Difference between AST_FUNC_DEC_2 and AST_FUNC_DEC_3:
          *  AST_FUNC_DEC_3 has one parameter to function **/
@@ -100,37 +103,11 @@ public class AST_FUNC_DEC_3 extends AST_FUNC_DEC {
 
     public TYPE GetSignature() {
 
-        TYPE return_type = null;                                // null to be removed in future
-        if (this.type_with_id1.t instanceof AST_TYPE_INT) {
-            return_type = TYPE_INT.getInstance();
-        }
-        if (this.type_with_id1.t instanceof AST_TYPE_STRING) {
-            return_type = TYPE_STRING.getInstance();
-        }
-        if (this.type_with_id1.t instanceof AST_TYPE_VOID) {
-            return_type = TYPE_VOID.getInstance();
-        }
+        TYPE return_type = GetSignature(type_with_id1.t);
 
-        // TODO: add conversion of AST_TYPE_ID also..
-
-        /** Difference between AST_FUNC_DEC_2 and AST_FUNC_DEC_3:
-         *  AST_FUNC_DEC_3 has two or more parameters to function **/
-
-        TYPE arg1_type = null;                                // null to be removed in future
-        if (this.type_with_id2.t instanceof AST_TYPE_INT) {
-            arg1_type = TYPE_INT.getInstance();
-        }
-        if (this.type_with_id2.t instanceof AST_TYPE_STRING) {
-            arg1_type = TYPE_STRING.getInstance();
-        }
-        if (this.type_with_id2.t instanceof AST_TYPE_VOID) {
-            arg1_type = TYPE_VOID.getInstance();
-        }
-
-        // TODO: add conversion of AST_TYPE_ID also..
+        TYPE arg1_type = GetSignature(type_with_id2.t);
 
         TYPE_LIST type_list = BuildTypeList(this.ptil);
-
 
         return new TYPE_FUNCTION(return_type, this.type_with_id1.id_name, new TYPE_LIST(arg1_type, type_list));
     }

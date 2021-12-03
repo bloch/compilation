@@ -98,6 +98,24 @@ public class SYMBOL_TABLE
 		return null;
 	}
 
+	public TYPE findInLastScope(String name)
+	{
+		SYMBOL_TABLE_ENTRY e;
+
+		for (e = top; e != null; e = e.prevtop)
+		{
+			if (e.name.equals("SCOPE-BOUNDARY")) {
+				return null;
+			}
+
+			if (name.equals(e.name)) {
+				return e.type;
+			}
+		}
+
+		return null;
+	}
+
 	/***************************************************************************/
 	/* begine scope = Enter the <SCOPE-BOUNDARY> element to the data structure */
 	/***************************************************************************/

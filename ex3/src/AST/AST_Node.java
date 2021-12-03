@@ -28,4 +28,23 @@ public abstract class AST_Node
 	public TYPE_LIST GetSignatures() {
 		System.out.println("NO GetSignatures(AST_NODE) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"); return null;
 	}
+
+	public TYPE GetSignature(AST_TYPE t) {
+		TYPE return_type = null;
+		if (t instanceof AST_TYPE_INT) {
+			return_type = TYPE_INT.getInstance();
+		}
+		if (t instanceof AST_TYPE_STRING) {
+			return_type = TYPE_STRING.getInstance();
+		}
+		if (t instanceof AST_TYPE_VOID) {
+			return_type = TYPE_VOID.getInstance();
+		}
+		if (t instanceof AST_TYPE_ID) {
+			AST_TYPE_ID type_id = (AST_TYPE_ID) t;
+			return_type = SYMBOL_TABLE.getInstance().find(type_id.name);
+		}
+		return return_type;
+	}
+
 }

@@ -76,18 +76,7 @@ public class AST_FUNC_DEC_1 extends AST_FUNC_DEC {
         return null;
     }
     public TYPE GetSignature() {
-        TYPE return_type = null;                                // null to be removed in future
-        if (this.type_with_id1.t instanceof AST_TYPE_INT) {
-            return_type = TYPE_INT.getInstance();
-        }
-        if (this.type_with_id1.t instanceof AST_TYPE_STRING) {
-            return_type = TYPE_STRING.getInstance();
-        }
-        if (this.type_with_id1.t instanceof AST_TYPE_VOID) {
-            return_type = TYPE_VOID.getInstance();
-        }
-
-        // TODO: add conversion of AST_TYPE_ID also..
+        TYPE return_type = GetSignature(type_with_id1.t);
         return new TYPE_FUNCTION(return_type, this.type_with_id1.id_name, null);
     }
 

@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_VAR_SIMPLE extends AST_VAR
 {
@@ -44,5 +46,9 @@ public class AST_VAR_SIMPLE extends AST_VAR
 		AST_GRAPHVIZ.getInstance().logNode(
 			SerialNumber,
 			String.format("SIMPLE\nVAR\n(%s)",name));
+	}
+
+	public TYPE SemantMe() {
+		return SYMBOL_TABLE.getInstance().find(name);
 	}
 }
