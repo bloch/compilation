@@ -37,7 +37,7 @@ public abstract class AST_Node
 		if (t instanceof AST_TYPE_STRING) {
 			return_type = TYPE_STRING.getInstance();
 		}
-		if (t instanceof AST_TYPE_VOID) { //why is needed? doesn't appear in the grramer
+		if (t instanceof AST_TYPE_VOID) { //TODO: why is needed? doesn't appear in the grramer..delete?
 			return_type = TYPE_VOID.getInstance();
 		}
 		if (t instanceof AST_TYPE_ID) {
