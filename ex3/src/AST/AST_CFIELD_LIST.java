@@ -79,9 +79,6 @@ public class AST_CFIELD_LIST extends AST_Node {
 //    }
 
     public TYPE_LIST GetSignatures() {
-        if (this.head.GetSignature() == null){ //type doesn't exist in symbol table
-            return null;
-        }
         if (this.tail == null) {
             return new TYPE_LIST(this.head.GetSignature(), null);
         }
