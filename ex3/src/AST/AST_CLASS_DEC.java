@@ -55,4 +55,6 @@ public class AST_CLASS_DEC extends AST_DEC {
     public TYPE GetSignature() {
         return this.cd.GetSignature();
     }
+
+    public boolean
 }

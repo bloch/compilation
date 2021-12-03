@@ -1,6 +1,7 @@
 package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
+import java.util.*;
 
 public class AST_CLASS_DEC_1 extends AST_CLASS_DEC {
     public String id_name1;
@@ -51,6 +52,29 @@ public class AST_CLASS_DEC_1 extends AST_CLASS_DEC {
         /* [4] Enter the Class Type to the Symbol Table */
         /************************************************/
         TYPE_LIST class_signatures = cfl.GetSignatures();
+
+        //check that there isn't a variable shadowing !!inside the class!!
+        HashSet<String> fieldsNamesSet = new HashSet();
+        for (TYPE_LIST tmp_class_signatures = class_signatures ; tmp_class_signatures != null; tmp_class_signatures = tmp_class_signatures.tail) {
+            TYPE typeField = tmp_class_signatures.head;
+            //retrieve field name
+            String fieldName = typeField.name;
+            if (fieldsNamesSet.contains(fieldName)){
+                //field name already exist --> shadowing --> exit(0)
+                System.out.format(">> ERROR [%d:%d] shadowing in field %s -\n",6,6,fieldName);
+                System.exit(0);
+            }
+            else{
+                fieldsNamesSet.add(fieldName);
+            }
+
+        }
+
+        //TODO: add check if class name already exist, if yes --> exit(0)
+        if (SYMBOL_TABLE.getInstance().find(id_name1) != null) {
+            System.out.format(">> ERROR [%d:%d] class name %s already exists in scope\n",2,2,id_name1);
+            System.exit(0);
+        }
 
         TYPE_CLASS t = new TYPE_CLASS(null, id_name1, class_signatures);
         SYMBOL_TABLE.getInstance().enter(id_name1,t);

@@ -68,6 +68,11 @@ public class AST_VAR_FIELD extends AST_VAR
 		/******************************/
 		if (var != null) t = var.SemantMe();
 
+		//type of var isn't declered in the symbol table
+		if (t == null){
+			System.out.format(">> ERROR [%d:%d] access %s var of a non-\n",6,6,fieldName);
+			System.exit(0);
+		}
 		/*********************************/
 		/* [2] Make sure type is a class */
 		/*********************************/
