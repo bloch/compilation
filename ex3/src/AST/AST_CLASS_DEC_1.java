@@ -48,17 +48,22 @@ public class AST_CLASS_DEC_1 extends AST_CLASS_DEC {
 
     public TYPE SemantMe()
     {
-        /************************************************/
-        /* [4] Enter the Class Type to the Symbol Table */
-        /************************************************/
+
         TYPE_LIST class_signatures = cfl.GetSignatures();
 
-        //check if there is a shadowing between var/funcs/class/arrays in the class
-        if (isShadowing(class_signatures)){
+        //check if all class signatures appears inside symbol table
+        if (isSignaturesValid(class_signatures) == false){
+            System.out.format(">> ERROR : some signatures types doesn't appear inside symbol table\n");
             System.exit(0);
         }
 
-        // heck if class name already exist, if yes --> exit(0)
+        //check if there is a shadowing between var/funcs/class/arrays in the class
+        if (isShadowing(class_signatures)){
+            System.out.format(">> ERROR : shadowing inside class scope\n");
+            System.exit(0);
+        }
+
+        // check if class name already exist, if yes --> exit(0)
         if (SYMBOL_TABLE.getInstance().find(id_name1) != null) {
             System.out.format(">> ERROR [%d:%d] class name %s already exists in scope\n",2,2,id_name1);
             System.exit(0);

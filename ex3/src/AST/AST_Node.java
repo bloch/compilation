@@ -37,12 +37,15 @@ public abstract class AST_Node
 		if (t instanceof AST_TYPE_STRING) {
 			return_type = TYPE_STRING.getInstance();
 		}
-		if (t instanceof AST_TYPE_VOID) {
+		if (t instanceof AST_TYPE_VOID) { //why is needed? doesn't appear in the grramer
 			return_type = TYPE_VOID.getInstance();
 		}
 		if (t instanceof AST_TYPE_ID) {
 			AST_TYPE_ID type_id = (AST_TYPE_ID) t;
 			return_type = SYMBOL_TABLE.getInstance().find(type_id.name);
+			//here if the type isn't exist then return_type = null , therefore in each time
+			// we loop over GetSignatures list we need to check null
+			// see in isSignaturesValid func in AST_CFIELD_LIST that check correctness
 		}
 		return return_type;
 	}

@@ -85,12 +85,12 @@ public class AST_VAR_FIELD extends AST_VAR
 		}
 
 		/************************************/
-		/* [3] Look for fiedlName inside tc */
+		/* [3] Look for fiedlName inside class&super_classes fields names */
 		/************************************/
 		for (TYPE_CLASS tmp_class = tc ; tmp_class !=null ; tmp_class = tmp_class.futher) {
 			for (TYPE_LIST it=tmp_class.data_members ; it != null ; it=it.tail)
 			{
-				if (it.head.name == fieldName) {
+				if (it.head.name.equals(fieldName)) {
 					return it.head;
 				}
 			}

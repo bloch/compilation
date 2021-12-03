@@ -54,8 +54,15 @@ public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
         /************************************************/
         TYPE_LIST class_signatures = cfl.GetSignatures();
 
+        //check if all class signatures appears inside symbol table
+        if (isSignaturesValid(class_signatures) == false){
+            System.out.format(">> ERROR : some signatures types doesn't appear inside symbol table\n");
+            System.exit(0);
+        }
+
         //check if there is a shadowing between var/funcs/class/arrays in the class
         if (isShadowing(class_signatures)){
+            System.out.format(">> ERROR : shadowing inside class scope\n");
             System.exit(0);
         }
 
@@ -73,8 +80,24 @@ public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
             System.exit(0);
         }
 
-        //check if there is overloading/shadowing inside the class or in super class!!
-        // NOTE : if there is an overriding methods in dervied class it's not an error
+        //check if there is overloading/shadowing of fields inside this class or in super classes of this class
+        // NOTE1 : if there is an overriding methods in dervied class it's not an error
+        // NOTE2 : in this section of code futher_class != null
+        for (TYPE_LIST tmp_class_signatures = class_signatures ; tmp_class_signatures != null; tmp_class_signatures = tmp_class_signatures.tail) {
+            for (TYPE_CLASS tmp_superclass = father_class ; tmp_superclass != null ; tmp_superclass = tmp_superclass.father) {
+                for (TYPE_LIST superclass_signatures = tmp_superclass.data_members ; superclass_signatures != null ; superclass_signatures=superclass_signatures.tail){
+                    if ((tmp_class_signatures.head.name).equals(superclass_signatures.head.name)){
+                        // TODO: add if stmt that check if the fields
+                        //  are both vars with the same signature , i.e overriden function in deriveen sub class
+                        if( !isOverriden(tmp_class_signatures.head , superclass_signatures.head) ){
+                            System.out.format(">> ERROR [%d:%d] field name %s already exists in %s superclass\n",2,2,tmp_class_signatures.head.name,tmp_superclass.name);
+                            System.exit(0);
+                        }
+                    }
+                }
+            }
+        }
+
 
         TYPE_CLASS t = new TYPE_CLASS(father_class, id_name1, class_signatures);
 
@@ -100,6 +123,25 @@ public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
         /* [5] Return value is irrelevant for class declarations */
         /*********************************************************/
         return null;
+    }
+
+    // this function check if subClassType is override  superClassType
+    public boolean isOverriden(TYPE subClassType , TYPE superClassType){
+        if (subClassType.isClass()){
+            //TODO
+        }
+        if (subClassType.isArray()){
+            //TODO
+        }
+        if (subClassType.isFunction()){
+            //TODO
+        }
+        if ((subClassType is instanceof TYPE_INT) && !(superClassType is instanceof TYPE_INT)){
+            return false;
+        }
+        if ((subClassType is instanceof TYPE_STRING) && !(superClassType is instanceof TYPE_STRING)){
+            return false;
+        }
     }
 
 }

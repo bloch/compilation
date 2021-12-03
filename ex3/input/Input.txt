@@ -1,5 +1,6 @@
-int m;
-int foo() {
-  int m;
-  int m;
+class A{
+    int x;
+}
+class B extends A{
+    int x;
 }
