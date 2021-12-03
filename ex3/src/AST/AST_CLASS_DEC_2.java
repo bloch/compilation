@@ -128,12 +128,21 @@ public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
     // this function check if subClassType is override  superClassType
     public boolean isOverriden(TYPE subClassType , TYPE superClassType){
         if (subClassType.isClass()){
+            if (!superClassType.isClass()){
+                return false
+            }
             //TODO
         }
         if (subClassType.isArray()){
+            if (!superClassType.isArray()){
+                return false
+            }
             //TODO
         }
         if (subClassType.isFunction()){
+            if (!superClassType.isFunction()){
+                return false
+            }
             //TODO
         }
         if ((subClassType is instanceof TYPE_INT) && !(superClassType is instanceof TYPE_INT)){
