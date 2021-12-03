@@ -1,2 +1,5 @@
-array IntArray = int[];
-array MatArray = IntArray[];
+int m;
+int foo() {
+  int m;
+  int m;
+}

@@ -68,7 +68,7 @@ public class AST_FUNC_DEC_3 extends AST_FUNC_DEC {
 
         symbol_table.beginScope();
 
-        // TODO: append params
+        // TODO: append params to current new scope(to table) + check that types exist
 
         TYPE_LIST type_list = BuildTypeList(this.ptil);
         /** Difference between AST_FUNC_DEC_2 and AST_FUNC_DEC_3:
