@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_STMT_MODIFY_4 extends AST_STMT{
     public AST_VAR var;
@@ -47,4 +49,55 @@ public class AST_STMT_MODIFY_4 extends AST_STMT{
         AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
 
     }
+
+    public TYPE SemantMe()
+    {
+        TYPE v_type = this.var.SemantMe();
+        if (!(v_type instanceof TYPE_CLASS))
+        {
+            System.out.println("error in STMT_MODIFY_4: var isn't TYPE_CLASS");
+            System.exit(0);
+            return null;
+        }
+        TYPE_CLASS var_class = (TYPE_CLASS) v_type;
+        TYPE_LIST tmp = var_class.data_members;
+        //TODO: check for method in fathers
+        if (tmp.head.name.equals(this.id_name1))
+        {
+            if (tmp.head instanceof TYPE_FUNCTION)
+            {
+                TYPE_FUNCTION f = (TYPE_FUNCTION) tmp.head;
+                return f.returnType;
+            }
+            else
+            {
+                System.out.println("error in STMT_MODIFY_4: ID isn't a class method");
+                System.exit(0);
+                return null;
+            }
+        }
+        tmp = tmp.tail;
+        while (tmp != null)
+        {
+            if (tmp.head.name.equals(this.id_name1))
+            {
+                if (tmp.head instanceof TYPE_FUNCTION)
+                {
+                    TYPE_FUNCTION f = (TYPE_FUNCTION) tmp.head;
+                    return f.returnType;
+                }
+                else
+                {
+                    System.out.println("error in STMT_MODIFY_4: ID isn't a class method");
+                    System.exit(0);
+                    return null;
+                }
+            }
+            tmp = tmp.tail;
+        }
+        System.out.println("error in STMT_MODIFY_4: ID isn't a class member");
+        System.exit(0);
+        return null;
+    }
+
 }

@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_STMT_MODIFY_1 extends AST_STMT{
     public String id_name1;
@@ -34,5 +36,14 @@ public class AST_STMT_MODIFY_1 extends AST_STMT{
                 SerialNumber,
                 String.format("STMT_MODIFY_1\nID(%s);\n", id_name1));
 
+    }
+
+    public TYPE SemantMe() {
+        TYPE t = SYMBOL_TABLE.getInstance().find(this.id_name1);
+        if(t == null) {
+            System.out.format(">> ERROR [%d:%d] illegal ID name\n",6,6);
+            System.exit(0);
+        }
+        return null;
     }
 }

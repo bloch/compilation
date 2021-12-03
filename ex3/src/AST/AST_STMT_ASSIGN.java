@@ -67,7 +67,11 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		TYPE t2 = null;
 
 		if (var != null) t1 = var.SemantMe();
-		// TODO: exit(0) on var = null
+		if (t1 == null) {
+			System.out.format(">> ERROR [%d:%d] illegal access of var\n",6,6);
+			System.exit(0);
+		}
+
 		if (exp != null) t2 = exp.SemantMe();
 
 		if (t1 != t2) {

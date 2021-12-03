@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_STMT_ASSIGN_NEW extends AST_STMT
 {
@@ -56,4 +58,23 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
         AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,var.SerialNumber);
         AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,ne.SerialNumber);
     }
+
+    public TYPE SemantMe() {
+        TYPE t1 = null;
+        TYPE t2 = null;
+
+        if (var != null) t1 = var.SemantMe();
+        if (t1 == null) {
+            System.out.format(">> ERROR [%d:%d] illegal access of var\n",6,6);
+            System.exit(0);
+        }
+
+        if (ne != null) t2 = ne.SemantMe();
+
+        if (t1 != t2) {
+            System.out.format(">> ERROR [%d:%d] type mismatch for var := newExp\n",6,6);
+        }
+        return null;
+    }
+
 }
