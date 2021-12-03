@@ -63,8 +63,6 @@ public class AST_FUNC_DEC_1 extends AST_FUNC_DEC {
 
         symbol_table.beginScope();
 
-        // TODO: append params to current new scope(to table) + check that types exist
-
         this.stmtList.head.SemantMe();
 
         AST_STMT_LIST tmp = this.stmtList.tail;

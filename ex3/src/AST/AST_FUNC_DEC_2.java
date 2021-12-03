@@ -65,7 +65,7 @@ public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
 
         symbol_table.beginScope();
 
-        // TODO: append params
+        // TODO: append params to current new scope(to table) + check that types exist
 
 
         /** Difference between AST_FUNC_DEC_1 and AST_FUNC_DEC_2:
