@@ -56,20 +56,4 @@ public class AST_VAR_DEC extends AST_DEC {
         return this.vd.GetSignature();
     }
 
-    public TYPE GetSignature(AST_TYPE t) {
-        TYPE return_type = null;                                // null to be removed in future
-        if (t instanceof AST_TYPE_INT) {
-            return_type = TYPE_INT.getInstance();
-        }
-        if (t instanceof AST_TYPE_STRING) {
-            return_type = TYPE_STRING.getInstance();
-        }
-        if (t instanceof AST_TYPE_VOID) {
-            return_type = TYPE_VOID.getInstance();
-        }
-        // TODO: add conversion of AST_TYPE_ID also..
-
-        return return_type;
-    }
-
 }
