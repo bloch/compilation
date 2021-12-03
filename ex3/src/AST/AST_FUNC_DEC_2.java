@@ -65,6 +65,9 @@ public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
 
         symbol_table.beginScope();
 
+        // TODO: append params
+
+
         /** Difference between AST_FUNC_DEC_1 and AST_FUNC_DEC_2:
          *  AST_FUNC_DEC_2 has one parameter to function **/
 
@@ -86,35 +89,9 @@ public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
     }
 
     public TYPE GetSignature() {
+        TYPE return_type = GetSignature(type_with_id1.t);
 
-        TYPE return_type = null;                                // null to be removed in future
-        if (this.type_with_id1.t instanceof AST_TYPE_INT) {
-            return_type = TYPE_INT.getInstance();
-        }
-        if (this.type_with_id1.t instanceof AST_TYPE_STRING) {
-            return_type = TYPE_STRING.getInstance();
-        }
-        if (this.type_with_id1.t instanceof AST_TYPE_VOID) {
-            return_type = TYPE_VOID.getInstance();
-        }
-
-        // TODO: add conversion of AST_TYPE_ID also..
-
-        /** Difference between AST_FUNC_DEC_1 and AST_FUNC_DEC_2:
-         *  AST_FUNC_DEC_2 has one parameter to function **/
-
-        TYPE arg1_type = null;                                // null to be removed in future
-        if (this.type_with_id2.t instanceof AST_TYPE_INT) {
-            arg1_type = TYPE_INT.getInstance();
-        }
-        if (this.type_with_id2.t instanceof AST_TYPE_STRING) {
-            arg1_type = TYPE_STRING.getInstance();
-        }
-        if (this.type_with_id2.t instanceof AST_TYPE_VOID) {
-            arg1_type = TYPE_VOID.getInstance();
-        }
-
-        // TODO: add conversion of AST_TYPE_ID also..
+        TYPE arg1_type = GetSignature(type_with_id2.t);
 
         return new TYPE_FUNCTION(return_type, this.type_with_id1.id_name, new TYPE_LIST(arg1_type, null));
     }

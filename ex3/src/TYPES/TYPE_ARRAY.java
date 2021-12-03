@@ -10,9 +10,10 @@ public class TYPE_ARRAY extends TYPE
     /****************/
     /* CTROR(S) ... */
     /****************/
-    public TYPE_ARRAY(TYPE type)
+    public TYPE_ARRAY(TYPE type, String name)
     {
         this.type = type;
+        this.name = name;
     }
 
     public TYPE getArrayType(){

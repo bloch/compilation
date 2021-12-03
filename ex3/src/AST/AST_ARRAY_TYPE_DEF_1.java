@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_ARRAY_TYPE_DEF_1 extends AST_ARRAY_TYPE_DEF {
     String id_name;
@@ -52,6 +54,40 @@ public class AST_ARRAY_TYPE_DEF_1 extends AST_ARRAY_TYPE_DEF {
         /* PRINT Edges to AST GRAPHVIZ DOT file */
         /****************************************/
         AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,type.SerialNumber);
+    }
+
+    public TYPE SemantMe() {
+        // want: add to symbol table + return type.
+
+        /****************************/
+        /* [1] Check If Type exists */
+        /****************************/
+        TYPE type_of_var = GetSignature(type);
+        if (type_of_var == null) {
+            System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type_of_var.name);
+            System.exit(0);
+        }
+
+        /** type_of_var is the type of array **/
+
+        /**************************************/
+        /* [2] Check That Name does NOT exist */
+        /**************************************/
+        if (SYMBOL_TABLE.getInstance().find(id_name) != null) {
+            System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,id_name);
+        }
+
+        /***************************************************/
+        /* [3] Enter the Function Type to the Symbol Table */
+        /***************************************************/
+        TYPE_ARRAY type_array = new TYPE_ARRAY(type_of_var, id_name);
+
+        SYMBOL_TABLE.getInstance().enter(id_name,type_array);
+
+        /*********************************************************/
+        /* [4] Return value is irrelevant for class declarations */
+        /*********************************************************/
+        return null;
 
     }
 

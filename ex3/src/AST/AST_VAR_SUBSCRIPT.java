@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_VAR_SUBSCRIPT extends AST_VAR
 {
@@ -60,7 +62,7 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 	public TYPE SemantMe()
 	{
 		TYPE t = null;
-		TYPE_CLASS tc = null;
+		TYPE_ARRAY ta = null;
 
 		/******************************/
 		/* [1] Recursively semant var */
@@ -71,11 +73,11 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		/* [2] Make sure type is a array */
 		/*********************************/
 		if (t.isArray() == false) {
-			System.out.format(">> ERROR [%d:%d] access %s field of a non-array variable\n",6,6,fieldName);
+			//System.out.format(">> ERROR [%d:%d] access %s field of a non-array variable\n",6,6,fieldName);
 			System.exit(0);
 		}
 		else {
-			tc = (TYPE_ARRAY) t;
+			ta = (TYPE_ARRAY) t;
 		}
 
 		// TODO: check exp is INTEGER
@@ -84,9 +86,9 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		// else: GO DOWN AND REPORT ERROR
 
 		/*********************************************/
-		/* [4] fieldName does not exist in class var */
+		/* [4] exp does not hold an integer value */
 		/*********************************************/
-		System.out.format(">> ERROR [%d:%d] field %s does not exist in class\n",6,6,fieldName);
+		//System.out.format(">> ERROR [%d:%d] exp %s does not hold an integer value\n",6,6,fieldName);
 		System.exit(0);
 		return null;
 	}

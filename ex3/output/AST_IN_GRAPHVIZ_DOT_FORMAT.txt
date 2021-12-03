@@ -1,84 +1,25 @@
 digraph
 {
 graph [ordering = "out"]
-v30 [label = "Program
-"];
-v9 [label = "classDec_1
-ID(Bla)
+v8 [label = "Program
 "];
 v0 [label = "TYPE_INT
 "];
-v6 [label = "TYPE_WITH_ID
-ID (getAge2);
+v1 [label = "ARRAY_TYPE_DEF_1
+ID (IntArray);
 "];
-v6 -> v0;
-v5 [label = "funcDec_1
-"];
-v1 [label = "SIMPLE
-VAR
-(age)"];
-v2 [label = "EXP
-VAR"];
+v1 -> v0;
+v2 [label = "arrayTypeDef"];
 v2 -> v1;
-v3 [label = "STMT
-RETURN
-EXP
+v3 [label = "TYPE_ID
+(IntArray)
 "];
-v3 -> v2;
-v5 -> v3;
-v5 -> v6;
-v7 [label = "CFIELD
-FUNC_DEC"];
-v7 -> v5;
-v9 -> v7;
-v10 [label = "classDec"];
-v10 -> v9;
-v26 [label = "classDec_2
-ID1(Person) ID2(Bla)
+v4 [label = "ARRAY_TYPE_DEF_1
+ID (MatArray);
 "];
-v11 [label = "TYPE_INT
-"];
-v17 [label = "TYPE_WITH_ID
-ID (getAge);
-"];
-v17 -> v11;
-v16 [label = "funcDec_1
-"];
-v12 [label = "SIMPLE
-VAR
-(age)"];
-v13 [label = "EXP
-VAR"];
-v13 -> v12;
-v14 [label = "STMT
-RETURN
-EXP
-"];
-v14 -> v13;
-v16 -> v14;
-v16 -> v17;
-v18 [label = "CFIELD
-FUNC_DEC"];
-v18 -> v16;
-v19 [label = "TYPE_INT
-"];
-v22 [label = "TYPE_WITH_ID
-ID (x);
-"];
-v22 -> v19;
-v20 [label = "INT
-(8)"];
-v21 [label = "varDec_2
-"];
-v21 -> v22;
-v21 -> v20;
-v23 [label = "CFIELD
-VAR_DEC"];
-v23 -> v21;
-v26 -> v18;
-v26 -> v23;
-v27 [label = "classDec"];
-v27 -> v26;
-v30 -> v10;
-v30 -> v27;
+v4 -> v3;
+v5 [label = "arrayTypeDef"];
+v5 -> v4;
+v8 -> v2;
+v8 -> v5;
 }

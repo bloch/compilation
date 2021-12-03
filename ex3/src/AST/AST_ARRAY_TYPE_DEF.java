@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_ARRAY_TYPE_DEF extends AST_DEC {
     public AST_ARRAY_TYPE_DEF atd;
@@ -46,6 +48,13 @@ public class AST_ARRAY_TYPE_DEF extends AST_DEC {
         /****************************************/
         AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,atd.SerialNumber);
 
+    }
+
+    public TYPE SemantMe() {
+        return this.atd.SemantMe();
+    }
+    public TYPE GetSignature() {
+        return this.atd.GetSignature();
     }
 
 }
