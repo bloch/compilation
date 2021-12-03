@@ -1,6 +1,7 @@
 package AST;
 
 import java.util.ArrayList;
+import TYPES.*;
 import SYMBOL_TABLE.*;
 
 public class AST_PROGRAM extends AST_Node{
@@ -36,10 +37,8 @@ public class AST_PROGRAM extends AST_Node{
         this.l.PrintMe(SerialNumber);
     }
 
-    public void SemantMe()
+    public TYPE SemantMe()
     {
-        SYMBOL_TABLE symbol_table = SYMBOL_TABLE.getInstance();
-
         this.l.head.SemantMe();
 
         AST_DEC_LIST tmp = this.l.tail;
@@ -47,5 +46,7 @@ public class AST_PROGRAM extends AST_Node{
             tmp.head.SemantMe();
             tmp = tmp.tail;
         }
+
+        return null;
     }
 }

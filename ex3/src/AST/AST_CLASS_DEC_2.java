@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
     public String id_name1;
@@ -43,6 +45,48 @@ public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
 
         if (cfl != null) cfl.PrintMe(SerialNumber);
 
+    }
+
+    public TYPE SemantMe()
+    {
+        /************************************************/
+        /* [4] Enter the Class Type to the Symbol Table */
+        /************************************************/
+        TYPE_LIST class_signatures = cfl.GetSignatures();
+
+        TYPE_CLASS father_class = (TYPE_CLASS) SYMBOL_TABLE.getInstance().find(id_name2);
+        if (father_class == null) {
+            /**************************/
+            /* ERROR: undeclared class */
+            /**************************/
+            System.exit(0);
+            return null;
+        }
+
+        TYPE_CLASS t = new TYPE_CLASS(father_class, id_name1, class_signatures);
+
+        SYMBOL_TABLE.getInstance().enter(id_name1,t);
+
+        /*************************/
+        /* [1] Begin Class Scope */
+        /*************************/
+        SYMBOL_TABLE.getInstance().beginScope();
+
+        /***************************/
+        /* [2] Semant Data Members */
+        /***************************/
+
+        this.cfl.SemantMe();
+
+        /*****************/
+        /* [3] End Scope */
+        /*****************/
+        SYMBOL_TABLE.getInstance().endScope();
+
+        /*********************************************************/
+        /* [5] Return value is irrelevant for class declarations */
+        /*********************************************************/
+        return null;
     }
 
 }

@@ -1,4 +1,6 @@
 package AST;
+import TYPES.*;
+import SYMBOL_TABLE.*;
 
 public class AST_CFIELD_FUNC_DEC extends AST_CFIELD {
     public AST_FUNC_DEC fd;
@@ -46,5 +48,9 @@ public class AST_CFIELD_FUNC_DEC extends AST_CFIELD {
         /* PRINT Edges to AST GRAPHVIZ DOT file */
         /****************************************/
         AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,fd.SerialNumber);
+    }
+    public TYPE SemantMe() { return this.fd.SemantMe(); }
+    public TYPE GetSignature() {
+        return this.fd.GetSignature();
     }
 }

@@ -1,3 +1,8 @@
-int main() {
-    return x;
+class Bla {
+    int getAge2()  { return age;   }
+}
+class Person extends Bla
+{
+	int getAge()  { return age;   }
+	int x := 8;
 }
