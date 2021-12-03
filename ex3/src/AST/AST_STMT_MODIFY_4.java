@@ -67,7 +67,7 @@ public class AST_STMT_MODIFY_4 extends AST_STMT{
             if (tmp.head instanceof TYPE_FUNCTION)
             {
                 TYPE_FUNCTION f = (TYPE_FUNCTION) tmp.head;
-                return f.returnType;
+                return null;
             }
             else
             {
@@ -84,7 +84,7 @@ public class AST_STMT_MODIFY_4 extends AST_STMT{
                 if (tmp.head instanceof TYPE_FUNCTION)
                 {
                     TYPE_FUNCTION f = (TYPE_FUNCTION) tmp.head;
-                    return f.returnType;
+                    return null;
                 }
                 else
                 {
