@@ -87,14 +87,14 @@ public class AST_VAR_FIELD extends AST_VAR
 		/************************************/
 		/* [3] Look for fiedlName inside tc */
 		/************************************/
-		for (TYPE_LIST it=tc.data_members;it != null;it=it.tail)
-		{
-			if (it.head.name == fieldName) {
-				return it.head;
+		for (TYPE_CLASS tmp_class = tc ; tmp_class !=null ; tmp_class = tmp_class.futher) {
+			for (TYPE_LIST it=tmp_class.data_members ; it != null ; it=it.tail)
+			{
+				if (it.head.name == fieldName) {
+					return it.head;
+				}
 			}
 		}
-
-		// TODO: add same checks in super classes...(maybe add while on the for loop)
 
 		/*********************************************/
 		/* [4] fieldName does not exist in class var */

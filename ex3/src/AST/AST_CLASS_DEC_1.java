@@ -53,24 +53,12 @@ public class AST_CLASS_DEC_1 extends AST_CLASS_DEC {
         /************************************************/
         TYPE_LIST class_signatures = cfl.GetSignatures();
 
-        //check that there isn't a variable shadowing !!inside the class!!
-        HashSet<String> fieldsNamesSet = new HashSet();
-        for (TYPE_LIST tmp_class_signatures = class_signatures ; tmp_class_signatures != null; tmp_class_signatures = tmp_class_signatures.tail) {
-            TYPE typeField = tmp_class_signatures.head;
-            //retrieve field name
-            String fieldName = typeField.name;
-            if (fieldsNamesSet.contains(fieldName)){
-                //field name already exist --> shadowing --> exit(0)
-                System.out.format(">> ERROR [%d:%d] shadowing in field %s -\n",6,6,fieldName);
-                System.exit(0);
-            }
-            else{
-                fieldsNamesSet.add(fieldName);
-            }
-
+        //check if there is a shadowing between var/funcs/class/arrays in the class
+        if (isShadowing(class_signatures)){
+            System.exit(0);
         }
 
-        //TODO: add check if class name already exist, if yes --> exit(0)
+        // heck if class name already exist, if yes --> exit(0)
         if (SYMBOL_TABLE.getInstance().find(id_name1) != null) {
             System.out.format(">> ERROR [%d:%d] class name %s already exists in scope\n",2,2,id_name1);
             System.exit(0);

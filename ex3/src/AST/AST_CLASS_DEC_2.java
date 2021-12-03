@@ -54,14 +54,27 @@ public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
         /************************************************/
         TYPE_LIST class_signatures = cfl.GetSignatures();
 
+        //check if there is a shadowing between var/funcs/class/arrays in the class
+        if (isShadowing(class_signatures)){
+            System.exit(0);
+        }
+
+        // check if super class exist , if not --> exit(0)
         TYPE_CLASS father_class = (TYPE_CLASS) SYMBOL_TABLE.getInstance().find(id_name2);
         if (father_class == null) {
-            /**************************/
-            /* ERROR: undeclared class */
-            /**************************/
+            System.out.format(">> ERROR : super class doesn't exist\n");
             System.exit(0);
             return null;
         }
+
+        // check if class name already exist, if yes --> exit(0)
+        if (SYMBOL_TABLE.getInstance().find(id_name1) != null) {
+            System.out.format(">> ERROR [%d:%d] class name %s already exists in scope\n",2,2,id_name1);
+            System.exit(0);
+        }
+
+        //check if there is overloading/shadowing inside the class or in super class!!
+        // NOTE : if there is an overriding methods in dervied class it's not an error
 
         TYPE_CLASS t = new TYPE_CLASS(father_class, id_name1, class_signatures);
 
