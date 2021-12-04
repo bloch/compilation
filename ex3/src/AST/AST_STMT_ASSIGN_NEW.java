@@ -73,6 +73,7 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
 
         if (t1 != t2) {
             System.out.format(">> ERROR [%d:%d] type mismatch for var := newExp\n",6,6);
+            System.exit(0);
         }
         return null;
     }

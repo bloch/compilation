@@ -1,3 +1,21 @@
-class Edge{
-    int foo;
+class Vertex {
+    int goo(string d, int v) {
+        int ww := 9;
+    }
+}
+class Edge extends Vertex{
+    int foo(string yz) {
+        int y := 3;
+    }
+}
+
+int foo(int y, string ss) {
+    int z := 4;
+}
+
+
+
+int main() {
+    Edge e := new Edge;
+    e.foo22(7);
 }

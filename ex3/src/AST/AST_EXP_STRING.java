@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_EXP_STRING extends AST_EXP{
     public String value;
@@ -40,6 +42,10 @@ public class AST_EXP_STRING extends AST_EXP{
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
                 String.format("STRING(\'%s\')", value));
+    }
+
+    public TYPE SemantMe() {
+        return TYPE_STRING.getInstance();
     }
 
 }
