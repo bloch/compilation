@@ -21,4 +21,9 @@ public abstract class TYPE
 	/* isFunction() */
 	/*************/
 	public boolean isFunction(){return false;}
+
+	/*************/
+	/* isTypeId() */
+	/*************/
+	public boolean isTypeId(){return false;}
 }

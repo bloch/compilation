@@ -19,4 +19,6 @@ public class TYPE_ID extends TYPE
     public TYPE getType(){
         return this.type;
     }
+
+    public boolean isTypeId(){return true;}
 }

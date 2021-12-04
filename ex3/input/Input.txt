@@ -1,6 +1,6 @@
 class Father{
-    int foo;
+    int foo() {return 8; }
 }
 class Son extends Father{
-    string foo;
+    void foo() { PrintInt(8); }
 }
