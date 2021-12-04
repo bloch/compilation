@@ -52,6 +52,10 @@ public class AST_VAR_DEC_1 extends AST_VAR_DEC {
         // if yes - enter to symbol table
 
         TYPE type = GetSignature(type_with_id1.t);
+        if (type == null){
+            System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type_with_id1.id_name);
+            System.exit(0);
+        }
 
         /****************************/
         /* [1] Check If Type exists */
@@ -83,7 +87,8 @@ public class AST_VAR_DEC_1 extends AST_VAR_DEC {
     }
 
     public TYPE GetSignature() {
-        return GetSignature(type_with_id1.t);
+
+        return new TYPE_ID(GetSignature(type_with_id1.t), type_with_id1.id_name);
     }
 
 }

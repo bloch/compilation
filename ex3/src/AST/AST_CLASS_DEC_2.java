@@ -54,14 +54,51 @@ public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
         /************************************************/
         TYPE_LIST class_signatures = cfl.GetSignatures();
 
+        //check if all class signatures appears inside symbol table
+        if (isSignaturesValid(class_signatures) == false){
+            System.out.format(">> ERROR : some signatures types doesn't appear inside symbol table\n");
+            System.exit(0);
+        }
+
+        //check if there is a shadowing between var/funcs/class/arrays in the class
+        if (isShadowing(class_signatures)){
+            System.out.format(">> ERROR : shadowing inside class scope\n");
+            System.exit(0);
+        }
+
+        // check if super class exist , if not --> exit(0)
         TYPE_CLASS father_class = (TYPE_CLASS) SYMBOL_TABLE.getInstance().find(id_name2);
         if (father_class == null) {
-            /**************************/
-            /* ERROR: undeclared class */
-            /**************************/
+            System.out.format(">> ERROR : super class doesn't exist\n");
             System.exit(0);
             return null;
         }
+
+        // check if class name already exist, if yes --> exit(0)
+        if (SYMBOL_TABLE.getInstance().find(id_name1) != null) {
+            System.out.format(">> ERROR [%d:%d] class name %s already exists in scope\n",2,2,id_name1);
+            System.exit(0);
+        }
+
+        //check if there is overloading/shadowing of fields inside this class or in super classes of this class
+        // NOTE1 : if there is an overriding methods in dervied class it's not an error
+        // NOTE2 : in this section of code father_class != null
+        for (TYPE_LIST tmp_class_signatures = class_signatures ; tmp_class_signatures != null; tmp_class_signatures = tmp_class_signatures.tail) {
+            for (TYPE_CLASS tmp_superclass = father_class ; tmp_superclass != null ; tmp_superclass = tmp_superclass.father) {
+                for (TYPE_LIST superclass_signatures = tmp_superclass.data_members ; superclass_signatures != null ; superclass_signatures=superclass_signatures.tail){
+//                    System.out.format("%s , %s \n",tmp_class_signatures.head.name,superclass_signatures.head.name);
+                    if ((tmp_class_signatures.head.name).equals(superclass_signatures.head.name)){
+                        // TODO: add if stmt that check if the fields
+                        //  are both vars with the same signature , i.e overriden function in deriveen sub class
+                        if( !isOverriden(tmp_class_signatures.head , superclass_signatures.head) ){
+                            System.out.format(">> ERROR: field name already exists in superclass and it's not valid override\n");
+                            System.exit(0);
+                        }
+                    }
+                }
+            }
+        }
+
 
         TYPE_CLASS t = new TYPE_CLASS(father_class, id_name1, class_signatures);
 
@@ -87,6 +124,86 @@ public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
         /* [5] Return value is irrelevant for class declarations */
         /*********************************************************/
         return null;
+    }
+
+    // this function check if subClassType is override  superClassType
+    public boolean isOverriden(TYPE subClassType , TYPE superClassType){
+        if (subClassType.isTypeId() && superClassType.isTypeId()){
+//            System.out.format(">> ERROR TYPE_ID \n");
+            TYPE_ID subClassTypeId = (TYPE_ID) subClassType;
+            TYPE_ID superClassTypeId = (TYPE_ID) superClassType;
+//            System.out.format("%s , %s \n",subClassTypeId.type.name,superClassTypeId.type.name);
+            if ((subClassTypeId.type.name.equals("int")) && (superClassTypeId.type.name.equals("int"))){
+                return true;
+            }
+            if ((subClassTypeId.type.name.equals("string")) && (superClassTypeId.type.name.equals("string"))){
+                return true;
+            }
+            if ((subClassTypeId.type.name.equals("void")) && (superClassTypeId.type.name.equals("void"))){
+                return true;
+            }
+        }
+        if (subClassType.isClass()){
+            if (!superClassType.isClass()){
+                return false;
+            }
+            if (subClassType.name.equals(subClassType.name)){
+                return true;
+            }
+        }
+        if (subClassType.isArray()){
+            if (!superClassType.isArray()){
+                return false;
+            }
+            if (subClassType.name.equals(subClassType.name)){
+                return true;
+            }
+        }
+        if (subClassType.isFunction()){
+            if (!superClassType.isFunction()){
+                return false;
+            }
+            TYPE_FUNCTION subClassFuncType = (TYPE_FUNCTION) subClassType;
+            TYPE_FUNCTION superClassFuncType = (TYPE_FUNCTION) superClassType;
+            return funcSignaturesComp(subClassFuncType , superClassFuncType);
+        }
+        System.out.format(">> ERROR : in isOverriden func in AST_CLASS_DEC_2  \n");
+        return false;
+    }
+
+    public boolean funcSignaturesComp(TYPE_FUNCTION func1 , TYPE_FUNCTION func2){
+        if (!(func1.returnType.name.equals(func2.returnType.name))){
+            return false;
+        }
+        if (func1.params == null){
+            if (func2.params == null){
+                return true;
+            }
+            return false;
+        }
+        //here func1.params != null
+        if (func2.params == null){
+            return false;
+        }
+        if (func1.params.numOfParams() != func2.params.numOfParams()){
+            return false;
+        }
+//        if (func1.params == null){
+//            return true;
+//        }
+        if (!(func1.params.head.name.equals(func2.params.head.name))){
+            return false;
+        }
+        TYPE_LIST params1 = func1.params.tail;
+        TYPE_LIST params2 = func2.params.tail;
+        while (params1 != null){
+            if (!(params1.head.name.equals(params2.head.name))){
+                return false;
+            }
+            params1 = params1.tail;
+            params2 = params2.tail;
+        }
+        return true;
     }
 
 }
