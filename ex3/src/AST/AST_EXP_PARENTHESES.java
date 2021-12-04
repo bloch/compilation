@@ -55,9 +55,5 @@ public class AST_EXP_PARENTHESES extends AST_EXP{
         AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
 
     }
-    public String SemantMe()
-    {
-        return this.exp.SemantMe();
-    }
 }
 

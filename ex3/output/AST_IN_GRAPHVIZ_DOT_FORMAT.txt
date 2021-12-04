@@ -1,0 +1,78 @@
+digraph
+{
+graph [ordering = "out"]
+v27 [label = "Program
+"];
+v10 [label = "classDec_1
+ID(Father)
+"];
+v0 [label = "TYPE_INT
+"];
+v6 [label = "TYPE_WITH_ID
+ID (foo);
+"];
+v6 -> v0;
+v1 [label = "TYPE_INT
+"];
+v7 [label = "TYPE_WITH_ID
+ID (i);
+"];
+v7 -> v1;
+v5 [label = "funcDec_2
+"];
+v2 [label = "INT
+(8)"];
+v3 [label = "STMT
+RETURN
+EXP
+"];
+v3 -> v2;
+v5 -> v3;
+v5 -> v6;
+v5 -> v7;
+v8 [label = "CFIELD
+FUNC_DEC"];
+v8 -> v5;
+v10 -> v8;
+v11 [label = "classDec"];
+v11 -> v10;
+v23 [label = "classDec_2
+ID1(Son) ID2(Father)
+"];
+v12 [label = "TYPE_INT
+"];
+v19 [label = "TYPE_WITH_ID
+ID (foo);
+"];
+v19 -> v12;
+v13 [label = "TYPE_INT
+"];
+v20 [label = "TYPE_WITH_ID
+ID (j);
+"];
+v20 -> v13;
+v18 [label = "funcDec_2
+"];
+v14 [label = "SIMPLE
+VAR
+(j)"];
+v15 [label = "EXP
+VAR"];
+v15 -> v14;
+v16 [label = "STMT
+RETURN
+EXP
+"];
+v16 -> v15;
+v18 -> v16;
+v18 -> v19;
+v18 -> v20;
+v21 [label = "CFIELD
+FUNC_DEC"];
+v21 -> v18;
+v23 -> v21;
+v24 [label = "classDec"];
+v24 -> v23;
+v27 -> v11;
+v27 -> v24;
+}

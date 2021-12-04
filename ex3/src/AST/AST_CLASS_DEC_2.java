@@ -82,7 +82,7 @@ public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
 
         //check if there is overloading/shadowing of fields inside this class or in super classes of this class
         // NOTE1 : if there is an overriding methods in dervied class it's not an error
-        // NOTE2 : in this section of code futher_class != null
+        // NOTE2 : in this section of code father_class != null
         for (TYPE_LIST tmp_class_signatures = class_signatures ; tmp_class_signatures != null; tmp_class_signatures = tmp_class_signatures.tail) {
             for (TYPE_CLASS tmp_superclass = father_class ; tmp_superclass != null ; tmp_superclass = tmp_superclass.father) {
                 for (TYPE_LIST superclass_signatures = tmp_superclass.data_members ; superclass_signatures != null ; superclass_signatures=superclass_signatures.tail){
@@ -90,7 +90,7 @@ public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
                         // TODO: add if stmt that check if the fields
                         //  are both vars with the same signature , i.e overriden function in deriveen sub class
                         if( !isOverriden(tmp_class_signatures.head , superclass_signatures.head) ){
-                            System.out.format(">> ERROR [%d:%d] field name %s already exists in %s superclass\n",2,2,tmp_class_signatures.head.name,tmp_superclass.name);
+                            System.out.format(">> ERROR: field name already exists in superclass and it's not valid override\n");
                             System.exit(0);
                         }
                     }
@@ -127,30 +127,77 @@ public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
 
     // this function check if subClassType is override  superClassType
     public boolean isOverriden(TYPE subClassType , TYPE superClassType){
+        //No need to take care for type_class (fields are vardec or funcdec only)
+        if ((subClassType instanceof TYPE_INT) && (superClassType instanceof TYPE_INT)){
+            return true;
+        }
+        if ((subClassType instanceof TYPE_STRING) && (superClassType instanceof TYPE_STRING)){
+            return true;
+        }
+        if ((subClassType instanceof TYPE_VOID) && (superClassType instanceof TYPE_VOID)){
+            return true;
+        }
         if (subClassType.isClass()){
             if (!superClassType.isClass()){
-                return false
+                return false;
             }
-            //TODO
+            if (subClassType.name.equals(subClassType.name)){
+                return true;
+            }
         }
         if (subClassType.isArray()){
             if (!superClassType.isArray()){
-                return false
+                return false;
             }
-            //TODO
+            if (subClassType.name.equals(subClassType.name)){
+                return true;
+            }
         }
         if (subClassType.isFunction()){
             if (!superClassType.isFunction()){
-                return false
+                return false;
             }
-            //TODO
+            TYPE_FUNCTION subClassFuncType = (TYPE_FUNCTION) subClassType;
+            TYPE_FUNCTION superClassFuncType = (TYPE_FUNCTION) superClassType;
+            return funcSignaturesComp(subClassFuncType , superClassFuncType);
         }
-        if ((subClassType is instanceof TYPE_INT) && !(superClassType is instanceof TYPE_INT)){
+        System.out.format(">> ERROR : in isOverriden func in AST_CLASS_DEC_2  \n");
+        return false;
+    }
+
+    public boolean funcSignaturesComp(TYPE_FUNCTION func1 , TYPE_FUNCTION func2){
+        if (!(func1.returnType.name.equals(func2.returnType.name))){
             return false;
         }
-        if ((subClassType is instanceof TYPE_STRING) && !(superClassType is instanceof TYPE_STRING)){
+        if (func1.params == null){
+            if (func2.params == null){
+                return true;
+            }
             return false;
         }
+        //here func1.params != null
+        if (func2.params == null){
+            return false;
+        }
+        if (func1.params.numOfParams() != func2.params.numOfParams()){
+            return false;
+        }
+//        if (func1.params == null){
+//            return true;
+//        }
+        if (!(func1.params.head.name.equals(func2.params.head.name))){
+            return false;
+        }
+        TYPE_LIST params1 = func1.params.tail;
+        TYPE_LIST params2 = func2.params.tail;
+        while (params1 != null){
+            if (!(params1.head.name.equals(params2.head.name))){
+                return false;
+            }
+            params1 = params1.tail;
+            params2 = params2.tail;
+        }
+        return true;
     }
 
 }

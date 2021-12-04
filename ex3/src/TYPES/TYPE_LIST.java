@@ -16,4 +16,13 @@ public class TYPE_LIST
 		this.head = head;
 		this.tail = tail;
 	}
+	public int numOfParams(){
+		if (head == null){
+			return 0;
+		}
+		if (tail == null){
+			return 1;
+		}
+		return 1 + tail.numOfParams();
+	}
 }

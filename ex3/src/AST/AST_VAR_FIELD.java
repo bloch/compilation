@@ -70,7 +70,7 @@ public class AST_VAR_FIELD extends AST_VAR
 
 		//type of var isn't declered in the symbol table
 		if (t == null){
-			System.out.format(">> ERROR [%d:%d] access %s var of a non-\n",6,6,fieldName);
+			System.out.format(">> ERROR var doesn't exist (AST_VAR_FIELD)\n");
 			System.exit(0);
 		}
 		/*********************************/
@@ -87,11 +87,18 @@ public class AST_VAR_FIELD extends AST_VAR
 		/************************************/
 		/* [3] Look for fiedlName inside class&super_classes fields names */
 		/************************************/
-		for (TYPE_CLASS tmp_class = tc ; tmp_class !=null ; tmp_class = tmp_class.futher) {
+		for (TYPE_CLASS tmp_class = tc ; tmp_class !=null ; tmp_class = tmp_class.father) {
 			for (TYPE_LIST it=tmp_class.data_members ; it != null ; it=it.tail)
 			{
 				if (it.head.name.equals(fieldName)) {
-					return it.head;
+					if (it.head.isFunction()){
+						System.out.format(">> ERROR : expected var and recieved function in AST_VAR_FIELD)");
+						System.exit(0);
+					}
+					else{
+						return it.head;
+					}
+
 				}
 			}
 		}
