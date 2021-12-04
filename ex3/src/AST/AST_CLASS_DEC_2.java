@@ -86,6 +86,7 @@ public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
         for (TYPE_LIST tmp_class_signatures = class_signatures ; tmp_class_signatures != null; tmp_class_signatures = tmp_class_signatures.tail) {
             for (TYPE_CLASS tmp_superclass = father_class ; tmp_superclass != null ; tmp_superclass = tmp_superclass.father) {
                 for (TYPE_LIST superclass_signatures = tmp_superclass.data_members ; superclass_signatures != null ; superclass_signatures=superclass_signatures.tail){
+                    System.out.format("%s , %s \n",tmp_class_signatures.head.name,superclass_signatures.head.name);
                     if ((tmp_class_signatures.head.name).equals(superclass_signatures.head.name)){
                         // TODO: add if stmt that check if the fields
                         //  are both vars with the same signature , i.e overriden function in deriveen sub class
@@ -127,14 +128,13 @@ public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
 
     // this function check if subClassType is override  superClassType
     public boolean isOverriden(TYPE subClassType , TYPE superClassType){
-        //No need to take care for type_class (fields are vardec or funcdec only)
-        if ((subClassType instanceof TYPE_INT) && (superClassType instanceof TYPE_INT)){
+        if ((subClassType.name.equals("int")) && (superClassType.name.equals("int"))){
             return true;
         }
-        if ((subClassType instanceof TYPE_STRING) && (superClassType instanceof TYPE_STRING)){
+        if ((subClassType.name.equals("string")) && (superClassType.name.equals("string"))){
             return true;
         }
-        if ((subClassType instanceof TYPE_VOID) && (superClassType instanceof TYPE_VOID)){
+        if ((subClassType.name.equals("void")) && (superClassType.name.equals("void"))){
             return true;
         }
         if (subClassType.isClass()){

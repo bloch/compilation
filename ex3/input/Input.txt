@@ -1,6 +1,6 @@
 class Father{
-    int foo(int i) {return 8;}
+    int foo;
 }
 class Son extends Father{
-    int foo(int j) { return j; }
+    string foo;
 }
