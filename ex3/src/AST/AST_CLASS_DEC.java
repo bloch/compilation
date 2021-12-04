@@ -80,6 +80,10 @@ public class AST_CLASS_DEC extends AST_DEC {
     public boolean isSignaturesValid(TYPE_LIST class_signatures){
         for (TYPE_LIST tmp_class_signatures = class_signatures ; tmp_class_signatures != null; tmp_class_signatures = tmp_class_signatures.tail) {
             TYPE typeField = tmp_class_signatures.head;
+            if (typeField.isTypeId()){
+                TYPE_ID typeId = (TYPE_ID) typeField;
+                typeField = typeId.type;
+            }
             if (typeField == null){  //type doesn't exist in symbol table
                 return false;
             }
