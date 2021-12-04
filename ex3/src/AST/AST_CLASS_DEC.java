@@ -1,6 +1,7 @@
 package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
+import java.util.*;
 
 public class AST_CLASS_DEC extends AST_DEC {
     public AST_CLASS_DEC cd;
