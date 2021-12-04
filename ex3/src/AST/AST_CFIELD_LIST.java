@@ -86,5 +86,14 @@ public class AST_CFIELD_LIST extends AST_Node {
             return new TYPE_LIST(this.head.GetSignature(), this.tail.GetSignatures());
         }
     }
+//    public boolean isSignaturesValid(TYPE_LIST class_signatures){
+//        for (TYPE_LIST tmp_class_signatures = class_signatures ; tmp_class_signatures != null; tmp_class_signatures = tmp_class_signatures.tail) {
+//            TYPE typeField = tmp_class_signatures.head;
+//            if (typeField == null){  //type doesn't exist in symbol table
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
 
 }

@@ -2,6 +2,7 @@ package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+
 public class AST_CLASS_DEC_1 extends AST_CLASS_DEC {
     public String id_name1;
     public AST_CFIELD_LIST cfl;
@@ -47,10 +48,26 @@ public class AST_CLASS_DEC_1 extends AST_CLASS_DEC {
 
     public TYPE SemantMe()
     {
-        /************************************************/
-        /* [4] Enter the Class Type to the Symbol Table */
-        /************************************************/
+
         TYPE_LIST class_signatures = cfl.GetSignatures();
+
+        //check if all class signatures appears inside symbol table
+        if (isSignaturesValid(class_signatures) == false){
+            System.out.format(">> ERROR : some signatures types doesn't appear inside symbol table\n");
+            System.exit(0);
+        }
+
+        //check if there is a shadowing between var/funcs/class/arrays in the class
+        if (isShadowing(class_signatures)){
+            System.out.format(">> ERROR : shadowing inside class scope\n");
+            System.exit(0);
+        }
+
+        // check if class name already exist, if yes --> exit(0)
+        if (SYMBOL_TABLE.getInstance().find(id_name1) != null) {
+            System.out.format(">> ERROR [%d:%d] class name %s already exists in scope\n",2,2,id_name1);
+            System.exit(0);
+        }
 
         TYPE_CLASS t = new TYPE_CLASS(null, id_name1, class_signatures);
         SYMBOL_TABLE.getInstance().enter(id_name1,t);

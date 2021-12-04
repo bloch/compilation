@@ -1,6 +1,6 @@
 package TYPES;
 
-public class TYPE_ARRAY extends TYPE
+public class TYPE_ID extends TYPE
 {
     /*********************************************************************/
     /* If this class does not extend a father class this should be null  */
@@ -10,15 +10,15 @@ public class TYPE_ARRAY extends TYPE
     /****************/
     /* CTROR(S) ... */
     /****************/
-    public TYPE_ARRAY(TYPE type, String name)
+    public TYPE_ID(TYPE type, String name)
     {
         this.type = type;
         this.name = name;
     }
 
-    public TYPE getArrayType(){
+    public TYPE getType(){
         return this.type;
     }
 
-    public boolean isArray(){ return true;}
+    public boolean isTypeId(){return true;}
 }

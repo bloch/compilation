@@ -1,6 +1,7 @@
 package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
+import java.util.*;
 
 public class AST_CLASS_DEC extends AST_DEC {
     public AST_CLASS_DEC cd;
@@ -54,5 +55,39 @@ public class AST_CLASS_DEC extends AST_DEC {
     }
     public TYPE GetSignature() {
         return this.cd.GetSignature();
+    }
+
+
+    //this function check if there is shadowing between vars, funcs , classes inside a class
+    public boolean isShadowing(TYPE_LIST class_signatures){
+        HashSet<String> fieldsNamesSet = new HashSet();
+        for (TYPE_LIST tmp_class_signatures = class_signatures ; tmp_class_signatures != null; tmp_class_signatures = tmp_class_signatures.tail) {
+            TYPE typeField = tmp_class_signatures.head;
+            //retrieve field name
+            String fieldName = typeField.name;
+            if (fieldsNamesSet.contains(fieldName)){
+                //field name already exist --> shadowing --> exit(0)
+                System.out.format(">> ERROR [%d:%d] shadowing in field %s -\n",6,6,fieldName);
+                return true;
+            }
+            else{
+                fieldsNamesSet.add(fieldName);
+            }
+        }
+        return false;
+    }
+
+    public boolean isSignaturesValid(TYPE_LIST class_signatures){
+        for (TYPE_LIST tmp_class_signatures = class_signatures ; tmp_class_signatures != null; tmp_class_signatures = tmp_class_signatures.tail) {
+            TYPE typeField = tmp_class_signatures.head;
+            if (typeField.isTypeId()){
+                TYPE_ID typeId = (TYPE_ID) typeField;
+                typeField = typeId.type;
+            }
+            if (typeField == null){  //type doesn't exist in symbol table
+                return false;
+            }
+        }
+        return true;
     }
 }

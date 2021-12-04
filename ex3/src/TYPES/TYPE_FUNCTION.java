@@ -11,7 +11,7 @@ public class TYPE_FUNCTION extends TYPE
 	/* types of input params */
 	/*************************/
 	public TYPE_LIST params;
-	
+
 	/****************/
 	/* CTROR(S) ... */
 	/****************/
@@ -21,4 +21,6 @@ public class TYPE_FUNCTION extends TYPE
 		this.returnType = returnType;
 		this.params = params;
 	}
+
+	public boolean isFunction(){return true;}
 }
