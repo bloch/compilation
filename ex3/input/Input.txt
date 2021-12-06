@@ -1,17 +1,18 @@
-class Vertex {
-    int foo(int y, string z, int zz) {
-        int ww := 9;
+class Father {
+    int foo;
+
+}
+
+class Son extends Father {
+    int goo;
+    int f(Father s1, Father s2) {
+        int y := 3;
     }
 }
-class Edge extends Vertex{
-    int z;
-}
 
-int foo(int y, string ss) {
-    int z := 4;
-}
+int g() {
+    Son s;
+    Father f2;
 
-int main() {
-    Edge e := new Edge;
-    e.foo(7, "sh", 3);
+    s.f(f2, s);
 }

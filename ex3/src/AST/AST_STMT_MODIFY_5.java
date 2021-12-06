@@ -82,7 +82,8 @@ public class AST_STMT_MODIFY_5 extends AST_STMT{
                         }
                         TYPE t_head = t_func.params.head;
                         TYPE exp_type = exp.SemantMe();
-                        if (exp_type != t_head) {  //first parameter type checking
+                        if (!isT1SubInstanceT2(exp_type, t_head)) {
+                        //if (exp_type != t_head) {  //first parameter type checking
                             System.out.println("ERROR STMT_MODIFY_5: (only) parameter doesn't match");
                             System.exit(0);
                             return null;

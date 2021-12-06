@@ -79,11 +79,55 @@ public class AST_CFIELD_LIST extends AST_Node {
 //    }
 
     public TYPE_LIST GetSignatures() {
-        if (this.tail == null) {
-            return new TYPE_LIST(this.head.GetSignature(), null);
+        TYPE head_type_id = null;
+        if (this.head instanceof AST_CFIELD_FUNC_DEC) {
+            AST_CFIELD_FUNC_DEC cf_func_dec = (AST_CFIELD_FUNC_DEC) this.head;
+            if(cf_func_dec.fd instanceof AST_FUNC_DEC_1) {
+                AST_FUNC_DEC_1 fd_1 = (AST_FUNC_DEC_1) cf_func_dec.fd;
+                head_type_id = new TYPE_ID(fd_1.GetSignature(), fd_1.type_with_id1.id_name);
+            }
+            else if(cf_func_dec.fd instanceof AST_FUNC_DEC_2) {
+                AST_FUNC_DEC_2 fd_2 = (AST_FUNC_DEC_2) cf_func_dec.fd;
+                head_type_id = new TYPE_ID(fd_2.GetSignature(), fd_2.type_with_id1.id_name);
+            }
+            else if(cf_func_dec.fd instanceof AST_FUNC_DEC_3) {
+                AST_FUNC_DEC_3 fd_3 = (AST_FUNC_DEC_3) cf_func_dec.fd;
+                head_type_id = new TYPE_ID(fd_3.GetSignature(), fd_3.type_with_id1.id_name);
+            }
+            else {
+                System.out.format("unreachable code 1 in GetSignatures() of CFL_LIST");
+                System.exit(0);
+            }
+        }
+        else if (this.head instanceof AST_CFIELD_VAR_DEC) {
+            AST_CFIELD_VAR_DEC cf_var_dec = (AST_CFIELD_VAR_DEC) this.head;
+            if(cf_var_dec.vd instanceof AST_VAR_DEC_1) {
+                AST_VAR_DEC_1 vd_1 = (AST_VAR_DEC_1) cf_var_dec.vd;
+                head_type_id = new TYPE_ID(vd_1.GetSignature(), vd_1.type_with_id1.id_name);
+            }
+            else if(cf_var_dec.vd instanceof AST_VAR_DEC_2) {
+                AST_VAR_DEC_2 vd_2 = (AST_VAR_DEC_2) cf_var_dec.vd;
+                head_type_id = new TYPE_ID(vd_2.GetSignature(), vd_2.type_with_id1.id_name);
+            }
+            else if(cf_var_dec.vd instanceof AST_VAR_DEC_3) {
+                AST_VAR_DEC_3 vd_3 = (AST_VAR_DEC_3) cf_var_dec.vd;
+                head_type_id = new TYPE_ID(vd_3.GetSignature(), vd_3.type_with_id1.id_name);
+            }
+            else {
+                System.out.format("unreachable code 1 in GetSignatures() of CFL_LIST");
+                System.exit(0);
+            }
         }
         else {
-            return new TYPE_LIST(this.head.GetSignature(), this.tail.GetSignatures());
+            System.out.format("unreachable code 3 in GetSignatures() of CFL_LIST");
+            System.exit(0);
+        }
+
+        if (this.tail == null) {
+            return new TYPE_LIST(head_type_id, null);
+        }
+        else {
+            return new TYPE_LIST(head_type_id, this.tail.GetSignatures());
         }
     }
 //    public boolean isSignaturesValid(TYPE_LIST class_signatures){

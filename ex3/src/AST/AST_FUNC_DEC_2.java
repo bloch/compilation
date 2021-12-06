@@ -77,14 +77,6 @@ public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
 
         this.stmtList.SemantMe();
 
-//        this.stmtList.head.SemantMe();
-//
-//        AST_STMT_LIST tmp = this.stmtList.tail;
-//        while(tmp != null) {
-//            tmp.head.SemantMe();
-//            tmp = tmp.tail;
-//        }
-
         symbol_table.endScope();
 
         return null;

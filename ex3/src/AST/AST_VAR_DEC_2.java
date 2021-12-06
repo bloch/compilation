@@ -93,7 +93,7 @@ public class AST_VAR_DEC_2 extends AST_VAR_DEC {
     }
 
     public TYPE GetSignature() {
-        return new TYPE_ID(GetSignature(type_with_id1.t), type_with_id1.id_name);
+        return GetSignature(type_with_id1.t);
     }
 
 }

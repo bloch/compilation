@@ -74,8 +74,9 @@ public class AST_STMT_MODIFY_6 extends AST_STMT{
         for (TYPE_CLASS father_class = var_class; father_class != null; father_class = father_class.father) {
             for (TYPE_LIST it = father_class.data_members; it != null; it = it.tail) {
                 if (it.head.name.equals(id_name1)) {
-                    if (it.head.isFunction()) {
-                        TYPE_FUNCTION t_func = (TYPE_FUNCTION) it.head;
+                    TYPE_ID class_member = (TYPE_ID) it.head;
+                    if (class_member.type.isFunction()) {
+                        TYPE_FUNCTION t_func = (TYPE_FUNCTION) class_member.type;
                         if (t_func.params == null) {
                             System.out.println("ERROR STMT_MODIFY_6: function called with 2+ parameters but should 0 parameters");
                             System.exit(0);
@@ -88,7 +89,8 @@ public class AST_STMT_MODIFY_6 extends AST_STMT{
                         }
                         TYPE t_head = t_func.params.head;
                         TYPE exp_type = exp.SemantMe();
-                        if (exp_type != t_head) {  //first parameter type checking
+                        if (!isT1SubInstanceT2(exp_type, t_head)) {
+                        //if (exp_type != t_head) {  //first parameter type checking
                             System.out.println("error in STMT_MODIFY_6: first parameter doesn't match");
                             System.exit(0);
                             return null;
@@ -97,9 +99,11 @@ public class AST_STMT_MODIFY_6 extends AST_STMT{
                         TYPE_LIST l_type_list = l.GetSignatures();
                         TYPE_LIST tmp_l = l_type_list;
                         TYPE_LIST tmp_p = t_func.params.tail;
+
                         while(tmp_l != null && tmp_p != null) {
-                            if (tmp_l.head != tmp_p.head)
-                            {
+                            //System.out.format("\n>> %s %s", tmp_l.head.name, tmp_p.head.name);
+                            if (!isT1SubInstanceT2(tmp_l.head, tmp_p.head)) {       //if (tmp_l.head != tmp_p.head)
+                            //if (tmp_l.head != tmp_p.head)
                                 System.out.println("error in EXP_MODIFY_6: some parameter(second or higher) doesn't match");
                                 System.exit(0);
                                 return null;

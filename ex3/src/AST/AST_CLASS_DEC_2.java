@@ -90,7 +90,7 @@ public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
                     if ((tmp_class_signatures.head.name).equals(superclass_signatures.head.name)){
                         // TODO: add if stmt that check if the fields
                         //  are both vars with the same signature , i.e overriden function in deriveen sub class
-                        if( !isOverriden(tmp_class_signatures.head , superclass_signatures.head) ){
+                        if( !isOverriden((TYPE_ID) tmp_class_signatures.head , (TYPE_ID) superclass_signatures.head) ){
                             System.out.format(">> ERROR: field name already exists in superclass and it's not valid override\n");
                             System.exit(0);
                         }
@@ -98,7 +98,6 @@ public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
                 }
             }
         }
-
 
         TYPE_CLASS t = new TYPE_CLASS(father_class, id_name1, class_signatures);
 
@@ -127,44 +126,44 @@ public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
     }
 
     // this function check if subClassType is override  superClassType
-    public boolean isOverriden(TYPE subClassType , TYPE superClassType){
-        if (subClassType.isTypeId() && superClassType.isTypeId()){
+    public boolean isOverriden(TYPE_ID subClassType , TYPE_ID superClassType){
+
 //            System.out.format(">> ERROR TYPE_ID \n");
-            TYPE_ID subClassTypeId = (TYPE_ID) subClassType;
-            TYPE_ID superClassTypeId = (TYPE_ID) superClassType;
-//            System.out.format("%s , %s \n",subClassTypeId.type.name,superClassTypeId.type.name);
-            if ((subClassTypeId.type.name.equals("int")) && (superClassTypeId.type.name.equals("int"))){
-                return true;
+//            System.out.format("%s , %s \n",subClassType.type.name,superClassType.type.name);
+
+        if ((subClassType.type.name.equals("int")) && (superClassType.type.name.equals("int"))){
+            return true;
+        }
+        if ((subClassType.type.name.equals("string")) && (superClassType.type.name.equals("string"))){
+            return true;
+        }
+        if ((subClassType.type.name.equals("void")) && (superClassType.type.name.equals("void"))){
+            return true;
+        }
+
+        if (subClassType.type.isClass()){
+            if (!superClassType.type.isClass()){
+                return false;
             }
-            if ((subClassTypeId.type.name.equals("string")) && (superClassTypeId.type.name.equals("string"))){
-                return true;
-            }
-            if ((subClassTypeId.type.name.equals("void")) && (superClassTypeId.type.name.equals("void"))){
+            if (subClassType.type.name.equals(superClassType.type.name)){
                 return true;
             }
         }
-        if (subClassType.isClass()){
-            if (!superClassType.isClass()){
+
+        if (subClassType.type.isArray()){
+            if (!superClassType.type.isArray()){
                 return false;
             }
-            if (subClassType.name.equals(subClassType.name)){
+            if (subClassType.type.name.equals(superClassType.type.name)){
                 return true;
             }
         }
-        if (subClassType.isArray()){
-            if (!superClassType.isArray()){
+        if (subClassType.type.isFunction()){
+            if (!superClassType.type.isFunction()){
                 return false;
             }
-            if (subClassType.name.equals(subClassType.name)){
-                return true;
-            }
-        }
-        if (subClassType.isFunction()){
-            if (!superClassType.isFunction()){
-                return false;
-            }
-            TYPE_FUNCTION subClassFuncType = (TYPE_FUNCTION) subClassType;
-            TYPE_FUNCTION superClassFuncType = (TYPE_FUNCTION) superClassType;
+            TYPE_FUNCTION subClassFuncType = (TYPE_FUNCTION) subClassType.type;
+            TYPE_FUNCTION superClassFuncType = (TYPE_FUNCTION) superClassType.type;
             return funcSignaturesComp(subClassFuncType , superClassFuncType);
         }
         System.out.format(">> ERROR : in isOverriden func in AST_CLASS_DEC_2  \n");

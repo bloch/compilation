@@ -73,8 +73,8 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		}
 
 		if (exp != null) t2 = exp.SemantMe();
-
-		if (t1 != t2) {
+		System.out.format("%s , %s", t1.name, t2.name);
+		if (!isT1SubInstanceT2(t2, t1)) {
 			System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
 			System.exit(0);
 		}
