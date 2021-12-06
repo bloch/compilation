@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_EXP_PARENTHESES extends AST_EXP{
     /***************/
@@ -55,5 +57,7 @@ public class AST_EXP_PARENTHESES extends AST_EXP{
         AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
 
     }
+
+    public TYPE SemnatMe(){return this.exp.SemantMe();}
 }
 

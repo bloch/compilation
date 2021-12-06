@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_EXP_MODIFY_4 extends AST_EXP {
     AST_VAR var;
@@ -51,4 +53,40 @@ public class AST_EXP_MODIFY_4 extends AST_EXP {
 
     }
 
+    public TYPE SemantMe() {
+        TYPE v_type = this.var.SemantMe();
+        if (!(v_type instanceof TYPE_CLASS)) {
+            System.out.println(">> ERROR STMT_MODIFY_4: var isn't TYPE_CLASS");
+            System.exit(0);
+            return null;
+        }
+        TYPE_CLASS var_class = (TYPE_CLASS) v_type;
+
+        /************************************/
+        /* [3] Look for id_name1 inside class&super_classes fields names */
+        /************************************/
+        for (TYPE_CLASS father_class = var_class; father_class !=null; father_class = father_class.father) {
+            for (TYPE_LIST it=father_class.data_members; it != null; it=it.tail) {
+                if (it.head.name.equals(id_name)) {
+                    if (it.head.isFunction()) {
+                        TYPE_FUNCTION t_func = (TYPE_FUNCTION) it.head;
+                        if (t_func.params != null) {
+                            System.out.println(">> ERROR STMT_MODIFY_4: should have parameters");
+                            System.exit(0);
+                        }
+                        // Good flow: all OK
+                        return t_func.returnType;
+                    }
+                    else {
+                        System.out.println(">> ERROR STMT_MODIFY_4: ID isn't a class ***method***");
+                        System.exit(0);
+                        return null;
+                    }
+                }
+            }
+        }
+        System.out.println(">> ERROR STMT_MODIFY_4: ID isn't a class(or super-class) member");
+        System.exit(0);
+        return null;
+    }
 }

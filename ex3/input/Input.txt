@@ -1,5 +1,5 @@
 class Vertex {
-    int foo(int y, string z, int zz, int yyy) {
+    int foo(int y, string z, int zz) {
         int ww := 9;
     }
 }
@@ -11,9 +11,7 @@ int foo(int y, string ss) {
     int z := 4;
 }
 
-
-
 int main() {
     Edge e := new Edge;
-    e.foo2323(7, "sh", 777);
+    e.foo(7, "sh", 3);
 }

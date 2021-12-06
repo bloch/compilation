@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_EXP_MODIFY_2 extends AST_EXP {
     public String id_name;
@@ -49,6 +51,34 @@ public class AST_EXP_MODIFY_2 extends AST_EXP {
         /****************************************/
         AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,e.SerialNumber);
 
+    }
+
+    public TYPE SemantMe() {
+        TYPE t = SYMBOL_TABLE.getInstance().find(this.id_name);
+        if (!(t instanceof TYPE_FUNCTION)) {
+            System.out.println(">> ERROR STMT_MODIFY_2: not a function");
+            System.exit(0);
+            return null;
+        }
+        TYPE_FUNCTION t_func = (TYPE_FUNCTION) t;
+        if (t_func.params == null) {
+            System.out.println(">> ERROR STMT_MODIFY_2: shouldn't have parameters");
+            System.exit(0);
+            return null;
+        }
+        if (t_func.params.tail != null) {
+            System.out.println(">> ERROR STMT_MODIFY_2: should have atleast 2+ parameters");
+            System.exit(0);
+            return null;
+        }
+        TYPE t_head = t_func.params.head;
+        TYPE exp_type = e.SemantMe();
+        if (exp_type != t_head) {
+            System.out.println(">> ERROR STMT_MODIFY_2: (only) parameter doesn't match");
+            System.exit(0);
+            return null;
+        }
+        return t_func.returnType;
     }
 
 }

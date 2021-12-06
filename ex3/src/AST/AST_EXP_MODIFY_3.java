@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_EXP_MODIFY_3 extends AST_EXP {
     public String id_name;
@@ -55,4 +57,60 @@ public class AST_EXP_MODIFY_3 extends AST_EXP {
 
     }
 
+
+    public TYPE SemantMe() {
+        TYPE t = SYMBOL_TABLE.getInstance().find(this.id_name);
+        if (!(t instanceof TYPE_FUNCTION)) {
+            System.out.println(">> ERROR STMT_MODIFY_3: not a function");
+            System.exit(0);
+            return null;
+        }
+        TYPE_FUNCTION t_func = (TYPE_FUNCTION) t;
+        if (t_func.params == null) {
+            System.out.println(">> ERROR STMT_MODIFY_3: shouldn't have parameters");
+            System.exit(0);
+            return null;
+        }
+        if (t_func.params.tail == null) {
+            System.out.println(">> ERROR STMT_MODIFY_3: function called with 2+ parameters but should have 1 parameters");
+            System.exit(0);
+            return null;
+        }
+        //first parameter type checking
+        TYPE t_head = t_func.params.head;
+        TYPE exp_type = e.SemantMe();
+        if (exp_type != t_head) {
+            System.out.println(">> ERROR STMT_MODIFY_3: first parameter doesn't match");
+            System.exit(0);
+            return null;
+        }
+
+        TYPE_LIST l_type_list = l.GetSignatures();
+        TYPE_LIST tmp_l = l_type_list;
+        TYPE_LIST tmp_p = t_func.params.tail;
+        while(tmp_l != null && tmp_p != null) {
+            if (tmp_l.head != tmp_p.head)
+            {
+                System.out.println(">> ERROR STMT_MODIFY_3: some parameters don't match");
+                System.exit(0);
+                return null;
+            }
+            tmp_l = tmp_l.tail;
+            tmp_p = tmp_p.tail;
+        }
+        if(tmp_l != null && tmp_p == null)
+        {
+            System.out.println(">> ERROR STMT_MODIFY_3: too many parameters given for function");
+            System.exit(0);
+            return null;
+        }
+        else if (tmp_l == null && tmp_p != null)
+        {
+            System.out.println(">> ERROR STMT_MODIFY_3: not enough parameters given for function");
+            System.exit(0);
+            return null;
+        }
+        // tmp_l and tmp_p now should be null both
+        return t_func.returnType;
+    }
 }
