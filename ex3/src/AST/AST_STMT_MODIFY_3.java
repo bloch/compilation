@@ -75,7 +75,7 @@ public class AST_STMT_MODIFY_3 extends AST_STMT{
         //first parameter type checking
         TYPE t_head = t_func.params.head;
         TYPE exp_type = exp.SemantMe();
-        if (exp_type != t_head) {
+        if (!isT1SubInstanceT2(exp_type, t_head)) {
             System.out.println(">> ERROR STMT_MODIFY_3: first parameter doesn't match");
             System.exit(0);
             return null;
@@ -85,8 +85,8 @@ public class AST_STMT_MODIFY_3 extends AST_STMT{
         TYPE_LIST tmp_l = l_type_list;
         TYPE_LIST tmp_p = t_func.params.tail;
         while(tmp_l != null && tmp_p != null) {
-            if (tmp_l.head != tmp_p.head)
-            {
+            System.out.format("\n>> %s %s", tmp_l.head.name, tmp_p.head.name);
+            if (!isT1SubInstanceT2(tmp_l.head, tmp_p.head)) {       //if (tmp_l.head != tmp_p.head)
                 System.out.println(">> ERROR STMT_MODIFY_3: some parameters don't match");
                 System.exit(0);
                 return null;

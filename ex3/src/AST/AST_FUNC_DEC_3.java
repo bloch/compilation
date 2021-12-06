@@ -90,14 +90,6 @@ public class AST_FUNC_DEC_3 extends AST_FUNC_DEC {
 
         this.stmtList.SemantMe();
 
-//        this.stmtList.head.SemantMe();
-//
-//        AST_STMT_LIST tmp = this.stmtList.tail;
-//        while(tmp != null) {
-//            tmp.head.SemantMe();
-//            tmp = tmp.tail;
-//        }
-
         symbol_table.endScope();
 
         return null;
@@ -115,23 +107,11 @@ public class AST_FUNC_DEC_3 extends AST_FUNC_DEC {
     }
 
     public TYPE_LIST BuildTypeList(AST_PSIK_TYPE_ID_LIST ptil) {
-        if(ptil == null) {
-            return null;
+        if(ptil.tail == null) {
+            return new TYPE_LIST(GetSignature(ptil.type_with_id.t), null);
         }
         else {
-            TYPE arg_type = null;                                // null to be removed in future
-            if (ptil.type_with_id.t instanceof AST_TYPE_INT) {
-                arg_type = TYPE_INT.getInstance();
-            }
-            if (ptil.type_with_id.t instanceof AST_TYPE_STRING) {
-                arg_type = TYPE_STRING.getInstance();
-            }
-            if (ptil.type_with_id.t instanceof AST_TYPE_VOID) {
-                arg_type = TYPE_VOID.getInstance();
-            }
-            // TODO: add conversion of AST_TYPE_ID also..
-
-            return new TYPE_LIST(arg_type, BuildTypeList(ptil.tail));
+            return new TYPE_LIST(GetSignature(ptil.type_with_id.t), BuildTypeList(ptil.tail));
         }
     }
 }

@@ -71,7 +71,7 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
 
         if (ne != null) t2 = ne.SemantMe();
 
-        if (t1 != t2) {
+        if (!isT1SubInstanceT2(t2, t1)) {
             System.out.format(">> ERROR [%d:%d] type mismatch for var := newExp\n",6,6);
             System.exit(0);
         }
