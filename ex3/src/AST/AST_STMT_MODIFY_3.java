@@ -63,7 +63,7 @@ public class AST_STMT_MODIFY_3 extends AST_STMT{
         }
         TYPE_FUNCTION t_func = (TYPE_FUNCTION) t;
         if (t_func.params == null) {
-            System.out.println(">> ERROR STMT_MODIFY_3: should have parameters");
+            System.out.println(">> ERROR STMT_MODIFY_3: shouldn't have parameters");
             System.exit(0);
             return null;
         }
