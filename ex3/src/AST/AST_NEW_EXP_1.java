@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_NEW_EXP_1 extends AST_NEW_EXP {
     public AST_TYPE t;
@@ -47,4 +49,9 @@ public class AST_NEW_EXP_1 extends AST_NEW_EXP {
         AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,t.SerialNumber);
 
     }
+
+    public TYPE SemantMe() {
+        return GetSignature(this.t);
+    }
+
 }

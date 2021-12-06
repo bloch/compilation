@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_STMT_MODIFY_1 extends AST_STMT{
     public String id_name1;
@@ -34,5 +36,24 @@ public class AST_STMT_MODIFY_1 extends AST_STMT{
                 SerialNumber,
                 String.format("STMT_MODIFY_1\nID(%s);\n", id_name1));
 
+    }
+
+    public TYPE SemantMe() {
+        TYPE t = SYMBOL_TABLE.getInstance().find(this.id_name1);
+        if(t == null) {
+            System.out.format(">> ERROR STMT_MODIFY_1: illegal ID name\n",6,6);
+            System.exit(0);
+        }
+        if(!(t.isFunction())) {
+            System.out.format(">> ERROR STMT_MODIFY_1: ID name is not function(AST_STMT_MODIFY_1)\n",6,6);
+            System.exit(0);
+        }
+        TYPE_FUNCTION t_func = (TYPE_FUNCTION) t;
+        if (t_func.params != null) {
+            System.out.println(">> ERROR STMT_MODIFY_1: should have parameters");
+            System.exit(0);
+            return null;
+        }
+        return null;
     }
 }

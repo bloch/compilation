@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 import java.util.ArrayList;
 
@@ -52,6 +54,16 @@ public class AST_PSIK_EXP_LIST extends AST_Node{
 
         for (int counter = 0; counter < lst.size(); counter++) {
             AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,lst.get(counter).SerialNumber);
+        }
+    }
+
+    public TYPE_LIST GetSignatures()
+    {
+        if (this.tail == null) {
+            return new TYPE_LIST(this.head.SemantMe(), null);
+        }
+        else {
+            return new TYPE_LIST(this.head.SemantMe(), this.tail.GetSignatures());
         }
     }
 }

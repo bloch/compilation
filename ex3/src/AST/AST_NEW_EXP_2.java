@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_NEW_EXP_2 extends AST_NEW_EXP {
     public AST_TYPE t;
@@ -51,4 +53,16 @@ public class AST_NEW_EXP_2 extends AST_NEW_EXP {
         AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,e.SerialNumber);
 
     }
+
+    public TYPE SemantMe() {
+        /****************************/
+        /* [0] Semant the expression */
+        /****************************/
+        if (this.e.SemantMe() != TYPE_INT.getInstance()) {
+            System.out.format(">> ERROR [%d:%d] expression inside BRACKETS is not integral\n",2,2);
+        }
+
+        return GetSignature(this.t);
+    }
+
 }

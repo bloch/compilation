@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 import java.util.ArrayList;
 
@@ -58,4 +60,16 @@ public class AST_STMT_LIST extends AST_Node
 			AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,lst.get(counter).SerialNumber);
 		}
 	}
+
+	public TYPE SemantMe() {
+		this.head.SemantMe();
+
+		AST_STMT_LIST tmp = this.tail;
+		while(tmp != null) {
+			tmp.head.SemantMe();
+			tmp = tmp.tail;
+		}
+		return null;
+	}
+
 }
