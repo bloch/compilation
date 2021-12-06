@@ -133,6 +133,4 @@ public class AST_STMT_MODIFY_6 extends AST_STMT{
         System.exit(0);
         return null;
     }
-
-
 }

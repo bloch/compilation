@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_EXP_BINOP extends AST_EXP
 {
@@ -71,4 +73,27 @@ public class AST_EXP_BINOP extends AST_EXP
 		if (left  != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,left.SerialNumber);
 		if (right != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,right.SerialNumber);
 	}
+
+	public TYPE SemantMe() {
+		TYPE t1 = null;
+		TYPE t2 = null;
+
+		if (left != null) t1 = left.SemantMe();
+		if (right != null) t1 = right.SemantMe();
+
+		if ((t1 == TYPE_INT.getInstance()) && (t2 == TYPE_INT.getInstance()))
+		{
+			//TODO: check if t2=0 and op=3  (divizion by zero)
+			return TYPE_INT.getInstance();
+		}
+
+		else if ((t1 == TYPE_STRING.getInstance()) && (t2 == TYPE_STRING.getInstance()) && (this.OP==0))
+		{
+			return TYPE_STRING.getInstance();
+		}
+		System.out.println("illegal binop");
+		System.exit(0);
+		return null;
+	}
+
 }

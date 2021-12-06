@@ -269,7 +269,9 @@ public class SYMBOL_TABLE
 			/* [1] Enter primitive types int, string */
 			/*****************************************/
 			instance.enter("int",   TYPE_INT.getInstance());
-			instance.enter("string",TYPE_STRING.getInstance());
+			instance.enter("string", TYPE_STRING.getInstance());
+			instance.enter("void", TYPE_VOID.getInstance());
+			instance.enter("nil", TYPE_NIL.getInstance());
 
 			/*************************************/
 			/* [2] How should we handle void ??? */

@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_EXP_NIL extends AST_EXP{
 
@@ -24,4 +26,9 @@ public class AST_EXP_NIL extends AST_EXP{
                 SerialNumber,
                 String.format("EXP_NIL\n"));
     }
+
+    public TYPE SemantMe() {
+        return TYPE_NIL.getInstance();
+    }
+
 }
