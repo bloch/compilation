@@ -82,7 +82,7 @@ public class AST_STMT_MODIFY_2 extends AST_STMT {
             return null;
         }
         if (t_func.params.tail != null) {
-            System.out.println(">> ERROR STMT_MODIFY_2: should have only one parameter");
+            System.out.println(">> ERROR STMT_MODIFY_2: should have atleast 2+ parameters");
             System.exit(0);
             return null;
         }
