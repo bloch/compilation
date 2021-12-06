@@ -49,6 +49,16 @@ public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
 
     public TYPE SemantMe()
     {
+        // check if class name already exist, if yes --> exit(0)
+        if (SYMBOL_TABLE.getInstance().find(id_name1) != null) {
+            System.out.format(">> ERROR [%d:%d] class name %s already exists in scope\n",2,2,id_name1);
+            System.exit(0);
+        }
+
+        //TYPE_CLASS t = new TYPE_CLASS(null, id_name1, class_signatures);
+        SYMBOL_TABLE.getInstance().enter(id_name1, new TYPE_CLASS(null, id_name1, null));
+
+
         /************************************************/
         /* [4] Enter the Class Type to the Symbol Table */
         /************************************************/
@@ -74,11 +84,16 @@ public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
             return null;
         }
 
-        // check if class name already exist, if yes --> exit(0)
-        if (SYMBOL_TABLE.getInstance().find(id_name1) != null) {
-            System.out.format(">> ERROR [%d:%d] class name %s already exists in scope\n",2,2,id_name1);
-            System.exit(0);
-        }
+//        // check if class name already exist, if yes --> exit(0)
+//        if (SYMBOL_TABLE.getInstance().find(id_name1) != null) {
+//            System.out.format(">> ERROR [%d:%d] class name %s already exists in scope\n",2,2,id_name1);
+//            System.exit(0);
+//        }
+
+        TYPE_CLASS t = (TYPE_CLASS) SYMBOL_TABLE.getInstance().find(id_name1);
+        t.father = father_class;
+        t.data_members = class_signatures;
+
 
         //check if there is overloading/shadowing of fields inside this class or in super classes of this class
         // NOTE1 : if there is an overriding methods in dervied class it's not an error
@@ -99,9 +114,9 @@ public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
             }
         }
 
-        TYPE_CLASS t = new TYPE_CLASS(father_class, id_name1, class_signatures);
-
-        SYMBOL_TABLE.getInstance().enter(id_name1,t);
+//        TYPE_CLASS t = new TYPE_CLASS(father_class, id_name1, class_signatures);
+//
+//        SYMBOL_TABLE.getInstance().enter(id_name1,t);
 
         /*************************/
         /* [1] Begin Class Scope */

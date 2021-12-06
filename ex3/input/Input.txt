@@ -1,18 +1,6 @@
-class Father {
-    int foo;
-
-}
-
-class Son extends Father {
+class Son {
     int goo;
-    int f(Father s1, Father s2) {
+    int f(Son s1) {
         int y := 3;
     }
-}
-
-int g() {
-    Son s;
-    Father f2;
-
-    s.f(f2, s);
 }

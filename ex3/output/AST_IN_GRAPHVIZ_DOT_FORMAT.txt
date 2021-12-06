@@ -1,15 +1,15 @@
 digraph
 {
 graph [ordering = "out"]
-v55 [label = "Program
+v21 [label = "Program
 "];
-v5 [label = "classDec_1
-ID(Father)
+v18 [label = "classDec_1
+ID(Son)
 "];
 v0 [label = "TYPE_INT
 "];
 v2 [label = "TYPE_WITH_ID
-ID (foo);
+ID (goo);
 "];
 v2 -> v0;
 v1 [label = "varDec_1"];
@@ -17,132 +17,45 @@ v1 -> v2;
 v3 [label = "CFIELD
 VAR_DEC"];
 v3 -> v1;
-v5 -> v3;
-v6 [label = "classDec"];
-v6 -> v5;
-v28 [label = "classDec_2
-ID1(Son) ID2(Father)
+v4 [label = "TYPE_INT
 "];
-v7 [label = "TYPE_INT
-"];
-v9 [label = "TYPE_WITH_ID
-ID (goo);
-"];
-v9 -> v7;
-v8 [label = "varDec_1"];
-v8 -> v9;
-v10 [label = "CFIELD
-VAR_DEC"];
-v10 -> v8;
-v11 [label = "TYPE_INT
-"];
-v23 [label = "TYPE_WITH_ID
+v13 [label = "TYPE_WITH_ID
 ID (f);
 "];
-v23 -> v11;
-v12 [label = "TYPE_ID
-(Father)
-"];
-v24 [label = "TYPE_WITH_ID
-ID (s1);
-"];
-v24 -> v12;
-v22 [label = "funcDec_3
-"];
-v16 [label = "TYPE_INT
-"];
-v19 [label = "TYPE_WITH_ID
-ID (y);
-"];
-v19 -> v16;
-v17 [label = "INT
-(3)"];
-v18 [label = "varDec_2
-"];
-v18 -> v19;
-v18 -> v17;
-v20 [label = "STMT_VAR_DEC
-"];
-v20 -> v18;
-v22 -> v20;
-v13 [label = "TYPE_ID
-(Father)
-"];
-v15 [label = "TYPE_WITH_ID
-ID (s2);
-"];
-v15 -> v13;
-v22 -> v15;
-v22 -> v23;
-v22 -> v24;
-v25 [label = "CFIELD
-FUNC_DEC"];
-v25 -> v22;
-v28 -> v10;
-v28 -> v25;
-v29 [label = "classDec"];
-v29 -> v28;
-v30 [label = "TYPE_INT
-"];
-v50 [label = "TYPE_WITH_ID
-ID (g);
-"];
-v50 -> v30;
-v49 [label = "funcDec_1
-"];
-v31 [label = "TYPE_ID
+v13 -> v4;
+v5 [label = "TYPE_ID
 (Son)
 "];
-v33 [label = "TYPE_WITH_ID
-ID (s);
+v14 [label = "TYPE_WITH_ID
+ID (s1);
 "];
-v33 -> v31;
-v32 [label = "varDec_1"];
-v32 -> v33;
-v34 [label = "STMT_VAR_DEC
+v14 -> v5;
+v12 [label = "funcDec_2
 "];
-v34 -> v32;
-v35 [label = "TYPE_ID
-(Father)
+v6 [label = "TYPE_INT
 "];
-v37 [label = "TYPE_WITH_ID
-ID (f2);
+v9 [label = "TYPE_WITH_ID
+ID (y);
 "];
-v37 -> v35;
-v36 [label = "varDec_1"];
-v36 -> v37;
-v38 [label = "STMT_VAR_DEC
+v9 -> v6;
+v7 [label = "INT
+(3)"];
+v8 [label = "varDec_2
 "];
-v38 -> v36;
-v39 [label = "SIMPLE
-VAR
-(s)"];
-v40 [label = "SIMPLE
-VAR
-(f2)"];
-v41 [label = "EXP
-VAR"];
-v41 -> v40;
-v45 [label = "STMT_MODIFY_6
-var.ID(f)
-(exp psikExpList);
+v8 -> v9;
+v8 -> v7;
+v10 [label = "STMT_VAR_DEC
 "];
-v45 -> v39;
-v45 -> v41;
-v42 [label = "SIMPLE
-VAR
-(s)"];
-v43 [label = "EXP
-VAR"];
-v43 -> v42;
-v45 -> v43;
-v49 -> v34;
-v49 -> v38;
-v49 -> v45;
-v49 -> v50;
-v51 [label = "funcDec"];
-v51 -> v49;
-v55 -> v6;
-v55 -> v29;
-v55 -> v51;
+v10 -> v8;
+v12 -> v10;
+v12 -> v13;
+v12 -> v14;
+v15 [label = "CFIELD
+FUNC_DEC"];
+v15 -> v12;
+v18 -> v3;
+v18 -> v15;
+v19 [label = "classDec"];
+v19 -> v18;
+v21 -> v19;
 }

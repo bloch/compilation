@@ -25,4 +25,15 @@ public class TYPE_LIST
 		}
 		return 1 + tail.numOfParams();
 	}
+
+	public void PrintTypeList() {
+        TYPE_LIST tmp = this;
+		System.out.format("\nTYPE_LIST HOLDS: ");
+        while(tmp != null) {
+            System.out.format("%s\t", tmp.head.name);
+            tmp = tmp.tail;
+        }
+		System.out.format("\n");
+	}
+
 }
