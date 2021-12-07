@@ -80,8 +80,18 @@ public class AST_EXP_BINOP extends AST_EXP
 
 		if (left != null) t1 = left.SemantMe();
 		if (right != null) t2 = right.SemantMe();
+		System.out.format(t1.name);
+		if(t1 == null) {
+			System.out.format("\n>> ERROR IN AST_EXP_BINOP: LEFT EXP DOESN'T EXIST(OP=%d)", OP);
+			System.exit(0);
+		}
+		if(t2 == null) {
+			System.out.format("\n>> ERROR IN AST_EXP_BINOP: RIGHT EXP DOESN'T EXIST(OP=%d)", OP);
+			System.exit(0);
+		}
 
 		if(OP == 6) {			// Equality logic : page 7
+			System.out.println("enter equality in binop");
 			if (isT1SubInstanceT2(t1, t2) || isT1SubInstanceT2(t2, t1)) {
 				return TYPE_INT.getInstance();
 			}
@@ -107,7 +117,7 @@ public class AST_EXP_BINOP extends AST_EXP
 				return TYPE_STRING.getInstance();
 			}
 			else {
-				System.out.println(">> ERROR IN AST_EXP_BINOP: ILLEGAL BINARY OPERATION(-,*,/,<,>,+)");
+				System.out.format(">> ERROR IN AST_EXP_BINOP: ILLEGAL BINARY OPERATION %d", OP);
 				System.exit(0);
 				return null;
 			}

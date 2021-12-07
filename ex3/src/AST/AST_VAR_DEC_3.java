@@ -74,6 +74,8 @@ public class AST_VAR_DEC_3 extends AST_VAR_DEC {
         /**************************************/
         if (SYMBOL_TABLE.getInstance().findInLastScope(type_with_id1.id_name) != null) {
             System.out.format(">> ERROR AST_VAR_DEC_3: variable %s already exists in scope\n",type_with_id1.id_name);
+            System.exit(0);
+            return null;
         }
 
         TYPE exp_type = ne.SemantMe();
