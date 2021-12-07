@@ -49,6 +49,9 @@ public class AST_CFIELD_VAR_DEC extends AST_CFIELD{
         AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,vd.SerialNumber);
     }
     public TYPE SemantMe() { return this.vd.SemantMe(); }
+    public TYPE SemantMeClass(TYPE_CLASS type_class) { return this.vd.SemantMeClass(type_class); }
+
+
     public TYPE GetSignature() {
         return this.vd.GetSignature();
     }

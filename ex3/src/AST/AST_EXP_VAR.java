@@ -57,4 +57,5 @@ public class AST_EXP_VAR extends AST_EXP
 	}
 
 	public TYPE SemantMe(){ return this.var.SemantMe(); }
+	public TYPE SemantMeClass(TYPE_CLASS type_class){ return this.var.SemantMeClass(type_class); }
 }

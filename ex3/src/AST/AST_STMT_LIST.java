@@ -72,4 +72,15 @@ public class AST_STMT_LIST extends AST_Node
 		return null;
 	}
 
+	public TYPE SemantMeClass(TYPE_CLASS type_class){
+		this.head.SemantMeClass(type_class);
+
+		AST_STMT_LIST tmp = this.tail;
+		while(tmp != null) {
+			tmp.head.SemantMeClass(type_class);
+			tmp = tmp.tail;
+		}
+		return null;
+	}
+
 }

@@ -98,7 +98,8 @@ public class AST_CLASS_DEC_1 extends AST_CLASS_DEC {
         /* [2] Semant Data Members */
         /***************************/
 
-        this.cfl.SemantMe();
+        this.cfl.SemantMeClass(t);
+//        this.cfl.SemantMe();
 
         /*****************/
         /* [3] End Scope */

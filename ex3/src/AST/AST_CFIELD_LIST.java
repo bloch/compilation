@@ -60,6 +60,17 @@ public class AST_CFIELD_LIST extends AST_Node {
         }
     }
 
+    public TYPE SemantMeClass(TYPE_CLASS type_class) {
+        this.head.SemantMeClass(type_class);
+
+        AST_CFIELD_LIST tmp = this.tail;
+        while(tmp != null) {
+            tmp.head.SemantMeClass(type_class);
+            tmp = tmp.tail;
+        }
+        return null;
+    }
+
     public TYPE SemantMe() {
         this.head.SemantMe();
 

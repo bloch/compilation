@@ -1,2 +1,16 @@
-class Father { int i := 9; }
-class Son extends Father { int j := i; }
+class Father
+{
+    int i := 9;
+}
+
+class Son extends Father
+{
+    int j := 3;
+    int foo(){
+        Father f;
+        f.i := j;
+    }
+}
+
+
+

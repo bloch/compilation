@@ -69,7 +69,24 @@ public class AST_FUNC_DEC_1 extends AST_FUNC_DEC {
 
         return null;
     }
-    public TYPE GetSignature() {
+
+    public TYPE SemantMeClass(TYPE_CLASS type_class) {//now func_dec_1 is in class scope
+        SYMBOL_TABLE symbol_table = SYMBOL_TABLE.getInstance();
+
+        TYPE_FUNCTION function_signature = (TYPE_FUNCTION) this.GetSignature(); // signatures aren't related to class fields
+
+        symbol_table.enter(this.type_with_id1.id_name, function_signature);
+
+        symbol_table.beginScope();
+
+        this.stmtList.SemantMeClass(type_class);
+
+        symbol_table.endScope();
+
+        return null;
+
+
+        public TYPE GetSignature() {
         TYPE return_type = GetSignature(type_with_id1.t);
         if(return_type == null) {
             System.out.format(">> ERROR AST_FUNC_DEC_1 : Return Type doesn't exist");

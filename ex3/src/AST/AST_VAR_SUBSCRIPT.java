@@ -93,4 +93,8 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		return null;
 	}
 
+	public String getNameOfVar(){
+		return this.var.getNameOfVar();
+	}
+
 }

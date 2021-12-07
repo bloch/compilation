@@ -112,4 +112,8 @@ public class AST_VAR_FIELD extends AST_VAR
 		return null;
 	}
 
+	public String getNameOfVar(){
+		return this.var.getNameOfVar();
+	}
+
 }
