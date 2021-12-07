@@ -63,7 +63,20 @@ public class AST_FUNC_DEC_1 extends AST_FUNC_DEC {
 
         symbol_table.beginScope();
 
-        this.stmtList.SemantMe();
+        TYPE return_type = GetSignature(type_with_id1.t);
+
+        this.stmtList.SemantMe(return_type);
+
+//        TYPE t = this.stmtList.SemantMe(return_type);
+//        if (t == null && !(return_type instanceof TYPE_VOID))
+//        {
+//            System.out.println(">> ERROR STMT_LIST: function doesn't have return statement but return type isn't void");
+//            System.exit(0);
+//            return null;
+//        }
+
+//        TYPE t = this.stmtList.SemantMe();
+
 
         symbol_table.endScope();
 

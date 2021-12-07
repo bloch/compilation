@@ -61,15 +61,122 @@ public class AST_STMT_LIST extends AST_Node
 		}
 	}
 
-	public TYPE SemantMe() {
-		this.head.SemantMe();
+//	public TYPE SemantMe() {
+//		this.head.SemantMe();
+//
+//		AST_STMT_LIST tmp = this.tail;
+//		while (tmp != null) {
+//			tmp.head.SemantMe();
+//			tmp = tmp.tail;
+//		}
+//		return null;
+//	}
+//}
 
+	public TYPE SemantMe(TYPE ret_type) {
+		TYPE res = null;
 		AST_STMT_LIST tmp = this.tail;
-		while(tmp != null) {
-			tmp.head.SemantMe();
-			tmp = tmp.tail;
+		if (!(ret_type instanceof TYPE_VOID)) {
+			if (this.head instanceof AST_STMT_RETURN_EXP){
+				AST_STMT_RETURN_EXP a1 = (AST_STMT_RETURN_EXP) this.head;
+				res = a1.SemantMeRet(ret_type);
+			}
+			else if (this.head instanceof AST_STMT_WHILE)
+			{
+				AST_STMT_WHILE a2 = (AST_STMT_WHILE) this.head;
+				res = a2.SemantMeRet(ret_type);
+			}
+			else if (this.head instanceof AST_STMT_IF) {
+				AST_STMT_IF a3 = (AST_STMT_IF) this.head;
+				res = a3.SemantMeRet(ret_type);
+			}
+			else if (this.head instanceof AST_STMT_RETURN) {
+				System.out.println(">> ERROR STMT_RETURN: return_type of function isn't void but the function return nothing");
+				System.exit(0);
+				return null;
+			} else {
+				this.head.SemantMe();
+			}
+
+			while (tmp != null) {
+				if (tmp.head instanceof AST_STMT_RETURN_EXP){
+					AST_STMT_RETURN_EXP a1 = (AST_STMT_RETURN_EXP) tmp.head;
+					res = a1.SemantMeRet(ret_type);
+				}
+				else if (tmp.head instanceof AST_STMT_WHILE)
+				{
+					AST_STMT_WHILE a2 = (AST_STMT_WHILE) tmp.head;
+					res = a2.SemantMeRet(ret_type);
+				}
+				else if (tmp.head instanceof AST_STMT_IF) {
+					AST_STMT_IF a3 = (AST_STMT_IF) tmp.head;
+					res = a3.SemantMeRet(ret_type);
+				}
+				else if (tmp.head instanceof AST_STMT_RETURN) {
+					System.out.println(">> ERROR STMT_RETURN: return_type of function isn't void but the function return nothing");
+					System.exit(0);
+					return null;
+				} else {
+					tmp.head.SemantMe();
+				}
+				tmp = tmp.tail;
+			}
+//			if (!flag) {
+//				System.out.println(">> ERROR STMT_LIST: function doesn't have return statement but return type isn't void");
+//				System.exit(0);
+//				return null;
+//			}
+			if (res == null) {
+				System.out.println(">> ERROR STMT_LIST: function doesn't have return statement but return type isn't void");
+				System.exit(0);
+				return null;
+			}
 		}
-		return null;
+
+		else
+		{
+			if (this.head instanceof AST_STMT_RETURN_EXP) {
+				System.out.println(">> ERROR STMT_RETURN: return_type of function is void but the function return something");
+				System.exit(0);
+				return null;
+			} else if (this.head instanceof AST_STMT_WHILE){
+				AST_STMT_WHILE a2 = (AST_STMT_WHILE) this.head;
+				res = a2.SemantMeRet(ret_type);
+			}
+			else if (this.head instanceof AST_STMT_IF) {
+				AST_STMT_IF a3 = (AST_STMT_IF) this.head;
+				res = a3.SemantMeRet(ret_type);
+			}
+			else {this.head.SemantMe();}
+
+			while (tmp != null) {
+				if (tmp.head instanceof AST_STMT_RETURN_EXP) {
+					System.out.println(">> ERROR STMT_RETURN: return_type of function is void but the function return something");
+					System.exit(0);
+					return null;
+				}
+				else if (tmp.head instanceof AST_STMT_WHILE)
+				{
+					AST_STMT_WHILE a2 = (AST_STMT_WHILE) tmp.head;
+					res = a2.SemantMeRet(ret_type);
+				}
+				else if (tmp.head instanceof AST_STMT_IF) {
+					AST_STMT_IF a3 = (AST_STMT_IF) tmp.head;
+					res = a3.SemantMeRet(ret_type);
+				}
+				else {
+					res = tmp.head.SemantMe();
+				}
+				tmp = tmp.tail;
+			}
+			if (res != null) {
+				System.out.println(">> ERROR STMT_RETURN: return_type of function is void but the function return something");
+				System.exit(0);
+				return null;
+			}
+		}
+
+		return res;
 	}
 
 }

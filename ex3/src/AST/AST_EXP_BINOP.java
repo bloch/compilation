@@ -83,6 +83,15 @@ public class AST_EXP_BINOP extends AST_EXP
 
 		if ((t1 == TYPE_INT.getInstance()) && (t2 == TYPE_INT.getInstance()))
 		{
+			if (right instanceof AST_EXP_INT) {
+				AST_EXP_INT tmp_r = (AST_EXP_INT) right;
+				if (this.OP == 3 && tmp_r.value == 0)
+				{
+					System.out.println("divizion by zero");
+					System.exit(0);
+					return null;
+				}
+			}
 			//TODO: check if t2=0 and op=3  (divizion by zero)
 			return TYPE_INT.getInstance();
 		}
@@ -90,6 +99,13 @@ public class AST_EXP_BINOP extends AST_EXP
 		else if ((t1 == TYPE_STRING.getInstance()) && (t2 == TYPE_STRING.getInstance()) && (this.OP==0))
 		{
 			return TYPE_STRING.getInstance();
+		}
+		else if (this.OP == 6)
+		{
+			if ((t1 == TYPE_NIL.getInstance() && (t2.isClass() || t2.isArray()))||
+					(t2 == TYPE_NIL.getInstance() && (t1.isClass() || t1.isArray()))||
+					isT1SubInstanceT2(t1, t2) || isT1SubInstanceT2(t2, t1))
+				return TYPE_INT.getInstance();
 		}
 		System.out.println("illegal binop");
 		System.exit(0);

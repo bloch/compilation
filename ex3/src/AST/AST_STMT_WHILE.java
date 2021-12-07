@@ -57,7 +57,7 @@ public class AST_STMT_WHILE extends AST_STMT
 
 	}
 
-	public TYPE SemantMe()
+	public TYPE SemantMeRet(TYPE ret_type)
 	{
 		/****************************/
 		/* [0] Semant the Condition */
@@ -75,7 +75,7 @@ public class AST_STMT_WHILE extends AST_STMT
 		/***************************/
 		/* [2] Semant Data Members */
 		/***************************/
-		body.SemantMe();
+		TYPE t = body.SemantMe(ret_type);
 
 		/*****************/
 		/* [3] End Scope */
@@ -85,7 +85,7 @@ public class AST_STMT_WHILE extends AST_STMT
 		/*********************************************************/
 		/* [4] Return value is irrelevant for class declarations */
 		/*********************************************************/
-		return null;
+		return t;
 	}
 
 }
