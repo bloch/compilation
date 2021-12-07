@@ -1,7 +1,7 @@
 digraph
 {
 graph [ordering = "out"]
-v55 [label = "Program
+v61 [label = "Program
 "];
 v5 [label = "classDec_1
 ID(Father)
@@ -20,7 +20,7 @@ v3 -> v1;
 v5 -> v3;
 v6 [label = "classDec"];
 v6 -> v5;
-v28 [label = "classDec_2
+v31 [label = "classDec_2
 ID1(Son) ID2(Father)
 "];
 v7 [label = "TYPE_INT
@@ -36,18 +36,18 @@ VAR_DEC"];
 v10 -> v8;
 v11 [label = "TYPE_INT
 "];
-v23 [label = "TYPE_WITH_ID
+v26 [label = "TYPE_WITH_ID
 ID (f);
 "];
-v23 -> v11;
+v26 -> v11;
 v12 [label = "TYPE_ID
 (Father)
 "];
-v24 [label = "TYPE_WITH_ID
+v27 [label = "TYPE_WITH_ID
 ID (s1);
 "];
-v24 -> v12;
-v22 [label = "funcDec_3
+v27 -> v12;
+v25 [label = "funcDec_3
 "];
 v16 [label = "TYPE_INT
 "];
@@ -64,7 +64,15 @@ v18 -> v17;
 v20 [label = "STMT_VAR_DEC
 "];
 v20 -> v18;
-v22 -> v20;
+v21 [label = "INT
+(5)"];
+v22 [label = "STMT
+RETURN
+EXP
+"];
+v22 -> v21;
+v25 -> v20;
+v25 -> v22;
 v13 [label = "TYPE_ID
 (Father)
 "];
@@ -72,77 +80,85 @@ v15 [label = "TYPE_WITH_ID
 ID (s2);
 "];
 v15 -> v13;
-v22 -> v15;
-v22 -> v23;
-v22 -> v24;
-v25 [label = "CFIELD
+v25 -> v15;
+v25 -> v26;
+v25 -> v27;
+v28 [label = "CFIELD
 FUNC_DEC"];
-v25 -> v22;
-v28 -> v10;
 v28 -> v25;
-v29 [label = "classDec"];
-v29 -> v28;
-v30 [label = "TYPE_INT
+v31 -> v10;
+v31 -> v28;
+v32 [label = "classDec"];
+v32 -> v31;
+v33 [label = "TYPE_INT
 "];
-v50 [label = "TYPE_WITH_ID
+v56 [label = "TYPE_WITH_ID
 ID (g);
 "];
-v50 -> v30;
-v49 [label = "funcDec_1
+v56 -> v33;
+v55 [label = "funcDec_1
 "];
-v31 [label = "TYPE_ID
+v34 [label = "TYPE_ID
 (Son)
 "];
-v33 [label = "TYPE_WITH_ID
+v36 [label = "TYPE_WITH_ID
 ID (s);
 "];
-v33 -> v31;
-v32 [label = "varDec_1"];
-v32 -> v33;
-v34 [label = "STMT_VAR_DEC
-"];
-v34 -> v32;
-v35 [label = "TYPE_ID
-(Father)
-"];
-v37 [label = "TYPE_WITH_ID
-ID (f2);
+v36 -> v34;
+v35 [label = "varDec_1"];
+v35 -> v36;
+v37 [label = "STMT_VAR_DEC
 "];
 v37 -> v35;
-v36 [label = "varDec_1"];
-v36 -> v37;
-v38 [label = "STMT_VAR_DEC
+v38 [label = "TYPE_ID
+(Father)
 "];
-v38 -> v36;
-v39 [label = "SIMPLE
-VAR
-(s)"];
-v40 [label = "SIMPLE
-VAR
-(f2)"];
-v41 [label = "EXP
-VAR"];
-v41 -> v40;
-v45 [label = "STMT_MODIFY_6
-var.ID(f)
-(exp psikExpList);
+v40 [label = "TYPE_WITH_ID
+ID (f2);
 "];
-v45 -> v39;
-v45 -> v41;
+v40 -> v38;
+v39 [label = "varDec_1"];
+v39 -> v40;
+v41 [label = "STMT_VAR_DEC
+"];
+v41 -> v39;
 v42 [label = "SIMPLE
 VAR
 (s)"];
-v43 [label = "EXP
+v43 [label = "SIMPLE
+VAR
+(f2)"];
+v44 [label = "EXP
 VAR"];
-v43 -> v42;
-v45 -> v43;
-v49 -> v34;
-v49 -> v38;
-v49 -> v45;
-v49 -> v50;
-v51 [label = "funcDec"];
-v51 -> v49;
-v55 -> v6;
-v55 -> v29;
-v55 -> v51;
+v44 -> v43;
+v48 [label = "STMT_MODIFY_6
+var.ID(f)
+(exp psikExpList);
+"];
+v48 -> v42;
+v48 -> v44;
+v45 [label = "SIMPLE
+VAR
+(s)"];
+v46 [label = "EXP
+VAR"];
+v46 -> v45;
+v48 -> v46;
+v49 [label = "INT
+(5)"];
+v50 [label = "STMT
+RETURN
+EXP
+"];
+v50 -> v49;
+v55 -> v37;
+v55 -> v41;
+v55 -> v48;
+v55 -> v50;
+v55 -> v56;
+v57 [label = "funcDec"];
+v57 -> v55;
+v61 -> v6;
+v61 -> v32;
+v61 -> v57;
 }
