@@ -56,8 +56,6 @@ public class AST_VAR_DEC_2 extends AST_VAR_DEC {
         // We want to check if id_name1 is a good variable name, if not - error
         // if yes - enter to symbol table
 
-        // TODO: add type checking
-
         TYPE type = GetSignature(type_with_id1.t);
 
         /****************************/

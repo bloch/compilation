@@ -61,7 +61,7 @@ public abstract class AST_Node
 	// return true iff t1 is subclass of t2
 	// tmp objects for grasp?
 	public static boolean isT1SubInstanceT2_helper(TYPE_CLASS t1 , TYPE_CLASS t2){
-		System.out.format("\nt1: %s t2: %s", t1.name, t2.name);
+		//System.out.format("\nt1: %s t2: %s", t1.name, t2.name);
 		if (t1.name.equals(t2.name)){//type ar equal
 			return true;
 		}
