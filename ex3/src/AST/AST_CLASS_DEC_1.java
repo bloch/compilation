@@ -48,12 +48,20 @@ public class AST_CLASS_DEC_1 extends AST_CLASS_DEC {
 
     public TYPE SemantMe()
     {
+        // check if class name already exist, if yes --> exit(0)
+        if (SYMBOL_TABLE.getInstance().find(id_name1) != null) {
+            System.out.format(">> ERROR [%d:%d] class name %s already exists in scope\n",2,2,id_name1);
+            System.exit(0);
+        }
+
+        //TYPE_CLASS t = new TYPE_CLASS(null, id_name1, class_signatures);
+        SYMBOL_TABLE.getInstance().enter(id_name1, new TYPE_CLASS(null, id_name1, null));
 
         TYPE_LIST class_signatures = cfl.GetSignatures();
 
         //check if all class signatures appears inside symbol table
         if (isSignaturesValid(class_signatures) == false){
-            System.out.format(">> ERROR : some signatures types doesn't appear inside symbol table\n");
+            System.out.format(">> ERROR : some cfield signatures types doesn't appear inside symbol table\n");
             System.exit(0);
         }
 
@@ -63,14 +71,23 @@ public class AST_CLASS_DEC_1 extends AST_CLASS_DEC {
             System.exit(0);
         }
 
-        // check if class name already exist, if yes --> exit(0)
-        if (SYMBOL_TABLE.getInstance().find(id_name1) != null) {
-            System.out.format(">> ERROR [%d:%d] class name %s already exists in scope\n",2,2,id_name1);
-            System.exit(0);
-        }
+//        // check if class name already exist, if yes --> exit(0)
+//        if (SYMBOL_TABLE.getInstance().find(id_name1) != null) {
+//            System.out.format(">> ERROR [%d:%d] class name %s already exists in scope\n",2,2,id_name1);
+//            System.exit(0);
+//        }
 
-        TYPE_CLASS t = new TYPE_CLASS(null, id_name1, class_signatures);
-        SYMBOL_TABLE.getInstance().enter(id_name1,t);
+        TYPE_CLASS t = (TYPE_CLASS) SYMBOL_TABLE.getInstance().find(id_name1);
+        t.data_members = class_signatures;
+
+////       FOR DEBUG ONLY
+//        TYPE_CLASS t2 = (TYPE_CLASS) SYMBOL_TABLE.getInstance().find(id_name1);
+//        TYPE_LIST tmp = t2.data_members;
+//        tmp.PrintTypeList();
+
+
+//        TYPE_CLASS t = new TYPE_CLASS(null, id_name1, class_signatures);
+//        SYMBOL_TABLE.getInstance().enter(id_name1,t);
 
         /*************************/
         /* [1] Begin Class Scope */

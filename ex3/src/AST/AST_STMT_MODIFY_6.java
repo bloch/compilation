@@ -89,8 +89,13 @@ public class AST_STMT_MODIFY_6 extends AST_STMT{
                         }
                         TYPE t_head = t_func.params.head;
                         TYPE exp_type = exp.SemantMe();
-                        if (!isT1SubInstanceT2(exp_type, t_head)) {
-                        //if (exp_type != t_head) {  //first parameter type checking
+                        if (exp_type == null) {
+                            System.out.println(">> ERROR STMT_MODIFY_6: first parameter for function doesn't exist");
+                            System.exit(0);
+                            return null;
+                        }
+                        if (!isT1SubInstanceT2(exp_type, t_head)) { //first parameter type checking
+                        //if (exp_type != t_head) {
                             System.out.println("error in STMT_MODIFY_6: first parameter doesn't match");
                             System.exit(0);
                             return null;
@@ -102,6 +107,11 @@ public class AST_STMT_MODIFY_6 extends AST_STMT{
 
                         while(tmp_l != null && tmp_p != null) {
                             //System.out.format("\n>> %s %s", tmp_l.head.name, tmp_p.head.name);
+                            if (tmp_l.head == null) {
+                                System.out.println(">> ERROR STMT_MODIFY_6: some parameter(second or higher) for function doesn't exist");
+                                System.exit(0);
+                                return null;
+                            }
                             if (!isT1SubInstanceT2(tmp_l.head, tmp_p.head)) {       //if (tmp_l.head != tmp_p.head)
                             //if (tmp_l.head != tmp_p.head)
                                 System.out.println("error in EXP_MODIFY_6: some parameter(second or higher) doesn't match");

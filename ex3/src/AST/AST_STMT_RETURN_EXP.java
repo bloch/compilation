@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_STMT_RETURN_EXP extends AST_STMT{
     public AST_EXP exp;
@@ -49,4 +51,15 @@ public class AST_STMT_RETURN_EXP extends AST_STMT{
         /****************************************/
         AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,exp.SerialNumber);
     }
+
+    public TYPE SemantMe() {
+        TYPE exp_type = exp.SemantMe();
+        if (exp_type == null) {
+            System.out.println(">> ERROR STMT_RETURN_EXP: illegal return exp");
+            System.exit(0);
+            return null;
+        }
+        return null;
+    }
+
 }

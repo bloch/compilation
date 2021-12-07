@@ -1,4 +1,6 @@
 package AST;
+import SYMBOL_TABLE.*;
+import TYPES.*;
 
 public class AST_STMT_RETURN extends AST_STMT{
 
@@ -31,5 +33,9 @@ public class AST_STMT_RETURN extends AST_STMT{
         AST_GRAPHVIZ.getInstance().logNode(
                 SerialNumber,
                 String.format("STMT\nRETURN\n"));
+    }
+
+    public TYPE SemantMe() {
+        return null;
     }
 }

@@ -98,8 +98,16 @@ public class AST_FUNC_DEC_3 extends AST_FUNC_DEC {
     public TYPE GetSignature() {
 
         TYPE return_type = GetSignature(type_with_id1.t);
+        if(return_type == null) {
+            System.out.format(">> ERROR AST_FUNC_DEC_3 : Return Type doesn't exist");
+            System.exit(0);
+        }
 
         TYPE arg1_type = GetSignature(type_with_id2.t);
+        if(arg1_type == null) {
+            System.out.format(">> ERROR AST_FUNC_DEC_3 : first parameter type doesn't exist");
+            System.exit(0);
+        }
 
         TYPE_LIST type_list = BuildTypeList(this.ptil);
 
@@ -107,11 +115,16 @@ public class AST_FUNC_DEC_3 extends AST_FUNC_DEC {
     }
 
     public TYPE_LIST BuildTypeList(AST_PSIK_TYPE_ID_LIST ptil) {
+        TYPE head_type = GetSignature(ptil.type_with_id.t);
+        if(head_type == null) {
+            System.out.format(">> ERROR AST_FUNC_DEC_3 : some parameter(second or higher) type doesn't exist");
+            System.exit(0);
+        }
         if(ptil.tail == null) {
-            return new TYPE_LIST(GetSignature(ptil.type_with_id.t), null);
+            return new TYPE_LIST(head_type, null);
         }
         else {
-            return new TYPE_LIST(GetSignature(ptil.type_with_id.t), BuildTypeList(ptil.tail));
+            return new TYPE_LIST(head_type, BuildTypeList(ptil.tail));
         }
     }
 }

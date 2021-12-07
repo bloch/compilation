@@ -68,8 +68,9 @@ public class AST_STMT_MODIFY_5 extends AST_STMT{
         for (TYPE_CLASS father_class = var_class; father_class != null; father_class = father_class.father) {
             for (TYPE_LIST it = father_class.data_members; it != null; it = it.tail) {
                 if (it.head.name.equals(id_name1)) {
-                    if (it.head.isFunction()) {
-                        TYPE_FUNCTION t_func = (TYPE_FUNCTION) it.head;
+                    TYPE_ID class_member = (TYPE_ID) it.head;
+                    if (class_member.type.isFunction()) {
+                        TYPE_FUNCTION t_func = (TYPE_FUNCTION) class_member.type;
                         if (t_func.params == null) {
                             System.out.println("ERROR STMT_MODIFY_5: function called with 1 parameters but should have 0 parameters");
                             System.exit(0);
@@ -82,6 +83,11 @@ public class AST_STMT_MODIFY_5 extends AST_STMT{
                         }
                         TYPE t_head = t_func.params.head;
                         TYPE exp_type = exp.SemantMe();
+                        if (exp_type == null) {
+                            System.out.println(">> ERROR STMT_MODIFY_5: single parameter for function doesn't exist");
+                            System.exit(0);
+                            return null;
+                        }
                         if (!isT1SubInstanceT2(exp_type, t_head)) {
                         //if (exp_type != t_head) {  //first parameter type checking
                             System.out.println("ERROR STMT_MODIFY_5: (only) parameter doesn't match");
