@@ -71,6 +71,10 @@ public class AST_FUNC_DEC_1 extends AST_FUNC_DEC {
     }
     public TYPE GetSignature() {
         TYPE return_type = GetSignature(type_with_id1.t);
+        if(return_type == null) {
+            System.out.format(">> ERROR AST_FUNC_DEC_1 : Return Type doesn't exist");
+            System.exit(0);
+        }
         return new TYPE_FUNCTION(return_type, this.type_with_id1.id_name, null);
     }
 

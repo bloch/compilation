@@ -3,59 +3,58 @@ digraph
 graph [ordering = "out"]
 v21 [label = "Program
 "];
-v18 [label = "classDec_1
-ID(Son)
-"];
-v0 [label = "TYPE_INT
+v0 [label = "TYPE_STRING
 "];
 v2 [label = "TYPE_WITH_ID
-ID (goo);
+ID (s1);
 "];
 v2 -> v0;
 v1 [label = "varDec_1"];
 v1 -> v2;
-v3 [label = "CFIELD
-VAR_DEC"];
+v3 [label = "varDec"];
 v3 -> v1;
-v4 [label = "TYPE_INT
+v4 [label = "TYPE_STRING
 "];
-v13 [label = "TYPE_WITH_ID
-ID (f);
+v7 [label = "TYPE_WITH_ID
+ID (s2);
 "];
-v13 -> v4;
-v5 [label = "TYPE_ID
-(Son)
+v7 -> v4;
+v5 [label = "STRING('HankSchrader')"];
+v6 [label = "varDec_2
 "];
-v14 [label = "TYPE_WITH_ID
-ID (s1);
+v6 -> v7;
+v6 -> v5;
+v8 [label = "varDec"];
+v8 -> v6;
+v9 [label = "TYPE_INT
 "];
-v14 -> v5;
-v12 [label = "funcDec_2
+v16 [label = "TYPE_WITH_ID
+ID (i);
 "];
-v6 [label = "TYPE_INT
+v16 -> v9;
+v10 [label = "SIMPLE
+VAR
+(s1)"];
+v11 [label = "EXP
+VAR"];
+v11 -> v10;
+v12 [label = "SIMPLE
+VAR
+(s2)"];
+v13 [label = "EXP
+VAR"];
+v13 -> v12;
+v14 [label = "BINOP
+(=)"];
+v14 -> v11;
+v14 -> v13;
+v15 [label = "varDec_2
 "];
-v9 [label = "TYPE_WITH_ID
-ID (y);
-"];
-v9 -> v6;
-v7 [label = "INT
-(3)"];
-v8 [label = "varDec_2
-"];
-v8 -> v9;
-v8 -> v7;
-v10 [label = "STMT_VAR_DEC
-"];
-v10 -> v8;
-v12 -> v10;
-v12 -> v13;
-v12 -> v14;
-v15 [label = "CFIELD
-FUNC_DEC"];
-v15 -> v12;
-v18 -> v3;
-v18 -> v15;
-v19 [label = "classDec"];
-v19 -> v18;
-v21 -> v19;
+v15 -> v16;
+v15 -> v14;
+v17 [label = "varDec"];
+v17 -> v15;
+v21 -> v3;
+v21 -> v8;
+v21 -> v17;
 }

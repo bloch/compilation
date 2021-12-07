@@ -67,8 +67,9 @@ public class AST_STMT_MODIFY_4 extends AST_STMT{
         for (TYPE_CLASS father_class = var_class; father_class !=null; father_class = father_class.father) {
             for (TYPE_LIST it=father_class.data_members; it != null; it=it.tail) {
                 if (it.head.name.equals(id_name1)) {
-                    if (it.head.isFunction()){
-                        TYPE_FUNCTION t_func = (TYPE_FUNCTION) it.head;
+                    TYPE_ID class_member = (TYPE_ID) it.head;
+                    if (class_member.type.isFunction()){
+                        TYPE_FUNCTION t_func = (TYPE_FUNCTION) class_member.type;
                         if (t_func.params != null) {
                             System.out.println(">> ERROR STMT_MODIFY_4: should have parameters");
                             System.exit(0);

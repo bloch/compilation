@@ -44,16 +44,16 @@ public class AST_EXP_MODIFY_1 extends AST_EXP {
     public TYPE SemantMe() {
         TYPE t = SYMBOL_TABLE.getInstance().find(this.id_name);
         if(t == null) {
-            System.out.format(">> ERROR STMT_MODIFY_1: illegal ID name\n",6,6);
+            System.out.format(">> ERROR EXP_MODIFY_1: illegal ID name\n",6,6);
             System.exit(0);
         }
         if(!(t.isFunction())) {
-            System.out.format(">> ERROR STMT_MODIFY_1: ID name is not function(AST_STMT_MODIFY_1)\n",6,6);
+            System.out.format(">> ERROR EXP_MODIFY_1: ID name is not function(AST_STMT_MODIFY_1)\n",6,6);
             System.exit(0);
         }
         TYPE_FUNCTION t_func = (TYPE_FUNCTION) t;
         if (t_func.params != null) {
-            System.out.println(">> ERROR STMT_MODIFY_1: should have parameters");
+            System.out.println(">> ERROR EXP_MODIFY_1: should have parameters");
             System.exit(0);
             return null;
         }

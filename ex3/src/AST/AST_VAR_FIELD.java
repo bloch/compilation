@@ -91,12 +91,13 @@ public class AST_VAR_FIELD extends AST_VAR
 			for (TYPE_LIST it=tmp_class.data_members ; it != null ; it=it.tail)
 			{
 				if (it.head.name.equals(fieldName)) {
-					if (it.head.isFunction()){
+					TYPE_ID class_member = (TYPE_ID) it.head;
+					if (class_member.type.isFunction()){
 						System.out.format(">> ERROR : expected var and recieved function in AST_VAR_FIELD)");
 						System.exit(0);
 					}
 					else{
-						return it.head;
+						return class_member.type;
 					}
 
 				}

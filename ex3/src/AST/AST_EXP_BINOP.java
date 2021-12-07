@@ -79,21 +79,53 @@ public class AST_EXP_BINOP extends AST_EXP
 		TYPE t2 = null;
 
 		if (left != null) t1 = left.SemantMe();
-		if (right != null) t1 = right.SemantMe();
+		if (right != null) t2 = right.SemantMe();
 
-		if ((t1 == TYPE_INT.getInstance()) && (t2 == TYPE_INT.getInstance()))
-		{
-			//TODO: check if t2=0 and op=3  (divizion by zero)
-			return TYPE_INT.getInstance();
+		if(OP == 6) {			// Equality logic : page 7
+			if (isT1SubInstanceT2(t1, t2) || isT1SubInstanceT2(t2, t1)) {
+				return TYPE_INT.getInstance();
+			}
+			else {
+				System.out.println("\n>> ERROR IN AST_EXP_BINOP: ILLEGAL EQUALITY(=) CHECKING");
+				System.exit(0);
+				return null;
+			}
+		}
+		else {	// Binary Operations : page 8
+			if ((t1 == TYPE_INT.getInstance()) && (t2 == TYPE_INT.getInstance())) {
+				if (this.OP == 3 && right instanceof AST_EXP_INT) {
+					AST_EXP_INT tmp_r = (AST_EXP_INT) right;
+					if (tmp_r.value == 0) {
+						System.out.println("\n>> ERROR IN AST_EXP_BINOP: DIVISION BY ZERO");
+						System.exit(0);
+						return null;
+					}
+				}
+				return TYPE_INT.getInstance();
+			}
+			else if ((t1 == TYPE_STRING.getInstance()) && (t2 == TYPE_STRING.getInstance()) && (this.OP==0)) {
+				return TYPE_STRING.getInstance();
+			}
+			else {
+				System.out.println("n>> ERROR IN AST_EXP_BINOP: ILLEGAL BINARY OPERATION(-,*,/,<,>,+)");
+				System.exit(0);
+				return null;
+			}
 		}
 
-		else if ((t1 == TYPE_STRING.getInstance()) && (t2 == TYPE_STRING.getInstance()) && (this.OP==0))
-		{
-			return TYPE_STRING.getInstance();
-		}
-		System.out.println("illegal binop");
-		System.exit(0);
-		return null;
+//		if ((t1 == TYPE_INT.getInstance()) && (t2 == TYPE_INT.getInstance()))
+//		{
+//			//TODO: check if t2=0 and op=3  (divizion by zero)
+//			return TYPE_INT.getInstance();
+//		}
+//
+//		else if ((t1 == TYPE_STRING.getInstance()) && (t2 == TYPE_STRING.getInstance()) && (this.OP==0))
+//		{
+//			return TYPE_STRING.getInstance();
+//		}
+//		System.out.println("illegal binop");
+//		System.exit(0);
+//		return null;
 	}
 
 }

@@ -61,7 +61,7 @@ public class AST_CLASS_DEC_1 extends AST_CLASS_DEC {
 
         //check if all class signatures appears inside symbol table
         if (isSignaturesValid(class_signatures) == false){
-            System.out.format(">> ERROR : some signatures types doesn't appear inside symbol table\n");
+            System.out.format(">> ERROR : some cfield signatures types doesn't appear inside symbol table\n");
             System.exit(0);
         }
 

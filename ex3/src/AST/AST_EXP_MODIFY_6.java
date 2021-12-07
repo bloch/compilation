@@ -64,7 +64,7 @@ public class AST_EXP_MODIFY_6 extends AST_EXP {
     public TYPE SemantMe() {
         TYPE v_type = this.var.SemantMe();
         if (!(v_type instanceof TYPE_CLASS)) {
-            System.out.println("error in STMT_MODIFY_6: var isn't TYPE_CLASS");
+            System.out.println("error in EXP_MODIFY_6: var isn't TYPE_CLASS");
             System.exit(0);
             return null;
         }
@@ -76,22 +76,23 @@ public class AST_EXP_MODIFY_6 extends AST_EXP {
         for (TYPE_CLASS father_class = var_class; father_class != null; father_class = father_class.father) {
             for (TYPE_LIST it = father_class.data_members; it != null; it = it.tail) {
                 if (it.head.name.equals(id_name)) {
-                    if (it.head.isFunction()) {
-                        TYPE_FUNCTION t_func = (TYPE_FUNCTION) it.head;
+                    TYPE_ID class_member = (TYPE_ID) it.head;
+                    if (class_member.type.isFunction()) {
+                        TYPE_FUNCTION t_func = (TYPE_FUNCTION) class_member.type;
                         if (t_func.params == null) {
-                            System.out.println("ERROR STMT_MODIFY_6: function called with 2+ parameters but should 0 parameters");
+                            System.out.println("ERROR EXP_MODIFY_6: function called with 2+ parameters but should 0 parameters");
                             System.exit(0);
                             return null;
                         }
                         if (t_func.params.tail == null) {
-                            System.out.println("ERROR STMT_MODIFY_6: function called with 2+ parameters but should have 1 parameters");
+                            System.out.println("ERROR EXP_MODIFY_6: function called with 2+ parameters but should have 1 parameters");
                             System.exit(0);
                             return null;
                         }
                         TYPE t_head = t_func.params.head;
                         TYPE exp_type = e.SemantMe();
                         if (exp_type != t_head) {  //first parameter type checking
-                            System.out.println("error in STMT_MODIFY_6: first parameter doesn't match");
+                            System.out.println("error in EXP_MODIFY_6: first parameter doesn't match");
                             System.exit(0);
                             return null;
                         }
@@ -124,14 +125,14 @@ public class AST_EXP_MODIFY_6 extends AST_EXP {
                         // Good flow: all OK
                         return t_func.returnType;
                     } else {
-                        System.out.println("error in STMT_MODIFY_6: ID isn't a class ***method***");
+                        System.out.println("error in EXP_MODIFY_6: ID isn't a class ***method***");
                         System.exit(0);
                         return null;
                     }
                 }
             }
         }
-        System.out.println("error in STMT_MODIFY_6: ID isn't a class(or super-class) member");
+        System.out.println("error in EXP_MODIFY_6: ID isn't a class(or super-class) member");
         System.exit(0);
         return null;
     }

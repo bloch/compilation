@@ -72,6 +72,7 @@ public abstract class AST_Node
 	}
 
 	public static boolean isT1SubInstanceT2(TYPE t1 , TYPE t2){
+		System.out.format("\n t1:%s t2: %s \n", t1.name, t2.name);
 		//primitive type check , is nill primtive type also by grammer?
 		if (t1 instanceof TYPE_INT){
 			if (t2 instanceof TYPE_INT){
@@ -98,9 +99,14 @@ public abstract class AST_Node
 			return false;
 		}
 
-		if (t1 instanceof TYPE_ARRAY && t2 instanceof TYPE_ARRAY){
-			if (t1.name.equals(t2.name)){ // noninterchangable (page 4-5 in pdf)
-				return true;
+		if (t1 instanceof TYPE_ARRAY){
+			if (t2 instanceof TYPE_ARRAY) {
+				if (t1.name.equals(t2.name)) { // noninterchangable (page 4-5 in pdf)
+					return true;
+				}
+				else {
+					System.out.println("arrays are non-interchangeable");
+				}
 			}
 			return false;
 		}
