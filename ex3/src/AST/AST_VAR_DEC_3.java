@@ -64,19 +64,29 @@ public class AST_VAR_DEC_3 extends AST_VAR_DEC {
         /* [1] Check If Type exists */
         /****************************/
         TYPE type_of_var = SYMBOL_TABLE.getInstance().find(type.name);
-        if (type_of_var == null)
-        {
-            System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type.name);
-
+        if (type_of_var == null) {
+            System.out.format(">> ERROR AST_VAR_DEC_3: non existing type %s\n",type.name);
             System.exit(0);
         }
 
         /**************************************/
         /* [2] Check That Name does NOT exist */
         /**************************************/
-        if (SYMBOL_TABLE.getInstance().findInLastScope(type_with_id1.id_name) != null)
-        {
-            System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,type_with_id1.id_name);
+        if (SYMBOL_TABLE.getInstance().findInLastScope(type_with_id1.id_name) != null) {
+            System.out.format(">> ERROR AST_VAR_DEC_3: variable %s already exists in scope\n",type_with_id1.id_name);
+        }
+
+        TYPE exp_type = ne.SemantMe();
+        if (exp_type == null) {
+            System.out.println(">> ERROR AST_VAR_DEC_3: illegal exp");
+            System.exit(0);
+            return null;
+        }
+
+        if (!isT1SubInstanceT2(exp_type, type_of_var)) {
+            System.out.format(">> ERROR AST_VAR_DEC_3: illegal assignment");
+            System.exit(0);
+            return null;
         }
 
         /***************************************************/

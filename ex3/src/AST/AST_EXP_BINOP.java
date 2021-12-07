@@ -107,7 +107,7 @@ public class AST_EXP_BINOP extends AST_EXP
 				return TYPE_STRING.getInstance();
 			}
 			else {
-				System.out.println("n>> ERROR IN AST_EXP_BINOP: ILLEGAL BINARY OPERATION(-,*,/,<,>,+)");
+				System.out.println(">> ERROR IN AST_EXP_BINOP: ILLEGAL BINARY OPERATION(-,*,/,<,>,+)");
 				System.exit(0);
 				return null;
 			}
