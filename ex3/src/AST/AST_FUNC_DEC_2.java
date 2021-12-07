@@ -77,6 +77,9 @@ public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
 
         this.stmtList.SemantMe();
 
+        TYPE return_type = GetSignature(type_with_id1.t);
+        checkReturnTypes(return_type, this.stmtList);
+
         //this.checkReturnTypes();
         symbol_table.endScope();
 

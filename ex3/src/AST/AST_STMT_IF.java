@@ -88,4 +88,8 @@ public class AST_STMT_IF extends AST_STMT
 		return null;
 	}
 
+	public TYPE SemantRet(TYPE ret_type){
+		return body.SemantRet(ret_type);
+	}
+
 }

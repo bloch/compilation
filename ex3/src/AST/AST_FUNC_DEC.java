@@ -23,9 +23,9 @@ public class AST_FUNC_DEC extends AST_DEC {
 
     /*********************************************************/
     /* The printing message for an assign statement AST node */
+
     /*********************************************************/
-    public void PrintMe()
-    {
+    public void PrintMe() {
         /********************************************/
         /* AST NODE TYPE = AST ASSIGNMENT STATEMENT */
         /********************************************/
@@ -46,15 +46,19 @@ public class AST_FUNC_DEC extends AST_DEC {
         /****************************************/
         /* PRINT Edges to AST GRAPHVIZ DOT file */
         /****************************************/
-        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,fd.SerialNumber);
+        AST_GRAPHVIZ.getInstance().logEdge(SerialNumber, fd.SerialNumber);
 
     }
 
     public TYPE SemantMe() {
         return this.fd.SemantMe();
     }
+
     public TYPE GetSignature() {
         return this.fd.GetSignature();
     }
 
+    public static void checkReturnTypes(TYPE ret_type, AST_STMT_LIST sl) {
+        sl.SemantRet(ret_type);
+    }
 }
