@@ -66,6 +66,7 @@ public class AST_VAR_DEC_2 extends AST_VAR_DEC {
         if (type_of_var == null) {
             System.out.format(">> ERROR AST_VAR_DEC_2: [%d:%d] non existing type %s\n",2,2,type.name);
             System.exit(0);
+            return null;
         }
 
         /**************************************/
@@ -73,6 +74,8 @@ public class AST_VAR_DEC_2 extends AST_VAR_DEC {
         /**************************************/
         if (SYMBOL_TABLE.getInstance().findInLastScope(type_with_id1.id_name) != null) {
             System.out.format(">> ERROR AST_VAR_DEC_2:  [%d:%d] variable %s already exists in scope\n",2,2,type_with_id1.id_name);
+            System.exit(0);
+            return null;
         }
 
         TYPE exp_type = exp.SemantMe();
