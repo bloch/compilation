@@ -68,8 +68,7 @@ public class AST_STMT_RETURN_EXP extends AST_STMT{
         if (!(isT1SubInstanceT2(exp_type, ret_type))) {
             System.out.println(">> ERROR STMT_RETURN_EXP: return_type of function doesn't match TYPE of return value");
             System.exit(0);
-            return null;
         }
-        return exp_type;
+        return null;
     }
 }
