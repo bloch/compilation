@@ -119,7 +119,6 @@ public class AST_STMT_LIST extends AST_Node
 			AST_STMT_LIST tmp = this.tail;
 			while (tmp != null) {
 				retExpCheck(tmp.head, ret_type);
-				if (res != null) {flag = true;}
 				tmp = tmp.tail;
 			}
 		} else {
