@@ -59,6 +59,8 @@ public class AST_STMT_RETURN_EXP extends AST_STMT{
             System.exit(0);
             return null;
         }
+
+        AST_Node.retTypesList.AddToTypeList(exp_type);
         return null;
     }
 

@@ -84,7 +84,7 @@ public class AST_VAR_DEC_3 extends AST_VAR_DEC {
             System.exit(0);
             return null;
         }
-
+        // TODO: check with help of instanceof ne, what to do about type checking
         if (!isT1SubInstanceT2(exp_type, type_of_var)) {
             System.out.format(">> ERROR AST_VAR_DEC_3: illegal assignment");
             System.exit(0);

@@ -1,12 +1,11 @@
-int foo(string s) { return 800;}
-class Father
-{
-string foo(string s)
-{
-return s;
+int f() {
+    int y := 3;
+    return y+y;
 }
-void Print()
-{
-PrintString(foo("Jerry"));
+
+int g() {
+    int y := 3;
+    return y+y;
 }
-}
+
+

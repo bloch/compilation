@@ -10,6 +10,8 @@ public abstract class AST_Node
 	/* a graphviz dot format of the AST ...    */
 	/*******************************************/
 	public int SerialNumber;
+
+	public static TYPE_LIST retTypesList;
 	
 	/***********************************************/
 	/* The default message for an unknown AST node */
