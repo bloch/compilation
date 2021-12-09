@@ -57,4 +57,17 @@ public class AST_FUNC_DEC extends AST_DEC {
         return this.fd.GetSignature();
     }
 
+    public static boolean CheckReturnTypes(TYPE retType) {
+        if(AST_Node.retTypesList.head == null) {
+            return true;
+        }
+        while(AST_Node.retTypesList != null) {
+            if(!isT1SubInstanceT2(AST_Node.retTypesList.head, retType)) {
+                return false;
+            }
+            AST_Node.retTypesList = AST_Node.retTypesList.tail;
+        }
+        return true;
+    }
+
 }

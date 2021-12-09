@@ -75,7 +75,17 @@ public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
 
         /** **/
 
+        AST_Node.retTypesList = new TYPE_LIST(null, null);
+
         this.stmtList.SemantMe();
+        //AST_Node.retTypesList.PrintTypeList();
+        if(!CheckReturnTypes(function_signature.returnType)) {
+            System.out.format(">> ERROR AST_FUNC_DEC_2 : Return Type exception");
+            System.exit(0);
+        }
+
+        //this.checkReturnTypes();
+        AST_Node.retTypesList = null;
 
         //this.checkReturnTypes();
         symbol_table.endScope();

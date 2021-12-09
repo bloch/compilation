@@ -72,25 +72,25 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		/*********************************/
 		/* [2] Make sure type is a array */
 		/*********************************/
-		if (t.isArray() == false) {
-			//System.out.format(">> ERROR [%d:%d] access %s field of a non-array variable\n",6,6,fieldName);
+		if (t == null) {
+			System.out.format(">> ERROR AST_VAR_SUBSCRIPT: var doesn't exist\n",t.name);
+			System.exit(0);
+		}
+		else if (t.isArray() == false) {
+			System.out.format(">> ERROR AST_VAR_SUBSCRIPT: access %s field of a non-array variable\n",t.name);
 			System.exit(0);
 		}
 		else {
 			ta = (TYPE_ARRAY) t;
 		}
 
-		// TODO: check exp is INTEGER
-		// Logic is:
-		// if exp is INTEGER: returns type of array(implement getter of type from TYPE_ARRAY class)
-		// else: GO DOWN AND REPORT ERROR
+		if (this.subscript.SemantMe() != TYPE_INT.getInstance()) {
+			System.out.format(">> ERROR AST_VAR_SUBSCRIPT: expression inside BRACKETS is not integral\n");
+			System.exit(0);
+		}
 
-		/*********************************************/
-		/* [4] exp does not hold an integer value */
-		/*********************************************/
-		//System.out.format(">> ERROR [%d:%d] exp %s does not hold an integer value\n",6,6,fieldName);
-		System.exit(0);
-		return null;
+		return ta.type;
+
 	}
 
 }

@@ -60,6 +60,7 @@ public class AST_NEW_EXP_2 extends AST_NEW_EXP {
         /****************************/
         if (this.e.SemantMe() != TYPE_INT.getInstance()) {
             System.out.format(">> ERROR [%d:%d] expression inside BRACKETS is not integral\n",2,2);
+            System.exit(0);
         }
 
         return GetSignature(this.t);

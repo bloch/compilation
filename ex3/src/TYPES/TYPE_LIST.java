@@ -36,4 +36,17 @@ public class TYPE_LIST
 		System.out.format("\n");
 	}
 
+	public void AddToTypeList(TYPE t) {
+		TYPE_LIST tmp = this;
+		if (tmp.head == null) {
+			tmp.head = t;
+			return;
+		}
+		while(tmp.tail != null) {
+			System.out.format("%s\t", tmp.head.name);
+			tmp = tmp.tail;
+		}
+
+		tmp.tail = new TYPE_LIST(t, null);
+	}
 }
