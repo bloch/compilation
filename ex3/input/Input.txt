@@ -1,11 +1,5 @@
-int f() {
-    int y := 3;
-    return y+y;
+class list {
+    list head;
+    int foo() { return goo(); }
+    int goo() { return 1; }
 }
-
-int g() {
-    int y := 3;
-    return y+y;
-}
-
-

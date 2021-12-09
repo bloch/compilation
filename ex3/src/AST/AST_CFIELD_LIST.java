@@ -60,11 +60,31 @@ public class AST_CFIELD_LIST extends AST_Node {
         }
     }
 
+    public void CheckSTMTForConstantInit(AST_CFIELD cfield) {
+        if(cfield instanceof AST_CFIELD_VAR_DEC) {
+            AST_CFIELD_VAR_DEC vardec = (AST_CFIELD_VAR_DEC) cfield;
+            // if vardec.vd instance of AST_VAR_DEC_1 -> OK
+            if(vardec.vd instanceof AST_VAR_DEC_2) {
+                AST_VAR_DEC_2 vd2 = (AST_VAR_DEC_2) vardec.vd;
+                if(!((vd2.exp instanceof AST_EXP_INT) || (vd2.exp instanceof AST_EXP_STRING) || (vd2.exp instanceof AST_EXP_NIL))) {
+                    System.out.format("ERROR IN CLASS DEC: tried to init var with not constant");
+                    System.exit(0);
+                }
+            }
+            if(vardec.vd instanceof AST_VAR_DEC_3) {
+                System.out.format("ERROR IN CLASS DEC: tried to init var with not constant(NEW exp)");
+                System.exit(0);
+            }
+        }
+    }
+
     public TYPE SemantMe() {
+        this.CheckSTMTForConstantInit(this.head);          // exits on error
         this.head.SemantMe();
 
         AST_CFIELD_LIST tmp = this.tail;
         while(tmp != null) {
+            this.CheckSTMTForConstantInit(tmp.head);       // exits on error
             tmp.head.SemantMe();
             tmp = tmp.tail;
         }
