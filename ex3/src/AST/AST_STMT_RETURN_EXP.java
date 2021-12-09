@@ -61,9 +61,13 @@ public class AST_STMT_RETURN_EXP extends AST_STMT{
         }
         return null;
     }
-
     public TYPE SemantRet(TYPE ret_type){
         TYPE exp_type = exp.SemantMe();  //maybe I don't need to do this
+        if (exp_type == null) {
+            System.out.println(">> ERROR STMT_RETURN_EXP: illegal return exp");
+            System.exit(0);
+            return null;
+        }
 
         if (!(isT1SubInstanceT2(exp_type, ret_type))) {
             System.out.println(">> ERROR STMT_RETURN_EXP: return_type of function doesn't match TYPE of return value");
