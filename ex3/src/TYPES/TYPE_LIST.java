@@ -43,7 +43,7 @@ public class TYPE_LIST
 			return;
 		}
 		while(tmp.tail != null) {
-			System.out.format("%s\t", tmp.head.name);
+			//System.out.format("%s\t", tmp.head.name);
 			tmp = tmp.tail;
 		}
 
