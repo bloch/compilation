@@ -65,7 +65,10 @@ public class AST_STMT_WHILE extends AST_STMT
 		/****************************/
 		if (cond.SemantMe() != TYPE_INT.getInstance())
 		{
-			System.out.format(">> ERROR [%d:%d] condition inside WHILE is not integral\n",2,2);
+			AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+			AST_Node.file_writer.close();
+			System.out.format(">> ERROR condition inside WHILE is not integral\n");
+			System.exit(0);
 		}
 
 		/*************************/

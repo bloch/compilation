@@ -74,10 +74,14 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		/* [2] Make sure type is a array */
 		/*********************************/
 		if (t == null) {
+			AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+			AST_Node.file_writer.close();
 			System.out.format(">> ERROR AST_VAR_SUBSCRIPT: var doesn't exist\n",t.name);
 			System.exit(0);
 		}
 		else if (t.isArray() == false) {
+			AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+			AST_Node.file_writer.close();
 			System.out.format(">> ERROR AST_VAR_SUBSCRIPT: access %s field of a non-array variable\n",t.name);
 			System.exit(0);
 		}
@@ -86,6 +90,8 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		}
 
 		if (this.subscript.SemantMe() != TYPE_INT.getInstance()) {
+			AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+			AST_Node.file_writer.close();
 			System.out.format(">> ERROR AST_VAR_SUBSCRIPT: expression inside BRACKETS is not integral\n");
 			System.exit(0);
 		}

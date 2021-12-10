@@ -71,6 +71,8 @@ public class AST_VAR_FIELD extends AST_VAR
 
 		//type of var isn't declered in the symbol table
 		if (t == null){
+			AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+			AST_Node.file_writer.close();
 			System.out.format(">> ERROR var doesn't exist (AST_VAR_FIELD)\n");
 			System.exit(0);
 		}
@@ -78,6 +80,8 @@ public class AST_VAR_FIELD extends AST_VAR
 		/* [2] Make sure type is a class */
 		/*********************************/
 		if (t.isClass() == false) {
+			AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+			AST_Node.file_writer.close();
 			System.out.format(">> ERROR [%d:%d] access %s field of a non-class variable\n",6,6,fieldName);
 			System.exit(0);
 		}
@@ -94,6 +98,8 @@ public class AST_VAR_FIELD extends AST_VAR
 				if (it.head.name.equals(fieldName)) {
 					TYPE_ID class_member = (TYPE_ID) it.head;
 					if (class_member.type.isFunction()){
+						AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+						AST_Node.file_writer.close();
 						System.out.format(">> ERROR : expected var and recieved function in AST_VAR_FIELD)");
 						System.exit(0);
 					}
@@ -108,6 +114,8 @@ public class AST_VAR_FIELD extends AST_VAR
 		/*********************************************/
 		/* [4] fieldName does not exist in class var */
 		/*********************************************/
+		AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+		AST_Node.file_writer.close();
 		System.out.format(">> ERROR [%d:%d] field %s does not exist in class\n",6,6,fieldName);
 		System.exit(0);
 		return null;

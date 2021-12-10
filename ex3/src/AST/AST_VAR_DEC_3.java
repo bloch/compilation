@@ -66,6 +66,8 @@ public class AST_VAR_DEC_3 extends AST_VAR_DEC {
         /****************************/
         TYPE type_of_var = SYMBOL_TABLE.getInstance().find(type.name);
         if (type_of_var == null) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.format(">> ERROR AST_VAR_DEC_3: non existing type %s\n",type.name);
             System.exit(0);
         }
@@ -76,6 +78,8 @@ public class AST_VAR_DEC_3 extends AST_VAR_DEC {
         /* [2] Check That Name does NOT exist */
         /**************************************/
         if (SYMBOL_TABLE.getInstance().findInLastScope(type_with_id1.id_name) != null) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.format(">> ERROR AST_VAR_DEC_3: variable %s already exists in scope\n",type_with_id1.id_name);
             System.exit(0);
             return null;
@@ -83,6 +87,8 @@ public class AST_VAR_DEC_3 extends AST_VAR_DEC {
 
         TYPE exp_type = ne.SemantMe();
         if (exp_type == null) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.println(">> ERROR AST_VAR_DEC_3: illegal exp");
             System.exit(0);
             return null;
@@ -90,6 +96,8 @@ public class AST_VAR_DEC_3 extends AST_VAR_DEC {
 
         if (ne instanceof AST_NEW_EXP_2) { // type should be array
             if (!type_of_var.isArray()) {
+                AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+                AST_Node.file_writer.close();
                 System.out.println(">> ERROR AST_VAR_DEC_3: type_of_var should be array");
                 System.exit(0);
                 return null;
@@ -100,6 +108,8 @@ public class AST_VAR_DEC_3 extends AST_VAR_DEC {
 
 //        // TODO: check with help of instanceof ne, what to do about type checking
         if (!isT1SubInstanceT2(exp_type, type_of_var)) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.format(">> ERROR AST_VAR_DEC_3: illegal assignment");
             System.exit(0);
             return null;

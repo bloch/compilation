@@ -65,7 +65,10 @@ public class AST_STMT_IF extends AST_STMT
 		/* [0] Semant the Condition */
 		/****************************/
 		if (cond.SemantMe() != TYPE_INT.getInstance()) {
+			AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+			AST_Node.file_writer.close();
 			System.out.format(">> ERROR [%d:%d] condition inside IF is not integral\n",2,2);
+			System.exit(0);
 		}
 
 		/*************************/

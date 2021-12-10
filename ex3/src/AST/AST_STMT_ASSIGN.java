@@ -69,13 +69,17 @@ public class AST_STMT_ASSIGN extends AST_STMT
 
 		if (var != null) t1 = var.SemantMe();
 		if (t1 == null) {
+			AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+			AST_Node.file_writer.close();
 			System.out.format(">> ERROR [%d:%d] illegal access of var\n",6,6);
 			System.exit(0);
 		}
 
 		if (exp != null) t2 = exp.SemantMe();
-		System.out.format("%s , %s", t1.name, t2.name);
+		//System.out.format("%s , %s", t1.name, t2.name);
 		if (!isT1SubInstanceT2(t2, t1)) {
+			AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+			AST_Node.file_writer.close();
 			System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",6,6);
 			System.exit(0);
 		}

@@ -1,12 +1,2 @@
-class A {
-    int foo() { return 1; }
-}
-class B extends A {
-    B b;
-    int goo(){
-        return b.foo();
-    }
-    void foo() {
-        return;
-    }
-}
+array IntArray = int[];
+IntArray a := new int[8];

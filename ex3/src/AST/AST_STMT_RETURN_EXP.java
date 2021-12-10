@@ -56,6 +56,8 @@ public class AST_STMT_RETURN_EXP extends AST_STMT{
     public TYPE SemantMe() {
         TYPE exp_type = exp.SemantMe();
         if (exp_type == null) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.println(">> ERROR STMT_RETURN_EXP: illegal return exp");
             System.exit(0);
             return null;
