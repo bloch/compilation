@@ -16,7 +16,7 @@ public class AST_DEC_LIST extends AST_Node
     public AST_DEC_LIST(AST_DEC head,AST_DEC_LIST tail , int lineNumber)
     {
 
-        this.lineNUmber = lineNumber;
+        this.lineNumber = lineNumber;
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/

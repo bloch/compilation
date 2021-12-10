@@ -83,6 +83,8 @@ public class AST_EXP_BINOP extends AST_EXP
 		if (right != null) t2 = right.SemantMe();
 		//System.out.format(t1.name);
 		if(t1 == null) {
+			AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+			AST_Node.file_writer.close();
 			System.out.format("\n>> ERROR IN AST_EXP_BINOP: LEFT EXP DOESN'T EXIST(OP=%d)", OP);
 			System.exit(0);
 		}

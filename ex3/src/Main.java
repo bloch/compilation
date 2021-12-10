@@ -52,7 +52,12 @@ public class Main
 			/**************************/
 			/* [7] Semant the AST ... */
 			/**************************/
+
+			AST_Node.file_writer = file_writer;
+
 			AST.SemantMe();
+
+			file_writer.print("OK");
 			
 			/*************************/
 			/* [8] Close output file */

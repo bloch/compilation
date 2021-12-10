@@ -35,7 +35,7 @@ public class AST_PSIK_TYPE_ID_LIST extends AST_Node{
         /*******************************/
 //        this.type = type;
 //        this.id_name = id_name;
-        this.type_with_id = new AST_TYPE_WITH_ID(type, id_name);
+        this.type_with_id = new AST_TYPE_WITH_ID(type, id_name, this.lineNumber);
         this.tail = tail;
     }
 

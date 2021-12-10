@@ -19,8 +19,8 @@ public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
         /*******************************/
         /* COPY INPUT DATA NENBERS ... */
         /*******************************/
-        this.type_with_id1 = new AST_TYPE_WITH_ID(type1, id_name1);
-        this.type_with_id2 = new AST_TYPE_WITH_ID(type2, id_name2);
+        this.type_with_id1 = new AST_TYPE_WITH_ID(type1, id_name1, this.lineNumber);
+        this.type_with_id2 = new AST_TYPE_WITH_ID(type2, id_name2, this.lineNumber);
         this.stmtList = stmtList;
     }
 
