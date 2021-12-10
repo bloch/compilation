@@ -51,7 +51,7 @@ CUP_FLAGS =                                \
 #########################
 # DEFINITIONS :: PARSER #
 #########################
-INPUT    = ${INPUT_DIR}/TEST_17_Nested_Var_d_Error.txt
+INPUT    = ${INPUT_DIR}/TEST_20_Integral_Allocation_Size_Integral_Subscript_Exp_Error.txt
 OUTPUT   = ${OUTPUT_DIR}/SemanticStatus.txt
 
 ##########

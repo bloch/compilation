@@ -50,6 +50,12 @@ public class AST_VAR_SIMPLE extends AST_VAR
 	}
 
 	public TYPE SemantMe() {
-		return SYMBOL_TABLE.getInstance().find(name);
+		TYPE t = SYMBOL_TABLE.getInstance().find(name);
+		if (t != null) {
+			return t;
+		}
+		return isVarInClassFields(name);
+
+		//return SYMBOL_TABLE.getInstance().find(name);
 	}
 }

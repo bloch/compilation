@@ -1,1 +1,5 @@
-int i := "sn";
+int d := 5;
+int f() {
+    string d := "sh";
+    string b := d;
+}

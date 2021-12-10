@@ -31,7 +31,7 @@ public class Parser extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\105\000\002\002\004\000\002\022\003\000\002\006" +
+    "\000\104\000\002\002\004\000\002\022\003\000\002\006" +
     "\003\000\002\006\003\000\002\006\003\000\002\006\003" +
     "\000\002\021\004\000\002\021\003\000\002\007\003\000" +
     "\002\007\003\000\002\007\003\000\002\007\003\000\002" +
@@ -52,7 +52,7 @@ public class Parser extends java_cup.runtime.lr_parser {
     "\000\002\004\010\000\002\004\010\000\002\004\011\000" +
     "\002\004\012\000\002\012\004\000\002\012\007\000\002" +
     "\015\003\000\002\015\003\000\002\016\004\000\002\016" +
-    "\003\000\002\023\002" });
+    "\003" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -611,7 +611,7 @@ class CUP$Parser$actions {
 		int eleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		AST_EXP e = (AST_EXP)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 RESULT = new AST_VAR_DEC_2(name, t, e, e.lineNumber);    
+		 RESULT = new AST_VAR_DEC_2(name, t, e, lexer.getLine());    
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("varDec",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1405,15 +1405,6 @@ class CUP$Parser$actions {
 		AST_CFIELD cf = (AST_CFIELD)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		 RESULT = new AST_CFIELD_LIST(cf,null, lexer.getLine()); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("cFieldList",12, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
-            }
-          return CUP$Parser$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 68: // line ::= 
-            {
-              Integer RESULT =null;
-		 RESULT = lexer.getLine(); 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("line",17, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 

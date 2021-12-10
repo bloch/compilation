@@ -128,7 +128,7 @@ public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
         /* [1] Begin Class Scope */
         /*************************/
         SYMBOL_TABLE.getInstance().beginScope();
-
+        AST_Node.cur_class = t;
         /***************************/
         /* [2] Semant Data Members */
         /***************************/
@@ -174,6 +174,7 @@ public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
         /*****************/
         /* [3] End Scope */
         /*****************/
+        AST_Node.cur_class = null;
         SYMBOL_TABLE.getInstance().endScope();
 
         /*********************************************************/
