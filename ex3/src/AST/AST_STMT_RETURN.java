@@ -38,6 +38,7 @@ public class AST_STMT_RETURN extends AST_STMT{
 
     public TYPE SemantMe() {
         AST_Node.retTypesList.AddToTypeList(TYPE_VOID.getInstance());
+        AST_Node.retStmtList.AddToStmtList(this);
         return null;
     }
 }

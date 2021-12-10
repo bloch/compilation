@@ -64,9 +64,12 @@ public class AST_FUNC_DEC extends AST_DEC {
         }
         while(AST_Node.retTypesList != null) {
             if(!isT1SubInstanceT2(AST_Node.retTypesList.head, retType)) {
+                AST_Node.file_writer.print(String.format("ERROR(%d)", AST_Node.retStmtList.head.lineNumber));
+                AST_Node.file_writer.close();
                 return false;
             }
             AST_Node.retTypesList = AST_Node.retTypesList.tail;
+            AST_Node.retStmtList = AST_Node.retStmtList.tail;
         }
         return true;
     }

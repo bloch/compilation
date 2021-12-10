@@ -13,6 +13,7 @@ public abstract class AST_Node
 	public int SerialNumber;
 
 	public static TYPE_LIST retTypesList;
+	public static AST_STMT_LIST retStmtList;
 
 	public int lineNumber = -1;
 

@@ -64,6 +64,7 @@ public class AST_STMT_RETURN_EXP extends AST_STMT{
         }
 
         AST_Node.retTypesList.AddToTypeList(exp_type);
+        AST_Node.retStmtList.AddToStmtList(this);
         return null;
     }
 
