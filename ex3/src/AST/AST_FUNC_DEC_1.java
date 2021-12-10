@@ -59,6 +59,16 @@ public class AST_FUNC_DEC_1 extends AST_FUNC_DEC {
 
         SYMBOL_TABLE symbol_table = SYMBOL_TABLE.getInstance();
 
+        /**************************************/
+        /* [0] Check That Function Name does NOT exist */
+        /**************************************/
+        if (SYMBOL_TABLE.getInstance().findInLastScope(this.type_with_id1.id_name) != null) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
+            System.out.format(">> ERROR AST_FUNC_DEC_1: function name %s already exists in scope\n",type_with_id1.id_name);
+            System.exit(0);
+        }
+
         TYPE_FUNCTION function_signature = (TYPE_FUNCTION) this.GetSignature();
 
         symbol_table.enter(this.type_with_id1.id_name, function_signature);

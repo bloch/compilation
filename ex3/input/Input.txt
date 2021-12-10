@@ -1,2 +1,4 @@
-array IntArray = int[];
-IntArray a := new int[8];
+int foo() {
+    int y := 3;
+}
+int foo := 5;
