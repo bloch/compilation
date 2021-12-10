@@ -6,7 +6,8 @@ public class AST_VAR_DEC_3 extends AST_VAR_DEC {
     public AST_TYPE_WITH_ID type_with_id1;
     public AST_NEW_EXP ne;
 
-    public AST_VAR_DEC_3(String id_name1, AST_TYPE type1, AST_NEW_EXP ne) {
+    public AST_VAR_DEC_3(String id_name1, AST_TYPE type1, AST_NEW_EXP ne, int lineNumber) {
+        this.lineNumber = lineNumber;
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/

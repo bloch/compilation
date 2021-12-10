@@ -10,8 +10,9 @@ public class AST_PROGRAM extends AST_Node{
     /*******************/
     /*  CONSTRUCTOR(S) */
     /*******************/
-    public AST_PROGRAM(AST_DEC_LIST l)
+    public AST_PROGRAM(AST_DEC_LIST l, int lineNumber)
     {
+        this.lineNumber = lineNumber;
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/

@@ -2,8 +2,9 @@ package AST;
 
 public class AST_TYPE_STRING extends AST_TYPE {
 
-    public AST_TYPE_STRING()
+    public AST_TYPE_STRING(int lineNumber)
     {
+        this.lineNumber = lineNumber;
         SerialNumber = AST_Node_Serial_Number.getFresh();
     }
 

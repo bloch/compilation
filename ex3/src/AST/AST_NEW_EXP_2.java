@@ -6,7 +6,8 @@ public class AST_NEW_EXP_2 extends AST_NEW_EXP {
     public AST_TYPE t;
     public AST_EXP e;
 
-    public AST_NEW_EXP_2(AST_TYPE t, AST_EXP e) {
+    public AST_NEW_EXP_2(AST_TYPE t, AST_EXP e, int lineNumber) {
+        this.lineNumber = lineNumber;
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/

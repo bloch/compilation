@@ -9,7 +9,8 @@ public class AST_TYPE_ID extends AST_TYPE {
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_TYPE_ID(String name) {
+    public AST_TYPE_ID(String name, int lineNumber) {
+        this.lineNumber = lineNumber;
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/
