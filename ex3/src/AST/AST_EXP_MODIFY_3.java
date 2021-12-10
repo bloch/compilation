@@ -63,17 +63,23 @@ public class AST_EXP_MODIFY_3 extends AST_EXP {
     public TYPE SemantMe() {
         TYPE t = SYMBOL_TABLE.getInstance().find(this.id_name);
         if (!(t instanceof TYPE_FUNCTION)) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.println(">> ERROR EXP_MODIFY_3: not a function");
             System.exit(0);
             return null;
         }
         TYPE_FUNCTION t_func = (TYPE_FUNCTION) t;
         if (t_func.params == null) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.println(">> ERROR EXP_MODIFY_3: shouldn't have parameters");
             System.exit(0);
             return null;
         }
         if (t_func.params.tail == null) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.println(">> ERROR EXP_MODIFY_3: function called with 2+ parameters but should have 1 parameters");
             System.exit(0);
             return null;
@@ -82,6 +88,8 @@ public class AST_EXP_MODIFY_3 extends AST_EXP {
         TYPE t_head = t_func.params.head;
         TYPE exp_type = e.SemantMe();
         if (exp_type != t_head) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.println(">> ERROR EXP_MODIFY_3: first parameter doesn't match");
             System.exit(0);
             return null;
@@ -93,6 +101,8 @@ public class AST_EXP_MODIFY_3 extends AST_EXP {
         while(tmp_l != null && tmp_p != null) {
             if (tmp_l.head != tmp_p.head)
             {
+                AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+                AST_Node.file_writer.close();
                 System.out.println(">> ERROR EXP_MODIFY_3: some parameters don't match");
                 System.exit(0);
                 return null;
@@ -102,12 +112,16 @@ public class AST_EXP_MODIFY_3 extends AST_EXP {
         }
         if(tmp_l != null && tmp_p == null)
         {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.println(">> ERROR EXP_MODIFY_3: too many parameters given for function");
             System.exit(0);
             return null;
         }
         else if (tmp_l == null && tmp_p != null)
         {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.println(">> ERROR EXP_MODIFY_3: not enough parameters given for function");
             System.exit(0);
             return null;
