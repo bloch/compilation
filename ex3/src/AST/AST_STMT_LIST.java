@@ -73,4 +73,18 @@ public class AST_STMT_LIST extends AST_Node
 		return null;
 	}
 
+	public void AddToStmtList(AST_STMT stmt) {
+		AST_STMT_LIST tmp = this;
+		if (tmp.head == null) {
+			tmp.head = stmt;
+			return;
+		}
+		while(tmp.tail != null) {
+			//System.out.format("%s\t", tmp.head.name);
+			tmp = tmp.tail;
+		}
+
+		tmp.tail = new AST_STMT_LIST(stmt, null, stmt.lineNumber);
+	}
+
 }

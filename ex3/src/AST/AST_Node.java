@@ -13,11 +13,14 @@ public abstract class AST_Node
 	public int SerialNumber;
 
 	public static TYPE_LIST retTypesList;
+	public static AST_STMT_LIST retStmtList;
 
 	public int lineNumber = -1;
 
 	public static PrintWriter  file_writer;
-	
+
+	public static TYPE_CLASS cur_class = null;
+
 	/***********************************************/
 	/* The default message for an unknown AST node */
 	/***********************************************/
@@ -125,6 +128,32 @@ public abstract class AST_Node
 		}
 		System.out.println("reach non reachable code in isT1SubInstanceT2 in AST_NODE");
 		return false;
+	}
+
+
+
+	public TYPE isVarInClassFields(String id_name) {
+		/************************************/
+		/* [3] Look for fiedlName inside class&super_classes fields names */
+		/************************************/
+		for (TYPE_CLASS tmp_class = cur_class ; tmp_class !=null ; tmp_class = tmp_class.father) {
+			for (TYPE_LIST it=tmp_class.data_members ; it != null ; it=it.tail)
+			{
+				if (it.head.name.equals(id_name)) {
+					TYPE_ID class_member = (TYPE_ID) it.head;
+					if (class_member.type.isFunction()){
+						AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+						AST_Node.file_writer.close();
+						System.out.format(">> ERROR : expected var and recieved function in isVarInClassFields");
+						System.exit(0);
+					}
+					else{
+						return class_member.type;
+					}
+				}
+			}
+		}
+		return null;
 	}
 
 }

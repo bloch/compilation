@@ -86,6 +86,7 @@ public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
         /** **/
 
         AST_Node.retTypesList = new TYPE_LIST(null, null);
+        AST_Node.retStmtList = new AST_STMT_LIST(null, null, -1);
 
         this.stmtList.SemantMe();
         //AST_Node.retTypesList.PrintTypeList();
@@ -97,6 +98,7 @@ public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
         }
 
         AST_Node.retTypesList = null;
+        AST_Node.retStmtList = null;
 
         symbol_table.endScope();
 
