@@ -66,6 +66,8 @@ public class AST_ARRAY_TYPE_DEF_1 extends AST_ARRAY_TYPE_DEF {
         /****************************/
         TYPE type_of_var = GetSignature(type);
         if (type_of_var == null) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type_of_var.name);
             System.exit(0);
         }

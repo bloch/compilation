@@ -69,11 +69,16 @@ public class AST_CFIELD_LIST extends AST_Node {
             if (vardec.vd instanceof AST_VAR_DEC_2) {
                 AST_VAR_DEC_2 vd2 = (AST_VAR_DEC_2) vardec.vd;
                 if (!((vd2.exp instanceof AST_EXP_INT) || (vd2.exp instanceof AST_EXP_STRING) || (vd2.exp instanceof AST_EXP_NIL))) {
+                    AST_Node.file_writer.print(String.format("ERROR(%d)", vd2.lineNumber));
+                    AST_Node.file_writer.close();
                     System.out.format("ERROR IN CLASS DEC: tried to init var with not constant");
                     System.exit(0);
                 }
             }
             if (vardec.vd instanceof AST_VAR_DEC_3) {
+                AST_VAR_DEC_3 vd3 = (AST_VAR_DEC_3) vardec.vd;
+                AST_Node.file_writer.print(String.format("ERROR(%d)", vd3.lineNumber));
+                AST_Node.file_writer.close();
                 System.out.format("ERROR IN CLASS DEC: tried to init var with not constant(NEW exp)");
                 System.exit(0);
             }
@@ -139,7 +144,7 @@ public class AST_CFIELD_LIST extends AST_Node {
         }
     }
 
-
+    /******************************** OLD CODE ********************************************************/
     public TYPE_LIST GetSignatures() {
         TYPE head_type_id = null;
         if (this.head instanceof AST_CFIELD_FUNC_DEC) {
@@ -192,6 +197,7 @@ public class AST_CFIELD_LIST extends AST_Node {
             return new TYPE_LIST(head_type_id, this.tail.GetSignatures());
         }
     }
+    /******************************** OLD CODE ********************************************************/
 //    public boolean isSignaturesValid(TYPE_LIST class_signatures){
 //        for (TYPE_LIST tmp_class_signatures = class_signatures ; tmp_class_signatures != null; tmp_class_signatures = tmp_class_signatures.tail) {
 //            TYPE typeField = tmp_class_signatures.head;
