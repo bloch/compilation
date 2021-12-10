@@ -18,7 +18,7 @@ public class AST_VAR_DEC_3 extends AST_VAR_DEC {
         /*******************************/
         /* COPY INPUT DATA NENBERS ... */
         /*******************************/
-        this.type_with_id1 = new AST_TYPE_WITH_ID(type1, id_name1);
+        this.type_with_id1 = new AST_TYPE_WITH_ID(type1, id_name1, this.lineNumber);
         this.ne = ne;
     }
 

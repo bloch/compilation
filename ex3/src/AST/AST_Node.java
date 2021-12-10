@@ -1,4 +1,5 @@
 package AST;
+import java.io.PrintWriter;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
@@ -14,6 +15,8 @@ public abstract class AST_Node
 	public static TYPE_LIST retTypesList;
 
 	public int lineNumber = -1;
+
+	public static PrintWriter  file_writer;
 	
 	/***********************************************/
 	/* The default message for an unknown AST node */
