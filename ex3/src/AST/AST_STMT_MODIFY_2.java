@@ -6,7 +6,8 @@ public class AST_STMT_MODIFY_2 extends AST_STMT {
     public String id_name1;
     public AST_EXP exp;
 
-    public AST_STMT_MODIFY_2(String id_name1, AST_EXP exp) {
+    public AST_STMT_MODIFY_2(String id_name1, AST_EXP exp, int lineNumber) {
+        this.lineNumber = lineNumber;
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/

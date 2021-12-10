@@ -5,8 +5,9 @@ import TYPES.*;
 public class AST_STMT_RETURN_EXP extends AST_STMT{
     public AST_EXP exp;
 
-    public AST_STMT_RETURN_EXP(AST_EXP exp)
+    public AST_STMT_RETURN_EXP(AST_EXP exp, int lineNumber)
     {
+        this.lineNumber = lineNumber;
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/
