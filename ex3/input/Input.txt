@@ -1,12 +1,4 @@
-class A {
-    int foo() { return 1; }
+int foo() {
+    int y := 3;
 }
-class B extends A {
-    B b;
-    int goo(){
-        return b.foo();
-    }
-    void foo() {
-        return;
-    }
-}
+int foo := 5;

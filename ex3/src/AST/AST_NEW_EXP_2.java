@@ -60,6 +60,8 @@ public class AST_NEW_EXP_2 extends AST_NEW_EXP {
         /* [0] Semant the expression */
         /****************************/
         if (this.e.SemantMe() != TYPE_INT.getInstance()) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.format(">> ERROR [%d:%d] expression inside BRACKETS is not integral\n",2,2);
             System.exit(0);
         }
