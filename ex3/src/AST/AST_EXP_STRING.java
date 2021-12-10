@@ -8,8 +8,9 @@ public class AST_EXP_STRING extends AST_EXP{
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_EXP_STRING(String value)
+    public AST_EXP_STRING(String value , int lineNumber)
     {
+        this.lineNumber = lineNumber;
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/

@@ -9,7 +9,8 @@ public class AST_FUNC_DEC extends AST_DEC {
 
     }
 
-    public AST_FUNC_DEC(AST_FUNC_DEC fd) {
+    public AST_FUNC_DEC(AST_FUNC_DEC fd , int lineNumber) {
+        this.lineNumber = lineNumber;
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/

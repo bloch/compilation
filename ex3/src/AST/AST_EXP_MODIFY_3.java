@@ -7,7 +7,9 @@ public class AST_EXP_MODIFY_3 extends AST_EXP {
     public AST_EXP e;
     public AST_PSIK_EXP_LIST l;
 
-    public AST_EXP_MODIFY_3(String id_name, AST_EXP e, AST_PSIK_EXP_LIST l) {
+    public AST_EXP_MODIFY_3(String id_name, AST_EXP e, AST_PSIK_EXP_LIST l, int lineNumber) {
+
+        this.lineNumber = lineNumber;
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/

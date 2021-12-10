@@ -9,8 +9,10 @@ public class AST_ARRAY_TYPE_DEF_1 extends AST_ARRAY_TYPE_DEF {
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_ARRAY_TYPE_DEF_1(String id_name, AST_TYPE type)
+    public AST_ARRAY_TYPE_DEF_1(String id_name, AST_TYPE type , int lineNumber)
     {
+
+        this.lineNumber = lineNumber;
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/

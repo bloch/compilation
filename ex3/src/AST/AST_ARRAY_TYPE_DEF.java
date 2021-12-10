@@ -9,7 +9,9 @@ public class AST_ARRAY_TYPE_DEF extends AST_DEC {
 
     }
 
-    public AST_ARRAY_TYPE_DEF(AST_ARRAY_TYPE_DEF atd) {
+    public AST_ARRAY_TYPE_DEF(AST_ARRAY_TYPE_DEF atd , int lineNumber) {
+
+        this.lineNumber = lineNumber;
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/

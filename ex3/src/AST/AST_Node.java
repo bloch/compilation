@@ -12,6 +12,8 @@ public abstract class AST_Node
 	public int SerialNumber;
 
 	public static TYPE_LIST retTypesList;
+
+	public int lineNumber = -1;
 	
 	/***********************************************/
 	/* The default message for an unknown AST node */

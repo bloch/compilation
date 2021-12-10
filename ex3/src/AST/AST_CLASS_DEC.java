@@ -10,7 +10,9 @@ public class AST_CLASS_DEC extends AST_DEC {
 
     }
 
-    public AST_CLASS_DEC(AST_CLASS_DEC cd) {
+    public AST_CLASS_DEC(AST_CLASS_DEC cd , int lineNumber) {
+
+        this.lineNumber = lineNumber;
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/

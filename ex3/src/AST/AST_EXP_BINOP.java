@@ -11,8 +11,9 @@ public class AST_EXP_BINOP extends AST_EXP
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_EXP_BINOP(AST_EXP left,AST_EXP right,int OP)
+	public AST_EXP_BINOP(AST_EXP left,AST_EXP right,int OP , int lineNumber)
 	{
+		this.lineNumber = lineNumber;
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
 		/******************************/
