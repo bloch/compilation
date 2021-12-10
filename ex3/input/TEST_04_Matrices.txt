@@ -8,7 +8,6 @@ int trace3x3(Mat A)
 
 void main()
 {
-    int row := new int[3];
 	IntArray row0 := new int[3];
 	IntArray row1 := new int[3];
 	IntArray row2 := new int[3];

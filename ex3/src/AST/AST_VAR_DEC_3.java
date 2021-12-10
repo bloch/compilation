@@ -69,6 +69,8 @@ public class AST_VAR_DEC_3 extends AST_VAR_DEC {
             System.exit(0);
         }
 
+        TYPE type_of_var_for_symbol_table = type_of_var;
+
         /**************************************/
         /* [2] Check That Name does NOT exist */
         /**************************************/
@@ -84,7 +86,18 @@ public class AST_VAR_DEC_3 extends AST_VAR_DEC {
             System.exit(0);
             return null;
         }
-        // TODO: check with help of instanceof ne, what to do about type checking
+
+        if (ne instanceof AST_NEW_EXP_2) { // type should be array
+            if (!type_of_var.isArray()) {
+                System.out.println(">> ERROR AST_VAR_DEC_3: type_of_var should be array");
+                System.exit(0);
+                return null;
+            }
+            TYPE_ARRAY type_array = (TYPE_ARRAY) type_of_var;
+            type_of_var = type_array.type;
+        }
+
+//        // TODO: check with help of instanceof ne, what to do about type checking
         if (!isT1SubInstanceT2(exp_type, type_of_var)) {
             System.out.format(">> ERROR AST_VAR_DEC_3: illegal assignment");
             System.exit(0);
@@ -94,7 +107,7 @@ public class AST_VAR_DEC_3 extends AST_VAR_DEC {
         /***************************************************/
         /* [3] Enter the Function Type to the Symbol Table */
         /***************************************************/
-        SYMBOL_TABLE.getInstance().enter(type_with_id1.id_name,type_of_var);
+        SYMBOL_TABLE.getInstance().enter(type_with_id1.id_name,type_of_var_for_symbol_table);
 
         /*********************************************************/
         /* [4] Return value is irrelevant for class declarations */

@@ -71,6 +71,16 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
 
         if (ne != null) t2 = ne.SemantMe();
 
+        if (ne instanceof AST_NEW_EXP_2) { // type should be array
+            if (!t1.isArray()) {
+                System.out.println(">> ERROR AST_STMT_ASSIGN_NEW: t1 should be array");
+                System.exit(0);
+                return null;
+            }
+            TYPE_ARRAY type_array = (TYPE_ARRAY) t1;
+            t1 = type_array.type;
+        }
+
         if (!isT1SubInstanceT2(t2, t1)) {
             System.out.format(">> ERROR [%d:%d] type mismatch for var := newExp\n",6,6);
             System.exit(0);

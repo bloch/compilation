@@ -1,11 +1,12 @@
-int f() {
-    int y := 3;
-    return y+y;
+class A {
+    int foo() { return 1; }
 }
-
-int g() {
-    int y := 3;
-    return y+y;
+class B extends A {
+    B b;
+    int goo(){
+        return b.foo();
+    }
+    void foo() {
+        return;
+    }
 }
-
-
