@@ -11,8 +11,9 @@ public class AST_EXP_PARENTHESES extends AST_EXP{
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_EXP_PARENTHESES(AST_EXP exp)
+    public AST_EXP_PARENTHESES(AST_EXP exp , int lineNumber)
     {
+        this.lineNumber = lineNumber;
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/

@@ -7,7 +7,9 @@ public class AST_CLASS_DEC_1 extends AST_CLASS_DEC {
     public String id_name1;
     public AST_CFIELD_LIST cfl;
 
-    public AST_CLASS_DEC_1(String id_name1, AST_CFIELD_LIST cfl) {
+    public AST_CLASS_DEC_1(String id_name1, AST_CFIELD_LIST cfl , int lineNumber) {
+
+        this.lineNumber = lineNumber;
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/

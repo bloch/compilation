@@ -6,7 +6,8 @@ public class AST_EXP_MODIFY_4 extends AST_EXP {
     AST_VAR var;
     public String id_name;
 
-    public AST_EXP_MODIFY_4(AST_VAR var, String id_name) {
+    public AST_EXP_MODIFY_4(AST_VAR var, String id_name, int lineNumber) {
+        this.lineNumber = lineNumber;
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/
