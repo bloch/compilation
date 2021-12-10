@@ -10,8 +10,9 @@ public class AST_STMT_WHILE extends AST_STMT
 	/*******************/
 	/*  CONSTRUCTOR(S) */
 	/*******************/
-	public AST_STMT_WHILE(AST_EXP cond,AST_STMT_LIST body)
+	public AST_STMT_WHILE(AST_EXP cond,AST_STMT_LIST body, int lineNumber)
 	{
+		this.lineNumber = lineNumber;
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
 		/******************************/

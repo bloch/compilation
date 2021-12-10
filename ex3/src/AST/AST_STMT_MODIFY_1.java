@@ -5,7 +5,8 @@ import TYPES.*;
 public class AST_STMT_MODIFY_1 extends AST_STMT{
     public String id_name1;
 
-    public AST_STMT_MODIFY_1(String id_name1) {
+    public AST_STMT_MODIFY_1(String id_name1, int lineNumber) {
+        this.lineNumber = lineNumber;
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/

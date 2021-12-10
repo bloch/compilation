@@ -10,8 +10,9 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
     /*******************/
     /*  CONSTRUCTOR(S) */
     /*******************/
-    public AST_STMT_ASSIGN_NEW(AST_VAR var,AST_NEW_EXP ne)
+    public AST_STMT_ASSIGN_NEW(AST_VAR var,AST_NEW_EXP ne, int lineNumber)
     {
+        this.lineNumber = lineNumber;
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/
