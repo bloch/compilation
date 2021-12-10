@@ -56,6 +56,8 @@ public class AST_STMT_MODIFY_4 extends AST_STMT{
         TYPE v_type = this.var.SemantMe();
         if (!(v_type instanceof TYPE_CLASS))
         {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.println(">> ERROR STMT_MODIFY_4: var isn't TYPE_CLASS");
             System.exit(0);
             return null;
@@ -72,6 +74,8 @@ public class AST_STMT_MODIFY_4 extends AST_STMT{
                     if (class_member.type.isFunction()){
                         TYPE_FUNCTION t_func = (TYPE_FUNCTION) class_member.type;
                         if (t_func.params != null) {
+                            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+                            AST_Node.file_writer.close();
                             System.out.println(">> ERROR STMT_MODIFY_4: should have parameters");
                             System.exit(0);
                         }
@@ -79,6 +83,8 @@ public class AST_STMT_MODIFY_4 extends AST_STMT{
                         return null;
                     }
                     else {
+                        AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+                        AST_Node.file_writer.close();
                         System.out.println(">> ERROR STMT_MODIFY_4: ID isn't a class ***method***");
                         System.exit(0);
                         return null;
@@ -86,6 +92,8 @@ public class AST_STMT_MODIFY_4 extends AST_STMT{
                 }
             }
         }
+        AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+        AST_Node.file_writer.close();
         System.out.println(">> ERROR STMT_MODIFY_4: ID isn't a class(or super-class) member");
         System.exit(0);
         return null;

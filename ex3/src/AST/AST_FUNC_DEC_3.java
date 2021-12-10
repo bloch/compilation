@@ -63,6 +63,17 @@ public class AST_FUNC_DEC_3 extends AST_FUNC_DEC {
     public TYPE SemantMe()
     {
         SYMBOL_TABLE symbol_table = SYMBOL_TABLE.getInstance();
+
+        /**************************************/
+        /* [0] Check That Function Name does NOT exist */
+        /**************************************/
+        if (SYMBOL_TABLE.getInstance().findInLastScope(this.type_with_id1.id_name) != null) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
+            System.out.format(">> ERROR AST_FUNC_DEC_3: function name %s already exists in scope\n",type_with_id1.id_name);
+            System.exit(0);
+        }
+
         TYPE_FUNCTION function_signature = (TYPE_FUNCTION) this.GetSignature();
 
         symbol_table.enter(this.type_with_id1.id_name, function_signature);
@@ -94,14 +105,14 @@ public class AST_FUNC_DEC_3 extends AST_FUNC_DEC {
         this.stmtList.SemantMe();
         //AST_Node.retTypesList.PrintTypeList();
         if(!CheckReturnTypes(function_signature.returnType)) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.format(">> ERROR AST_FUNC_DEC_3 : Return Type exception");
             System.exit(0);
         }
 
-        //this.checkReturnTypes();
         AST_Node.retTypesList = null;
 
-        //this.checkReturnTypes();
         symbol_table.endScope();
 
         return null;
@@ -111,12 +122,16 @@ public class AST_FUNC_DEC_3 extends AST_FUNC_DEC {
 
         TYPE return_type = GetSignature(type_with_id1.t);
         if(return_type == null) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.format(">> ERROR AST_FUNC_DEC_3 : Return Type doesn't exist");
             System.exit(0);
         }
 
         TYPE arg1_type = GetSignature(type_with_id2.t);
         if(arg1_type == null) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.format(">> ERROR AST_FUNC_DEC_3 : first parameter type doesn't exist");
             System.exit(0);
         }
@@ -129,6 +144,8 @@ public class AST_FUNC_DEC_3 extends AST_FUNC_DEC {
     public TYPE_LIST BuildTypeList(AST_PSIK_TYPE_ID_LIST ptil) {
         TYPE head_type = GetSignature(ptil.type_with_id.t);
         if(head_type == null) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.format(">> ERROR AST_FUNC_DEC_3 : some parameter(second or higher) type doesn't exist");
             System.exit(0);
         }
@@ -139,44 +156,5 @@ public class AST_FUNC_DEC_3 extends AST_FUNC_DEC {
             return new TYPE_LIST(head_type, BuildTypeList(ptil.tail));
         }
     }
-
-//    public boolean checkReturnTypes() {
-//        System.out.print("in checkReturnTypes..");
-//        for(AST_STMT_LIST stmt_list = this.stmtList; stmt_list != null; stmt_list = stmt_list.tail) {
-//            if(stmt_list.head instanceof AST_STMT_RETURN) {
-//                if(this.type_with_id1.t instanceof AST_TYPE_VOID) {
-//                    continue;
-//                }
-//                else {
-//                    return false;
-//                }
-//            }
-//            else if(stmt_list.head instanceof AST_STMT_RETURN_EXP) {
-//                AST_STMT_RETURN_EXP return_stmt = (AST_STMT_RETURN_EXP) stmt_list.head;
-//
-//                /**  actual return type **/
-//                TYPE actual_return_type = return_stmt.exp.SemantMe();
-//                if (actual_return_type == null) {
-//                    System.out.println(">> ERROR FUNC_DEC_3: illegal return exp");
-//                    System.exit(0);
-//                }
-//
-//                /** expected return type **/
-//                TYPE expected_return_type = GetSignature(type_with_id1.t);
-//
-//                /** check that actual_return_type can be interrepted as expected_return_type **/
-//                if (!isT1SubInstanceT2(actual_return_type, expected_return_type)) {
-//                    System.out.format(">> ERROR FUNC_DEC_3: return type mismatch\n",6,6);
-//                    System.exit(0);
-//                }
-//
-//            }
-//            else {
-//                continue;
-//            }
-//        }
-//
-//        return true;
-//    }
 
 }

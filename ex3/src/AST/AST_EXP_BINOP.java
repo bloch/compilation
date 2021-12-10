@@ -89,6 +89,8 @@ public class AST_EXP_BINOP extends AST_EXP
 			System.exit(0);
 		}
 		if(t2 == null) {
+			AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+			AST_Node.file_writer.close();
 			System.out.format("\n>> ERROR IN AST_EXP_BINOP: RIGHT EXP DOESN'T EXIST(OP=%d)", OP);
 			System.exit(0);
 		}
@@ -99,6 +101,8 @@ public class AST_EXP_BINOP extends AST_EXP
 				return TYPE_INT.getInstance();
 			}
 			else {
+				AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+				AST_Node.file_writer.close();
 				System.out.println("\n>> ERROR IN AST_EXP_BINOP: ILLEGAL EQUALITY(=) CHECKING");
 				System.exit(0);
 				return null;
@@ -109,6 +113,8 @@ public class AST_EXP_BINOP extends AST_EXP
 				if (this.OP == 3 && right instanceof AST_EXP_INT) {
 					AST_EXP_INT tmp_r = (AST_EXP_INT) right;
 					if (tmp_r.value == 0) {
+						AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+						AST_Node.file_writer.close();
 						System.out.println("\n>> ERROR IN AST_EXP_BINOP: DIVISION BY ZERO");
 						System.exit(0);
 						return null;
@@ -120,6 +126,8 @@ public class AST_EXP_BINOP extends AST_EXP
 				return TYPE_STRING.getInstance();
 			}
 			else {
+				AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+				AST_Node.file_writer.close();
 				System.out.format(">> ERROR IN AST_EXP_BINOP: ILLEGAL BINARY OPERATION %d", OP);
 				System.exit(0);
 				return null;

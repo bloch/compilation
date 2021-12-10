@@ -58,17 +58,23 @@ public class AST_STMT_MODIFY_3 extends AST_STMT{
     public TYPE SemantMe() {
         TYPE t = SYMBOL_TABLE.getInstance().find(this.id_name1);
         if (!(t instanceof TYPE_FUNCTION)) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.println(">> ERROR STMT_MODIFY_3: not a function");
             System.exit(0);
             return null;
         }
         TYPE_FUNCTION t_func = (TYPE_FUNCTION) t;
         if (t_func.params == null) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.println(">> ERROR STMT_MODIFY_3: shouldn't have parameters");
             System.exit(0);
             return null;
         }
         if (t_func.params.tail == null) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.println(">> ERROR STMT_MODIFY_3: function called with 2+ parameters but should have 1 parameters");
             System.exit(0);
             return null;
@@ -77,11 +83,15 @@ public class AST_STMT_MODIFY_3 extends AST_STMT{
         TYPE t_head = t_func.params.head;
         TYPE exp_type = exp.SemantMe();
         if (exp_type == null) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.println(">> ERROR STMT_MODIFY_3: first parameter for function doesn't exist");
             System.exit(0);
             return null;
         }
         if (!isT1SubInstanceT2(exp_type, t_head)) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.println(">> ERROR STMT_MODIFY_3: first parameter doesn't match");
             System.exit(0);
             return null;
@@ -93,11 +103,15 @@ public class AST_STMT_MODIFY_3 extends AST_STMT{
         while(tmp_l != null && tmp_p != null) {
             //System.out.format("\n>> %s %s", tmp_l.head.name, tmp_p.head.name);
             if (tmp_l.head == null) {
+                AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+                AST_Node.file_writer.close();
                 System.out.println(">> ERROR STMT_MODIFY_3: some parameter(second or higher) for function doesn't exist");
                 System.exit(0);
                 return null;
             }
             if (!isT1SubInstanceT2(tmp_l.head, tmp_p.head)) {       //if (tmp_l.head != tmp_p.head)
+                AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+                AST_Node.file_writer.close();
                 System.out.println(">> ERROR STMT_MODIFY_3: some parameters don't match");
                 System.exit(0);
                 return null;
@@ -107,12 +121,16 @@ public class AST_STMT_MODIFY_3 extends AST_STMT{
         }
         if(tmp_l != null && tmp_p == null)
         {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.println(">> ERROR STMT_MODIFY_3: too many parameters given for function");
             System.exit(0);
             return null;
         }
         else if (tmp_l == null && tmp_p != null)
         {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.println(">> ERROR STMT_MODIFY_3: not enough parameters given for function");
             System.exit(0);
             return null;

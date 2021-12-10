@@ -65,6 +65,8 @@ public class AST_VAR_DEC_2 extends AST_VAR_DEC {
         TYPE type_of_var = SYMBOL_TABLE.getInstance().find(type.name);
 
         if (type_of_var == null) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.format(">> ERROR AST_VAR_DEC_2: [%d:%d] non existing type %s\n",2,2,type.name);
             System.exit(0);
             return null;
@@ -74,6 +76,8 @@ public class AST_VAR_DEC_2 extends AST_VAR_DEC {
         /* [2] Check That Name does NOT exist */
         /**************************************/
         if (SYMBOL_TABLE.getInstance().findInLastScope(type_with_id1.id_name) != null) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.format(">> ERROR AST_VAR_DEC_2:  [%d:%d] variable %s already exists in scope\n",2,2,type_with_id1.id_name);
             System.exit(0);
             return null;
@@ -81,12 +85,16 @@ public class AST_VAR_DEC_2 extends AST_VAR_DEC {
 
         TYPE exp_type = exp.SemantMe();
         if (exp_type == null) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.println(">> ERROR AST_VAR_DEC_2: illegal exp");
             System.exit(0);
             return null;
         }
 
         if (!isT1SubInstanceT2(exp_type, type_of_var)) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.format(">> ERROR AST_VAR_DEC_2: illegal assignment");
             System.exit(0);
             return null;
