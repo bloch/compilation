@@ -14,8 +14,9 @@ public class AST_PSIK_EXP_LIST extends AST_Node{
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_PSIK_EXP_LIST(AST_EXP head, AST_PSIK_EXP_LIST tail)
+    public AST_PSIK_EXP_LIST(AST_EXP head, AST_PSIK_EXP_LIST tail, int lineNumber)
     {
+        this.lineNumber = lineNumber;
         // This class hold data from of kind: COMMA TYPE ID(name)
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */

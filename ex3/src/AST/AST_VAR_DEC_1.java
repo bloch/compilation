@@ -5,7 +5,8 @@ import TYPES.*;
 public class AST_VAR_DEC_1 extends AST_VAR_DEC {
     public AST_TYPE_WITH_ID type_with_id1;
 
-    public AST_VAR_DEC_1(String id_name1, AST_TYPE type1) {
+    public AST_VAR_DEC_1(String id_name1, AST_TYPE type1, int lineNumber) {
+        this.lineNumber = lineNumber;
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/

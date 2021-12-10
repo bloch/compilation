@@ -12,8 +12,9 @@ public class AST_VAR_SIMPLE extends AST_VAR
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_VAR_SIMPLE(String name)
+	public AST_VAR_SIMPLE(String name, int lineNumber)
 	{
+		this.lineNumber = lineNumber;
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
 		/******************************/

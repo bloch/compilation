@@ -10,8 +10,9 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_VAR_SUBSCRIPT(AST_VAR var,AST_EXP subscript)
+	public AST_VAR_SUBSCRIPT(AST_VAR var,AST_EXP subscript, int lineNumber)
 	{
+		this.lineNumber = lineNumber;
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
 		/******************************/
