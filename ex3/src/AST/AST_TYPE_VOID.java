@@ -2,7 +2,8 @@ package AST;
 
 public class AST_TYPE_VOID extends AST_TYPE {
 
-    public AST_TYPE_VOID() {
+    public AST_TYPE_VOID(int lineNumber) {
+        this.lineNumber = lineNumber;
         SerialNumber = AST_Node_Serial_Number.getFresh();
     }
 

@@ -15,8 +15,9 @@ public class AST_PSIK_TYPE_ID_LIST extends AST_Node{
     /******************/
     /* CONSTRUCTOR(S) */
     /******************/
-    public AST_PSIK_TYPE_ID_LIST(AST_TYPE type, String id_name, AST_PSIK_TYPE_ID_LIST tail)
+    public AST_PSIK_TYPE_ID_LIST(AST_TYPE type, String id_name, AST_PSIK_TYPE_ID_LIST tail, int lineNumber)
     {
+        this.lineNumber = lineNumber;
         // This class hold data from of kind: COMMA TYPE ID(name)
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */

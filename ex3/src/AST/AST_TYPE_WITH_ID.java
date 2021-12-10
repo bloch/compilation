@@ -4,7 +4,8 @@ public class AST_TYPE_WITH_ID extends AST_Node {
     public AST_TYPE t;
     public String id_name;
 
-    public AST_TYPE_WITH_ID(AST_TYPE t, String id_name) {
+    public AST_TYPE_WITH_ID(AST_TYPE t, String id_name, int lineNumber) {
+        this.lineNumber = lineNumber;
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/

@@ -5,7 +5,8 @@ import TYPES.*;
 public class AST_NEW_EXP_1 extends AST_NEW_EXP {
     public AST_TYPE t;
 
-    public AST_NEW_EXP_1(AST_TYPE t) {
+    public AST_NEW_EXP_1(AST_TYPE t, int lineNumber) {
+        this.lineNumber = lineNumber;
         /******************************/
         /* SET A UNIQUE SERIAL NUMBER */
         /******************************/
