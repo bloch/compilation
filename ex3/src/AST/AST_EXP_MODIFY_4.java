@@ -57,6 +57,8 @@ public class AST_EXP_MODIFY_4 extends AST_EXP {
     public TYPE SemantMe() {
         TYPE v_type = this.var.SemantMe();
         if (!(v_type instanceof TYPE_CLASS)) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.println(">> ERROR EXP_MODIFY_4: var isn't TYPE_CLASS");
             System.exit(0);
             return null;
@@ -73,6 +75,8 @@ public class AST_EXP_MODIFY_4 extends AST_EXP {
                     if (class_member.type.isFunction()) {
                         TYPE_FUNCTION t_func = (TYPE_FUNCTION) class_member.type;
                         if (t_func.params != null) {
+                            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+                            AST_Node.file_writer.close();
                             System.out.println(">> ERROR EXP_MODIFY_4: should have parameters");
                             System.exit(0);
                         }
@@ -80,6 +84,8 @@ public class AST_EXP_MODIFY_4 extends AST_EXP {
                         return t_func.returnType;
                     }
                     else {
+                        AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+                        AST_Node.file_writer.close();
                         System.out.println(">> ERROR EXP_MODIFY_4: ID isn't a class ***method***");
                         System.exit(0);
                         return null;
@@ -87,6 +93,8 @@ public class AST_EXP_MODIFY_4 extends AST_EXP {
                 }
             }
         }
+        AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+        AST_Node.file_writer.close();
         System.out.println(">> ERROR EXP_MODIFY_4: ID isn't a class(or super-class) member");
         System.exit(0);
         return null;
