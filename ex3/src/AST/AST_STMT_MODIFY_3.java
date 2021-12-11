@@ -56,17 +56,32 @@ public class AST_STMT_MODIFY_3 extends AST_STMT{
     }
 
     public TYPE SemantMe() {
-        TYPE t = SYMBOL_TABLE.getInstance().find(this.id_name1);
+        TYPE t = SYMBOL_TABLE.getInstance().findNotInGlobalScope(this.id_name1);
         if(t == null) {
-            System.out.format(">> STMT_MODIFY_1: %s not in global, then looking in father..\n", this.id_name1);
+            System.out.format(">> STMT_MODIFY_3: %s not in local scopes, then looking in father..\n", this.id_name1);
             t = isFuncInClassFields(this.id_name1);
-            if(t == null) {
-                AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
-                AST_Node.file_writer.close();
-                System.out.format(">> ERROR STMT_MODIFY_1: illegal ID name(not in global and not in father's)\n");
-                System.exit(0);
+            if (t == null) {
+                System.out.format(">> STMT_MODIFY_3: %s not in local scopes & fathers, then looking in global..\n", this.id_name1);
+                t = SYMBOL_TABLE.getInstance().find(this.id_name1);
+                if (t == null) {
+                    AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+                    AST_Node.file_writer.close();
+                    System.out.format(">> ERROR STMT_MODIFY_3: illegal ID name(not in global and not in fathers and locals)\n");
+                    System.exit(0);
+                }
             }
         }
+//        TYPE t = SYMBOL_TABLE.getInstance().find(this.id_name1);
+//        if(t == null) {
+//            System.out.format(">> STMT_MODIFY_1: %s not in global, then looking in father..\n", this.id_name1);
+//            t = isFuncInClassFields(this.id_name1);
+//            if(t == null) {
+//                AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+//                AST_Node.file_writer.close();
+//                System.out.format(">> ERROR STMT_MODIFY_1: illegal ID name(not in global and not in father's)\n");
+//                System.exit(0);
+//            }
+//        }
         if (!(t instanceof TYPE_FUNCTION)) {
             AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
             AST_Node.file_writer.close();
