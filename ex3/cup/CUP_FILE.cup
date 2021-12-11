@@ -139,13 +139,13 @@ start with Program;
 /* DERIVATION RULES */
 /********************/
 
-Program     ::=     decList:l                                                                                           {: RESULT = new AST_PROGRAM(l, lexer.getLine());    :}
+Program     ::=     decList:l                                                                                           {: RESULT = new AST_PROGRAM(l, l.lineNumber);    :}
                     ;
 
-dec         ::=     varDec:vd                                                                                           {: RESULT = new AST_VAR_DEC(vd, lexer.getLine());    :}
-                    | funcDec:fd                                                                                        {: RESULT = new AST_FUNC_DEC(fd, lexer.getLine());    :}
-                    | classDec:cd                                                                                       {: RESULT = new AST_CLASS_DEC(cd, lexer.getLine());    :}
-                    | arrayTypedef:atd                                                                                  {: RESULT = new AST_ARRAY_TYPE_DEF(atd, lexer.getLine());    :}
+dec         ::=     varDec:vd                                                                                           {: RESULT = new AST_VAR_DEC(vd, vd.lineNumber);    :}
+                    | funcDec:fd                                                                                        {: RESULT = new AST_FUNC_DEC(fd, fd.lineNumber);    :}
+                    | classDec:cd                                                                                       {: RESULT = new AST_CLASS_DEC(cd, cd.lineNumber);    :}
+                    | arrayTypedef:atd                                                                                  {: RESULT = new AST_ARRAY_TYPE_DEF(atd, atd.lineNumber);    :}
                     ;
 
 decList     ::=		dec:d decList:l		{: RESULT = new AST_DEC_LIST(d, l, lexer.getLine());    :}
@@ -158,21 +158,21 @@ type        ::=     TYPE_INT		                                                  
                     | ID:name                                                                                           {: RESULT = new AST_TYPE_ID(name, lexer.getLine()); :}
                     ;
 
-arrayTypedef ::=    ARRAY ID:name EQ type:t LBRACK RBRACK SEMICOLON                                                     {: RESULT = new AST_ARRAY_TYPE_DEF_1(name, t, lexer.getLine()); :}
+arrayTypedef ::=    ARRAY ID:name EQ type:t LBRACK RBRACK line:ln SEMICOLON                                                     {: RESULT = new AST_ARRAY_TYPE_DEF_1(name, t, ln); :}
                     ;
 
-varDec      ::=     type:t ID:name line:l SEMICOLON                                                                            {: RESULT = new AST_VAR_DEC_1(name, t, l); :}
-                    | type:t ID:name ASSIGN exp:e line:l SEMICOLON                                                             {: RESULT = new AST_VAR_DEC_2(name, t, e, l);    :}
-                    | type:t ID:name ASSIGN newExp:ne line:l SEMICOLON                                                         {: RESULT = new AST_VAR_DEC_3(name, t, ne, l);   :}
+varDec      ::=     type:t ID:name line:ln SEMICOLON                                                                            {: RESULT = new AST_VAR_DEC_1(name, t, ln); :}
+                    | type:t ID:name ASSIGN exp:e line:ln SEMICOLON                                                             {: RESULT = new AST_VAR_DEC_2(name, t, e, ln);    :}
+                    | type:t ID:name ASSIGN newExp:ne line:ln SEMICOLON                                                         {: RESULT = new AST_VAR_DEC_3(name, t, ne, ln);   :}
                     ;
 
-funcDec     ::=     type:t ID:name LPAREN RPAREN LBRACE stmtList:l RBRACE                                               {: RESULT = new AST_FUNC_DEC_1(t, name, l, lexer.getLine()); :}
-                    | type:t1 ID:name1 LPAREN type:t2 ID:name2 RPAREN LBRACE stmtList:l RBRACE                          {: RESULT = new AST_FUNC_DEC_2(t1, name1, t2, name2, l, lexer.getLine()); :}
-                    | type:t1 ID:name1 LPAREN type:t2 ID:name2 psikTypeIdList:l1 RPAREN LBRACE stmtList:l2 RBRACE       {: RESULT = new AST_FUNC_DEC_3(t1, name1, t2, name2, l1, l2, lexer.getLine()); :}
+funcDec     ::=     type:t ID:name LPAREN line:ln RPAREN LBRACE stmtList:l RBRACE                                               {: RESULT = new AST_FUNC_DEC_1(t, name, l, ln); :}
+                    | type:t1 ID:name1 LPAREN type:t2 ID:name2 line:ln RPAREN LBRACE stmtList:l RBRACE                          {: RESULT = new AST_FUNC_DEC_2(t1, name1, t2, name2, l, ln); :}
+                    | type:t1 ID:name1 LPAREN type:t2 ID:name2 psikTypeIdList:l1 line:ln RPAREN LBRACE stmtList:l2 RBRACE       {: RESULT = new AST_FUNC_DEC_3(t1, name1, t2, name2, l1, l2, ln); :}
                     ;
 
-classDec    ::=     CLASS ID:name LBRACE cFieldList:cfl RBRACE      {: RESULT = new AST_CLASS_DEC_1(name, cfl, lexer.getLine()); :}
-                    | CLASS ID:name1 EXTENDS ID:name2 LBRACE cFieldList:cfl RBRACE      {: RESULT = new AST_CLASS_DEC_2(name1, name2, cfl, lexer.getLine()); :}
+classDec    ::=     CLASS ID:name line:ln LBRACE cFieldList:cfl RBRACE      {: RESULT = new AST_CLASS_DEC_1(name, cfl, ln); :}
+                    | CLASS ID:name1 EXTENDS ID:name2 line:ln LBRACE cFieldList:cfl RBRACE      {: RESULT = new AST_CLASS_DEC_2(name1, name2, cfl, ln); :}
                     ;
 
 psikTypeIdList ::=  COMMA type:t ID:name psikTypeIdList:l           {: RESULT = new AST_PSIK_TYPE_ID_LIST(t, name, l, lexer.getLine()); :}
@@ -187,7 +187,7 @@ stmtList	::=		stmt:s	stmtList:l		{: RESULT = new AST_STMT_LIST(s,l, lexer.getLin
 					| stmt:s				{: RESULT = new AST_STMT_LIST(s,null, lexer.getLine()); :}
 					;
 
-exp			::=		var:v								{: RESULT = new AST_EXP_VAR(v, lexer.getLine());          :}
+exp			::=		var:v								{: RESULT = new AST_EXP_VAR(v, v.lineNumber);          :}
                     | LPAREN exp:e RPAREN				{: RESULT = new AST_EXP_PARENTHESES(e, lexer.getLine());  :}
 					| exp:e1 PLUS exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 0, lexer.getLine());:}
 					| exp:e1 MINUS exp:e2				{: RESULT = new AST_EXP_BINOP(e1, e2, 1, lexer.getLine());:}
@@ -213,27 +213,27 @@ var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name, lexer.getLine());
 					| var:v LBRACK exp:e RBRACK			{: RESULT = new AST_VAR_SUBSCRIPT(v,e, lexer.getLine());     :}
 					;
 
-stmt		::=		varDec:vd                                                   {: RESULT = new AST_STMT_VAR_DEC(vd, lexer.getLine()); :}
+stmt		::=		varDec:vd                                                   {: RESULT = new AST_STMT_VAR_DEC(vd, vd.lineNumber); :}
                     | var:v ASSIGN exp:e line:ln SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v,e, ln); :}
                     | var:v ASSIGN newExp:ne line:ln SEMICOLON							{: RESULT = new AST_STMT_ASSIGN_NEW(v,ne, ln); :}
                     | RETURN line:ln SEMICOLON                                          {: RESULT = new AST_STMT_RETURN(ln); :}
                     | RETURN exp:e line:ln SEMICOLON                                    {: RESULT = new AST_STMT_RETURN_EXP(e, ln); :}
-					| IF LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	    {: RESULT = new AST_STMT_IF(cond,body, lexer.getLine()); :}
-					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_WHILE(cond,body, lexer.getLine()); :}
-					| ID:name LPAREN RPAREN SEMICOLON                           {: RESULT = new AST_STMT_MODIFY_1(name, lexer.getLine()); :}
-					| ID:name LPAREN exp:e RPAREN SEMICOLON                     {: RESULT = new AST_STMT_MODIFY_2(name, e, lexer.getLine()); :}
-					| ID:name LPAREN exp:e psikExpList:l RPAREN SEMICOLON       {: RESULT = new AST_STMT_MODIFY_3(name, e, l, lexer.getLine()); :}
-					| var:v DOT ID:name LPAREN RPAREN SEMICOLON                           {: RESULT = new AST_STMT_MODIFY_4(v, name, lexer.getLine()); :}
-					| var:v DOT ID:name LPAREN exp:e RPAREN SEMICOLON                     {: RESULT = new AST_STMT_MODIFY_5(v, name, e, lexer.getLine()); :}
-					| var:v DOT ID:name LPAREN exp:e psikExpList:l RPAREN SEMICOLON       {: RESULT = new AST_STMT_MODIFY_6(v, name, e, l, lexer.getLine()); :}
+					| IF LPAREN exp:cond line:ln RPAREN LBRACE stmtList:body RBRACE	    {: RESULT = new AST_STMT_IF(cond,body, ln); :}
+					| WHILE LPAREN exp:cond line:ln RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_WHILE(cond,body, ln); :}
+					| ID:name LPAREN RPAREN line:ln SEMICOLON                           {: RESULT = new AST_STMT_MODIFY_1(name, ln); :}
+					| ID:name LPAREN exp:e RPAREN line:ln SEMICOLON                     {: RESULT = new AST_STMT_MODIFY_2(name, e, ln); :}
+					| ID:name LPAREN exp:e psikExpList:l RPAREN line:ln SEMICOLON       {: RESULT = new AST_STMT_MODIFY_3(name, e, l, ln); :}
+					| var:v DOT ID:name LPAREN RPAREN line:ln SEMICOLON                           {: RESULT = new AST_STMT_MODIFY_4(v, name, ln); :}
+					| var:v DOT ID:name LPAREN exp:e RPAREN line:ln SEMICOLON                     {: RESULT = new AST_STMT_MODIFY_5(v, name, e, ln); :}
+					| var:v DOT ID:name LPAREN exp:e psikExpList:l RPAREN line:ln SEMICOLON       {: RESULT = new AST_STMT_MODIFY_6(v, name, e, l, ln); :}
 					;
 
 newExp      ::=     NEW type:t                         {: RESULT = new AST_NEW_EXP_1(t, lexer.getLine());      :}
                     | NEW type:t LBRACK exp:e RBRACK   {: RESULT = new AST_NEW_EXP_2(t, e, lexer.getLine());      :}
                     ;
 
-cField      ::=     varDec:vd                          {: RESULT = new AST_CFIELD_VAR_DEC(vd, lexer.getLine());      :}
-                    | funcDec:fd                       {: RESULT = new AST_CFIELD_FUNC_DEC(fd, lexer.getLine());      :}
+cField      ::=     varDec:vd                          {: RESULT = new AST_CFIELD_VAR_DEC(vd, vd.lineNumber);      :}
+                    | funcDec:fd                       {: RESULT = new AST_CFIELD_FUNC_DEC(fd, fd.lineNumber);      :}
                     ;
 
 cFieldList  ::=     cField:cf	cFieldList:cfl		{: RESULT = new AST_CFIELD_LIST(cf,cfl, lexer.getLine());    :}
