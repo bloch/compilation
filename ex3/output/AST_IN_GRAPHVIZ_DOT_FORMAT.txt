@@ -1,35 +1,129 @@
 digraph
 {
 graph [ordering = "out"]
-v12 [label = "Program
+v51 [label = "Program
+"];
+v13 [label = "classDec_1
+ID(A)
 "];
 v0 [label = "TYPE_INT
 "];
-v1 [label = "ARRAY_TYPE_DEF_1
-ID (IntArray);
+v2 [label = "TYPE_WITH_ID
+ID (x);
 "];
-v1 -> v0;
-v2 [label = "arrayTypeDef"];
-v2 -> v1;
-v3 [label = "TYPE_ID
-(IntArray)
-"];
-v8 [label = "TYPE_WITH_ID
-ID (row0);
-"];
-v8 -> v3;
+v2 -> v0;
+v1 [label = "varDec_1"];
+v1 -> v2;
+v3 [label = "CFIELD
+VAR_DEC"];
+v3 -> v1;
 v4 [label = "TYPE_INT
 "];
+v9 [label = "TYPE_WITH_ID
+ID (foo);
+"];
+v9 -> v4;
+v8 [label = "funcDec_1
+"];
 v5 [label = "INT
-(1)"];
-v6 [label = "newExp_2"];
-v6 -> v4;
+(5)"];
+v6 [label = "STMT
+RETURN
+EXP
+"];
 v6 -> v5;
-v7 [label = "varDec_3"];
-v7 -> v8;
-v7 -> v6;
-v9 [label = "varDec"];
-v9 -> v7;
-v12 -> v2;
-v12 -> v9;
+v8 -> v6;
+v8 -> v9;
+v10 [label = "CFIELD
+FUNC_DEC"];
+v10 -> v8;
+v13 -> v3;
+v13 -> v10;
+v14 [label = "classDec"];
+v14 -> v13;
+v15 [label = "TYPE_INT
+"];
+v17 [label = "TYPE_WITH_ID
+ID (x);
+"];
+v17 -> v15;
+v16 [label = "varDec_1"];
+v16 -> v17;
+v18 [label = "varDec"];
+v18 -> v16;
+v46 [label = "classDec_2
+ID1(B) ID2(A)
+"];
+v19 [label = "TYPE_INT
+"];
+v43 [label = "TYPE_WITH_ID
+ID (goo);
+"];
+v43 -> v19;
+v42 [label = "funcDec_1
+"];
+v40 [label = "WHILE STMT
+"];
+v20 [label = "INT
+(2)"];
+v40 -> v20;
+v38 [label = "WHILE STMT
+"];
+v21 [label = "INT
+(1)"];
+v38 -> v21;
+v36 [label = "IF STMT
+"];
+v22 [label = "INT
+(1)"];
+v36 -> v22;
+v23 [label = "SIMPLE
+VAR
+(x)"];
+v24 [label = "EXP
+VAR"];
+v24 -> v23;
+v25 [label = "STMT
+RETURN
+EXP
+"];
+v25 -> v24;
+v26 [label = "TYPE_INT
+"];
+v28 [label = "TYPE_WITH_ID
+ID (x);
+"];
+v28 -> v26;
+v27 [label = "varDec_1"];
+v27 -> v28;
+v29 [label = "STMT_VAR_DEC
+"];
+v29 -> v27;
+v30 [label = "SIMPLE
+VAR
+(x)"];
+v31 [label = "EXP
+VAR"];
+v31 -> v30;
+v32 [label = "STMT
+RETURN
+EXP
+"];
+v32 -> v31;
+v36 -> v25;
+v36 -> v29;
+v36 -> v32;
+v38 -> v36;
+v40 -> v38;
+v42 -> v40;
+v42 -> v43;
+v44 [label = "CFIELD
+FUNC_DEC"];
+v44 -> v42;
+v46 -> v44;
+v47 [label = "classDec"];
+v47 -> v46;
+v51 -> v14;
+v51 -> v18;
+v51 -> v47;
 }

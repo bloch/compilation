@@ -1,2 +1,25 @@
-array IntArray = int[];
-IntArray row0 := new int[1];
+class A {
+    int x;
+    int foo() {
+        return 5;
+    }
+}
+
+int x;
+
+class B extends A {
+    int goo() {
+        while(2) {
+
+            while(1) {
+
+                if(1) {
+
+                    return x;
+                    int x;
+                    return x;
+                }
+            }
+        }
+    }
+}

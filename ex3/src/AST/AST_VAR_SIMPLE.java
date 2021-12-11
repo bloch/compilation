@@ -50,12 +50,22 @@ public class AST_VAR_SIMPLE extends AST_VAR
 	}
 
 	public TYPE SemantMe() {
-		TYPE t = SYMBOL_TABLE.getInstance().find(name);
+		TYPE t = SYMBOL_TABLE.getInstance().findNotInGlobalScope(name);
+		//TYPE t = SYMBOL_TABLE.getInstance().find(name);
 		if (t != null) {
 			return t;
 		}
-		return isVarInClassFields(name);
-
+		System.out.format(">> AST_VAR_SIMPLE: %s not in local scopes, then looking in father..\n", name);
+		t = isVarInClassFields(name);
+		if (t != null) {
+			return t;
+		}
+		System.out.format(">> AST_VAR_SIMPLE: %s not in local scopes & fathers, then looking in global scope..\n", name);
+		t = SYMBOL_TABLE.getInstance().find(name);
+		if(t == null) {
+			System.out.format(">> AST_VAR_SIMPLE: %s not in local scopes & fathers & global(ERROR!!!!)..\n", name);
+		}
+		return t;
 		//return SYMBOL_TABLE.getInstance().find(name);
 	}
 }

@@ -115,6 +115,8 @@ non terminal AST_PSIK_EXP_LIST psikExpList;
 non terminal AST_DEC_LIST decList;
 non terminal AST_PROGRAM Program;
 
+non terminal Integer line;
+
 /***********************/
 /* OPERATOR PRECEDENCE */
 /***********************/
@@ -159,9 +161,9 @@ type        ::=     TYPE_INT		                                                  
 arrayTypedef ::=    ARRAY ID:name EQ type:t LBRACK RBRACK SEMICOLON                                                     {: RESULT = new AST_ARRAY_TYPE_DEF_1(name, t, lexer.getLine()); :}
                     ;
 
-varDec      ::=     type:t ID:name SEMICOLON                                                                            {: RESULT = new AST_VAR_DEC_1(name, t, lexer.getLine()); :}
-                    | type:t ID:name ASSIGN exp:e SEMICOLON                                                             {: RESULT = new AST_VAR_DEC_2(name, t, e, lexer.getLine());    :}
-                    | type:t ID:name ASSIGN newExp:ne SEMICOLON                                                         {: RESULT = new AST_VAR_DEC_3(name, t, ne, lexer.getLine());   :}
+varDec      ::=     type:t ID:name line:l SEMICOLON                                                                            {: RESULT = new AST_VAR_DEC_1(name, t, l); :}
+                    | type:t ID:name ASSIGN exp:e line:l SEMICOLON                                                             {: RESULT = new AST_VAR_DEC_2(name, t, e, l);    :}
+                    | type:t ID:name ASSIGN newExp:ne line:l SEMICOLON                                                         {: RESULT = new AST_VAR_DEC_3(name, t, ne, l);   :}
                     ;
 
 funcDec     ::=     type:t ID:name LPAREN RPAREN LBRACE stmtList:l RBRACE                                               {: RESULT = new AST_FUNC_DEC_1(t, name, l, lexer.getLine()); :}
@@ -212,10 +214,10 @@ var			::=		ID:name								{: RESULT = new AST_VAR_SIMPLE(name, lexer.getLine());
 					;
 
 stmt		::=		varDec:vd                                                   {: RESULT = new AST_STMT_VAR_DEC(vd, lexer.getLine()); :}
-                    | var:v ASSIGN exp:e SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v,e, lexer.getLine()); :}
-                    | var:v ASSIGN newExp:ne SEMICOLON							{: RESULT = new AST_STMT_ASSIGN_NEW(v,ne, lexer.getLine()); :}
-                    | RETURN SEMICOLON                                          {: RESULT = new AST_STMT_RETURN(lexer.getLine()); :}
-                    | RETURN exp:e SEMICOLON                                    {: RESULT = new AST_STMT_RETURN_EXP(e, lexer.getLine()); :}
+                    | var:v ASSIGN exp:e line:ln SEMICOLON								{: RESULT = new AST_STMT_ASSIGN(v,e, ln); :}
+                    | var:v ASSIGN newExp:ne line:ln SEMICOLON							{: RESULT = new AST_STMT_ASSIGN_NEW(v,ne, ln); :}
+                    | RETURN line:ln SEMICOLON                                          {: RESULT = new AST_STMT_RETURN(ln); :}
+                    | RETURN exp:e line:ln SEMICOLON                                    {: RESULT = new AST_STMT_RETURN_EXP(e, ln); :}
 					| IF LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	    {: RESULT = new AST_STMT_IF(cond,body, lexer.getLine()); :}
 					| WHILE LPAREN exp:cond RPAREN LBRACE stmtList:body RBRACE	{: RESULT = new AST_STMT_WHILE(cond,body, lexer.getLine()); :}
 					| ID:name LPAREN RPAREN SEMICOLON                           {: RESULT = new AST_STMT_MODIFY_1(name, lexer.getLine()); :}
@@ -238,3 +240,5 @@ cFieldList  ::=     cField:cf	cFieldList:cfl		{: RESULT = new AST_CFIELD_LIST(cf
                     | cField:cf				        {: RESULT = new AST_CFIELD_LIST(cf,null, lexer.getLine()); :}
                     ;
 
+line        ::=     /* empty */                     {: RESULT = lexer.getLine(); :}
+                    ;
