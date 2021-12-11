@@ -14,7 +14,7 @@ class Person
 	void birthday(){ age := age+1; }
 }
 
-
+string bestFriend := "Jesse";
 
 class Student extends Person
 {

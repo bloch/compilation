@@ -98,7 +98,15 @@ public class AST_EXP_MODIFY_6 extends AST_EXP {
                         }
                         TYPE t_head = t_func.params.head;
                         TYPE exp_type = e.SemantMe();
-                        if (exp_type != t_head) {  //first parameter type checking
+                        if (exp_type == null) {
+                            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+                            AST_Node.file_writer.close();
+                            System.out.println(">> ERROR EXP_MODIFY_6: first parameter for function doesn't exist");
+                            System.exit(0);
+                            return null;
+                        }
+                        if (!isT1SubInstanceT2(exp_type, t_head)) { //first parameter type checking
+                        //if (exp_type != t_head) {
                             AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
                             AST_Node.file_writer.close();
                             System.out.println("error in EXP_MODIFY_6: first parameter doesn't match");
@@ -110,8 +118,15 @@ public class AST_EXP_MODIFY_6 extends AST_EXP {
                         TYPE_LIST tmp_l = l_type_list;
                         TYPE_LIST tmp_p = t_func.params.tail;
                         while(tmp_l != null && tmp_p != null) {
-                            if (tmp_l.head != tmp_p.head)
-                            {
+                            if (tmp_l.head == null) {
+                                AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+                                AST_Node.file_writer.close();
+                                System.out.println(">> ERROR EXP_MODIFY_6: some parameter(second or higher) for function doesn't exist");
+                                System.exit(0);
+                                return null;
+                            }
+                            if (!isT1SubInstanceT2(tmp_l.head, tmp_p.head)) {
+                            //if (tmp_l.head != tmp_p.head)
                                 AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
                                 AST_Node.file_writer.close();
                                 System.out.println("error in EXP_MODIFY_6: some parameter(second or higher) doesn't match");

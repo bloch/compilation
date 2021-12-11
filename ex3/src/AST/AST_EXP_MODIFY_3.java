@@ -61,7 +61,32 @@ public class AST_EXP_MODIFY_3 extends AST_EXP {
 
 
     public TYPE SemantMe() {
-        TYPE t = SYMBOL_TABLE.getInstance().find(this.id_name);
+        TYPE t = SYMBOL_TABLE.getInstance().findNotInGlobalScope(this.id_name);
+        if(t == null) {
+            System.out.format(">> EXP_MODIFY_3: %s not in local scopes, then looking in father..\n", this.id_name);
+            t = isFuncInClassFields(this.id_name);
+            if (t == null) {
+                System.out.format(">> EXP_MODIFY_3: %s not in local scopes & fathers, then looking in global..\n", this.id_name);
+                t = SYMBOL_TABLE.getInstance().find(this.id_name);
+                if (t == null) {
+                    AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+                    AST_Node.file_writer.close();
+                    System.out.format(">> ERROR EXP_MODIFY_3: illegal ID name(not in global and not in fathers and locals)\n");
+                    System.exit(0);
+                }
+            }
+        }
+//        TYPE t = SYMBOL_TABLE.getInstance().find(this.id_name);
+//        if(t == null) {
+//            System.out.format(">> EXP_MODIFY_3: %s not in global, then looking in father..\n", this.id_name);
+//            t = isFuncInClassFields(this.id_name);
+//            if(t == null) {
+//                AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+//                AST_Node.file_writer.close();
+//                System.out.format(">> ERROR EXP_MODIFY_3: illegal ID name(not in global and not in father's)\n");
+//                System.exit(0);
+//            }
+//        }
         if (!(t instanceof TYPE_FUNCTION)) {
             AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
             AST_Node.file_writer.close();
@@ -87,7 +112,15 @@ public class AST_EXP_MODIFY_3 extends AST_EXP {
         //first parameter type checking
         TYPE t_head = t_func.params.head;
         TYPE exp_type = e.SemantMe();
-        if (exp_type != t_head) {
+        if (exp_type == null) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
+            System.out.println(">> ERROR EXP_MODIFY_3: first parameter for function doesn't exist");
+            System.exit(0);
+            return null;
+        }
+        if (!isT1SubInstanceT2(exp_type, t_head)) {
+        //if (exp_type != t_head) {
             AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
             AST_Node.file_writer.close();
             System.out.println(">> ERROR EXP_MODIFY_3: first parameter doesn't match");
@@ -99,8 +132,14 @@ public class AST_EXP_MODIFY_3 extends AST_EXP {
         TYPE_LIST tmp_l = l_type_list;
         TYPE_LIST tmp_p = t_func.params.tail;
         while(tmp_l != null && tmp_p != null) {
-            if (tmp_l.head != tmp_p.head)
-            {
+            if (tmp_l.head == null) {
+                AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+                AST_Node.file_writer.close();
+                System.out.println(">> ERROR EXP_MODIFY_3: some parameter(second or higher) for function doesn't exist");
+                System.exit(0);
+                return null;
+            }
+            if (!isT1SubInstanceT2(tmp_l.head, tmp_p.head)) {   //if (tmp_l.head != tmp_p.head)
                 AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
                 AST_Node.file_writer.close();
                 System.out.println(">> ERROR EXP_MODIFY_3: some parameters don't match");

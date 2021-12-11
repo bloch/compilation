@@ -21,7 +21,7 @@ int IsPrime(int p)
 void PrintPrimes(int start)
 {
     int p := start;
-
+    
     while (p < end+1)
     {
         if (IsPrime(p))

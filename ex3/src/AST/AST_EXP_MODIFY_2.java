@@ -55,7 +55,32 @@ public class AST_EXP_MODIFY_2 extends AST_EXP {
     }
 
     public TYPE SemantMe() {
-        TYPE t = SYMBOL_TABLE.getInstance().find(this.id_name);
+        TYPE t = SYMBOL_TABLE.getInstance().findNotInGlobalScope(this.id_name);
+        if(t == null) {
+            System.out.format(">> EXP_MODIFY_2: %s not in local scopes, then looking in father..\n", this.id_name);
+            t = isFuncInClassFields(this.id_name);
+            if (t == null) {
+                System.out.format(">> EXP_MODIFY_2: %s not in local scopes & fathers, then looking in global..\n", this.id_name);
+                t = SYMBOL_TABLE.getInstance().find(this.id_name);
+                if (t == null) {
+                    AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+                    AST_Node.file_writer.close();
+                    System.out.format(">> ERROR EXP_MODIFY_2: illegal ID name(not in global and not in fathers and locals)\n");
+                    System.exit(0);
+                }
+            }
+        }
+//        TYPE t = SYMBOL_TABLE.getInstance().find(this.id_name);
+//        if(t == null) {
+//            System.out.format(">> EXP_MODIFY_2: %s not in global, then looking in father..\n", this.id_name);
+//            t = isFuncInClassFields(this.id_name);
+//            if(t == null) {
+//                AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+//                AST_Node.file_writer.close();
+//                System.out.format(">> ERROR EXP_MODIFY_2: illegal ID name(not in global and not in father's)\n");
+//                System.exit(0);
+//            }
+//        }
         if (!(t instanceof TYPE_FUNCTION)) {
             AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
             AST_Node.file_writer.close();
@@ -80,7 +105,15 @@ public class AST_EXP_MODIFY_2 extends AST_EXP {
         }
         TYPE t_head = t_func.params.head;
         TYPE exp_type = e.SemantMe();
-        if (exp_type != t_head) {
+        if (exp_type == null) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
+            System.out.println(">> ERROR EXP_MODIFY_2: single parameter for function doesn't exist");
+            System.exit(0);
+            return null;
+        }
+        if (!isT1SubInstanceT2(exp_type, t_head)) {
+        //if (exp_type != t_head) {
             AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
             AST_Node.file_writer.close();
             System.out.println(">> ERROR EXP_MODIFY_2: (only) parameter doesn't match");
