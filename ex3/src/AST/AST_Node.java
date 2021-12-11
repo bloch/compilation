@@ -142,10 +142,36 @@ public abstract class AST_Node
 				if (it.head.name.equals(id_name)) {
 					TYPE_ID class_member = (TYPE_ID) it.head;
 					if (class_member.type.isFunction()){
-						AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
-						AST_Node.file_writer.close();
+//						AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+//						AST_Node.file_writer.close();
 						System.out.format(">> ERROR : expected var and recieved function in isVarInClassFields");
-						System.exit(0);
+//						System.exit(0);
+						return null;
+					}
+					else{
+						return class_member.type;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	public TYPE isFuncInClassFields(String id_name) {
+		/************************************/
+		/* [3] Look for fiedlName inside class&super_classes fields names */
+		/************************************/
+		for (TYPE_CLASS tmp_class = cur_class ; tmp_class !=null ; tmp_class = tmp_class.father) {
+			for (TYPE_LIST it=tmp_class.data_members ; it != null ; it=it.tail)
+			{
+				if (it.head.name.equals(id_name)) {
+					TYPE_ID class_member = (TYPE_ID) it.head;
+					if (!class_member.type.isFunction()){
+//						AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+//						AST_Node.file_writer.close();
+						System.out.format(">> ERROR : expected func and recieved var in isFuncInClassFields");
+//						System.exit(0);
+						return null;
 					}
 					else{
 						return class_member.type;

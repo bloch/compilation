@@ -1,5 +1,14 @@
-int d := 5;
-int f() {
-    string d := "sh";
-    string b := d;
+
+class A {
+    int i;
+    int foo() {
+        return 5;
+    }
+}
+
+class B extends A {
+    B b;
+    int goo() {
+        int j := b.foo(i);
+    }
 }

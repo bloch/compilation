@@ -94,7 +94,15 @@ public class AST_EXP_MODIFY_5 extends AST_EXP {
                         }
                         TYPE t_head = t_func.params.head;
                         TYPE exp_type = e.SemantMe();
-                        if (exp_type != t_head) {  //first parameter type checking
+                        if (exp_type == null) {
+                            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+                            AST_Node.file_writer.close();
+                            System.out.println(">> ERROR EXP_MODIFY_5: single parameter for function doesn't exist");
+                            System.exit(0);
+                            return null;
+                        }
+                        if (!isT1SubInstanceT2(exp_type, t_head)) {
+                        //if (exp_type != t_head) {  //first parameter type checking
                             AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
                             AST_Node.file_writer.close();
                             System.out.println("ERROR EXP_MODIFY_5: (only) parameter doesn't match");

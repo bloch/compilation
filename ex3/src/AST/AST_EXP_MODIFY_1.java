@@ -45,10 +45,14 @@ public class AST_EXP_MODIFY_1 extends AST_EXP {
     public TYPE SemantMe() {
         TYPE t = SYMBOL_TABLE.getInstance().find(this.id_name);
         if(t == null) {
-            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
-            AST_Node.file_writer.close();
-            System.out.format(">> ERROR EXP_MODIFY_1: illegal ID name\n",6,6);
-            System.exit(0);
+            System.out.format(">> EXP_MODIFY_1: %s not in global, then looking in father..\n", this.id_name);
+            t = isFuncInClassFields(this.id_name);
+            if(t == null) {
+                AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+                AST_Node.file_writer.close();
+                System.out.format(">> ERROR EXP_MODIFY_1: illegal ID name(not in global and not in father's)\n");
+                System.exit(0);
+            }
         }
         if(!(t.isFunction())) {
             AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
