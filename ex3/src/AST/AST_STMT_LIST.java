@@ -80,7 +80,6 @@ public class AST_STMT_LIST extends AST_Node
 			return;
 		}
 		while(tmp.tail != null) {
-			//System.out.format("%s\t", tmp.head.name);
 			tmp = tmp.tail;
 		}
 

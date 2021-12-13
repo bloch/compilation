@@ -97,8 +97,7 @@ public class AST_STMT_MODIFY_5 extends AST_STMT{
                             System.exit(0);
                             return null;
                         }
-                        if (!isT1SubInstanceT2(exp_type, t_head)) {
-                        //if (exp_type != t_head) {  //first parameter type checking
+                        if (!isT1SubInstanceT2(exp_type, t_head)) { //first parameter type checking
                             AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
                             AST_Node.file_writer.close();
                             System.out.println("ERROR STMT_MODIFY_5: (only) parameter doesn't match");
