@@ -106,7 +106,6 @@ public class AST_EXP_MODIFY_6 extends AST_EXP {
                             return null;
                         }
                         if (!isT1SubInstanceT2(exp_type, t_head)) { //first parameter type checking
-                        //if (exp_type != t_head) {
                             AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
                             AST_Node.file_writer.close();
                             System.out.println("error in EXP_MODIFY_6: first parameter doesn't match");
@@ -126,7 +125,6 @@ public class AST_EXP_MODIFY_6 extends AST_EXP {
                                 return null;
                             }
                             if (!isT1SubInstanceT2(tmp_l.head, tmp_p.head)) {
-                            //if (tmp_l.head != tmp_p.head)
                                 AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
                                 AST_Node.file_writer.close();
                                 System.out.println("error in EXP_MODIFY_6: some parameter(second or higher) doesn't match");

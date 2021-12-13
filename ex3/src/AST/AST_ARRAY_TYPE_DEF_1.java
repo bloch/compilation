@@ -59,7 +59,6 @@ public class AST_ARRAY_TYPE_DEF_1 extends AST_ARRAY_TYPE_DEF {
     }
 
     public TYPE SemantMe() {
-        // want: add to symbol table + return type.
 
         /****************************/
         /* [1] Check If Type exists */
@@ -72,13 +71,47 @@ public class AST_ARRAY_TYPE_DEF_1 extends AST_ARRAY_TYPE_DEF {
             System.exit(0);
         }
 
+        if (type_of_var instanceof TYPE_INT) {
+            if(this.type instanceof AST_TYPE_ID) {
+                AST_TYPE_ID t = (AST_TYPE_ID) this.type;
+                if(!t.name.equals("int")) {
+                    AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+                    AST_Node.file_writer.close();
+                    System.out.format(">> ERROR AST_ARRAY_TYPE_DEF_1: DEFINE ARRAY WITH VAR OF PRIMITIVE TYPE (INT)");
+                    System.exit(0);
+                }
+            }
+        }
+
+        if (type_of_var instanceof TYPE_STRING) {
+            if(this.type instanceof AST_TYPE_ID) {
+                AST_TYPE_ID t = (AST_TYPE_ID) this.type;
+                if(!t.name.equals("string")) {
+                    AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+                    AST_Node.file_writer.close();
+                    System.out.format(">> ERROR AST_ARRAY_TYPE_DEF_1: DEFINE ARRAY WITH VAR OF PRIMITIVE TYPE (STRING)");
+                    System.exit(0);
+                }
+            }
+        }
+
+        if (type_of_var instanceof TYPE_VOID) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
+            System.out.format(">> ERROR AST_ARRAY_TYPE_DEF_1: DEFINE ARRAY WITH VOID PRIMITIVE TYPE");
+            System.exit(0);
+        }
+
         /** type_of_var is the type of array **/
 
         /**************************************/
         /* [2] Check That Name does NOT exist */
         /**************************************/
         if (SYMBOL_TABLE.getInstance().find(id_name) != null) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
             System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,id_name);
+            System.exit(0);
         }
 
         /***************************************************/

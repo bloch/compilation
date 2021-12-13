@@ -76,20 +76,15 @@ public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
 
         symbol_table.beginScope();
 
-        // TODO: append params to current new scope(to table) + check that types exist
-
-        /** Difference between AST_FUNC_DEC_1 and AST_FUNC_DEC_2:
-         *  AST_FUNC_DEC_2 has one parameter to function **/
-
+        // here we know that scope only opned, thus type_with_id2.id_name doesn't exist and type is valid(checked in GetSignature() line 73)
         symbol_table.enter(type_with_id2.id_name,   function_signature.params.head);
 
-        /** **/
 
         AST_Node.retTypesList = new TYPE_LIST(null, null);
         AST_Node.retStmtList = new AST_STMT_LIST(null, null, -1);
 
         this.stmtList.SemantMe();
-        //AST_Node.retTypesList.PrintTypeList();
+
         if(!CheckReturnTypes(function_signature.returnType)) {
             AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
             AST_Node.file_writer.close();
@@ -119,6 +114,12 @@ public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
             AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
             AST_Node.file_writer.close();
             System.out.format(">> ERROR AST_FUNC_DEC_2 : first parameter type doesn't exist");
+            System.exit(0);
+        }
+        if (arg1_type instanceof TYPE_VOID) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
+            System.out.format(">> ERROR AST_FUNC_DEC_2: first parameter type can't be void");
             System.exit(0);
         }
 

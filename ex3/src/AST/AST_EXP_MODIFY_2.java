@@ -70,17 +70,7 @@ public class AST_EXP_MODIFY_2 extends AST_EXP {
                 }
             }
         }
-//        TYPE t = SYMBOL_TABLE.getInstance().find(this.id_name);
-//        if(t == null) {
-//            System.out.format(">> EXP_MODIFY_2: %s not in global, then looking in father..\n", this.id_name);
-//            t = isFuncInClassFields(this.id_name);
-//            if(t == null) {
-//                AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
-//                AST_Node.file_writer.close();
-//                System.out.format(">> ERROR EXP_MODIFY_2: illegal ID name(not in global and not in father's)\n");
-//                System.exit(0);
-//            }
-//        }
+
         if (!(t instanceof TYPE_FUNCTION)) {
             AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
             AST_Node.file_writer.close();
@@ -113,7 +103,6 @@ public class AST_EXP_MODIFY_2 extends AST_EXP {
             return null;
         }
         if (!isT1SubInstanceT2(exp_type, t_head)) {
-        //if (exp_type != t_head) {
             AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
             AST_Node.file_writer.close();
             System.out.println(">> ERROR EXP_MODIFY_2: (only) parameter doesn't match");

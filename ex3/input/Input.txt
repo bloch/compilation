@@ -1,9 +1,5 @@
 class A {
-    string y() { int z :=3; }
-}
-
-int foo() {
-   A a;
-   int x := a.y();
-
+    int PrintInt() {
+        int y := 3;
+    }
 }

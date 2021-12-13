@@ -80,31 +80,31 @@ public class AST_FUNC_DEC_3 extends AST_FUNC_DEC {
 
         symbol_table.beginScope();
 
-        // TODO: append params to current new scope(to table) + check that types exist
-
         TYPE_LIST type_list = BuildTypeList(this.ptil);
-        /** Difference between AST_FUNC_DEC_2 and AST_FUNC_DEC_3:
-         *  AST_FUNC_DEC_3 has one parameter to function **/
 
+        // here we know that scope only opned, thus type_with_id2.id_name doesn't exist and type is valid(checked in GetSignature() line 79)
         symbol_table.enter(type_with_id2.id_name,   function_signature.params.head);
 
         AST_PSIK_TYPE_ID_LIST tmp_ptil = this.ptil;
         TYPE_LIST tmp_type_list = type_list;
         while(tmp_ptil != null) {
-
+            if (SYMBOL_TABLE.getInstance().findInLastScope(tmp_ptil.type_with_id.id_name) != null) {
+                AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+                AST_Node.file_writer.close();
+                System.out.format(">> ERROR AST_FUNC_DEC_3: some parameters have the same name");
+                System.exit(0);
+            }
             symbol_table.enter(tmp_ptil.type_with_id.id_name, tmp_type_list.head);
 
             tmp_ptil = tmp_ptil.tail;
             tmp_type_list = tmp_type_list.tail;
         }
 
-        /** **/
-
         AST_Node.retTypesList = new TYPE_LIST(null, null);
         AST_Node.retStmtList = new AST_STMT_LIST(null, null, -1);
 
         this.stmtList.SemantMe();
-        //AST_Node.retTypesList.PrintTypeList();
+
         if(!CheckReturnTypes(function_signature.returnType)) {
             AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
             AST_Node.file_writer.close();
@@ -138,6 +138,13 @@ public class AST_FUNC_DEC_3 extends AST_FUNC_DEC {
             System.exit(0);
         }
 
+        if (arg1_type instanceof TYPE_VOID) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
+            System.out.format(">> ERROR AST_FUNC_DEC_3: first parameter type can't be void");
+            System.exit(0);
+        }
+
         TYPE_LIST type_list = BuildTypeList(this.ptil);
 
         return new TYPE_FUNCTION(return_type, this.type_with_id1.id_name, new TYPE_LIST(arg1_type, type_list));
@@ -149,6 +156,12 @@ public class AST_FUNC_DEC_3 extends AST_FUNC_DEC {
             AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
             AST_Node.file_writer.close();
             System.out.format(">> ERROR AST_FUNC_DEC_3 : some parameter(second or higher) type doesn't exist");
+            System.exit(0);
+        }
+        if (head_type instanceof TYPE_VOID) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
+            System.out.format(">> ERROR AST_FUNC_DEC_3: some parameter(second or higher) type can't be void");
             System.exit(0);
         }
         if(ptil.tail == null) {

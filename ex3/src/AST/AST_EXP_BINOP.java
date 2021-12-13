@@ -133,20 +133,5 @@ public class AST_EXP_BINOP extends AST_EXP
 				return null;
 			}
 		}
-
-//		if ((t1 == TYPE_INT.getInstance()) && (t2 == TYPE_INT.getInstance()))
-//		{
-//			//TODO: check if t2=0 and op=3  (divizion by zero)
-//			return TYPE_INT.getInstance();
-//		}
-//
-//		else if ((t1 == TYPE_STRING.getInstance()) && (t2 == TYPE_STRING.getInstance()) && (this.OP==0))
-//		{
-//			return TYPE_STRING.getInstance();
-//		}
-//		System.out.println("illegal binop");
-//		System.exit(0);
-//		return null;
 	}
-
 }
