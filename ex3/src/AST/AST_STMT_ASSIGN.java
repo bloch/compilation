@@ -76,7 +76,7 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		}
 
 		if (exp != null) t2 = exp.SemantMe();
-		//System.out.format("%s , %s", t1.name, t2.name);
+
 		if (!isT1SubInstanceT2(t2, t1)) {
 			AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
 			AST_Node.file_writer.close();

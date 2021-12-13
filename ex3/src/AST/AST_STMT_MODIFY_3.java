@@ -71,17 +71,6 @@ public class AST_STMT_MODIFY_3 extends AST_STMT{
                 }
             }
         }
-//        TYPE t = SYMBOL_TABLE.getInstance().find(this.id_name1);
-//        if(t == null) {
-//            System.out.format(">> STMT_MODIFY_1: %s not in global, then looking in father..\n", this.id_name1);
-//            t = isFuncInClassFields(this.id_name1);
-//            if(t == null) {
-//                AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
-//                AST_Node.file_writer.close();
-//                System.out.format(">> ERROR STMT_MODIFY_1: illegal ID name(not in global and not in father's)\n");
-//                System.exit(0);
-//            }
-//        }
         if (!(t instanceof TYPE_FUNCTION)) {
             AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
             AST_Node.file_writer.close();
@@ -126,7 +115,6 @@ public class AST_STMT_MODIFY_3 extends AST_STMT{
         TYPE_LIST tmp_l = l_type_list;
         TYPE_LIST tmp_p = t_func.params.tail;
         while(tmp_l != null && tmp_p != null) {
-            //System.out.format("\n>> %s %s", tmp_l.head.name, tmp_p.head.name);
             if (tmp_l.head == null) {
                 AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
                 AST_Node.file_writer.close();
@@ -134,7 +122,7 @@ public class AST_STMT_MODIFY_3 extends AST_STMT{
                 System.exit(0);
                 return null;
             }
-            if (!isT1SubInstanceT2(tmp_l.head, tmp_p.head)) {       //if (tmp_l.head != tmp_p.head)
+            if (!isT1SubInstanceT2(tmp_l.head, tmp_p.head)) {
                 AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
                 AST_Node.file_writer.close();
                 System.out.println(">> ERROR STMT_MODIFY_3: some parameters don't match");

@@ -97,50 +97,5 @@ public class AST_STMT_MODIFY_4 extends AST_STMT{
         System.out.println(">> ERROR STMT_MODIFY_4: ID isn't a class(or super-class) member");
         System.exit(0);
         return null;
-
-//        TYPE_LIST tmp = var_class.data_members;
-//        //TODO: check for method in fathers
-//
-//        // checks head of data_members of class of var
-//        if (tmp.head.name.equals(this.id_name1)) {
-//            if (tmp.head instanceof TYPE_FUNCTION) {
-//                TYPE_FUNCTION t_func = (TYPE_FUNCTION) t;
-//                if (t_func.params != null) {
-//                    System.out.println("error in STMT_MODIFY_4: shouldn't have parameters");
-//                    System.exit(0);
-//                }
-//                return null;
-//            }
-//            else {
-//                System.out.println("error in STMT_MODIFY_4: ID isn't a class *method*");
-//                System.exit(0);
-//                return null;
-//            }
-//        }
-//
-//        // checks tail of data_members of class of var
-//        tmp = tmp.tail;
-//        while (tmp != null) {
-//            if (tmp.head.name.equals(this.id_name1)) {
-//                if (tmp.head instanceof TYPE_FUNCTION) {
-//                    TYPE_FUNCTION t_func = (TYPE_FUNCTION) t;
-//                    if (t_func.params != null) {
-//                        System.out.println("error in STMT_MODIFY_4: shouldn't have parameters");
-//                        System.exit(0);
-//                    }
-//                    return null;
-//                }
-//                else {
-//                    System.out.println("error in STMT_MODIFY_4: ID isn't a class method");
-//                    System.exit(0);
-//                    return null;
-//                }
-//            }
-//            tmp = tmp.tail;
-//        }
-//        System.out.println("error in STMT_MODIFY_4: ID isn't a class member");
-//        System.exit(0);
-//        return null;
     }
-
 }
