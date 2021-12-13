@@ -60,6 +60,13 @@ public class AST_VAR_DEC_1 extends AST_VAR_DEC {
             System.exit(0);
         }
 
+        if (type instanceof TYPE_VOID) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
+            System.out.format(">> ERROR AST_VAR_DEC_1: ILLEGAL TO DEFINE VAR WITH VOID TYPE");
+            System.exit(0);
+        }
+
         /****************************/
         /* [1] Check If Type exists */
         /****************************/

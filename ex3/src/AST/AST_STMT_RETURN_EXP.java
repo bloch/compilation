@@ -62,6 +62,12 @@ public class AST_STMT_RETURN_EXP extends AST_STMT{
             System.exit(0);
             return null;
         }
+        if (exp_type instanceof TYPE_VOID) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
+            System.out.format(">> ERROR STMT_RETURN_EXP: ILLEGAL TO return type void implicit");
+            System.exit(0);
+        }
 
         AST_Node.retTypesList.AddToTypeList(exp_type);
         AST_Node.retStmtList.AddToStmtList(this);

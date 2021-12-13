@@ -1,9 +1,11 @@
 class A {
-    string y() { int z :=3; }
+    int foo() {
+        return 1;
+    }
 }
 
-int foo() {
-   A a;
-   int x := a.y();
-
+class B extends A {
+    void foo() {
+        return 1;
+    }
 }

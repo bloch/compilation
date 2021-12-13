@@ -171,8 +171,8 @@ funcDec     ::=     type:t ID:name LPAREN line:ln RPAREN LBRACE stmtList:l RBRAC
                     | type:t1 ID:name1 LPAREN type:t2 ID:name2 psikTypeIdList:l1 line:ln RPAREN LBRACE stmtList:l2 RBRACE       {: RESULT = new AST_FUNC_DEC_3(t1, name1, t2, name2, l1, l2, ln); :}
                     ;
 
-classDec    ::=     CLASS ID:name line:ln LBRACE cFieldList:cfl RBRACE      {: RESULT = new AST_CLASS_DEC_1(name, cfl, ln); :}
-                    | CLASS ID:name1 EXTENDS ID:name2 line:ln LBRACE cFieldList:cfl RBRACE      {: RESULT = new AST_CLASS_DEC_2(name1, name2, cfl, ln); :}
+classDec    ::=     CLASS line:ln ID:name LBRACE cFieldList:cfl RBRACE      {: RESULT = new AST_CLASS_DEC_1(name, cfl, ln); :}
+                    | CLASS line:ln ID:name1 EXTENDS ID:name2 LBRACE cFieldList:cfl RBRACE      {: RESULT = new AST_CLASS_DEC_2(name1, name2, cfl, ln); :}
                     ;
 
 psikTypeIdList ::=  COMMA type:t ID:name psikTypeIdList:l           {: RESULT = new AST_PSIK_TYPE_ID_LIST(t, name, l, lexer.getLine()); :}

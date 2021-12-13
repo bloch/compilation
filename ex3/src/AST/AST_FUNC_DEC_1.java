@@ -79,7 +79,7 @@ public class AST_FUNC_DEC_1 extends AST_FUNC_DEC {
         AST_Node.retStmtList = new AST_STMT_LIST(null, null, -1);
 
         this.stmtList.SemantMe();
-        //AST_Node.retTypesList.PrintTypeList();
+
         if(!CheckReturnTypes(function_signature.returnType)) {
             AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
             AST_Node.file_writer.close();

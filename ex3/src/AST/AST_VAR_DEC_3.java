@@ -72,6 +72,13 @@ public class AST_VAR_DEC_3 extends AST_VAR_DEC {
             System.exit(0);
         }
 
+        if (type_of_var instanceof TYPE_VOID) {
+            AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
+            AST_Node.file_writer.close();
+            System.out.format(">> ERROR AST_VAR_DEC_3: ILLEGAL TO DEFINE VAR WITH VOID TYPE");
+            System.exit(0);
+        }
+
         TYPE type_of_var_for_symbol_table = type_of_var;
 
         /**************************************/
