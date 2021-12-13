@@ -1,11 +1,5 @@
 class A {
-    int foo() {
-        return 1;
-    }
-}
-
-class B extends A {
-    void foo() {
-        return 1;
+    int PrintInt() {
+        int y := 3;
     }
 }

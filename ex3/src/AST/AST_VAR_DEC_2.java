@@ -57,17 +57,16 @@ public class AST_VAR_DEC_2 extends AST_VAR_DEC {
         // We want to check if id_name1 is a good variable name, if not - error
         // if yes - enter to symbol table
 
-        TYPE type = GetSignature(type_with_id1.t);
+        TYPE type_of_var = GetSignature(type_with_id1.t);
 
         /****************************/
         /* [1] Check If Type exists */
         /****************************/
-        TYPE type_of_var = SYMBOL_TABLE.getInstance().find(type.name);
 
         if (type_of_var == null) {
             AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
             AST_Node.file_writer.close();
-            System.out.format(">> ERROR AST_VAR_DEC_2: [%d:%d] non existing type %s\n",2,2,type.name);
+            System.out.format(">> ERROR AST_VAR_DEC_2: non existing type\n");
             System.exit(0);
             return null;
         }

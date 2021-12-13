@@ -59,44 +59,4 @@ public class AST_CLASS_DEC extends AST_DEC {
         return this.cd.GetSignature();
     }
 
-
-    //this function check if there is shadowing between vars, funcs , classes inside a class
-    public boolean isShadowing(TYPE_LIST class_signatures, AST_CFIELD_LIST cfield_list){
-        HashSet<String> fieldsNamesSet = new HashSet();
-        for (TYPE_LIST tmp_class_signatures = class_signatures ; tmp_class_signatures != null; tmp_class_signatures = tmp_class_signatures.tail , cfield_list = cfield_list.tail) {
-            TYPE typeField = tmp_class_signatures.head;
-            //retrieve field name
-            String fieldName = typeField.name;
-            if (fieldsNamesSet.contains(fieldName)){
-                //field name already exist --> shadowing --> exit(0)
-                AST_Node.file_writer.print(String.format("ERROR(%d)", cfield_list.head.lineNumber));
-                AST_Node.file_writer.close();
-                System.out.format(">> ERROR [%d:%d] shadowing in field %s -\n",6,6,fieldName);
-                System.exit(0);
-                return true;
-            }
-            else{
-                fieldsNamesSet.add(fieldName);
-            }
-        }
-        return false;
-    }
-
-    public boolean isSignaturesValid(TYPE_LIST class_signatures , AST_CFIELD_LIST cfield_list){
-        for (TYPE_LIST tmp_class_signatures = class_signatures ; tmp_class_signatures != null; tmp_class_signatures = tmp_class_signatures.tail , cfield_list = cfield_list.tail) {
-            TYPE typeField = tmp_class_signatures.head;
-            if (typeField.isTypeId()){
-                TYPE_ID typeId = (TYPE_ID) typeField;
-                typeField = typeId.type;
-            }
-            if (typeField == null){  //type doesn't exist in symbol table
-                AST_Node.file_writer.print(String.format("ERROR(%d)", cfield_list.head.lineNumber));
-                AST_Node.file_writer.close();
-                System.out.format(">> ERROR : some cfield signatures types doesn't appear inside symbol table\n");
-                System.exit(0);
-                return false;
-            }
-        }
-        return true;
-    }
 }

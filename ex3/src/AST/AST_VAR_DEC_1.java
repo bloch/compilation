@@ -56,7 +56,7 @@ public class AST_VAR_DEC_1 extends AST_VAR_DEC {
         if (type == null){
             AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
             AST_Node.file_writer.close();
-            System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type_with_id1.id_name);
+            System.out.format(">> ERROR AST_VAR_DEC_1: non existing type\n");
             System.exit(0);
         }
 
@@ -101,7 +101,6 @@ public class AST_VAR_DEC_1 extends AST_VAR_DEC {
     }
 
     public TYPE GetSignature() {
-
         return GetSignature(type_with_id1.t);
     }
 

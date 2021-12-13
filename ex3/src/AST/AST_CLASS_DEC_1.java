@@ -54,7 +54,7 @@ public class AST_CLASS_DEC_1 extends AST_CLASS_DEC {
         if (SYMBOL_TABLE.getInstance().find(id_name1) != null) {
             AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
             AST_Node.file_writer.close();
-            System.out.format(">> ERROR [%d:%d] class name %s already exists in scope\n",2,2,id_name1);
+            System.out.format(">> ERROR AST_CLASS_DEC_1: class name %s already exists in scope\n",id_name1);
             System.exit(0);
         }
 
@@ -72,18 +72,6 @@ public class AST_CLASS_DEC_1 extends AST_CLASS_DEC {
         /***************************/
 
         this.cfl.SemantMe(t);
-        //print to output file is handeled in isSignaturesValid func
-        if (isSignaturesValid(t.data_members , this.cfl) == false){
-            System.out.format(">> ERROR : some cfield signatures types doesn't appear inside symbol table\n");
-            System.exit(0);
-        }
-
-        //check if there is a shadowing between var/funcs/class/arrays in the class
-        //print to output file is handeled in isShadowing func
-        if (isShadowing(t.data_members , this.cfl)){
-            System.out.format(">> ERROR : shadowing inside class scope\n");
-            System.exit(0);
-        }
 
         /*****************/
         /* [3] End Scope */
