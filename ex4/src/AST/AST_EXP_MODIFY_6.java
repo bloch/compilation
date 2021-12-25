@@ -169,4 +169,16 @@ public class AST_EXP_MODIFY_6 extends AST_EXP {
         return null;
     }
 
+    public TEMP IRme() {
+        TEMP t1 = null;
+        TEMP t2 = null;
+        TEMP_LIST lst = null
+        TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
+
+        if (var != null) t1 = var.IRme();
+        if (e  != null) t2 = e.IRme();
+        if (l != null) lst = l.getTemporals();
+        IR.getInstance().Add_IRcommand(new IRcommand_Virtual_Call_Func(dst, t1, id_name, t2, lst));
+        return dst;
+    }
 }

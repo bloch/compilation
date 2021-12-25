@@ -182,4 +182,5 @@ public abstract class AST_Node
 		return null;
 	}
 
+	public TYPE IRme() { System.out.println("NO IR-ME !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"); return null;}
 }

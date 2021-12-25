@@ -60,5 +60,7 @@ public class AST_EXP_PARENTHESES extends AST_EXP{
     }
 
     public TYPE SemantMe(){ return exp.SemantMe(); }
+
+    public TEMP IRme() { return exp.IRme(); }
 }
 

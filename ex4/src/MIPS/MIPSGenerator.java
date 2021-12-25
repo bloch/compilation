@@ -78,6 +78,14 @@ public class MIPSGenerator
 
 		fileWriter.format("\tadd Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
 	}
+	public void sub(TEMP dst,TEMP oprnd1,TEMP oprnd2)
+	{
+		int i1 =oprnd1.getSerialNumber();
+		int i2 =oprnd2.getSerialNumber();
+		int dstidx=dst.getSerialNumber();
+
+		fileWriter.format("\tsub Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
+	}
 	public void mul(TEMP dst,TEMP oprnd1,TEMP oprnd2)
 	{
 		int i1 =oprnd1.getSerialNumber();
@@ -85,6 +93,14 @@ public class MIPSGenerator
 		int dstidx=dst.getSerialNumber();
 
 		fileWriter.format("\tmul Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
+	}
+	public void div(TEMP dst,TEMP oprnd1,TEMP oprnd2)
+	{
+		int i1 =oprnd1.getSerialNumber();
+		int i2 =oprnd2.getSerialNumber();
+		int dstidx=dst.getSerialNumber();
+
+		fileWriter.format("\tdiv Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
 	}
 	public void label(String inlabel)
 	{
@@ -101,7 +117,11 @@ public class MIPSGenerator
 	public void jump(String inlabel)
 	{
 		fileWriter.format("\tj %s\n",inlabel);
-	}	
+	}
+	public void br(String inlabel)
+	{
+		fileWriter.format("\tbr %s\n",inlabel);
+	} // what is the difference between br and jump???
 	public void blt(TEMP oprnd1,TEMP oprnd2,String label)
 	{
 		int i1 =oprnd1.getSerialNumber();
@@ -115,6 +135,20 @@ public class MIPSGenerator
 		int i2 =oprnd2.getSerialNumber();
 		
 		fileWriter.format("\tbge Temp_%d,Temp_%d,%s\n",i1,i2,label);				
+	}
+	public void bgt(TEMP oprnd1,TEMP oprnd2,String label)
+	{
+		int i1 =oprnd1.getSerialNumber();
+		int i2 =oprnd2.getSerialNumber();
+
+		fileWriter.format("\tbgt Temp_%d,Temp_%d,%s\n",i1,i2,label);
+	}
+	public void ble(TEMP oprnd1,TEMP oprnd2,String label)
+	{
+		int i1 =oprnd1.getSerialNumber();
+		int i2 =oprnd2.getSerialNumber();
+
+		fileWriter.format("\tble Temp_%d,Temp_%d,%s\n",i1,i2,label);
 	}
 	public void bne(TEMP oprnd1,TEMP oprnd2,String label)
 	{

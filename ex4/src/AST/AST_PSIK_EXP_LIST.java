@@ -67,4 +67,14 @@ public class AST_PSIK_EXP_LIST extends AST_Node{
             return new TYPE_LIST(this.head.SemantMe(), this.tail.GetSignatures());
         }
     }
+
+    public TEMP_LIST getTemporals()
+    {
+        if (this.tail == null) {
+            return new TEMP_LIST(this.head.IRMe(), null);
+        }
+        else {
+            return new TEMP_LIST(this.head.IRMe(), this.tail.getTemporals());
+        }
+    }
 }

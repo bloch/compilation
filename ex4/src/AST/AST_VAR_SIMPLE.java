@@ -61,4 +61,10 @@ public class AST_VAR_SIMPLE extends AST_VAR
 		t = SYMBOL_TABLE.getInstance().find(name);
 		return t;
 	}
+
+	public TEMP IRme() {
+		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+		IR.getInstance().Add_IRcommand(new IRcommand_Load(t, name));
+		return t;
+	}
 }

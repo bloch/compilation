@@ -99,4 +99,12 @@ public class AST_EXP_MODIFY_4 extends AST_EXP {
         System.exit(0);
         return null;
     }
+
+    public TEMP IRme() {
+        TEMP t = null;
+        if (var != null) t = var.IRme();
+        TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
+        IR.getInstance().Add_IRcommand(new IRcommand_Virtual_Call_Func(dst, t, id_name, null, null));
+        return dst;
+    }
 }

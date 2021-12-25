@@ -41,4 +41,8 @@ public class AST_STMT_RETURN extends AST_STMT{
         AST_Node.retStmtList.AddToStmtList(this);
         return null;
     }
+
+    public TEMP IRme() {  //don't sure if I need to create new temp or not
+        return IR.getInstance().Add_IRcommand(new IRcommand_Return(null, null));  //TODO: add implementation
+    }
 }

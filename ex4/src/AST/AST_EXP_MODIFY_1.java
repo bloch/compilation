@@ -76,4 +76,10 @@ public class AST_EXP_MODIFY_1 extends AST_EXP {
         // Good flow
         return t_func.returnType;
     }
+
+    public TEMP IRme() {
+        TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
+        IR.getInstance().Add_IRcommand(new IRcommand_Call_Func(dst, id_name, null, null));
+        return dst;
+    }
 }

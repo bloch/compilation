@@ -112,4 +112,13 @@ public class AST_EXP_MODIFY_2 extends AST_EXP {
         return t_func.returnType;
     }
 
+    public TEMP IRme() {
+        TEMP t = null;
+        TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
+
+        if (e  != null) t = e.IRme();
+        IR.getInstance().Add_IRcommand(new IRcommand_Call_Func(dst, id_name, t, null));
+        return dst;
+    }
+
 }

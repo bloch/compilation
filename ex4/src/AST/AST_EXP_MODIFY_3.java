@@ -157,4 +157,15 @@ public class AST_EXP_MODIFY_3 extends AST_EXP {
         // tmp_l and tmp_p now should be null both
         return t_func.returnType;
     }
+
+    public TEMP IRme() {
+        TEMP t = null;
+        TEMP_LIST lst = null
+        TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
+
+        if (e  != null) t = e.IRme();
+        if (l != null) lst = l.getTemporals();
+        IR.getInstance().Add_IRcommand(new IRcommand_Call_Func(dst, id_name, t, lst));
+        return dst;
+    }
 }
