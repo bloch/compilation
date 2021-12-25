@@ -57,4 +57,5 @@ public class AST_VAR_DEC extends AST_DEC {
         return this.vd.GetSignature();
     }
 
+    public TEMP IRme() { return vd.IRme(); }
 }
