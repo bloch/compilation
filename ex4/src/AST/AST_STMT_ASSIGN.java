@@ -86,4 +86,27 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		return null;
 	}
 
+
+	public TEMP IRme(){
+		TEMP src = exp.IRme();
+		if (var instanceof AST_VAR_SIMPLE){
+			AST_VAR_SIMPLE var_simple = (AST_VAR_SIMPLE) var;
+			IR.getInstance().AddIRcommand(new IRcommand_Store(var_simple.name , src))
+		}
+		else if (var instanceof AST_VAR_SUBSCRIPT){
+			AST_VAR_SUBSCRIPT var_sub = (AST_VAR_SUBSCRIPT) var_sub;
+			TEMP arrReg = var_sub.var.IRme();
+			TEMP entryReg = var_sub.subscript.IRme();
+			IR.getInstance().AddIRcommand(new IRcommand_Array_Set(arrReg , entryReg , src));
+
+		}
+		else if (var instanceof AST_VAR_FIELD){
+			AST_VAR_FIELD var_field = (AST_VAR_FIELD) var_field;
+			TEMP object = var_field.var.IRme();
+			String field_name = var_field.fieldName;
+			IR.getInstance().AddIRcommand(new IRcommand_Field_Set(object,field_name,src));
+
+		}
+	}
+
 }
