@@ -2,6 +2,10 @@ package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public class AST_VAR_SIMPLE extends AST_VAR
 {
 	/************************/
@@ -59,6 +63,13 @@ public class AST_VAR_SIMPLE extends AST_VAR
 			return t;
 		}
 		t = SYMBOL_TABLE.getInstance().find(name);
+		return t;
+	}
+
+	public TEMP IRme()
+	{
+		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+		IR.getInstance().Add_IRcommand(new IRcommand_Load(t,name));
 		return t;
 	}
 }

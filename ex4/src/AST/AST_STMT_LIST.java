@@ -2,6 +2,10 @@ package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 import java.util.ArrayList;
 
 public class AST_STMT_LIST extends AST_Node
@@ -84,6 +88,14 @@ public class AST_STMT_LIST extends AST_Node
 		}
 
 		tmp.tail = new AST_STMT_LIST(stmt, null, stmt.lineNumber);
+	}
+
+	public TEMP IRme()
+	{
+		if (head != null) head.IRme();
+		if (tail != null) tail.IRme();
+
+		return null;
 	}
 
 }

@@ -2,6 +2,10 @@ package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public class AST_EXP_VAR extends AST_EXP
 {
 	public AST_VAR var;
@@ -58,4 +62,6 @@ public class AST_EXP_VAR extends AST_EXP
 	}
 
 	public TYPE SemantMe(){ return this.var.SemantMe(); }
+
+	public TEMP IRme() { return this.var.IRme(); }
 }

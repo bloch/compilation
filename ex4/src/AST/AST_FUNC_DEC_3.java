@@ -2,6 +2,10 @@ package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public class AST_FUNC_DEC_3 extends AST_FUNC_DEC {
     public AST_TYPE_WITH_ID type_with_id1;
     public AST_TYPE_WITH_ID type_with_id2;
@@ -170,6 +174,13 @@ public class AST_FUNC_DEC_3 extends AST_FUNC_DEC {
         else {
             return new TYPE_LIST(head_type, BuildTypeList(ptil.tail));
         }
+    }
+
+    public TEMP IRme()
+    {
+        IR.getInstance().Add_IRcommand(new IRcommand_Label(type_with_id1.name));
+        if (body != null) body.IRme();
+        return null;
     }
 
 }
