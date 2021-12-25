@@ -50,4 +50,7 @@ public class AST_PROGRAM extends AST_Node{
 
         return null;
     }
+
+    public TEMP IRme() { return this.l.IRme(); }
+
 }

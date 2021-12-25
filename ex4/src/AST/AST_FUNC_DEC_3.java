@@ -179,7 +179,7 @@ public class AST_FUNC_DEC_3 extends AST_FUNC_DEC {
     public TEMP IRme()
     {
         IR.getInstance().Add_IRcommand(new IRcommand_Label(type_with_id1.name));
-        if (body != null) body.IRme();
+        if (stmtList != null) stmtList.IRme();
         return null;
     }
 

@@ -62,4 +62,12 @@ public class AST_DEC_LIST extends AST_Node
 
     }
 
+    public TEMP IRme()
+    {
+        if (head != null) head.IRme();
+        if (tail != null) tail.IRme();
+
+        return null;
+    }
+
 }

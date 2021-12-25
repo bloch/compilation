@@ -13,23 +13,23 @@ package IR;
 import TEMP.*;
 import MIPS.*;
 
-public class IRcommand_Binop_Divide_Integers extends IRcommand
+public class IRcommand_Field_Access extends IRcommand
 {
-    public TEMP t1;
-    public TEMP t2;
     public TEMP dst;
+    public TEMP t;
+    String fieldName;
 
-    public IRcommand_Binop_Divide_Integers(TEMP dst,TEMP t1,TEMP t2)
+    public IRcommand_Field_Access(TEMP dst, TEMP t, String fieldName)
     {
         this.dst = dst;
-        this.t1 = t1;
-        this.t2 = t2;
+        this.t = t;
+        this.fieldName = fieldName;
     }
     /***************/
     /* MIPS me !!! */
     /***************/
-//    public void MIPSme()
-//    {
-//        MIPSGenerator.getInstance().mul(dst,t1,t2);
-//    }
+//	public void MIPSme()
+//	{
+//		MIPSGenerator.getInstance().add(dst,t1,t2);
+//	}
 }

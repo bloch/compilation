@@ -122,4 +122,14 @@ public class AST_STMT_MODIFY_5 extends AST_STMT{
         System.exit(0);
         return null;
     }
+
+    public TEMP IRme()
+    {
+        TEMP object = this.var.IRme();
+        TEMP param1 = e.IRme();
+        TEMP_LIST params_list = new TEMP_LIST(param1, null);
+        IR.getInstance().Add_IRcommand(new IRcommand_Function_Virtual_Call(object, null, id_name, params_list));
+        return null;
+    }
+
 }
