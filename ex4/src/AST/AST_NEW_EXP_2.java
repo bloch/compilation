@@ -79,4 +79,15 @@ public class AST_NEW_EXP_2 extends AST_NEW_EXP {
         return GetSignature(this.t);
     }
 
+    public TEMP IRme(){
+        TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
+
+        (AST_TYPE_ID) ta = (AST_TYPE_ID) t; //must be type array , otherwise it will fail at semantic level
+        String name = ta.name;
+
+        IR.getInstance().AddIRcommand(new IRcommand_New_Array(dst,name,e.IRme()));
+        return dst;
+
+    }
+
 }

@@ -137,7 +137,7 @@ public class AST_VAR_DEC_3 extends AST_VAR_DEC {
 
     public TEMP IRme(){
         String name = type_with_id1.id_name;
-        IR.getInstance().AddIRcommand(new IRcommand_Allocate(name));
+//        IR.getInstance().AddIRcommand(new IRcommand_Allocate(name)); // TODO : check if allocate is ok
 
         if (ne != null){
             IR.getInstance().AddIRcommand(new IRcommand_Store(name ,ne.IRme()));

@@ -107,6 +107,7 @@ public class AST_STMT_ASSIGN extends AST_STMT
 			IR.getInstance().AddIRcommand(new IRcommand_Field_Set(object,field_name,src));
 
 		}
+		return null;
 	}
 
 }
