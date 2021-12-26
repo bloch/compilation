@@ -13,15 +13,17 @@ package IR;
 import TEMP.*;
 import MIPS.*;
 
-public class IRcommand_New_Array extends IRcommand
+public class IRcommand_Array_Access extends IRcommand
 {
-    TEMP dst;
-    TEMP src;
+    TEMP t1;
+    TEMP t2;
+    TEMP t3;
 
-    public IRcommand_New_Array(TEMP dst , TEMP src)
+    public IRcommand_Array_Access(TEMP t1 , TEMP t2 , TEMP t3)
     {
-        this.dst = dst;
-        this.src = src;
+        this.t1 = t1;
+        this.t2 = t2;
+        this.t3 = t3;
     }
 
     /***************/
