@@ -2,6 +2,10 @@ package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public class AST_EXP_MODIFY_1 extends AST_EXP {
     public String id_name;
 
@@ -76,4 +80,12 @@ public class AST_EXP_MODIFY_1 extends AST_EXP {
         // Good flow
         return t_func.returnType;
     }
+
+    public TEMP IRme()
+    {
+        TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+        IR.getInstance().Add_IRcommand(new IRcommand_Function_Call(t, id_name, null));
+        return t;
+    }
+
 }

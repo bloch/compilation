@@ -2,6 +2,10 @@ package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public class AST_STMT_MODIFY_2 extends AST_STMT {
     public String id_name1;
     public AST_EXP exp;
@@ -106,4 +110,13 @@ public class AST_STMT_MODIFY_2 extends AST_STMT {
         }
         return null;
     }
+
+    public TEMP IRme()
+    {
+        TEMP param1 = e.IRme();
+        TEMP_LIST params_list = new TEMP_LIST(param1, null);
+        IR.getInstance().Add_IRcommand(new IRcommand_Function_Call(null, id_name, params_list));
+        return null;
+    }
+
 }

@@ -74,4 +74,11 @@ public class AST_STMT_RETURN_EXP extends AST_STMT{
         return null;
     }
 
+    public TEMP IRme()
+    {
+        TEMP ret = this.exp.IRme();
+        IR.getInstance().Add_IRcommand(new IRcommand_Return(ret));
+        return null;
+    }
+
 }

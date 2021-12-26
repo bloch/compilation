@@ -59,4 +59,6 @@ public class AST_STMT_VAR_DEC extends AST_STMT{
     public TYPE SemantMe() {
         return vd.SemantMe();
     }
+
+    public TEMP IRme() { return this.vd.IRme(); }
 }

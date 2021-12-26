@@ -127,5 +127,14 @@ public class AST_EXP_MODIFY_5 extends AST_EXP {
         return null;
     }
 
+    public TEMP IRme()
+    {
+        TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+        TEMP object = this.var.IRme();
+        TEMP param1 = e.IRme();
+        TEMP_LIST params_list = new TEMP_LIST(param1, null);
+        IR.getInstance().Add_IRcommand(new IRcommand_Function_Virtual_Call(object, t, id_name, params_list));
+        return t;
+    }
 
 }

@@ -121,4 +121,12 @@ public class AST_VAR_FIELD extends AST_VAR
 		return null;
 	}
 
+	public TEMP IRme()
+	{
+		TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
+		TEMP object = this.var.IRme();
+		IR.getInstance().Add_IRcommand(new IRcommand_Field_Access(dst, object, this.fieldName));
+		return dst;
+	}
+
 }
