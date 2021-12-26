@@ -122,4 +122,15 @@ public class AST_VAR_DEC_2 extends AST_VAR_DEC {
         return GetSignature(type_with_id1.t);
     }
 
+    public TEMP IRme(){
+        String name = type_with_id1.id_name;
+        IR.getInstance().AddIRcommand(new IRcommand_Allocate(name));
+
+        if (exp != null){
+            IR.getInstance().AddIRcommand(new IRcommand_Store(name ,exp.IRme()));
+        }
+
+        return null;
+    }
+
 }
