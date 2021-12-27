@@ -11,6 +11,8 @@ public class AST_EXP_MODIFY_5 extends AST_EXP {
     public String id_name;
     public AST_EXP e;
 
+    public int class_offset;
+
     public AST_EXP_MODIFY_5(AST_VAR var, String id_name, AST_EXP e, int lineNumber) {
         this.lineNumber = lineNumber;
         /******************************/
@@ -113,6 +115,7 @@ public class AST_EXP_MODIFY_5 extends AST_EXP {
                             return null;
                         }
                         // Good flow: all OK
+                        this.class_offset = class_member.class_offset;
                         return t_func.returnType;
                     } else {
                         AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
@@ -133,11 +136,11 @@ public class AST_EXP_MODIFY_5 extends AST_EXP {
 
     public TEMP IRme()
     {
-        TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
         TEMP object = this.var.IRme();
         TEMP param1 = e.IRme();
         TEMP_LIST params_list = new TEMP_LIST(param1, null);
-        IR.getInstance().Add_IRcommand(new IRcommand_Function_Virtual_Call(object, t, id_name, params_list));
+        TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+        IR.getInstance().Add_IRcommand(new IRcommand_Function_Virtual_Call(object, t, id_name, params_list, this.class_offset));
         return t;
     }
 

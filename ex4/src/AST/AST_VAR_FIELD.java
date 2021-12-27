@@ -10,6 +10,8 @@ public class AST_VAR_FIELD extends AST_VAR
 {
 	public AST_VAR var;
 	public String fieldName;
+
+	public int class_offset;
 	
 	/******************/
 	/* CONSTRUCTOR(S) */
@@ -108,6 +110,7 @@ public class AST_VAR_FIELD extends AST_VAR
 						System.exit(0);
 					}
 					else{
+						this.class_offset = class_member.class_offset;
 						return class_member.type;
 					}
 
@@ -129,7 +132,7 @@ public class AST_VAR_FIELD extends AST_VAR
 	{
 		TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
 		TEMP object = this.var.IRme();
-		IR.getInstance().Add_IRcommand(new IRcommand_Field_Access(dst, object, this.fieldName));
+		IR.getInstance().Add_IRcommand(new IRcommand_Field_Access(dst, object, this.fieldName, this.class_offset));
 		return dst;
 	}
 

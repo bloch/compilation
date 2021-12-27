@@ -2,5 +2,31 @@
 string_access_violation: .asciiz "Access Violation"
 string_illegal_div_by_0: .asciiz "Illegal Division By Zero"
 string_invalid_ptr_dref: .asciiz "Invalid Pointer Dereference"
-	li $v0,10
+.data
+vt_A:
+	.word A_m1
+	.word A_m2
+.data
+vt_B:
+	.word A_m1
+	.word B_m2
+foo:
+	li $v0, 9
+	li $a0, 4
 	syscall
+	move Temp_0, $v0
+	la $s0, vt_B
+	sw $s0, 0(Temp_0)
+	sw Temp_0,-44($fp)
+	lw Temp_1,-44($fp)
+	li Temp_2,7
+	subu $sp, $sp, 4
+	sw Temp_2, 0($sp)
+	subu $sp, $sp, 4
+	sw Temp_1, 0($sp)
+	lw $s0, 0(Temp_1)
+	lw $s1, 4($s0)
+	jalr $s1
+	addu $sp, $sp, 8
+	move Temp_3, $v0
+	sw Temp_3,-48($fp)

@@ -3,6 +3,10 @@ import SYMBOL_TABLE.*;
 import TYPES.*;
 import java.util.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public class AST_CLASS_DEC extends AST_DEC {
     public AST_CLASS_DEC cd;
 
@@ -58,5 +62,8 @@ public class AST_CLASS_DEC extends AST_DEC {
     public TYPE GetSignature() {
         return this.cd.GetSignature();
     }
-
+    public TEMP IRme()
+    {
+        return this.cd.IRme();
+    }
 }

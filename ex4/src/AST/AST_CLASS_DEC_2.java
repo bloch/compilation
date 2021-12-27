@@ -2,6 +2,12 @@ package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
+import java.util.ArrayList;
+
 public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
     public String id_name1;
     public String id_name2;
@@ -97,4 +103,71 @@ public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
         return null;
     }
 
+
+    public TEMP IRme()
+    {
+        TYPE_CLASS type_class = (TYPE_CLASS) SYMBOL_TABLE.getInstance().find(id_name1);
+        ArrayList<String> function_labels = new ArrayList<String>();
+//        System.out.println(type_class.num_methods);
+//        boolean overriden = false;
+//        String parent_dec;
+
+        for(int i = 0; i < type_class.num_methods + 1; i++) {
+            int current_offset = 4*i;
+            boolean found_here = false;
+            for (TYPE_LIST signatures = type_class.data_members; signatures != null; signatures=signatures.tail){
+                    TYPE_ID member_type = (TYPE_ID) signatures.head;
+                    if(member_type.type instanceof TYPE_FUNCTION && member_type.class_offset == current_offset) {
+                        function_labels.add(type_class.name + "_" + member_type.name);
+                        found_here = true;
+                    }
+            }
+            if(found_here == true) {
+                continue;
+            }
+            boolean finish = false;
+            for (TYPE_CLASS tmp_superclass = type_class.father; tmp_superclass != null; tmp_superclass = tmp_superclass.father) {
+                for (TYPE_LIST superclass_signatures = tmp_superclass.data_members ; superclass_signatures != null ; superclass_signatures=superclass_signatures.tail) {
+                    TYPE_ID member_type = (TYPE_ID) superclass_signatures.head;
+                    if(member_type.type instanceof TYPE_FUNCTION && member_type.class_offset == current_offset) {
+                        function_labels.add(tmp_superclass.name + "_" + member_type.name);
+                        finish = true;
+                        break;
+                    }
+                }
+                if(finish) {
+                    break;
+                }
+            }
+//            for (TYPE_CLASS tmp_superclass = type_class.father; tmp_superclass != null; tmp_superclass = tmp_superclass.father) {
+//                for (TYPE_LIST superclass_signatures = tmp_superclass.data_members ; superclass_signatures != null ; superclass_signatures=superclass_signatures.tail){
+//                    TYPE_ID member_type = (TYPE_ID) superclass_signatures.head;
+//                    System.out.println(tmp_superclass.name + " " + member_type.name);
+//                    if(member_type.type instanceof TYPE_FUNCTION && member_type.class_offset == current_offset) {
+//                        //function_labels.add(tmp_superclass.name + "_" + member_type.name);
+//                        overriden = true;
+//                        parent_dec = mp_superclass.name + "_" + member_type.name;
+//                    }
+//                }
+//            }
+//            if(overriden == true) {
+//                for (TYPE_LIST signatures = type_class.data_members ; signatures != null ; signatures=signatures.tail){
+//                    TYPE_ID member_type = (TYPE_ID) signatures.head;
+//                    if(member_type.type instanceof TYPE_FUNCTION && member_type.class_offset == current_offset) {
+//                        function_labels.add(type_class.name + "_" + member_type.name);
+//                    }
+//                }
+//            }
+//            if(overriden == false) {
+//                for (TYPE_LIST signatures = type_class.data_members ; signatures != null ; signatures=signatures.tail){
+//                    TYPE_ID member_type = (TYPE_ID) signatures.head;
+//                    if(member_type.type instanceof TYPE_FUNCTION && member_type.class_offset == current_offset) {
+//                        function_labels.add(type_class.name + "_" + member_type.name);
+//                    }
+//                }
+//            }
+        }
+        IR.getInstance().Add_IRcommand(new IRcommand_Class_Dec(type_class.name, function_labels));
+        return null;
+    }
 }

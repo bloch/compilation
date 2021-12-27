@@ -24,8 +24,5 @@ public class IRcommand_New_Array extends IRcommand
         this.src = src;
     }
 
-    /***************/
-    /* MIPS me !!! */
-    /***************/
     public void MIPSme() {};
 }

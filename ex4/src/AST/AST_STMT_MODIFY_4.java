@@ -10,6 +10,8 @@ public class AST_STMT_MODIFY_4 extends AST_STMT{
     public AST_VAR var;
     public String id_name1;
 
+    public int class_offset;
+
     public AST_STMT_MODIFY_4(AST_VAR var, String id_name1, int lineNumber) {
         this.lineNumber = lineNumber;
         /******************************/
@@ -84,6 +86,7 @@ public class AST_STMT_MODIFY_4 extends AST_STMT{
                             System.exit(0);
                         }
                         // Good flow: all OK
+                        this.class_offset = class_member.class_offset;
                         return null;
                     }
                     else {
@@ -106,7 +109,7 @@ public class AST_STMT_MODIFY_4 extends AST_STMT{
     public TEMP IRme()
     {
         TEMP object = this.var.IRme();
-        IR.getInstance().Add_IRcommand(new IRcommand_Function_Virtual_Call(object, null, id_name1, null));
+        IR.getInstance().Add_IRcommand(new IRcommand_Function_Virtual_Call(object, null, id_name1, null, this.class_offset));
         return null;
     }
 

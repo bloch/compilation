@@ -7,6 +7,12 @@ package MIPS;
 /* GENERAL IMPORTS */
 /*******************/
 import java.io.PrintWriter;
+import java.util.ArrayList;
+
+import java.util.*;
+import TYPES.*;
+import AST.*;
+import java.util.*;
 
 /*******************/
 /* PROJECT IMPORTS */
@@ -26,8 +32,8 @@ public class MIPSGenerator
 	/***********************/
 	public void finalizeFile()
 	{
-		fileWriter.print("\tli $v0,10\n");
-		fileWriter.print("\tsyscall\n");
+		//fileWriter.print("\tli $v0,10\n");
+		//fileWriter.print("\tsyscall\n");
 		fileWriter.close();
 	}
 	public void print_int(TEMP t)
@@ -150,9 +156,126 @@ public class MIPSGenerator
 	}
 	public void beqz(TEMP oprnd1,String label)
 	{
-		int i1 =oprnd1.getSerialNumber();
+		int i1 = oprnd1.getSerialNumber();
 				
 		fileWriter.format("\tbeq Temp_%d,$zero,%s\n",i1,label);				
+	}
+	public void new_array(TEMP dst, TEMP src)
+	{
+		int t0 = dst.getSerialNumber();
+		int t1 = src.getSerialNumber();
+
+		fileWriter.format("\tli $v0, 9\n");
+		fileWriter.format("\tmove $a0, Temp_%d\n", t1);
+		fileWriter.format("\tadd $a0, $a0, 1\n");
+		fileWriter.format("\tmul $a0, $a0, 4\n");
+		fileWriter.format("\tsyscall\n");
+		fileWriter.format("\tmove Temp_%d, $v0\n", t0);
+		fileWriter.format("\tsw Temp_%d, 0(Temp_%d)\n", t1, t0);
+	}
+	public void class_dec(String class_name, ArrayList<String> function_labels)
+	{
+		fileWriter.format(".data\n");
+		fileWriter.format("vt_%s:\n", class_name);
+		for(int i = 0; i < function_labels.size(); i++) {
+			fileWriter.format("\t.word %s\n", function_labels.get(i));
+		}
+	}
+	public void field_access(TEMP dst, int offset, TEMP src) {
+		int t0 = dst.getSerialNumber();
+		int t1 = src.getSerialNumber();
+		fileWriter.format("\tbeq Temp_%d, 0, abort\n", t1);
+		fileWriter.format("\tlw Temp_%d, %d(Temp_%d)\n", t0, offset, t1);
+	}
+	public void field_set(TEMP o, int offset, TEMP e) {
+		int t0 = o.getSerialNumber();
+		int t1 = e.getSerialNumber();
+		fileWriter.format("\tbeq Temp_%d, 0, abort\n", t0);
+		fileWriter.format("\tsw Temp_%d, %d(Temp_%d)\n", t1, offset, t0);
+	}
+	public void virtual_call(TEMP object, int offset, TEMP_LIST params, TEMP dst) {
+		int t0 = object.getSerialNumber();
+		int t2 = dst.getSerialNumber();
+		ArrayList<TEMP> temp_list = new ArrayList<TEMP>();
+		while(params != null) {
+			temp_list.add(params.head);
+			params = params.tail;
+		}
+
+		//push arguments in reverse order
+		for(int i = temp_list.size() - 1; i >= 0; i--) {
+			TEMP cur = temp_list.get(i);
+			int cur_t = cur.getSerialNumber();
+			fileWriter.format("\tsubu $sp, $sp, 4\n");
+			fileWriter.format("\tsw Temp_%d, 0($sp)\n", cur_t);
+		}
+
+		//push 'this' argument as last argument
+		fileWriter.format("\tsubu $sp, $sp, 4\n");
+
+		fileWriter.format("\tsw Temp_%d, 0($sp)\n", t0);
+
+		// load vtable of object
+		fileWriter.format("\tlw $s0, 0(Temp_%d)\n", t0);
+
+		// load method from vtable
+		fileWriter.format("\tlw $s1, %d($s0)\n", offset);
+
+		// jump and link register
+		fileWriter.format("\tjalr $s1\n");
+
+		// move sp back by (#arguments+1)*4
+		fileWriter.format("\taddu $sp, $sp, %d\n", (temp_list.size()+1)*4);
+
+		// read return value
+
+		fileWriter.format("\tmove Temp_%d, $v0\n", t2);
+
+	}
+
+	public void arrray_access(TEMP t0 , TEMP t1 , TEMP t2){
+		int t0_idx = t0.getSerialNumber();
+		int t1_idx = t1.getSerialNumber();
+		int t2_idx = t2.getSerialNumber();
+
+		//error handilng
+		fileWriter.format("\tbltz Temp_%d, abort_nathannnnn\n",t2_idx);
+		fileWriter.format("\tlw $s0, 0(Temp_%d)\n",t1_idx);
+		fileWriter.format("\tbge Temp_%d, $s0, abort_nathannnnn\n",t2_idx);
+
+		fileWriter.format("\tmove $s0, Temp_%d\n",t2_idx);
+		fileWriter.format("\tadd $s0, $s0, 1\n");
+		fileWriter.format("\tmul $s0, $s0, 4\n");
+		fileWriter.format("\taddu $s0, Temp_%d, $s0\n",t1_idx);
+		fileWriter.format("\tlw Temp_%d, 0($s0)\n",t0_idx);
+
+		fileWriter.format("\tabort_nathannnnn:\n");
+		fileWriter.format("\tli $v0,10\n");
+		fileWriter.format("\tsyscall\n");
+
+	}
+
+	public void new_class(TEMP t0 , TYPE_ID[] fields_array , int size_of_class , String vt_name){
+		//malloc
+		int t0_idx = t0.getSerialNumber();
+		fileWriter.format("\tli $v0, 9\n");
+		fileWriter.format("\tli $a0, %d\n" , size_of_class*4);
+		fileWriter.format("\tsyscall\n");
+
+		//set vt at index 0 of the object after malloc
+		fileWriter.format("\tmove Temp_%d, $v0\n",t0_idx);
+		fileWriter.format("\tla $s0, %s\n" , vt_name);
+		fileWriter.format("\tsw $s0, 0(Temp_%d)\n",t0_idx);
+
+		//start to set the fields
+		//for now store in $s0 some defoult value
+		String default_val = "DEFAULT";
+		for (int i = 1; i < size_of_class; i++) {
+			int offest = 4*i;
+			fileWriter.format("\tli $s0, %s\n",default_val);
+			//add here check if exist non-default value
+			fileWriter.format("\tsw $s0, %d(Temp_%d)\n",offest,t0_idx);
+		}
 	}
 	
 	/**************************************/
