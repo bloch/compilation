@@ -2,5 +2,21 @@
 string_access_violation: .asciiz "Access Violation"
 string_illegal_div_by_0: .asciiz "Illegal Division By Zero"
 string_invalid_ptr_dref: .asciiz "Invalid Pointer Dereference"
+foo:
+	li $v0, 9
+	li $a0, 20
+	syscall
+	move Temp_0, $v0
+	la $s0, vt_C
+	sw $s0, 0(Temp_0)
+	li $s0, DEFAULT
+	sw $s0, 4(Temp_0)
+	li $s0, DEFAULT
+	sw $s0, 8(Temp_0)
+	li $s0, DEFAULT
+	sw $s0, 12(Temp_0)
+	li $s0, DEFAULT
+	sw $s0, 16(Temp_0)
+	sw Temp_0,-44($sp)
 	li $v0,10
 	syscall

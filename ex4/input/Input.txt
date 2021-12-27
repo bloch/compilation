@@ -2,27 +2,20 @@
 class A {
     int x;
     int y;
-
     int foo() {
         return 3;
     }
 }
 
-class B extends A {
-    int y;
+class B extends A{
     int z;
-        int goo() {
-                  return 5;
-              }
+
 }
 
-class C extends B {
-    int x;
-    int w;
+class C extends B{
+    string w;
+}
 
-    int foo() {
-        return 4;
-    }
-
-
+int foo(){
+    A a := new C;
 }

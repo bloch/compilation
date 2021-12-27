@@ -2,6 +2,10 @@
 /* PACKAGE */
 /***********/
 package MIPS;
+import java.util.*;
+import TYPES.*;
+import AST.*;
+import java.util.*;
 
 /*******************/
 /* GENERAL IMPORTS */
@@ -50,6 +54,52 @@ public class MIPSGenerator
 	//	
 	//	return t;
 	//}
+
+	public void arrray_access(TEMP t0 , TEMP t1 , TEMP t2){
+		int t0_idx = t0.getSerialNumber();
+		int t1_idx = t1.getSerialNumber();
+		int t2_idx = t2.getSerialNumber();
+
+		//error handilng
+		fileWriter.format("\tbltz Temp_%d, abort_nathannnnn\n",t2_idx);
+		fileWriter.format("\tlw $s0, 0(Temp_%d)\n",t1_idx);
+		fileWriter.format("\tbge Temp_%d, $s0, abort_nathannnnn\n",t2_idx);
+
+		fileWriter.format("\tmove $s0, Temp_%d\n",t2_idx);
+		fileWriter.format("\tadd $s0, $s0, 1\n");
+		fileWriter.format("\tmul $s0, $s0, 4\n");
+		fileWriter.format("\taddu $s0, Temp_%d, $s0\n",t1_idx);
+		fileWriter.format("\tlw Temp_%d, 0($s0)\n",t0_idx);
+
+		fileWriter.format("\tabort_nathannnnn:\n");
+		fileWriter.format("\tli $v0,10\n");
+		fileWriter.format("\tsyscall\n");
+
+	}
+
+	public void new_class(TEMP t0 , TYPE_ID[] fields_array , int size_of_class , String vt_name){
+		//malloc
+		int t0_idx = t0.getSerialNumber();
+		fileWriter.format("\tli $v0, 9\n");
+		fileWriter.format("\tli $a0, %d\n" , size_of_class*4);
+		fileWriter.format("\tsyscall\n");
+
+		//set vt at index 0 of the object after malloc
+		fileWriter.format("\tmove Temp_%d, $v0\n",t0_idx);
+		fileWriter.format("\tla $s0, %s\n" , vt_name);
+		fileWriter.format("\tsw $s0, 0(Temp_%d)\n",t0_idx);
+
+		//start to set the fields
+		//for now store in $s0 some defoult value
+		String default_val = "DEFAULT";
+		for (int i = 1; i < size_of_class; i++) {
+			int offest = 4*i;
+			fileWriter.format("\tli $s0, %s\n",default_val);
+			//add here check if exist non-default value
+			fileWriter.format("\tsw $s0, %d(Temp_%d)\n",offest,t0_idx);
+		}
+	}
+
 	public void allocate(String var_name)
 	{
 		fileWriter.format(".data\n");
