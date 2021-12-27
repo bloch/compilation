@@ -2,5 +2,18 @@
 string_access_violation: .asciiz "Access Violation"
 string_illegal_div_by_0: .asciiz "Illegal Division By Zero"
 string_invalid_ptr_dref: .asciiz "Invalid Pointer Dereference"
-	li $v0,10
-	syscall
+.data
+A:
+	.word A_m1
+	.word A_m2
+.data
+B:
+	.word A_m1
+	.word B_m2
+	.word B_m3
+.data
+C:
+	.word A_m1
+	.word B_m2
+	.word C_m3
+	.word C_m4

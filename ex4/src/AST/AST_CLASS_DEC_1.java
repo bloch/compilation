@@ -2,6 +2,11 @@ package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
+import java.util.ArrayList;
 
 public class AST_CLASS_DEC_1 extends AST_CLASS_DEC {
     public String id_name1;
@@ -82,6 +87,20 @@ public class AST_CLASS_DEC_1 extends AST_CLASS_DEC {
         /*********************************************************/
         /* [5] Return value is irrelevant for class declarations */
         /*********************************************************/
+        return null;
+    }
+
+    public TEMP IRme()
+    {
+        TYPE_CLASS type_class = (TYPE_CLASS) SYMBOL_TABLE.getInstance().find(id_name1);
+        ArrayList<String> function_labels = new ArrayList<String>();
+        for(TYPE_LIST tmp_data_members = type_class.data_members; tmp_data_members != null; tmp_data_members = tmp_data_members.tail) {
+            TYPE_ID member_type = (TYPE_ID) tmp_data_members.head;
+            if(member_type.type instanceof TYPE_FUNCTION) {
+                function_labels.add(type_class.name + "_" + member_type.name);
+            }
+        }
+        IR.getInstance().Add_IRcommand(new IRcommand_Class_Dec(type_class.name, function_labels));
         return null;
     }
 

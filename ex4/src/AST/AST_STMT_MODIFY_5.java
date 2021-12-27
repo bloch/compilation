@@ -11,6 +11,8 @@ public class AST_STMT_MODIFY_5 extends AST_STMT{
     public String id_name1;
     public AST_EXP exp;
 
+    public int class_offset;
+
     public AST_STMT_MODIFY_5(AST_VAR var, String id_name1, AST_EXP exp, int lineNumber) {
         this.lineNumber = lineNumber;
         /******************************/
@@ -109,6 +111,7 @@ public class AST_STMT_MODIFY_5 extends AST_STMT{
                             return null;
                         }
                         // Good flow: all OK
+                        this.class_offset = class_member.class_offset;
                         return null;
                     } else {
                         AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
@@ -132,7 +135,7 @@ public class AST_STMT_MODIFY_5 extends AST_STMT{
         TEMP object = this.var.IRme();
         TEMP param1 = exp.IRme();
         TEMP_LIST params_list = new TEMP_LIST(param1, null);
-        IR.getInstance().Add_IRcommand(new IRcommand_Function_Virtual_Call(object, null, id_name1, params_list));
+        IR.getInstance().Add_IRcommand(new IRcommand_Function_Virtual_Call(object, null, id_name1, params_list, this.class_offset));
         return null;
     }
 

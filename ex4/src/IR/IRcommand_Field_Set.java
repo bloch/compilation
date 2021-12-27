@@ -19,11 +19,14 @@ public class IRcommand_Field_Set extends IRcommand
     public String f;
     public TEMP e;
 
-    public IRcommand_Field_Set(TEMP o , String f , TEMP e)
+    int offset;
+
+    public IRcommand_Field_Set(TEMP o , String f , TEMP e, int offset)
     {
         this.o = o;
         this.f = f;
         this.e = e;
+        this.offset = offset;
     }
 
     /***************/
@@ -31,6 +34,6 @@ public class IRcommand_Field_Set extends IRcommand
     /***************/
     public void MIPSme()
     {
-
+        MIPSGenerator.getInstance().field_set(this.o, this.offset, this.e);
     }
 }

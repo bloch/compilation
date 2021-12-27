@@ -1,28 +1,28 @@
 
 class A {
-    int x;
-    int y;
-
-    int foo() {
-        return 3;
+    void m1(int x) {
+        return;
+    }
+    void m2(int x) {
+        return;
     }
 }
 
 class B extends A {
-    int y;
-    int z;
-        int goo() {
-                  return 5;
-              }
+    void m2(int x) {
+        return;
+    }
+    void m3(int x) {
+        return;
+    }
+
 }
 
 class C extends B {
-    int x;
-    int w;
-
-    int foo() {
-        return 4;
+    void m3(int x) {
+        return;
     }
-
-
+    void m4(int x) {
+        return;
+    }
 }

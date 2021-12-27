@@ -12,6 +12,8 @@ public class AST_EXP_MODIFY_6 extends AST_EXP {
     public AST_EXP e;
     public AST_PSIK_EXP_LIST l;
 
+    public int class_offset;
+
     public AST_EXP_MODIFY_6(AST_VAR var, String id_name, AST_EXP e, AST_PSIK_EXP_LIST l , int lineNumber) {
         this.lineNumber = lineNumber;
         /******************************/
@@ -155,6 +157,7 @@ public class AST_EXP_MODIFY_6 extends AST_EXP {
                             return null;
                         }
                         // Good flow: all OK
+                        this.class_offset = class_member.class_offset;
                         return t_func.returnType;
                     } else {
                         AST_Node.file_writer.print(String.format("ERROR(%d)", this.lineNumber));
@@ -185,7 +188,7 @@ public class AST_EXP_MODIFY_6 extends AST_EXP {
             params_list.AddToTEMPList(next_param);
             tmp = tmp.tail;
         }
-        IR.getInstance().Add_IRcommand(new IRcommand_Function_Virtual_Call(object, t, id_name, params_list));
+        IR.getInstance().Add_IRcommand(new IRcommand_Function_Virtual_Call(object, t, id_name, params_list, this.class_offset));
         return t;
     }
 }
