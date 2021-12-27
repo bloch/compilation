@@ -1,28 +1,19 @@
 
 class A {
-    void m1(int x) {
-        return;
+    int m1(int x) {
+        return 1;
     }
-    void m2(int x) {
-        return;
+    int m2(int x) {
+        return 2;
     }
 }
 
 class B extends A {
-    void m2(int x) {
-        return;
+    int m2(int x) {
+        return 3;
     }
-    void m3(int x) {
-        return;
-    }
-
 }
-
-class C extends B {
-    void m3(int x) {
-        return;
-    }
-    void m4(int x) {
-        return;
-    }
+int foo() {
+    B b := new B;
+    int z := b.m2(7);
 }

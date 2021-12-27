@@ -32,7 +32,7 @@ public class IRcommand_Load extends IRcommand
 	public void MIPSme()
 	{
 		if(offset != -300000000) {
-			String offset_string = this.offset + "($sp)";
+			String offset_string = this.offset + "($fp)";
 			MIPSGenerator.getInstance().load(dst, offset_string);
 		}
 		else {

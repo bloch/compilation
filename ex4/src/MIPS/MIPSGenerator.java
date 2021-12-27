@@ -176,7 +176,7 @@ public class MIPSGenerator
 	public void class_dec(String class_name, ArrayList<String> function_labels)
 	{
 		fileWriter.format(".data\n");
-		fileWriter.format("%s:\n", class_name);
+		fileWriter.format("vt_%s:\n", class_name);
 		for(int i = 0; i < function_labels.size(); i++) {
 			fileWriter.format("\t.word %s\n", function_labels.get(i));
 		}
@@ -196,7 +196,6 @@ public class MIPSGenerator
 	public void virtual_call(TEMP object, int offset, TEMP_LIST params, TEMP dst) {
 		int t0 = object.getSerialNumber();
 		int t2 = dst.getSerialNumber();
-
 		ArrayList<TEMP> temp_list = new ArrayList<TEMP>();
 		while(params != null) {
 			temp_list.add(params.head);
@@ -213,6 +212,7 @@ public class MIPSGenerator
 
 		//push 'this' argument as last argument
 		fileWriter.format("\tsubu $sp, $sp, 4\n");
+
 		fileWriter.format("\tsw Temp_%d, 0($sp)\n", t0);
 
 		// load vtable of object
@@ -228,6 +228,7 @@ public class MIPSGenerator
 		fileWriter.format("\taddu $sp, $sp, %d\n", (temp_list.size()+1)*4);
 
 		// read return value
+
 		fileWriter.format("\tmove Temp_%d, $v0\n", t2);
 
 	}
