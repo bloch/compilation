@@ -277,6 +277,17 @@ public class MIPSGenerator
 			fileWriter.format("\tsw $s0, %d(Temp_%d)\n",offest,t0_idx);
 		}
 	}
+
+	public void function_prologue(String func_name, int sp_offset) {
+		fileWriter.format("%s_prologue:\n", func_name);
+		fileWriter.format("\tsubu $sp, $sp, 4\n");
+		fileWriter.format("\tsw $ra, 0($sp)\n");
+		fileWriter.format("\tsubu $sp, $sp, 4\n");
+		fileWriter.format("\tsw $fp, 0($sp)\n");
+		fileWriter.format("\tmove $fp, $sp\n");
+		fileWriter.format("\tsub $sp, $sp, %d\n", sp_offset);
+		fileWriter.format("%s_body:\n", func_name);
+	}
 	
 	/**************************************/
 	/* USUAL SINGLETON IMPLEMENTATION ... */

@@ -110,7 +110,7 @@ public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
         AST_Node.retStmtList = null;
 
         symbol_table.endScope();
-
+        this.calc_var_decs(this.stmtList);
         return null;
     }
 
@@ -143,6 +143,7 @@ public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
     public TEMP IRme()
     {
         IR.getInstance().Add_IRcommand(new IRcommand_Label(type_with_id1.id_name));
+        IR.getInstance().Add_IRcommand(new IRcommand_Function_Prologue(type_with_id1.id_name, 4*this.num_locals + 40));
         if (stmtList != null) stmtList.IRme();
         return null;
     }

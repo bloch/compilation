@@ -9,6 +9,8 @@ import IR.*;
 public class AST_FUNC_DEC extends AST_DEC {
     public AST_FUNC_DEC fd;
 
+    public int num_locals;
+
     public AST_FUNC_DEC() {
 
     }
@@ -79,5 +81,22 @@ public class AST_FUNC_DEC extends AST_DEC {
     }
 
     public TEMP IRme() { return this.fd.IRme(); }
+
+    public void calc_var_decs(AST_STMT_LIST stmtlist) {
+        for(AST_STMT_LIST tmp = stmtlist; tmp != null; tmp = tmp.tail) {
+            if(tmp.head instanceof AST_STMT_VAR_DEC) {
+                this.num_locals++;
+            }
+            if(tmp.head instanceof AST_STMT_IF) {
+                AST_STMT_IF if_stmt = (AST_STMT_IF) tmp.head;
+                this.calc_var_decs(if_stmt.body);
+            }
+            if(tmp.head instanceof AST_STMT_WHILE) {
+                AST_STMT_WHILE while_stmt = (AST_STMT_WHILE) tmp.head;
+                this.calc_var_decs(while_stmt.body);
+            }
+        }
+        //System.out.println("Num of params in  is = " + this.num_locals);
+    }
 
 }
