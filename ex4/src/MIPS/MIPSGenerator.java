@@ -74,6 +74,46 @@ public class MIPSGenerator
 			fileWriter.format("\t%s: .word %s_str\n", var_name, var_name);
 		}
 	}
+
+	public void jal_to_str_eq(TEMP t1 , TEMP T2 , TEMP t3)
+	{
+		int t1_idx = t1.getSerialNumber();
+		int t2_idx = t2.getSerialNumber();
+		int t3_idx = t3.getSerialNumber();
+		fileWriter.format("\tsubu $sp, $sp, 4\n");
+		fileWriter.format("\tsw Temp_%d, 0($sp)\n",t2_idx);
+		fileWriter.format("\tsubu $sp, $sp, 4\n");
+		fileWriter.format("\tsw Temp_%d, 0($sp)\n",t1_idx);
+		fileWriter.format("\tjal str_eq\n");
+		fileWriter.format("\taddu $sp, $sp, 8\n");
+		fileWriter.format("\tmove Temp_%d, $v0\n",t3_idx);
+	}
+
+	//should be join to nathan main
+	public void str_eq(){
+		function_prologue("str_eq" , 0);
+
+		fileWriter.format("\t$v0, 1\n");
+
+		fileWriter.format("\tlw $s0, 8($fp)\n");
+		fileWriter.format("\tlw $s1, 12($fp)\n");
+		fileWriter.format("\tstr_eq_loop:\n");
+		fileWriter.format("\tlb $s2, 0($s0)\n");//load single byte
+		fileWriter.format("\tlb $s3, 0($s1)\n");//load single byte
+		fileWriter.format("\tbne $s2, $s3, neq_label\n");
+		fileWriter.format("\tbeq $s2, 0, str_eq_end\n");
+		fileWriter.format("\taddu $s0, $s0 , 1\n");
+		fileWriter.format("\taddu $s1, $s0 , 1\n");
+		fileWriter.format("\tj str_eq_loop\n");
+		fileWriter.format("\tneq_label:\n");
+
+		fileWriter.format("\t$v0, 0\n");
+		fileWriter.format("\tstr_eq_end:\n");
+
+		//TODO: add epilogue
+
+	}
+
 	public void load(TEMP dst,String var_name)
 	{
 		int idxdst=dst.getSerialNumber();
