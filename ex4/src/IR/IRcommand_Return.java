@@ -24,8 +24,9 @@ public class IRcommand_Return extends IRcommand
 	/***************/
 	/* MIPS me !!! */
 	/***************/
-//	public void MIPSme()
-//	{
-//		MIPSGenerator.getInstance().add(dst,t1,t2);
-//	}
+	public void MIPSme()
+	{
+		return;
+		//MIPSGenerator.getInstance().add(dst,t1,t2);
+	}
 }

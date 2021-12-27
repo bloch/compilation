@@ -17,11 +17,13 @@ public class IRcommand_Load extends IRcommand
 {
 	TEMP dst;
 	String var_name;
+	int offset;
 	
-	public IRcommand_Load(TEMP dst,String var_name)
+	public IRcommand_Load(TEMP dst,String var_name, int offset)
 	{
 		this.dst      = dst;
 		this.var_name = var_name;
+		this.offset = offset;
 	}
 	
 	/***************/
@@ -29,6 +31,12 @@ public class IRcommand_Load extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
-		MIPSGenerator.getInstance().load(dst,var_name);
+		if(offset != -300000000) {
+			String offset_string = this.offset + "($sp)";
+			MIPSGenerator.getInstance().load(dst, offset_string);
+		}
+		else {
+			MIPSGenerator.getInstance().load(dst, var_name);
+		}
 	}
 }

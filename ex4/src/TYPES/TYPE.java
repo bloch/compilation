@@ -7,6 +7,8 @@ public abstract class TYPE
 	/******************************/
 	public String name;
 
+	public int class_offset;
+
 	/*************/
 	/* isClass() */
 	/*************/

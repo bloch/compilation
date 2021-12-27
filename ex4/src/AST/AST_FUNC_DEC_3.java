@@ -84,10 +84,20 @@ public class AST_FUNC_DEC_3 extends AST_FUNC_DEC {
 
         symbol_table.beginScope();
 
+        AST_Node.local_offset = -44;
+        AST_Node.param_offset = 8;
+
+        if(AST_Node.cur_class != null) {
+            // if cur_class != null, this is method, thus recieving 'this' at param offset 8
+            AST_Node.param_offset += 4;
+        }
+
         TYPE_LIST type_list = BuildTypeList(this.ptil);
 
         // here we know that scope only opned, thus type_with_id2.id_name doesn't exist and type is valid(checked in GetSignature() line 79)
-        symbol_table.enter(type_with_id2.id_name,   function_signature.params.head);
+        //symbol_table.enter(type_with_id2.id_name,   function_signature.params.head);
+        symbol_table.enter(type_with_id2.id_name,   function_signature.params.head, AST_Node.param_offset);
+        AST_Node.param_offset += 4;
 
         AST_PSIK_TYPE_ID_LIST tmp_ptil = this.ptil;
         TYPE_LIST tmp_type_list = type_list;
@@ -98,7 +108,9 @@ public class AST_FUNC_DEC_3 extends AST_FUNC_DEC {
                 System.out.format(">> ERROR AST_FUNC_DEC_3: some parameters have the same name");
                 System.exit(0);
             }
-            symbol_table.enter(tmp_ptil.type_with_id.id_name, tmp_type_list.head);
+            //symbol_table.enter(tmp_ptil.type_with_id.id_name, tmp_type_list.head);
+            symbol_table.enter(tmp_ptil.type_with_id.id_name, tmp_type_list.head, AST_Node.param_offset);
+            AST_Node.param_offset += 4;
 
             tmp_ptil = tmp_ptil.tail;
             tmp_type_list = tmp_type_list.tail;
@@ -178,7 +190,7 @@ public class AST_FUNC_DEC_3 extends AST_FUNC_DEC {
 
     public TEMP IRme()
     {
-        IR.getInstance().Add_IRcommand(new IRcommand_Label(type_with_id1.name));
+        IR.getInstance().Add_IRcommand(new IRcommand_Label(type_with_id1.id_name));
         if (stmtList != null) stmtList.IRme();
         return null;
     }

@@ -2,6 +2,10 @@ package AST;
 
 import java.util.ArrayList;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public class AST_DEC_LIST extends AST_Node
 {
     /****************/

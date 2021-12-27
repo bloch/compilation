@@ -25,11 +25,9 @@ public class IRcommand_Field_Access extends IRcommand
         this.t = t;
         this.fieldName = fieldName;
     }
-    /***************/
-    /* MIPS me !!! */
-    /***************/
-//	public void MIPSme()
-//	{
-//		MIPSGenerator.getInstance().add(dst,t1,t2);
-//	}
+
+    public void MIPSme()
+    {
+        return;
+    }
 }

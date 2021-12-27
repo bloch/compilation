@@ -2,9 +2,15 @@ package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public class AST_VAR_DEC_3 extends AST_VAR_DEC {
     public AST_TYPE_WITH_ID type_with_id1;
     public AST_NEW_EXP ne;
+
+    public int offset;
 
     public AST_VAR_DEC_3(String id_name1, AST_TYPE type1, AST_NEW_EXP ne, int lineNumber) {
         this.lineNumber = lineNumber;
@@ -20,6 +26,8 @@ public class AST_VAR_DEC_3 extends AST_VAR_DEC {
         /*******************************/
         this.type_with_id1 = new AST_TYPE_WITH_ID(type1, id_name1, this.lineNumber);
         this.ne = ne;
+
+        this.offset = -300000000;
     }
 
     /*********************************************************/
@@ -122,7 +130,15 @@ public class AST_VAR_DEC_3 extends AST_VAR_DEC {
         /***************************************************/
         /* [3] Enter the Function Type to the Symbol Table */
         /***************************************************/
-        SYMBOL_TABLE.getInstance().enter(type_with_id1.id_name,type_of_var_for_symbol_table);
+        //SYMBOL_TABLE.getInstance().enter(type_with_id1.id_name,type_of_var_for_symbol_table);
+        if(this.in_function) {
+            this.offset = AST_Node.local_offset;
+            SYMBOL_TABLE.getInstance().enter(type_with_id1.id_name, type_of_var_for_symbol_table, AST_Node.local_offset);
+            AST_Node.local_offset -= 4;
+        }
+        else {
+            SYMBOL_TABLE.getInstance().enter(type_with_id1.id_name, type_of_var_for_symbol_table);
+        }
 
         /*********************************************************/
         /* [4] Return value is irrelevant for class declarations */
@@ -140,7 +156,7 @@ public class AST_VAR_DEC_3 extends AST_VAR_DEC {
 //        IR.getInstance().AddIRcommand(new IRcommand_Allocate(name)); // TODO : check if allocate is ok
 
         if (ne != null){
-            IR.getInstance().AddIRcommand(new IRcommand_Store(name ,ne.IRme()));
+            IR.getInstance().Add_IRcommand(new IRcommand_Store(name ,ne.IRme(), this.offset));
         }
 
         return null;

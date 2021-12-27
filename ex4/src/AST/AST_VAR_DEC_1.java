@@ -2,6 +2,10 @@ package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public class AST_VAR_DEC_1 extends AST_VAR_DEC {
     public AST_TYPE_WITH_ID type_with_id1;
 
@@ -91,8 +95,14 @@ public class AST_VAR_DEC_1 extends AST_VAR_DEC {
         /***************************************************/
         /* [3] Enter the Function Type to the Symbol Table */
         /***************************************************/
-        SYMBOL_TABLE.getInstance().enter(type_with_id1.id_name,type_of_var);
-
+        //SYMBOL_TABLE.getInstance().enter(type_with_id1.id_name, type_of_var);
+        if(this.in_function) {
+            SYMBOL_TABLE.getInstance().enter(type_with_id1.id_name, type_of_var, AST_Node.local_offset);
+            AST_Node.local_offset -= 4;
+        }
+        else {
+            SYMBOL_TABLE.getInstance().enter(type_with_id1.id_name, type_of_var);
+        }
         /*********************************************************/
         /* [4] Return value is irrelevant for class declarations */
         /*********************************************************/
@@ -107,7 +117,12 @@ public class AST_VAR_DEC_1 extends AST_VAR_DEC {
 
     public TEMP IRme(){
         String name = type_with_id1.id_name;
-        IR.getInstance().AddIRcommand(new IRcommand_Allocate(name));
+        TYPE t = SYMBOL_TABLE.getInstance().find(name);
+        if(t != null) {
+          // in global
+          IR.getInstance().Add_IRcommand(new IRcommand_Allocate(name));
+        }
+
         return null;
     }
 

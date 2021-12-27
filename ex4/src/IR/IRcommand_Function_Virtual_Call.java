@@ -27,4 +27,10 @@ public class IRcommand_Function_Virtual_Call extends IRcommand
         this.params = params;
     }
 
+    public void MIPSme()
+    {
+        return;
+
+    }
+
 }

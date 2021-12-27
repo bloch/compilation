@@ -80,9 +80,19 @@ public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
 
         symbol_table.beginScope();
 
-        // here we know that scope only opned, thus type_with_id2.id_name doesn't exist and type is valid(checked in GetSignature() line 73)
-        symbol_table.enter(type_with_id2.id_name,   function_signature.params.head);
+        AST_Node.local_offset = -44;
+        AST_Node.param_offset = 8;
 
+        // here we know that scope only opned, thus type_with_id2.id_name doesn't exist and type is valid(checked in GetSignature() line 73)
+        //symbol_table.enter(type_with_id2.id_name,   function_signature.params.head);
+        if(AST_Node.cur_class != null) {
+            // if cur_class != null, this is method, thus recieving 'this' at param offset 8
+            AST_Node.param_offset += 4;
+        }
+
+        symbol_table.enter(type_with_id2.id_name,   function_signature.params.head, AST_Node.param_offset);
+
+        // no need to 4++ the AST_Node.param_offset;
 
         AST_Node.retTypesList = new TYPE_LIST(null, null);
         AST_Node.retStmtList = new AST_STMT_LIST(null, null, -1);
@@ -132,7 +142,7 @@ public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
 
     public TEMP IRme()
     {
-        IR.getInstance().Add_IRcommand(new IRcommand_Label(type_with_id1.name));
+        IR.getInstance().Add_IRcommand(new IRcommand_Label(type_with_id1.id_name));
         if (stmtList != null) stmtList.IRme();
         return null;
     }

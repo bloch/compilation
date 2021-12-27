@@ -80,6 +80,44 @@ public class SYMBOL_TABLE
 		PrintMe();
 	}
 
+	/****************************************************************************/
+	/* Enter a variable, function, class type or array type to the symbol table */
+	/****************************************************************************/
+	public void enter(String name,TYPE t, int offset)
+	{
+		/*************************************************/
+		/* [1] Compute the hash value for this new entry */
+		/*************************************************/
+		int hashValue = hash(name);
+
+		/******************************************************************************/
+		/* [2] Extract what will eventually be the next entry in the hashed position  */
+		/*     NOTE: this entry can very well be null, but the behaviour is identical */
+		/******************************************************************************/
+		SYMBOL_TABLE_ENTRY next = table[hashValue];
+
+		/**************************************************************************/
+		/* [3] Prepare a new symbol table entry with name, type, next and prevtop */
+		/**************************************************************************/
+		SYMBOL_TABLE_ENTRY e = new SYMBOL_TABLE_ENTRY(name,t,hashValue,next,top,top_index++, offset);
+
+		/**********************************************/
+		/* [4] Update the top of the symbol table ... */
+		/**********************************************/
+		top = e;
+
+		/****************************************/
+		/* [5] Enter the new entry to the table */
+		/****************************************/
+		table[hashValue] = e;
+
+		/**************************/
+		/* [6] Print Symbol Table */
+		/**************************/
+		PrintMe();
+	}
+
+
 	/***********************************************/
 	/* Find the inner-most scope element with name */
 	/***********************************************/
@@ -96,6 +134,24 @@ public class SYMBOL_TABLE
 		}
 		
 		return null;
+	}
+
+	/***********************************************/
+	/* Find the inner-most scope element with name */
+	/***********************************************/
+	public int find_offset(String name)		// look-up function
+	{
+		SYMBOL_TABLE_ENTRY e;
+
+		for (e = table[hash(name)]; e != null; e = e.next)
+		{
+			if (name.equals(e.name))
+			{
+				return e.offset;
+			}
+		}
+
+		return -300000000;
 	}
 
 	public TYPE findNotInGlobalScope(String name)		// look-up function

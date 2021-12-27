@@ -2,6 +2,10 @@ package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public class AST_EXP_PARENTHESES extends AST_EXP{
     /***************/
     /*  exp -> (exp) */

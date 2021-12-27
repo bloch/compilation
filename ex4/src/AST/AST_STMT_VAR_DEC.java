@@ -3,6 +3,10 @@ package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public class AST_STMT_VAR_DEC extends AST_STMT{
     public AST_VAR_DEC vd;
 
@@ -26,6 +30,7 @@ public class AST_STMT_VAR_DEC extends AST_STMT{
         /* COPY INPUT DATA NENBERS ... */
         /*******************************/
         this.vd = vd;
+        this.vd.in_function = true;
     }
 
     /*********************************************************/

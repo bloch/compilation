@@ -167,7 +167,7 @@ public class AST_EXP_MODIFY_3 extends AST_EXP {
         TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
         TEMP param1 = e.IRme();
         TEMP_LIST params_list = new TEMP_LIST(param1, null);
-        AST_EXP_LIST tmp = l;
+        AST_PSIK_EXP_LIST tmp = l;
         while(tmp != null) {
             TEMP next_param = tmp.head.IRme();
             params_list.AddToTEMPList(next_param);

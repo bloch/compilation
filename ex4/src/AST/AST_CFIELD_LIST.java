@@ -86,9 +86,17 @@ public class AST_CFIELD_LIST extends AST_Node {
     }
 
     public TYPE SemantMe(TYPE_CLASS type_class) {
+        if(type_class.father != null) {
+            type_class.num_fields = type_class.father.num_fields;
+            type_class.num_methods = type_class.father.num_methods;
+        }
+        else {
+            type_class.num_fields = 0;
+            type_class.num_methods = -1;
+        }
         this.CheckSTMTForConstantInit(this.head);          // exits on error
         TYPE_ID head_signature = GetClassSignature(this.head);
-        CheckIfOverrideLegal(type_class.father, head_signature, this.head);
+        CheckIfOverrideLegal(type_class.father, head_signature, this.head, type_class);
         this.head.SemantMe();
         type_class.data_members = new TYPE_LIST(head_signature, null);
 
@@ -96,11 +104,15 @@ public class AST_CFIELD_LIST extends AST_Node {
         while (tmp != null) {
             this.CheckSTMTForConstantInit(tmp.head);       // exits on error
             TYPE_ID tmp_head_signature = GetClassSignature(tmp.head);
-            CheckIfOverrideLegal(type_class.father, tmp_head_signature, tmp.head);
+            CheckIfOverrideLegal(type_class.father, tmp_head_signature, tmp.head, type_class);
             tmp.head.SemantMe();
 
             type_class.data_members.AddToTypeList(tmp_head_signature);
             tmp = tmp.tail;
+        }
+        System.out.println("CLASS: " + type_class.name);
+        for(TYPE_LIST tmp_data_members = type_class.data_members; tmp_data_members != null; tmp_data_members = tmp_data_members.tail) {
+            System.out.println("data member " + tmp_data_members.head.name + ", offset " + tmp_data_members.head.class_offset);
         }
         return null;
     }
@@ -145,7 +157,7 @@ public class AST_CFIELD_LIST extends AST_Node {
         }
     }
 
-    public static void CheckIfOverrideLegal(TYPE_CLASS father_class, TYPE_ID current_field, AST_CFIELD cfield) {
+    public static void CheckIfOverrideLegal(TYPE_CLASS father_class, TYPE_ID current_field, AST_CFIELD cfield, TYPE_CLASS cur_class) {
         for (TYPE_CLASS tmp_superclass = father_class ; tmp_superclass != null ; tmp_superclass = tmp_superclass.father) {
             for (TYPE_LIST superclass_signatures = tmp_superclass.data_members ; superclass_signatures != null ; superclass_signatures=superclass_signatures.tail){
                 if ((current_field.name).equals(superclass_signatures.head.name)){
@@ -155,8 +167,20 @@ public class AST_CFIELD_LIST extends AST_Node {
                         System.out.format(">> ERROR: field name already exists in superclass and it's not valid override\n");
                         System.exit(0);
                     }
+                    // legal over-ride
+                    current_field.class_offset = superclass_signatures.head.class_offset;
+                    return;
                 }
             }
+        }
+
+        if(current_field.type instanceof TYPE_FUNCTION) {
+            current_field.class_offset = (cur_class.num_methods+1)*4;
+            cur_class.num_methods += 1;
+        }
+        else {
+            current_field.class_offset = (cur_class.num_fields+1)*4;
+            cur_class.num_fields += 1;
         }
     }
 

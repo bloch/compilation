@@ -2,6 +2,10 @@ package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public class AST_NEW_EXP_1 extends AST_NEW_EXP {
     public AST_TYPE t;
 
@@ -57,10 +61,10 @@ public class AST_NEW_EXP_1 extends AST_NEW_EXP {
 
     public TEMP IRme(){
         TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
-        (AST_TYPE_ID) tc = (AST_TYPE_ID) t; //must be type class , otherwise it will fail at semantic level
+        AST_TYPE_ID tc = (AST_TYPE_ID) t; //must be type class , otherwise it will fail at semantic level
 
         String name = tc.name;
-        IR.getInstance().AddIRcommand(new IRcommand_New_Class(dst,name));
+        IR.getInstance().Add_IRcommand(new IRcommand_New_Class(dst,name));
         return dst;
     }
 

@@ -13,6 +13,7 @@ import TYPES.*;
 /**********************/
 public class SYMBOL_TABLE_ENTRY
 {
+	int offset;
 	/*********/
 	/* index */
 	/*********/
@@ -56,5 +57,23 @@ public class SYMBOL_TABLE_ENTRY
 		this.next = next;
 		this.prevtop = prevtop;
 		this.prevtop_index = prevtop_index;
+		this.offset = -300000000;
+	}
+
+	public SYMBOL_TABLE_ENTRY(
+			String name,
+			TYPE type,
+			int index,
+			SYMBOL_TABLE_ENTRY next,
+			SYMBOL_TABLE_ENTRY prevtop,
+			int prevtop_index, int offset)
+	{
+		this.index = index;
+		this.name = name;
+		this.type = type;
+		this.next = next;
+		this.prevtop = prevtop;
+		this.prevtop_index = prevtop_index;
+		this.offset = offset;
 	}
 }

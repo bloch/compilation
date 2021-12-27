@@ -2,6 +2,10 @@ package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public class AST_NEW_EXP_2 extends AST_NEW_EXP {
     public AST_TYPE t;
     public AST_EXP e;
@@ -82,7 +86,7 @@ public class AST_NEW_EXP_2 extends AST_NEW_EXP {
     public TEMP IRme(){
         TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
 
-        IR.getInstance().AddIRcommand(new IRcommand_New_Array(dst,e.IRme()));
+        IR.getInstance().Add_IRcommand(new IRcommand_New_Array(dst,e.IRme()));
         return dst;
 
     }

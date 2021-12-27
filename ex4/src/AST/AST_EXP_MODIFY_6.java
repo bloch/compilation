@@ -2,6 +2,10 @@ package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public class AST_EXP_MODIFY_6 extends AST_EXP {
     public AST_VAR var;
     public String id_name;
@@ -175,7 +179,7 @@ public class AST_EXP_MODIFY_6 extends AST_EXP {
         TEMP object = this.var.IRme();
         TEMP param1 = e.IRme();
         TEMP_LIST params_list = new TEMP_LIST(param1, null);
-        AST_EXP_LIST tmp = l;
+        AST_PSIK_EXP_LIST tmp = l;
         while(tmp != null) {
             TEMP next_param = tmp.head.IRme();
             params_list.AddToTEMPList(next_param);
