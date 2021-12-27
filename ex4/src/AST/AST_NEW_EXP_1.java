@@ -1,6 +1,7 @@
 package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
+import java.util.*;
 
 import TEMP.*;
 import MIPS.*;
@@ -63,8 +64,36 @@ public class AST_NEW_EXP_1 extends AST_NEW_EXP {
         TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
         AST_TYPE_ID tc = (AST_TYPE_ID) t; //must be type class , otherwise it will fail at semantic level
 
+
+        //need to get more then just class neme...
         String name = tc.name;
-        IR.getInstance().Add_IRcommand(new IRcommand_New_Class(dst,name));
+
+        TYPE_CLASS type_class = (TYPE_CLASS) SYMBOL_TABLE.getInstance().find(name);//retirve class from symbol table(it's there because it's global)
+
+        int size_of_class = type_class.num_fields + 1; //include vt
+
+        //retrive fields(not methods!) and there default data if exist
+        TYPE_ID[] fields_array = new TYPE_ID[size_of_class];
+
+
+        for (TYPE_CLASS tmp_class = type_class ; tmp_class !=null ; tmp_class = tmp_class.father) {
+            for (TYPE_LIST it=tmp_class.data_members ; it != null ; it=it.tail) {
+                TYPE_ID class_member = (TYPE_ID) it.head;
+                if (!class_member.type.isFunction()){
+                    int field_index = (int) (class_member.class_offset / 4);
+                    if (fields_array[field_index] != null){
+                        fields_array[field_index] = class_member;
+                    }
+                    //else this value has been override...
+
+                }
+            }
+        }
+
+
+
+
+        IR.getInstance().Add_IRcommand(new IRcommand_New_Class(dst , fields_array , size_of_class , name));
         return dst;
     }
 
