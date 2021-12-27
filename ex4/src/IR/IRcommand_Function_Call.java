@@ -25,4 +25,9 @@ public class IRcommand_Function_Call extends IRcommand
         this.params = params;
     }
 
+    public void MIPSme()
+    {
+        return;
+    }
+
 }

@@ -3,6 +3,10 @@ import java.io.PrintWriter;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public abstract class AST_Node
 {
 	/*******************************************/
@@ -20,6 +24,9 @@ public abstract class AST_Node
 	public static PrintWriter  file_writer;
 
 	public static TYPE_CLASS cur_class = null;
+
+	public static int local_offset = -44;
+	public static int param_offset = 8;
 
 	/***********************************************/
 	/* The default message for an unknown AST node */
@@ -82,7 +89,6 @@ public abstract class AST_Node
 	}
 
 	public static boolean isT1SubInstanceT2(TYPE t1 , TYPE t2){
-		System.out.format("\n t1:%s t2: %s \n", t1.name, t2.name);
 		//primitive type check , is nill primtive type also by grammer?
 		if (t1 instanceof TYPE_INT){
 			if (t2 instanceof TYPE_INT){
@@ -181,5 +187,7 @@ public abstract class AST_Node
 		}
 		return null;
 	}
+
+	public TEMP IRme(){ System.out.println("NO IRme() !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"); return null; }
 
 }

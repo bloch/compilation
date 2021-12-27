@@ -12,6 +12,7 @@ public class AST_VAR_SIMPLE extends AST_VAR
 	/* simple variable name */
 	/************************/
 	public String name;
+	int offset;
 	
 	/******************/
 	/* CONSTRUCTOR(S) */
@@ -33,6 +34,7 @@ public class AST_VAR_SIMPLE extends AST_VAR
 		/* COPY INPUT DATA NENBERS ... */
 		/*******************************/
 		this.name = name;
+		this.offset = -300000000;
 	}
 
 	/**************************************************/
@@ -56,20 +58,27 @@ public class AST_VAR_SIMPLE extends AST_VAR
 	public TYPE SemantMe() {
 		TYPE t = SYMBOL_TABLE.getInstance().findNotInGlobalScope(name);
 		if (t != null) {
+			this.offset = SYMBOL_TABLE.getInstance().find_offset(name);
+			System.out.println("Name " + name + ", offset: " + this.offset);
 			return t;
 		}
 		t = isVarInClassFields(name);
 		if (t != null) {
+			// TODO: add offset calculation for that fucking case
 			return t;
 		}
 		t = SYMBOL_TABLE.getInstance().find(name);
-		return t;
+		if (t != null) {
+			this.offset = SYMBOL_TABLE.getInstance().find_offset(name);
+			System.out.println("Name " + name + ", offset: " + this.offset);
+		}
+		return t;		//might return null... and will fall outside
 	}
 
 	public TEMP IRme()
 	{
 		TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
-		IR.getInstance().Add_IRcommand(new IRcommand_Load(t,name));
+		IR.getInstance().Add_IRcommand(new IRcommand_Load(t,name, this.offset));
 		return t;
 	}
 }

@@ -53,22 +53,40 @@ public class MIPSGenerator
 	public void allocate(String var_name)
 	{
 		fileWriter.format(".data\n");
-		fileWriter.format("\tglobal_%s: .word 721\n",var_name);
+		fileWriter.format("\t%s: .word DEFAULTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT\n",var_name);
+	}
+	public void allocate_int(String var_name, int value)
+	{
+		fileWriter.format(".data\n");
+		fileWriter.format("\t%s: .word %s\n",var_name, value);
+	}
+	public void allocate_string(String var_name, String value, boolean global)
+	{
+		fileWriter.format(".data\n");
+		fileWriter.format("\t%s_str: .asciiz \"%s\"\n",var_name, value);
+		if(global) {
+			fileWriter.format("\t%s: .word %s_str\n", var_name, var_name);
+		}
 	}
 	public void load(TEMP dst,String var_name)
 	{
 		int idxdst=dst.getSerialNumber();
-		fileWriter.format("\tlw Temp_%d,global_%s\n",idxdst,var_name);
+		fileWriter.format("\tlw Temp_%d,%s\n",idxdst,var_name);
 	}
 	public void store(String var_name,TEMP src)
 	{
 		int idxsrc=src.getSerialNumber();
-		fileWriter.format("\tsw Temp_%d,global_%s\n",idxsrc,var_name);		
+		fileWriter.format("\tsw Temp_%d,%s\n",idxsrc,var_name);
 	}
 	public void li(TEMP t,int value)
 	{
 		int idx=t.getSerialNumber();
 		fileWriter.format("\tli Temp_%d,%d\n",idx,value);
+	}
+	public void la(String offset, String value)
+	{
+		fileWriter.format(".text\n");
+		fileWriter.format("\tla %s,%s\n",offset,value);
 	}
 	public void add(TEMP dst,TEMP oprnd1,TEMP oprnd2)
 	{

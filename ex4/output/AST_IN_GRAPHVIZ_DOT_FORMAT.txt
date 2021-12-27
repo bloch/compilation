@@ -1,0 +1,159 @@
+digraph
+{
+graph [ordering = "out"]
+v63 [label = "Program
+"];
+v18 [label = "classDec_1
+ID(A)
+"];
+v0 [label = "TYPE_INT
+"];
+v2 [label = "TYPE_WITH_ID
+ID (x);
+"];
+v2 -> v0;
+v1 [label = "varDec_1"];
+v1 -> v2;
+v3 [label = "CFIELD
+VAR_DEC"];
+v3 -> v1;
+v4 [label = "TYPE_INT
+"];
+v6 [label = "TYPE_WITH_ID
+ID (y);
+"];
+v6 -> v4;
+v5 [label = "varDec_1"];
+v5 -> v6;
+v7 [label = "CFIELD
+VAR_DEC"];
+v7 -> v5;
+v8 [label = "TYPE_INT
+"];
+v13 [label = "TYPE_WITH_ID
+ID (foo);
+"];
+v13 -> v8;
+v12 [label = "funcDec_1
+"];
+v9 [label = "INT
+(3)"];
+v10 [label = "STMT
+RETURN
+EXP
+"];
+v10 -> v9;
+v12 -> v10;
+v12 -> v13;
+v14 [label = "CFIELD
+FUNC_DEC"];
+v14 -> v12;
+v18 -> v3;
+v18 -> v7;
+v18 -> v14;
+v19 [label = "classDec"];
+v19 -> v18;
+v38 [label = "classDec_2
+ID1(B) ID2(A)
+"];
+v20 [label = "TYPE_INT
+"];
+v22 [label = "TYPE_WITH_ID
+ID (y);
+"];
+v22 -> v20;
+v21 [label = "varDec_1"];
+v21 -> v22;
+v23 [label = "CFIELD
+VAR_DEC"];
+v23 -> v21;
+v24 [label = "TYPE_INT
+"];
+v26 [label = "TYPE_WITH_ID
+ID (z);
+"];
+v26 -> v24;
+v25 [label = "varDec_1"];
+v25 -> v26;
+v27 [label = "CFIELD
+VAR_DEC"];
+v27 -> v25;
+v28 [label = "TYPE_INT
+"];
+v33 [label = "TYPE_WITH_ID
+ID (goo);
+"];
+v33 -> v28;
+v32 [label = "funcDec_1
+"];
+v29 [label = "INT
+(5)"];
+v30 [label = "STMT
+RETURN
+EXP
+"];
+v30 -> v29;
+v32 -> v30;
+v32 -> v33;
+v34 [label = "CFIELD
+FUNC_DEC"];
+v34 -> v32;
+v38 -> v23;
+v38 -> v27;
+v38 -> v34;
+v39 [label = "classDec"];
+v39 -> v38;
+v58 [label = "classDec_2
+ID1(C) ID2(B)
+"];
+v40 [label = "TYPE_INT
+"];
+v42 [label = "TYPE_WITH_ID
+ID (x);
+"];
+v42 -> v40;
+v41 [label = "varDec_1"];
+v41 -> v42;
+v43 [label = "CFIELD
+VAR_DEC"];
+v43 -> v41;
+v44 [label = "TYPE_INT
+"];
+v46 [label = "TYPE_WITH_ID
+ID (w);
+"];
+v46 -> v44;
+v45 [label = "varDec_1"];
+v45 -> v46;
+v47 [label = "CFIELD
+VAR_DEC"];
+v47 -> v45;
+v48 [label = "TYPE_INT
+"];
+v53 [label = "TYPE_WITH_ID
+ID (foo);
+"];
+v53 -> v48;
+v52 [label = "funcDec_1
+"];
+v49 [label = "INT
+(4)"];
+v50 [label = "STMT
+RETURN
+EXP
+"];
+v50 -> v49;
+v52 -> v50;
+v52 -> v53;
+v54 [label = "CFIELD
+FUNC_DEC"];
+v54 -> v52;
+v58 -> v43;
+v58 -> v47;
+v58 -> v54;
+v59 [label = "classDec"];
+v59 -> v58;
+v63 -> v19;
+v63 -> v39;
+v63 -> v59;
+}

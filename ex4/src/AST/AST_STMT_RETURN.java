@@ -2,6 +2,10 @@ package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public class AST_STMT_RETURN extends AST_STMT{
 
     public AST_STMT_RETURN(int lineNumber)

@@ -76,7 +76,7 @@ public class AST_STMT_MODIFY_1 extends AST_STMT{
 
     public TEMP IRme()
     {
-        IR.getInstance().Add_IRcommand(new IRcommand_Function_Call(null, id_name, null));
+        IR.getInstance().Add_IRcommand(new IRcommand_Function_Call(null, id_name1, null));
         return null;
     }
 

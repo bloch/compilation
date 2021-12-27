@@ -26,6 +26,11 @@ public class IRcommand_Binop_GT_Integers extends IRcommand
         this.t2 = t2;
     }
 
+    public void MIPSme()
+    {
+        return;
+    }
+
     // TODO: change the MIPSme... Nathan copied this function from BINOP_LT_Integers..
 
 //    /***************/

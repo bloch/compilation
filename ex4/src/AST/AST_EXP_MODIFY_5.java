@@ -2,6 +2,10 @@ package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public class AST_EXP_MODIFY_5 extends AST_EXP {
     public AST_VAR var;
     public String id_name;

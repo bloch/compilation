@@ -25,11 +25,8 @@ public class IRcommand_Binop_Subtract_Integers extends IRcommand
         this.t1 = t1;
         this.t2 = t2;
     }
-    /***************/
-    /* MIPS me !!! */
-    /***************/
-//    public void MIPSme()
-//    {
-//        MIPSGenerator.getInstance().add(dst,t1,t2);
-//    }
+
+    public void MIPSme() {
+        return;
+    }
 }

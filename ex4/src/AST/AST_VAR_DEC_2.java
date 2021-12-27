@@ -2,9 +2,15 @@ package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public class AST_VAR_DEC_2 extends AST_VAR_DEC {
     public AST_TYPE_WITH_ID type_with_id1;
     public AST_EXP exp;
+
+    public int offset;
 
     public AST_VAR_DEC_2(String id_name1, AST_TYPE type1, AST_EXP exp, int lineNumber) {
         this.lineNumber = lineNumber;
@@ -20,6 +26,8 @@ public class AST_VAR_DEC_2 extends AST_VAR_DEC {
         /*******************************/
         this.type_with_id1 = new AST_TYPE_WITH_ID(type1, id_name1, this.lineNumber);
         this.exp = exp;
+
+        this.offset = -300000000;
     }
 
     /*********************************************************/
@@ -109,7 +117,15 @@ public class AST_VAR_DEC_2 extends AST_VAR_DEC {
         /***************************************************/
         /* [3] Enter the Function Type to the Symbol Table */
         /***************************************************/
-        SYMBOL_TABLE.getInstance().enter(type_with_id1.id_name,type_of_var);
+        //SYMBOL_TABLE.getInstance().enter(type_with_id1.id_name,type_of_var);
+        if(this.in_function) {
+            this.offset = AST_Node.local_offset;
+            SYMBOL_TABLE.getInstance().enter(type_with_id1.id_name, type_of_var, AST_Node.local_offset);
+            AST_Node.local_offset -= 4;
+        }
+        else {
+            SYMBOL_TABLE.getInstance().enter(type_with_id1.id_name, type_of_var);
+        }
 
         /*********************************************************/
         /* [4] Return value is irrelevant for class declarations */
@@ -124,10 +140,32 @@ public class AST_VAR_DEC_2 extends AST_VAR_DEC {
 
     public TEMP IRme(){
         String name = type_with_id1.id_name;
-        IR.getInstance().AddIRcommand(new IRcommand_Allocate(name));
+        TEMP e_temp = exp.IRme();
+        // check if global
+        TYPE t = SYMBOL_TABLE.getInstance().find(name);
+        if (t != null) {
+            if(exp instanceof AST_EXP_INT) {
+                int value = ((AST_EXP_INT) exp).value;
+                IR.getInstance().Add_IRcommand(new IRcommand_Allocate_Int(name, value));
+            }
+            if(exp instanceof AST_EXP_STRING) {
+                String value = ((AST_EXP_STRING) exp).value;
+                IR.getInstance().Add_IRcommand(new IRcommand_Allocate_String(name, value, true));
+            }
+            return null;
+        }
+        //not in global scope, this code intended for local+functions scope
+        if(exp instanceof AST_EXP_STRING) {
+            String value = ((AST_EXP_STRING) exp).value;
+            IR.getInstance().Add_IRcommand(new IRcommand_Allocate_String(name, value, false));
+            IR.getInstance().Add_IRcommand(new IRcommand_Load_Address(name + "_str", this.offset));
+            return null;
+        }
+
+        //IR.getInstance().Add_IRcommand(new IRcommand_Allocate(name));
 
         if (exp != null){
-            IR.getInstance().AddIRcommand(new IRcommand_Store(name ,exp.IRme()));
+            IR.getInstance().Add_IRcommand(new IRcommand_Store(name ,e_temp, this.offset));
         }
 
         return null;

@@ -2,11 +2,17 @@ package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public class AST_VAR_DEC extends AST_DEC {
     public AST_VAR_DEC vd;
 
-    public AST_VAR_DEC() {
+    public boolean in_function;
 
+    public AST_VAR_DEC() {
+        this.in_function = false;
     }
 
     public AST_VAR_DEC(AST_VAR_DEC vd, int lineNumber) {

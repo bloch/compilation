@@ -2,6 +2,10 @@ package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public class AST_VAR_SUBSCRIPT extends AST_VAR
 {
 	public AST_VAR var;
@@ -104,7 +108,7 @@ public class AST_VAR_SUBSCRIPT extends AST_VAR
 		TEMP t1 = var.IRme();
 		TEMP t2 = subscript.IRme();
 		TEMP t3 = TEMP_FACTORY.getInstance().getFreshTEMP();
-		IR.getInstance().AddIRcommand(new IRcommand_Array_Access(t1,t2,t3));
+		IR.getInstance().Add_IRcommand(new IRcommand_Array_Access(t1,t2,t3));
 		return t3;
 	}
 
