@@ -141,6 +141,16 @@ public class AST_CFIELD_LIST extends AST_Node {
                 return new TYPE_ID(vd_1.GetSignature(), vd_1.type_with_id1.id_name);
             } else if (cf_var_dec.vd instanceof AST_VAR_DEC_2) {
                 AST_VAR_DEC_2 vd_2 = (AST_VAR_DEC_2) cf_var_dec.vd;
+                //add value data for IRme ----------------
+                if(vd_2.exp instanceof AST_EXP_INT) {
+                    int int_value = ((AST_EXP_INT) (vd_2.exp)).value;
+                    return new TYPE_ID(vd_2.GetSignature(), vd_2.type_with_id1.id_name , int_value , "null");
+                }
+                if(vd_2.exp instanceof AST_EXP_STRING) {
+                    String string_value = ((AST_EXP_STRING) (vd_2.exp)).value;
+                    return new TYPE_ID(vd_2.GetSignature(), vd_2.type_with_id1.id_name , 0.5f ,string_value);
+                }
+                // ---------else , keep it "simple" like ex3--------------
                 return new TYPE_ID(vd_2.GetSignature(), vd_2.type_with_id1.id_name);
             } else if (cf_var_dec.vd instanceof AST_VAR_DEC_3) {
                 AST_VAR_DEC_3 vd_3 = (AST_VAR_DEC_3) cf_var_dec.vd;

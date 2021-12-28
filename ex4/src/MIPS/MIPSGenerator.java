@@ -75,44 +75,110 @@ public class MIPSGenerator
 		}
 	}
 
-	public void jal_to_str_eq(TEMP t1 , TEMP T2 , TEMP t3)
-	{
-		int t1_idx = t1.getSerialNumber();
-		int t2_idx = t2.getSerialNumber();
-		int t3_idx = t3.getSerialNumber();
-		fileWriter.format("\tsubu $sp, $sp, 4\n");
-		fileWriter.format("\tsw Temp_%d, 0($sp)\n",t2_idx);
-		fileWriter.format("\tsubu $sp, $sp, 4\n");
-		fileWriter.format("\tsw Temp_%d, 0($sp)\n",t1_idx);
-		fileWriter.format("\tjal str_eq\n");
-		fileWriter.format("\taddu $sp, $sp, 8\n");
-		fileWriter.format("\tmove Temp_%d, $v0\n",t3_idx);
-	}
+//	public void jal_to_str_eq(TEMP t1 , TEMP T2 , TEMP t3)
+//	{
+//		int t1_idx = t1.getSerialNumber();
+//		int t2_idx = t2.getSerialNumber();
+//		int t3_idx = t3.getSerialNumber();
+//		fileWriter.format("\tsubu $sp, $sp, 4\n");
+//		fileWriter.format("\tsw Temp_%d, 0($sp)\n",t2_idx);
+//		fileWriter.format("\tsubu $sp, $sp, 4\n");
+//		fileWriter.format("\tsw Temp_%d, 0($sp)\n",t1_idx);
+//		fileWriter.format("\tjal str_eq\n");
+//		fileWriter.format("\taddu $sp, $sp, 8\n");
+//		fileWriter.format("\tmove Temp_%d, $v0\n",t3_idx);
+//	}
+//
+//	//should be join to nathan main
+//	public void str_eq_function_dec(){
+//		function_prologue("str_eq" , 0);
+//
+//		fileWriter.format("\t$v0, 0\n");
+//		//ok to use $s0-$s3 registers??
+//		fileWriter.format("\tlw $s0, 8($fp)\n");
+//		fileWriter.format("\tlw $s1, 12($fp)\n");
+//
+//		fileWriter.format("\tstr_eq_loop:\n");
+//		//ok to use $s0-$s3 registers??
+//		fileWriter.format("\tlb $s2, 0($s0)\n");//load single byte
+//		fileWriter.format("\tlb $s3, 0($s1)\n");//load single byte
+//
+//		fileWriter.format("\tbne $s2, $s3, neq_label\n");
+//		fileWriter.format("\tbeq $s2, 0, str_eq_end\n");
+//		fileWriter.format("\taddu $s0, $s0 , 1\n");
+//		fileWriter.format("\taddu $s1, $s0 , 1\n");
+//		fileWriter.format("\tj str_eq_loop\n");
+//
+//		fileWriter.format("\tneq_label:\n");
+//		fileWriter.format("\t$v0, 1\n");
+//
+//		fileWriter.format("\tstr_eq_end:\n");
+//		//TODO: add epilogue
+//		function_prologue("str_eq");
+//	}
+//
+//	public void jal_to_str_concat(TEMP t1 , TEMP T2 , TEMP t3){
+//		int t1_idx = t1.getSerialNumber();
+//		int t2_idx = t2.getSerialNumber();
+//		int t3_idx = t3.getSerialNumber();
+//		fileWriter.format("\tsubu $sp, $sp, 4\n");
+//		fileWriter.format("\tsw Temp_%d, 0($sp)\n",t2_idx);
+//		fileWriter.format("\tsubu $sp, $sp, 4\n");
+//		fileWriter.format("\tsw Temp_%d, 0($sp)\n",t1_idx);
+//		fileWriter.format("\tjal str_concat\n");
+//		fileWriter.format("\taddu $sp, $sp, 8\n");
+//		fileWriter.format("\tmove Temp_%d, $v0\n",t3_idx);
+//	}
+//
+//	//should be join to nathan main
+//	public void str_concat_function_dec(){
+//		function_prologue("str_concat" , 0);
+//
+//		//ok to use $s0-$s3 registers??
+//		fileWriter.format("\tlw $s0, 8($fp)\n");
+//		fileWriter.format("\tlw $s1, 12($fp)\n");
+//
+////		jal_to_str_len(t1 , T2 ,  t3);
+//		//T3 store the len of
+//		function_prologue("str_concat");
+//	}
+//
+//	public void jal_to_str_len(TEMP t1 , TEMP T2 , TEMP t3){
+//		int t1_idx = t1.getSerialNumber();
+//		int t2_idx = t2.getSerialNumber();
+//		int t3_idx = t3.getSerialNumber();
+//		fileWriter.format("\tsubu $sp, $sp, 4\n");
+//		fileWriter.format("\tsw Temp_%d, 0($sp)\n",t2_idx);
+//		fileWriter.format("\tsubu $sp, $sp, 4\n");
+//		fileWriter.format("\tsw Temp_%d, 0($sp)\n",t1_idx);
+//		fileWriter.format("\tjal str_len\n");
+//		fileWriter.format("\taddu $sp, $sp, 8\n");
+//		fileWriter.format("\tmove Temp_%d, $v0\n",t3_idx);
+//	}
+//
+//	//should be join to nathan main
+//	public void str_len_function_dec(){
+//		function_prologue("str_len" , 0);
+//
+//		//ok to use $s0-$s3 registers??
+//		fileWriter.format("\tlw $s0, 8($fp)\n");
+//		fileWriter.format("\tlw $s1, 12($fp)\n");
+//		fileWriter.format("\tli $s3 , 0");//init counter to 1
+//
+//		fileWriter.format("\tstr_len_loop:\n");
+//		//ok to use $s0-$s3 registers??
+//		fileWriter.format("\tlb $s2, 0($s0)\n");//load single byte
+//		fileWriter.format("\tbeq $s2, $zero, end_loop\n");//null terminaitor
+//		fileWriter.format("\tadd $s3 , $s4, 1");//inc counter by 1
+//		fileWriter.format("\tj str_len_loop\n");
+//
+//		fileWriter.format("\tend_loop:\n");
+//
+//		function_prologue("str_len");
+//
+//	}
 
-	//should be join to nathan main
-	public void str_eq(){
-		function_prologue("str_eq" , 0);
 
-		fileWriter.format("\t$v0, 1\n");
-
-		fileWriter.format("\tlw $s0, 8($fp)\n");
-		fileWriter.format("\tlw $s1, 12($fp)\n");
-		fileWriter.format("\tstr_eq_loop:\n");
-		fileWriter.format("\tlb $s2, 0($s0)\n");//load single byte
-		fileWriter.format("\tlb $s3, 0($s1)\n");//load single byte
-		fileWriter.format("\tbne $s2, $s3, neq_label\n");
-		fileWriter.format("\tbeq $s2, 0, str_eq_end\n");
-		fileWriter.format("\taddu $s0, $s0 , 1\n");
-		fileWriter.format("\taddu $s1, $s0 , 1\n");
-		fileWriter.format("\tj str_eq_loop\n");
-		fileWriter.format("\tneq_label:\n");
-
-		fileWriter.format("\t$v0, 0\n");
-		fileWriter.format("\tstr_eq_end:\n");
-
-		//TODO: add epilogue
-
-	}
 
 	public void load(TEMP dst,String var_name)
 	{
@@ -295,7 +361,7 @@ public class MIPSGenerator
 
 	}
 
-	public void new_class(TEMP t0 , TYPE_ID[] fields_array , int size_of_class , String vt_name){
+	public void new_class(TEMP t0 , TYPE_ID[] fields_array , int size_of_class , String class_name){
 		//malloc
 		int t0_idx = t0.getSerialNumber();
 		fileWriter.format("\tli $v0, 9\n");
@@ -304,7 +370,7 @@ public class MIPSGenerator
 
 		//set vt at index 0 of the object after malloc
 		fileWriter.format("\tmove Temp_%d, $v0\n",t0_idx);
-		fileWriter.format("\tla $s0, %s\n" , vt_name);
+		fileWriter.format("\tla $s0, %s\n" , "vt_" + class_name);
 		fileWriter.format("\tsw $s0, 0(Temp_%d)\n",t0_idx);
 
 		//start to set the fields
@@ -312,7 +378,21 @@ public class MIPSGenerator
 		String default_val = "DEFAULT";
 		for (int i = 1; i < size_of_class; i++) {
 			int offest = 4*i;
-			fileWriter.format("\tli $s0, %s\n",default_val);
+//			System.out.println(fields_array[i]);
+
+			if (fields_array[i].int_value != 0.5){
+				String real_value = "" + ((int) fields_array[i].int_value);
+				fileWriter.format("\tli $s0, %s\n",real_value);
+			}
+			else if (fields_array[i].string_value != "null"){
+				String real_value = fields_array[i].string_value;
+				String label_name = fields_array[i].name + "_" + class_name;
+				fileWriter.format("\t%s_str: .asciiz \"%s\"\n",label_name, real_value);
+				fileWriter.format("\tla $s0, %s\n",label_name + "_str");
+			}
+			else{
+				fileWriter.format("\tli $s0, %s\n",default_val);
+			}
 			//add here check if exist non-default value
 			fileWriter.format("\tsw $s0, %d(Temp_%d)\n",offest,t0_idx);
 		}

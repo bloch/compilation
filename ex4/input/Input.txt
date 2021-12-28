@@ -1,19 +1,17 @@
 
 class A {
-    int m1(int x) {
-        return 1;
-    }
-    int m2(int x) {
-        return 2;
-    }
+    string x := "z";
+    string y := "a";
+    int w;
+    A a;
 }
-
 class B extends A {
-    int m2(int x) {
-        return 3;
+    int foo(){
+        return 5;
     }
+    string y := "b";
 }
 int foo() {
     B b := new B;
-    int z := b.m2(7);
+    string z := b.x;
 }
