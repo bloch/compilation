@@ -28,5 +28,6 @@ public class IRcommand_PrintInt extends IRcommand
 	public void MIPSme()
 	{
 		MIPSGenerator.getInstance().print_int(t);
+		//MIPSGenerator.getInstance().print_int(t);
 	}
 }

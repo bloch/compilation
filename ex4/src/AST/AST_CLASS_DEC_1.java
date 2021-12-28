@@ -101,6 +101,11 @@ public class AST_CLASS_DEC_1 extends AST_CLASS_DEC {
             }
         }
         IR.getInstance().Add_IRcommand(new IRcommand_Class_Dec(type_class.name, function_labels));
+
+        AST_Node.cur_class = type_class;
+        this.cfl.IRme();
+        AST_Node.cur_class = null;
+
         return null;
     }
 

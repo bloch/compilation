@@ -164,16 +164,23 @@ public class AST_EXP_MODIFY_3 extends AST_EXP {
 
     public TEMP IRme()
     {
-        TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+        TEMP t0 = TEMP_FACTORY.getInstance().getFreshTEMP();
+        System.out.println(t0.getSerialNumber());
         TEMP param1 = e.IRme();
+        System.out.println(param1.getSerialNumber());
         TEMP_LIST params_list = new TEMP_LIST(param1, null);
         AST_PSIK_EXP_LIST tmp = l;
         while(tmp != null) {
             TEMP next_param = tmp.head.IRme();
+            System.out.println(next_param.getSerialNumber());
             params_list.AddToTEMPList(next_param);
             tmp = tmp.tail;
         }
-        IR.getInstance().Add_IRcommand(new IRcommand_Function_Call(t, id_name, params_list));
-        return t;
+
+//        if(t0 == null) {
+//            System.out.println("WHAT THE FUCK");
+//        }
+        IR.getInstance().Add_IRcommand(new IRcommand_Function_Call(t0, id_name, params_list));
+        return t0;
     }
 }

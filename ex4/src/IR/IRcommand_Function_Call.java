@@ -27,7 +27,10 @@ public class IRcommand_Function_Call extends IRcommand
 
     public void MIPSme()
     {
-        return;
+        if(this.dst == null) {
+            System.out.println("NULLLLLLLLLLLLLLLLLLLLLLL");
+        }
+        MIPSGenerator.getInstance().call(this.function_name, this.params, this.dst);
     }
 
 }

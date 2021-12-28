@@ -32,19 +32,17 @@ public class MIPSGenerator
 	/***********************/
 	public void finalizeFile()
 	{
-		//fileWriter.print("\tli $v0,10\n");
-		//fileWriter.print("\tsyscall\n");
+		fileWriter.print("main:\n");
+		fileWriter.print("\tjal user_main\n");
+		fileWriter.print("\tli $v0,10\n");
+		fileWriter.print("\tsyscall\n");
 		fileWriter.close();
 	}
 	public void print_int(TEMP t)
 	{
 		int idx=t.getSerialNumber();
-		// fileWriter.format("\taddi $a0,Temp_%d,0\n",idx);
-		fileWriter.format("\tmove $a0,Temp_%d\n",idx);
+		fileWriter.format("\tmove $a0, Temp_%d\n", idx);
 		fileWriter.format("\tli $v0,1\n");
-		fileWriter.format("\tsyscall\n");
-		fileWriter.format("\tli $a0,32\n");
-		fileWriter.format("\tli $v0,11\n");
 		fileWriter.format("\tsyscall\n");
 	}
 	//public TEMP addressLocalVar(int serialLocalVarNum)
@@ -201,7 +199,6 @@ public class MIPSGenerator
 			temp_list.add(params.head);
 			params = params.tail;
 		}
-
 		//push arguments in reverse order
 		for(int i = temp_list.size() - 1; i >= 0; i--) {
 			TEMP cur = temp_list.get(i);
@@ -285,8 +282,56 @@ public class MIPSGenerator
 		fileWriter.format("\tsubu $sp, $sp, 4\n");
 		fileWriter.format("\tsw $fp, 0($sp)\n");
 		fileWriter.format("\tmove $fp, $sp\n");
+		// callee save t0-t9
+		for(int i = 0; i < 10; i++) {
+			fileWriter.format("\tsubu $sp, $sp, 4\n");
+			fileWriter.format("\tsw $t%d, 0($sp)\n", i);
+		}
 		fileWriter.format("\tsub $sp, $sp, %d\n", sp_offset);
 		fileWriter.format("%s_body:\n", func_name);
+	}
+
+	public void function_epilogue(String func_name) {
+		fileWriter.format("%s_epilogue:\n", func_name);
+		fileWriter.format("\tmove $sp, $fp\n");
+		// calle load t0-t9
+		for(int i = 0; i < 10; i++) {
+			fileWriter.format("\tlw $t%d, %d($sp)\n", i, -4 + -4*i);
+		}
+		fileWriter.format("\tlw $fp, 0($sp)\n");
+		fileWriter.format("\tlw $ra, 4($sp)\n");
+		fileWriter.format("\taddu $sp, $sp, 8\n");
+		fileWriter.format("\tjr $ra\n");
+	}
+
+	public void return_command(TEMP t) {
+		int t_idx = t.getSerialNumber();
+		fileWriter.format("\tmove $v0, Temp_%d\n", t_idx);
+	}
+
+	public void call(String func_name,  TEMP_LIST params, TEMP dst) {
+		ArrayList<TEMP> temp_list = new ArrayList<TEMP>();
+		while(params != null) {
+			temp_list.add(params.head);
+			params = params.tail;
+		}
+		//push arguments in reverse order
+		for(int i = temp_list.size() - 1; i >= 0; i--) {
+			TEMP cur = temp_list.get(i);
+			int cur_t = cur.getSerialNumber();
+			fileWriter.format("\tsubu $sp, $sp, 4\n");
+			fileWriter.format("\tsw Temp_%d, 0($sp)\n", cur_t);
+		}
+
+		// jal to func_name
+		fileWriter.format("\tjal %s\n", func_name);
+
+		// return sp
+		fileWriter.format("\taddu $sp, $sp, %d\n", temp_list.size() * 4);
+		if(dst != null) {
+			int t0 = dst.getSerialNumber();
+			fileWriter.format("\tmove Temp_%d, $v0\n", t0);
+		}
 	}
 	
 	/**************************************/
@@ -336,6 +381,7 @@ public class MIPSGenerator
 			instance.fileWriter.print("string_access_violation: .asciiz \"Access Violation\"\n");
 			instance.fileWriter.print("string_illegal_div_by_0: .asciiz \"Illegal Division By Zero\"\n");
 			instance.fileWriter.print("string_invalid_ptr_dref: .asciiz \"Invalid Pointer Dereference\"\n");
+			instance.fileWriter.print(".text\n");
 		}
 		return instance;
 	}

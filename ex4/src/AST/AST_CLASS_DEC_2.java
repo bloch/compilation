@@ -139,35 +139,13 @@ public class AST_CLASS_DEC_2 extends AST_CLASS_DEC {
                     break;
                 }
             }
-//            for (TYPE_CLASS tmp_superclass = type_class.father; tmp_superclass != null; tmp_superclass = tmp_superclass.father) {
-//                for (TYPE_LIST superclass_signatures = tmp_superclass.data_members ; superclass_signatures != null ; superclass_signatures=superclass_signatures.tail){
-//                    TYPE_ID member_type = (TYPE_ID) superclass_signatures.head;
-//                    System.out.println(tmp_superclass.name + " " + member_type.name);
-//                    if(member_type.type instanceof TYPE_FUNCTION && member_type.class_offset == current_offset) {
-//                        //function_labels.add(tmp_superclass.name + "_" + member_type.name);
-//                        overriden = true;
-//                        parent_dec = mp_superclass.name + "_" + member_type.name;
-//                    }
-//                }
-//            }
-//            if(overriden == true) {
-//                for (TYPE_LIST signatures = type_class.data_members ; signatures != null ; signatures=signatures.tail){
-//                    TYPE_ID member_type = (TYPE_ID) signatures.head;
-//                    if(member_type.type instanceof TYPE_FUNCTION && member_type.class_offset == current_offset) {
-//                        function_labels.add(type_class.name + "_" + member_type.name);
-//                    }
-//                }
-//            }
-//            if(overriden == false) {
-//                for (TYPE_LIST signatures = type_class.data_members ; signatures != null ; signatures=signatures.tail){
-//                    TYPE_ID member_type = (TYPE_ID) signatures.head;
-//                    if(member_type.type instanceof TYPE_FUNCTION && member_type.class_offset == current_offset) {
-//                        function_labels.add(type_class.name + "_" + member_type.name);
-//                    }
-//                }
-//            }
         }
         IR.getInstance().Add_IRcommand(new IRcommand_Class_Dec(type_class.name, function_labels));
+
+        AST_Node.cur_class = type_class;
+        this.cfl.IRme();
+        AST_Node.cur_class = null;
+
         return null;
     }
 }

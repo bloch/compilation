@@ -1,8 +1,9 @@
-
 int f(int x, int y) {
     int z := x + y;
     return z;
 }
-int g() {
-    int x := f(10,20);
+
+void main() {
+    int z := f(10000, 20000);
+    PrintInt(z);
 }
