@@ -1,9 +1,14 @@
-int f(int x, int y) {
-    int z := x + y;
-    return z;
+class A {
+    int x := 5;
+    string y := "a";
+    int z;
+}
+
+class B extends A {
+    string y := "b";
 }
 
 void main() {
-    int z := f(10000, 20000);
-    PrintInt(z);
+    B b := new B;
+    PrintString(b.y);
 }

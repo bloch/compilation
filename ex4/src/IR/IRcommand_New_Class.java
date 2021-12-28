@@ -34,5 +34,5 @@ public class IRcommand_New_Class extends IRcommand
     /***************/
     /* MIPS me !!! */
     /***************/
-    public void MIPSme() {MIPSGenerator.getInstance().new_class(dst , fields_lst , size_of_class , "vt_" + this.class_name);}
+    public void MIPSme() {MIPSGenerator.getInstance().new_class(dst , fields_lst , size_of_class , this.class_name);}
 }

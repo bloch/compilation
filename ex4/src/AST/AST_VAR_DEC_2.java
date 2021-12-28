@@ -157,8 +157,10 @@ public class AST_VAR_DEC_2 extends AST_VAR_DEC {
         //not in global scope, this code intended for local+functions scope
         if(exp instanceof AST_EXP_STRING) {
             String value = ((AST_EXP_STRING) exp).value;
-            IR.getInstance().Add_IRcommand(new IRcommand_Allocate_String(name, value, false));
-            IR.getInstance().Add_IRcommand(new IRcommand_Load_Address(name + "_str", this.offset));
+            if(AST_Node.cur_class == null) {
+                IR.getInstance().Add_IRcommand(new IRcommand_Allocate_String(name, value, false));
+                IR.getInstance().Add_IRcommand(new IRcommand_Load_Address(name + "_str", this.offset));
+            }
             return null;
         }
 

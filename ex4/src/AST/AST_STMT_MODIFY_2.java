@@ -118,6 +118,9 @@ public class AST_STMT_MODIFY_2 extends AST_STMT {
         if(id_name1.equals("PrintInt")) {
             IR.getInstance().Add_IRcommand(new IRcommand_PrintInt(param1));
         }
+        if(id_name1.equals("PrintString")) {
+            IR.getInstance().Add_IRcommand(new IRcommand_PrintString(param1));
+        }
         else {
             IR.getInstance().Add_IRcommand(new IRcommand_Function_Call(null, id_name1, params_list));
         }

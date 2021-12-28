@@ -25,6 +25,8 @@ public abstract class AST_Node
 
 	public static TYPE_CLASS cur_class = null;
 
+	public static String cur_function_label = null;
+
 	public static int local_offset = -44;
 	public static int param_offset = 8;
 

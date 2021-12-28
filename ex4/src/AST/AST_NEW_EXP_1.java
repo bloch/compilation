@@ -81,7 +81,7 @@ public class AST_NEW_EXP_1 extends AST_NEW_EXP {
                 TYPE_ID class_member = (TYPE_ID) it.head;
                 if (!class_member.type.isFunction()){
                     int field_index = (int) (class_member.class_offset / 4);
-                    if (fields_array[field_index] != null){
+                    if (fields_array[field_index] == null){
                         fields_array[field_index] = class_member;
                     }
                     //else this value has been override...
