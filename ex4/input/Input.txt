@@ -1,19 +1,9 @@
-
-class A {
-    int m1(int x) {
-        return 1;
-    }
-    int m2(int x) {
-        return 2;
-    }
+int f(int x, int y) {
+    int z := x + y;
+    return z;
 }
 
-class B extends A {
-    int m2(int x) {
-        return 3;
-    }
-}
-int foo() {
-    B b := new B;
-    int z := b.m2(7);
+void main() {
+    int z := f(10000, 20000);
+    PrintInt(z);
 }

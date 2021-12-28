@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public class AST_CFIELD_LIST extends AST_Node {
     /****************/
     /* DATA MEMBERS */
@@ -259,6 +263,14 @@ public class AST_CFIELD_LIST extends AST_Node {
             params2 = params2.tail;
         }
         return true;
+    }
+
+    public TEMP IRme()
+    {
+        if (head != null) head.IRme();
+        if (tail != null) tail.IRme();
+
+        return null;
     }
 
 }

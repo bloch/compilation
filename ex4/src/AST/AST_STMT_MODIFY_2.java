@@ -115,7 +115,12 @@ public class AST_STMT_MODIFY_2 extends AST_STMT {
     {
         TEMP param1 = exp.IRme();
         TEMP_LIST params_list = new TEMP_LIST(param1, null);
-        IR.getInstance().Add_IRcommand(new IRcommand_Function_Call(null, id_name1, params_list));
+        if(id_name1.equals("PrintInt")) {
+            IR.getInstance().Add_IRcommand(new IRcommand_PrintInt(param1));
+        }
+        else {
+            IR.getInstance().Add_IRcommand(new IRcommand_Function_Call(null, id_name1, params_list));
+        }
         return null;
     }
 

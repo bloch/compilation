@@ -2,6 +2,10 @@ package AST;
 import TYPES.*;
 import SYMBOL_TABLE.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public class AST_CFIELD_VAR_DEC extends AST_CFIELD{
     public AST_VAR_DEC vd;
 
@@ -54,4 +58,6 @@ public class AST_CFIELD_VAR_DEC extends AST_CFIELD{
     public TYPE GetSignature() {
         return this.vd.GetSignature();
     }
+
+    public TEMP IRme() { return this.vd.IRme(); }
 }

@@ -2,31 +2,118 @@
 string_access_violation: .asciiz "Access Violation"
 string_illegal_div_by_0: .asciiz "Illegal Division By Zero"
 string_invalid_ptr_dref: .asciiz "Invalid Pointer Dereference"
-.data
-vt_A:
-	.word A_m1
-	.word A_m2
-.data
-vt_B:
-	.word A_m1
-	.word B_m2
-foo:
-	li $v0, 9
-	li $a0, 4
-	syscall
-	move Temp_0, $v0
-	la $s0, vt_B
-	sw $s0, 0(Temp_0)
-	sw Temp_0,-44($fp)
-	lw Temp_1,-44($fp)
-	li Temp_2,7
+.text
+f:
+f_prologue:
 	subu $sp, $sp, 4
-	sw Temp_2, 0($sp)
+	sw $ra, 0($sp)
 	subu $sp, $sp, 4
-	sw Temp_1, 0($sp)
-	lw $s0, 0(Temp_1)
-	lw $s1, 4($s0)
-	jalr $s1
+	sw $fp, 0($sp)
+	move $fp, $sp
+	subu $sp, $sp, 4
+	sw $t0, 0($sp)
+	subu $sp, $sp, 4
+	sw $t1, 0($sp)
+	subu $sp, $sp, 4
+	sw $t2, 0($sp)
+	subu $sp, $sp, 4
+	sw $t3, 0($sp)
+	subu $sp, $sp, 4
+	sw $t4, 0($sp)
+	subu $sp, $sp, 4
+	sw $t5, 0($sp)
+	subu $sp, $sp, 4
+	sw $t6, 0($sp)
+	subu $sp, $sp, 4
+	sw $t7, 0($sp)
+	subu $sp, $sp, 4
+	sw $t8, 0($sp)
+	subu $sp, $sp, 4
+	sw $t9, 0($sp)
+	sub $sp, $sp, 16
+f_body:
+	lw $t0,8($fp)
+	lw $t1,12($fp)
+	add $t2,$t0,$t1
+	sw $t2,-44($fp)
+	lw $t3,-44($fp)
+	move $v0, $t3
+f_epilogue:
+	move $sp, $fp
+	lw $t0, -4($sp)
+	lw $t1, -8($sp)
+	lw $t2, -12($sp)
+	lw $t3, -16($sp)
+	lw $t4, -20($sp)
+	lw $t5, -24($sp)
+	lw $t6, -28($sp)
+	lw $t7, -32($sp)
+	lw $t8, -36($sp)
+	lw $t9, -40($sp)
+	lw $fp, 0($sp)
+	lw $ra, 4($sp)
 	addu $sp, $sp, 8
-	move Temp_3, $v0
-	sw Temp_3,-48($fp)
+	jr $ra
+user_main:
+user_main_prologue:
+	subu $sp, $sp, 4
+	sw $ra, 0($sp)
+	subu $sp, $sp, 4
+	sw $fp, 0($sp)
+	move $fp, $sp
+	subu $sp, $sp, 4
+	sw $t0, 0($sp)
+	subu $sp, $sp, 4
+	sw $t1, 0($sp)
+	subu $sp, $sp, 4
+	sw $t2, 0($sp)
+	subu $sp, $sp, 4
+	sw $t3, 0($sp)
+	subu $sp, $sp, 4
+	sw $t4, 0($sp)
+	subu $sp, $sp, 4
+	sw $t5, 0($sp)
+	subu $sp, $sp, 4
+	sw $t6, 0($sp)
+	subu $sp, $sp, 4
+	sw $t7, 0($sp)
+	subu $sp, $sp, 4
+	sw $t8, 0($sp)
+	subu $sp, $sp, 4
+	sw $t9, 0($sp)
+	sub $sp, $sp, 16
+user_main_body:
+	li $t5,10000
+	li $t6,20000
+	subu $sp, $sp, 4
+	sw $t6, 0($sp)
+	subu $sp, $sp, 4
+	sw $t5, 0($sp)
+	jal f
+	addu $sp, $sp, 8
+	move $t4, $v0
+	sw $t4,-44($fp)
+	lw $t7,-44($fp)
+	move $a0, $t7
+	li $v0,1
+	syscall
+user_main_epilogue:
+	move $sp, $fp
+	lw $t0, -4($sp)
+	lw $t1, -8($sp)
+	lw $t2, -12($sp)
+	lw $t3, -16($sp)
+	lw $t4, -20($sp)
+	lw $t5, -24($sp)
+	lw $t6, -28($sp)
+	lw $t7, -32($sp)
+	lw $t8, -36($sp)
+	lw $t9, -40($sp)
+	lw $fp, 0($sp)
+	lw $ra, 4($sp)
+	addu $sp, $sp, 8
+	jr $ra
+main:
+	jal user_main
+	li $v0,10
+	syscall

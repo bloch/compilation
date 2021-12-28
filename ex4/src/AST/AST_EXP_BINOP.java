@@ -143,10 +143,12 @@ public class AST_EXP_BINOP extends AST_EXP
 	{
 		TEMP t1 = null;
 		TEMP t2 = null;
-		TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
+
 
 		if (left  != null) t1 = left.IRme();
 		if (right != null) t2 = right.IRme();
+
+		TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
 
 		if (OP == 0) {
 			IR.getInstance().Add_IRcommand(new IRcommand_Binop_Add_Integers(dst,t1,t2));
