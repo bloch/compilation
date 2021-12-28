@@ -1,101 +1,123 @@
 digraph
 {
 graph [ordering = "out"]
-v35 [label = "Program
+v46 [label = "Program
 "];
-v0 [label = "TYPE_VOID
+v17 [label = "classDec_1
+ID(A)
 "];
-v21 [label = "TYPE_WITH_ID
-ID (g);
+v0 [label = "TYPE_INT
 "];
-v21 -> v0;
-v1 [label = "TYPE_INT
+v3 [label = "TYPE_WITH_ID
+ID (x);
+"];
+v3 -> v0;
+v1 [label = "INT
+(5)"];
+v2 [label = "varDec_2
+"];
+v2 -> v3;
+v2 -> v1;
+v4 [label = "CFIELD
+VAR_DEC"];
+v4 -> v2;
+v5 [label = "TYPE_STRING
+"];
+v8 [label = "TYPE_WITH_ID
+ID (y);
+"];
+v8 -> v5;
+v6 [label = "STRING('a')"];
+v7 [label = "varDec_2
+"];
+v7 -> v8;
+v7 -> v6;
+v9 [label = "CFIELD
+VAR_DEC"];
+v9 -> v7;
+v10 [label = "TYPE_INT
+"];
+v12 [label = "TYPE_WITH_ID
+ID (z);
+"];
+v12 -> v10;
+v11 [label = "varDec_1"];
+v11 -> v12;
+v13 [label = "CFIELD
+VAR_DEC"];
+v13 -> v11;
+v17 -> v4;
+v17 -> v9;
+v17 -> v13;
+v18 [label = "classDec"];
+v18 -> v17;
+v25 [label = "classDec_2
+ID1(B) ID2(A)
+"];
+v19 [label = "TYPE_STRING
 "];
 v22 [label = "TYPE_WITH_ID
-ID (n);
+ID (y);
 "];
-v22 -> v1;
-v20 [label = "funcDec_2
+v22 -> v19;
+v20 [label = "STRING('b')"];
+v21 [label = "varDec_2
 "];
-v2 [label = "SIMPLE
-VAR
-(n)"];
-v3 [label = "EXP
-VAR"];
-v3 -> v2;
-v4 [label = "STMT_MODIFY_2
-ID(PrintInt)
-(exp);
+v21 -> v22;
+v21 -> v20;
+v23 [label = "CFIELD
+VAR_DEC"];
+v23 -> v21;
+v25 -> v23;
+v26 [label = "classDec"];
+v26 -> v25;
+v27 [label = "TYPE_VOID
 "];
-v4 -> v3;
-v11 [label = "IF STMT
-"];
-v5 [label = "SIMPLE
-VAR
-(n)"];
-v6 [label = "EXP
-VAR"];
-v6 -> v5;
-v7 [label = "INT
-(2)"];
-v8 [label = "BINOP
-(=)"];
-v8 -> v6;
-v8 -> v7;
-v11 -> v8;
-v9 [label = "STMT
-RETURN
-"];
-v11 -> v9;
-v12 [label = "SIMPLE
-VAR
-(n)"];
-v13 [label = "EXP
-VAR"];
-v13 -> v12;
-v14 [label = "INT
-(1)"];
-v15 [label = "BINOP
-(-)"];
-v15 -> v13;
-v15 -> v14;
-v16 [label = "STMT_MODIFY_2
-ID(g)
-(exp);
-"];
-v16 -> v15;
-v20 -> v4;
-v20 -> v11;
-v20 -> v16;
-v20 -> v21;
-v20 -> v22;
-v23 [label = "funcDec"];
-v23 -> v20;
-v24 [label = "TYPE_VOID
-"];
-v31 [label = "TYPE_WITH_ID
+v41 [label = "TYPE_WITH_ID
 ID (main);
 "];
-v31 -> v24;
-v30 [label = "funcDec_1
+v41 -> v27;
+v40 [label = "funcDec_1
 "];
-v25 [label = "INT
-(3)"];
-v26 [label = "INT
-(1)"];
-v27 [label = "BINOP
-(-)"];
-v27 -> v25;
-v27 -> v26;
-v28 [label = "STMT_MODIFY_2
-ID(g)
+v28 [label = "TYPE_ID
+(B)
+"];
+v32 [label = "TYPE_WITH_ID
+ID (b);
+"];
+v32 -> v28;
+v29 [label = "TYPE_ID
+(B)
+"];
+v30 [label = "newExp_1"];
+v30 -> v29;
+v31 [label = "varDec_3"];
+v31 -> v32;
+v31 -> v30;
+v33 [label = "STMT_VAR_DEC
+"];
+v33 -> v31;
+v34 [label = "SIMPLE
+VAR
+(b)"];
+v35 [label = "FIELD
+VAR
+...->y"];
+v35 -> v34;
+v36 [label = "EXP
+VAR"];
+v36 -> v35;
+v37 [label = "STMT_MODIFY_2
+ID(PrintString)
 (exp);
 "];
-v28 -> v27;
-v30 -> v28;
-v30 -> v31;
-v32 [label = "funcDec"];
-v32 -> v30;
-v35 -> v23;
-v35 -> v32;
+v37 -> v36;
+v40 -> v33;
+v40 -> v37;
+v40 -> v41;
+v42 [label = "funcDec"];
+v42 -> v40;
+v46 -> v18;
+v46 -> v26;
+v46 -> v42;
 }

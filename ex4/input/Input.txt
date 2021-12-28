@@ -1,11 +1,14 @@
-void g(int n){
-    PrintInt(n);
-    if(n = 2){
-        return;
-    }
-    g(n-1);
+class A {
+    int x := 5;
+    string y := "a";
+    int z;
+}
+
+class B extends A {
+    string y := "b";
 }
 
 void main() {
-  g(3-1);
+    B b := new B;
+    PrintString(b.y);
 }

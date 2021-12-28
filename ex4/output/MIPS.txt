@@ -3,80 +3,12 @@ string_access_violation: .asciiz "Access Violation"
 string_illegal_div_by_0: .asciiz "Illegal Division By Zero"
 string_invalid_ptr_dref: .asciiz "Invalid Pointer Dereference"
 space_for_printInt_space: .asciiz " "
+vt_A:
+vt_B:
+y_B_str: .asciiz "b"
 .text
-g:
-g_prologue:
-	subu $sp, $sp, 4
-	sw $ra, 0($sp)
-	subu $sp, $sp, 4
-	sw $fp, 0($sp)
-	move $fp, $sp
-	subu $sp, $sp, 4
-	sw $t0, 0($sp)
-	subu $sp, $sp, 4
-	sw $t1, 0($sp)
-	subu $sp, $sp, 4
-	sw $t2, 0($sp)
-	subu $sp, $sp, 4
-	sw $t3, 0($sp)
-	subu $sp, $sp, 4
-	sw $t4, 0($sp)
-	subu $sp, $sp, 4
-	sw $t5, 0($sp)
-	subu $sp, $sp, 4
-	sw $t6, 0($sp)
-	subu $sp, $sp, 4
-	sw $t7, 0($sp)
-	subu $sp, $sp, 4
-	sw $t8, 0($sp)
-	subu $sp, $sp, 4
-	sw $t9, 0($sp)
-	sub $sp, $sp, 16
-g_body:
-	lw $t0, 8($fp)
-	move $a0, $t0
-	li $v0, 1
-	syscall
-	la $a0, space_for_printInt_space
-	li $v0, 4
-	syscall
-	lw $t1, 8($fp)
-	li $t2, 2
-	beq $t1, $t2, Label_2_AssignOne
-	bne $t1, $t2, Label_3_AssignZero
-Label_2_AssignOne:
-	li $t3, 1
-	j Label_1_end
-Label_3_AssignZero:
-	li $t3, 0
-	j Label_1_end
-Label_1_end:
-	beq $t3, $zero, Label_0_after_if
-	j g_epilogue
-Label_0_after_if:
-	lw $t4, 8($fp)
-	li $t5, 1
-	sub $t6, $t4, $t5
-	subu $sp, $sp, 4
-	sw $t6, 0($sp)
-	jal g
-	addu $sp, $sp, 4
-g_epilogue:
-	move $sp, $fp
-	lw $t0, -4($sp)
-	lw $t1, -8($sp)
-	lw $t2, -12($sp)
-	lw $t3, -16($sp)
-	lw $t4, -20($sp)
-	lw $t5, -24($sp)
-	lw $t6, -28($sp)
-	lw $t7, -32($sp)
-	lw $t8, -36($sp)
-	lw $t9, -40($sp)
-	lw $fp, 0($sp)
-	lw $ra, 4($sp)
-	addu $sp, $sp, 8
-	jr $ra
+	li $t0, 5
+	sw $t0, x
 user_main:
 user_main_prologue:
 	subu $sp, $sp, 4
@@ -106,13 +38,25 @@ user_main_prologue:
 	sw $t9, 0($sp)
 	sub $sp, $sp, 16
 user_main_body:
-	li $t7, 10
-	li $t8, 1
-	sub $t9, $t7, $t8
-	subu $sp, $sp, 4
-	sw $t9, 0($sp)
-	jal g
-	addu $sp, $sp, 4
+	li $v0, 9
+	li $a0, 16
+	syscall
+	move $t1, $v0
+	la $s0, vt_B
+	sw $s0, 0($t1)
+	li $s0, 5
+	sw $s0, 4($t1)
+	la $s0, y_B_str
+	sw $s0, 8($t1)
+	li $s0, DEFAULT
+	sw $s0, 12($t1)
+	sw $t1, -44($fp)
+	lw $t3, -44($fp)
+	beq $t3, 0, abort
+	lw $t2, 8($t3)
+	la $a0, $t2
+	li $v0, 4
+	syscall
 user_main_epilogue:
 	move $sp, $fp
 	lw $t0, -4($sp)

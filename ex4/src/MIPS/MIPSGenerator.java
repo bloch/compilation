@@ -58,6 +58,13 @@ public class MIPSGenerator
 		code_commands.add(String.format("\tli $v0, 4\n"));
 		code_commands.add(String.format("\tsyscall\n"));
 	}
+	public void print_string(TEMP t)
+	{
+		int idx=t.getSerialNumber();
+		code_commands.add(String.format("\tla $a0, Temp_%d\n", idx));
+		code_commands.add(String.format("\tli $v0, 4\n"));
+		code_commands.add(String.format("\tsyscall\n"));
+	}
 	//public TEMP addressLocalVar(int serialLocalVarNum)
 	//{
 	//	TEMP t  = TEMP_FACTORY.getInstance().getFreshTEMP();
@@ -317,7 +324,7 @@ public class MIPSGenerator
 		code_commands.add(String.format("\tsyscall\n"));
 	}
 
-	public void new_class(TEMP t0 , TYPE_ID[] fields_array , int size_of_class , String vt_name){
+	public void new_class(TEMP t0 , TYPE_ID[] fields_array , int size_of_class , String class_name){
 		//malloc
 		int t0_idx = t0.getSerialNumber();
 //		fileWriter.format("\tli $v0, 9\n");
@@ -331,7 +338,7 @@ public class MIPSGenerator
 //		fileWriter.format("\tmove Temp_%d, $v0\n",t0_idx);
 		code_commands.add(String.format("\tmove Temp_%d, $v0\n",t0_idx));
 //		fileWriter.format("\tla $s0, %s\n" , vt_name);
-		code_commands.add(String.format("\tla $s0, %s\n" , vt_name));
+		code_commands.add(String.format("\tla $s0, %s\n" , "vt_" + class_name));
 //		fileWriter.format("\tsw $s0, 0(Temp_%d)\n",t0_idx);
 		code_commands.add(String.format("\tsw $s0, 0(Temp_%d)\n",t0_idx));
 
@@ -340,8 +347,25 @@ public class MIPSGenerator
 		String default_val = "DEFAULT";
 		for (int i = 1; i < size_of_class; i++) {
 			int offest = 4*i;
-			//fileWriter.format("\tli $s0, %s\n",default_val);
-			code_commands.add(String.format("\tli $s0, %s\n",default_val));
+//			System.out.println(fields_array[i]);
+
+			if (fields_array[i].int_value != 0.5){
+				String real_value = "" + ((int) fields_array[i].int_value);
+				//fileWriter.format("\tli $s0, %s\n",real_value);
+				code_commands.add(String.format("\tli $s0, %s\n",real_value));
+			}
+			else if (fields_array[i].string_value != "null"){
+				String real_value = fields_array[i].string_value;
+				String label_name = fields_array[i].name + "_" + class_name;
+				//fileWriter.format("\t%s_str: .asciiz \"%s\"\n",label_name, real_value);
+				fileWriter.format("%s_str: .asciiz \"%s\"\n",label_name, real_value);
+				//fileWriter.format("\tla $s0, %s\n",label_name + "_str");
+				code_commands.add(String.format("\tla $s0, %s\n",label_name + "_str"));
+			}
+			else{
+				//fileWriter.format("\tli $s0, %s\n",default_val);
+				code_commands.add(String.format("\tli $s0, %s\n",default_val));
+			}
 			//add here check if exist non-default value
 			//fileWriter.format("\tsw $s0, %d(Temp_%d)\n",offest,t0_idx);
 			code_commands.add(String.format("\tsw $s0, %d(Temp_%d)\n",offest,t0_idx));
