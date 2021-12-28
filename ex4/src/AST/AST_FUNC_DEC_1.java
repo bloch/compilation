@@ -113,41 +113,30 @@ public class AST_FUNC_DEC_1 extends AST_FUNC_DEC {
 
     public TEMP IRme()
     {
+        String function_label;
         if(AST_Node.cur_class == null) {
             if (type_with_id1.id_name.equals("main")) {
-                IR.getInstance().Add_IRcommand(new IRcommand_Label("user_main"));
-                IR.getInstance().Add_IRcommand(new IRcommand_Function_Prologue("user_main", Math.max(16, 4*this.num_locals)));
+                function_label = "user_main";
             } else {
-                IR.getInstance().Add_IRcommand(new IRcommand_Label(type_with_id1.id_name));
-                IR.getInstance().Add_IRcommand(new IRcommand_Function_Prologue(type_with_id1.id_name, Math.max(16, 4*this.num_locals)));
+                function_label = type_with_id1.id_name;
             }
         }
         else {
             if (type_with_id1.id_name.equals("main")) {
-                IR.getInstance().Add_IRcommand(new IRcommand_Label(AST_Node.cur_class.name + "_" + "user_main"));
-                IR.getInstance().Add_IRcommand(new IRcommand_Function_Prologue(AST_Node.cur_class.name + "_" + "user_main", Math.max(16, 4*this.num_locals)));
+                function_label = AST_Node.cur_class.name + "_" + "user_main";
             } else {
-                IR.getInstance().Add_IRcommand(new IRcommand_Label(AST_Node.cur_class.name + "_" + type_with_id1.id_name));
-                IR.getInstance().Add_IRcommand(new IRcommand_Function_Prologue(AST_Node.cur_class.name + "_" + type_with_id1.id_name, 4 * this.num_locals + 40));
+                function_label = AST_Node.cur_class.name + "_" + type_with_id1.id_name;
             }
         }
 
+        IR.getInstance().Add_IRcommand(new IRcommand_Label(function_label));
+        IR.getInstance().Add_IRcommand(new IRcommand_Function_Prologue(function_label, Math.max(16, 4*this.num_locals)));
+
+        AST_Node.cur_function_label = function_label;
         if (stmtList != null) stmtList.IRme();
+        AST_Node.cur_function_label = null;
 
-        if(AST_Node.cur_class == null) {
-            if (type_with_id1.id_name.equals("main")) {
-                IR.getInstance().Add_IRcommand(new IRcommand_Function_Epilogue("user_main"));
-            } else {
-                IR.getInstance().Add_IRcommand(new IRcommand_Function_Epilogue(type_with_id1.id_name));
-            }
-        }
-        else {
-            if (type_with_id1.id_name.equals("main")) {
-                IR.getInstance().Add_IRcommand(new IRcommand_Function_Epilogue(AST_Node.cur_class.name + "_" + "user_main"));
-            } else {
-                IR.getInstance().Add_IRcommand(new IRcommand_Function_Epilogue(AST_Node.cur_class.name + "_" + type_with_id1.id_name));
-            }
-        }
+        IR.getInstance().Add_IRcommand(new IRcommand_Function_Epilogue(function_label));
 
         return null;
     }

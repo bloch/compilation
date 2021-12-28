@@ -2,9 +2,10 @@
 string_access_violation: .asciiz "Access Violation"
 string_illegal_div_by_0: .asciiz "Illegal Division By Zero"
 string_invalid_ptr_dref: .asciiz "Invalid Pointer Dereference"
+space_for_printInt_space: .asciiz " "
 .text
-f:
-f_prologue:
+g:
+g_prologue:
 	subu $sp, $sp, 4
 	sw $ra, 0($sp)
 	subu $sp, $sp, 4
@@ -31,14 +32,36 @@ f_prologue:
 	subu $sp, $sp, 4
 	sw $t9, 0($sp)
 	sub $sp, $sp, 16
-f_body:
-	lw $t0,8($fp)
-	lw $t1,12($fp)
-	add $t2,$t0,$t1
-	sw $t2,-44($fp)
-	lw $t3,-44($fp)
-	move $v0, $t3
-f_epilogue:
+g_body:
+	lw $t0, 8($fp)
+	move $a0, $t0
+	li $v0, 1
+	syscall
+	la $a0, space_for_printInt_space
+	li $v0, 4
+	syscall
+	lw $t1, 8($fp)
+	li $t2, 2
+	beq $t1, $t2, Label_2_AssignOne
+	bne $t1, $t2, Label_3_AssignZero
+Label_2_AssignOne:
+	li $t3, 1
+	j Label_1_end
+Label_3_AssignZero:
+	li $t3, 0
+	j Label_1_end
+Label_1_end:
+	beq $t3, $zero, Label_0_after_if
+	j g_epilogue
+Label_0_after_if:
+	lw $t4, 8($fp)
+	li $t5, 1
+	sub $t6, $t4, $t5
+	subu $sp, $sp, 4
+	sw $t6, 0($sp)
+	jal g
+	addu $sp, $sp, 4
+g_epilogue:
 	move $sp, $fp
 	lw $t0, -4($sp)
 	lw $t1, -8($sp)
@@ -83,20 +106,13 @@ user_main_prologue:
 	sw $t9, 0($sp)
 	sub $sp, $sp, 16
 user_main_body:
-	li $t5,10000
-	li $t6,20000
+	li $t7, 10
+	li $t8, 1
+	sub $t9, $t7, $t8
 	subu $sp, $sp, 4
-	sw $t6, 0($sp)
-	subu $sp, $sp, 4
-	sw $t5, 0($sp)
-	jal f
-	addu $sp, $sp, 8
-	move $t4, $v0
-	sw $t4,-44($fp)
-	lw $t7,-44($fp)
-	move $a0, $t7
-	li $v0,1
-	syscall
+	sw $t9, 0($sp)
+	jal g
+	addu $sp, $sp, 4
 user_main_epilogue:
 	move $sp, $fp
 	lw $t0, -4($sp)

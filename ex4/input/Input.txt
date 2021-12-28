@@ -1,9 +1,11 @@
-int f(int x, int y) {
-    int z := x + y;
-    return z;
+void g(int n){
+    PrintInt(n);
+    if(n = 2){
+        return;
+    }
+    g(n-1);
 }
 
 void main() {
-    int z := f(10000, 20000);
-    PrintInt(z);
+  g(3-1);
 }
