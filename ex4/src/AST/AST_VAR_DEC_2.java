@@ -138,39 +138,119 @@ public class AST_VAR_DEC_2 extends AST_VAR_DEC {
         return GetSignature(type_with_id1.t);
     }
 
-    public TEMP IRme(){
+    public TEMP IRme() {
         String name = type_with_id1.id_name;
-        TEMP e_temp = exp.IRme();
-        // check if global
-        TYPE t = SYMBOL_TABLE.getInstance().find(name);
-        if (t != null) {
-            if(exp instanceof AST_EXP_INT) {
+
+        //first check in local scopes...
+        if (AST_Node.cur_function_label != null) {
+            if (exp instanceof AST_EXP_INT) {
                 int value = ((AST_EXP_INT) exp).value;
                 IR.getInstance().Add_IRcommand(new IRcommand_Allocate_Int(name, value));
+                IR.getInstance().Add_IRcommand(new IRcommand_Store(name, exp.IRme(), this.offset));
             }
-            if(exp instanceof AST_EXP_STRING) {
+            if (exp instanceof AST_EXP_STRING) {
                 String value = ((AST_EXP_STRING) exp).value;
-                IR.getInstance().Add_IRcommand(new IRcommand_Allocate_String(name, value, true));
-            }
-            return null;
-        }
-        //not in global scope, this code intended for local+functions scope
-        if(exp instanceof AST_EXP_STRING) {
-            String value = ((AST_EXP_STRING) exp).value;
-            if(AST_Node.cur_class == null) {
                 IR.getInstance().Add_IRcommand(new IRcommand_Allocate_String(name, value, false));
                 IR.getInstance().Add_IRcommand(new IRcommand_Load_Address(name + "_str", this.offset));
             }
+            //TODO: continue here for more complex expressions (binop ,class, str concat....)
             return null;
         }
 
-        //IR.getInstance().Add_IRcommand(new IRcommand_Allocate(name));
-
-        if (exp != null){
-            IR.getInstance().Add_IRcommand(new IRcommand_Store(name ,e_temp, this.offset));
+        //second check in class scope
+        if (AST_Node.cur_class != null) {
+            if (exp instanceof AST_EXP_INT) {
+                //do nothing (IRme handle it)
+            }
+            if (exp instanceof AST_EXP_STRING) {
+                //do nothin here
+            }
+            return null; // dont roll to global if exist
         }
 
+        //finally check in global
+        TYPE t = SYMBOL_TABLE.getInstance().find(name);
+        if (t != null) {
+            if (exp instanceof AST_EXP_INT) {
+                int value = ((AST_EXP_INT) exp).value;
+                IR.getInstance().Add_IRcommand(new IRcommand_Allocate_Int(name, value));
+            }
+            if (exp instanceof AST_EXP_STRING) {
+                String value = ((AST_EXP_STRING) exp).value;
+                IR.getInstance().Add_IRcommand(new IRcommand_Allocate_String(name, value, true));
+
+            }
+        }
         return null;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        String name = type_with_id1.id_name;
+        // check if global
+//        TYPE t = SYMBOL_TABLE.getInstance().find(name);
+//        if (t != null) {
+//            if(exp instanceof AST_EXP_INT) {
+//                System.out.println("WTFFFFFFFFFFFFFFFFFFFFF");
+//                int value = ((AST_EXP_INT) exp).value;
+//                IR.getInstance().Add_IRcommand(new IRcommand_Allocate_Int(name, value));
+//                IR.getInstance().Add_IRcommand(new IRcommand_Store(name ,exp.IRme(), this.offset));
+//            }
+//            if(exp instanceof AST_EXP_STRING) {
+//                String value = ((AST_EXP_STRING) exp).value;
+//                IR.getInstance().Add_IRcommand(new IRcommand_Allocate_String(name, value, true));
+//            }
+//            return null;
+//        }
+//        //not in global scope, this code intended for local+CLASSES scope
+//        if(exp instanceof AST_EXP_STRING) {
+//            String value = ((AST_EXP_STRING) exp).value;
+//            if(AST_Node.cur_class == null) {
+//                IR.getInstance().Add_IRcommand(new IRcommand_Allocate_String(name, value, false));
+//                IR.getInstance().Add_IRcommand(new IRcommand_Load_Address(name + "_str", this.offset));
+//            }
+//            return null;
+//        }
+//        if(exp instanceof AST_EXP_INT) {
+//            int value = ((AST_EXP_INT) exp).value;
+//            if(AST_Node.cur_class == null) {
+//                IR.getInstance().Add_IRcommand(new IRcommand_Allocate_Int(name, value));
+//                IR.getInstance().Add_IRcommand(new IRcommand_Store(name ,exp.IRme(), this.offset));
+//            }
+//            return null;
+//        }
+
+        //IR.getInstance().Add_IRcommand(new IRcommand_Allocate(name));
+
+//        if (exp != null){
+//            IR.getInstance().Add_IRcommand(new IRcommand_Store(name ,e_temp, this.offset));
+//        }
+//
+//
+//
+//
+//        return null;
+//    }
 
 }

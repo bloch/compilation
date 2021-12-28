@@ -157,7 +157,7 @@ public abstract class AST_Node
 						return null;
 					}
 					else{
-						return class_member.type;
+						return class_member;
 					}
 				}
 			}

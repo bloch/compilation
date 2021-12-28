@@ -1,14 +1,18 @@
+int x := 10;
+
 class A {
+    string y := "globalX";
     int x := 5;
-    string y := "a";
-    int z;
 }
 
 class B extends A {
-    string y := "b";
+    string z := "localX";
+    void foo(int x){
+        PrintInt(x);
+    }
 }
 
 void main() {
     B b := new B;
-    PrintString(b.y);
+    b.foo(b.x);
 }

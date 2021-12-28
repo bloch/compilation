@@ -63,9 +63,13 @@ public class AST_VAR_SIMPLE extends AST_VAR
 			return t;
 		}
 		t = isVarInClassFields(name);
-		if (t != null) {
-			// TODO: add offset calculation for that fucking case
-			return t;
+		TYPE_ID t_id = (TYPE_ID) t;
+		if (t_id.type != null) {
+			// TODO: fix offset calculation for that fucking case(we must considerate the object before it created)
+			// DEBUG - class field inside derived method together
+			this.offset = t_id.class_offset;
+			System.out.println("Name " + name + ", offset: " + this.offset);
+			return t_id.type;
 		}
 		t = SYMBOL_TABLE.getInstance().find(name);
 		if (t != null) {

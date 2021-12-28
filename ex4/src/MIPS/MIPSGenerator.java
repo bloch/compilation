@@ -38,6 +38,9 @@ public class MIPSGenerator
 		for(int i = 0; i < code_commands.size(); i++) {
 			fileWriter.print(code_commands.get(i));
 		}
+		fileWriter.print("abort:\n");
+		fileWriter.print("\tli $v0,10\n");
+		fileWriter.print("\tsyscall\n");
 		fileWriter.print("main:\n");
 		fileWriter.print("\tjal user_main\n");
 		fileWriter.print("\tli $v0,10\n");
@@ -61,7 +64,7 @@ public class MIPSGenerator
 	public void print_string(TEMP t)
 	{
 		int idx=t.getSerialNumber();
-		code_commands.add(String.format("\tla $a0, Temp_%d\n", idx));
+		code_commands.add(String.format("\tmove $a0, Temp_%d\n", idx));
 		code_commands.add(String.format("\tli $v0, 4\n"));
 		code_commands.add(String.format("\tsyscall\n"));
 	}
@@ -82,7 +85,7 @@ public class MIPSGenerator
 	public void allocate_int(String var_name, int value)
 	{
 //		fileWriter.format(".data\n");
-		fileWriter.format("\t%s: .word %s\n",var_name, value);
+		fileWriter.format("%s: .word %s\n",var_name, value);
 	}
 	public void allocate_string(String var_name, String value, boolean global)
 	{
@@ -246,7 +249,6 @@ public class MIPSGenerator
 	}
 	public void virtual_call(TEMP object, int offset, TEMP_LIST params, TEMP dst) {
 		int t0 = object.getSerialNumber();
-		int t2 = dst.getSerialNumber();
 		ArrayList<TEMP> temp_list = new ArrayList<TEMP>();
 		while(params != null) {
 			temp_list.add(params.head);
@@ -288,7 +290,10 @@ public class MIPSGenerator
 		// read return value
 
 		//fileWriter.format("\tmove Temp_%d, $v0\n", t2);
-		code_commands.add(String.format("\tmove Temp_%d, $v0\n", t2));
+		if (dst!=null){
+			int t2 = dst.getSerialNumber();
+			code_commands.add(String.format("\tmove Temp_%d, $v0\n", t2));
+		}
 
 	}
 
