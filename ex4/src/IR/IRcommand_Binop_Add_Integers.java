@@ -30,6 +30,8 @@ public class IRcommand_Binop_Add_Integers extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
-		MIPSGenerator.getInstance().add(dst,t1,t2);
+		String label_end_max  = getFreshLabel("endMax");
+		String label_end_min  = getFreshLabel("endMin");
+		MIPSGenerator.getInstance().add(dst,t1,t2, label_end_max, label_end_min);
 	}
 }
