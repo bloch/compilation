@@ -119,6 +119,13 @@ public class MIPSGenerator
 //		fileWriter.format("\tla %s,%s\n",offset,value);
 		code_commands.add(String.format("\tla %s, %s\n",offset,value));
 	}
+
+	public void allocate_and_store_const_string(TEMP t, String value)
+	{
+		int idx=t.getSerialNumber();
+		fileWriter.format("\tstr_aconst: .asciiz \"%s\"\n", value);
+		code_commands.add(String.format("\tla Temp_%d, %s\n",idx,"str_aconst"));
+	}
 	public void add(TEMP dst,TEMP oprnd1,TEMP oprnd2)
 	{
 		int i1 =oprnd1.getSerialNumber();

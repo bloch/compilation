@@ -1,8 +1,15 @@
-int foo() {
-    return 27;
+
+class A{
+    int x:=1;
+
+    int foo() {
+        return x;
+    }
 }
 
 void main() {
-    int x:= foo();
-    PrintInt(x);
+    A a := new A;
+    PrintInt(a.foo());
 }
+
+

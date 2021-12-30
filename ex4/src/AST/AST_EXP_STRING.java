@@ -2,6 +2,10 @@ package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public class AST_EXP_STRING extends AST_EXP{
     public String value;
 
@@ -49,4 +53,11 @@ public class AST_EXP_STRING extends AST_EXP{
         return TYPE_STRING.getInstance();
     }
 
+    public TEMP IRme()
+    {
+        TEMP t = TEMP_FACTORY.getInstance().getFreshTEMP();
+        // store the const string in data section and load the label's address to t
+        IR.getInstance().Add_IRcommand(new IRcommandContString(t,value));
+        return t;
+    }
 }

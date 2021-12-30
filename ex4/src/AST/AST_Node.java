@@ -141,6 +141,7 @@ public abstract class AST_Node
 
 
 	public TYPE isVarInClassFields(String id_name) {
+		System.out.println("print here ############");
 		/************************************/
 		/* [3] Look for fiedlName inside class&super_classes fields names */
 		/************************************/
@@ -157,7 +158,7 @@ public abstract class AST_Node
 						return null;
 					}
 					else{
-						return class_member;
+						return  class_member;
 					}
 				}
 			}

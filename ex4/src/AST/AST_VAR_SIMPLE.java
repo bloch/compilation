@@ -56,21 +56,29 @@ public class AST_VAR_SIMPLE extends AST_VAR
 	}
 
 	public TYPE SemantMe() {
-		TYPE t = SYMBOL_TABLE.getInstance().findNotInGlobalScope(name);
+		TYPE t = SYMBOL_TABLE.getInstance().findNotInGlobalScope(name);//need to be change to functionscope
 		if (t != null) {
 			this.offset = SYMBOL_TABLE.getInstance().find_offset(name);
 			System.out.println("Name " + name + ", offset: " + this.offset);
 			return t;
 		}
 		t = isVarInClassFields(name);
-		TYPE_ID t_id = (TYPE_ID) t;
-		if (t_id.type != null) {
-			// TODO: fix offset calculation for that fucking case(we must considerate the object before it created)
-			// DEBUG - class field inside derived method together
-			this.offset = t_id.class_offset;
-			System.out.println("Name " + name + ", offset: " + this.offset);
-			return t_id.type;
+		if (t!=null){
+			System.out.println("print here 1 ############");
+			TYPE_ID t_id = (TYPE_ID) t;
+			if (t_id.type != null) {
+				System.out.println("print here 2 ############");
+				// TODO: fix offset calculation for that fucking case(we must considerate the object before it created)
+				// DEBUG - class field inside derived method together
+//				this.offset = t_id.class_offset; // that's not correct
+				//first need to set : lw $t, 8($fp)  ...... "this" is located in 8($fp)
+				//after we need to set: lw $t, t_id.class_offset($t)
+				this.offset = 30000000 + t_id.class_offset; // new flage for this
+				System.out.println("Name " + name + ", offset: " + this.offset);
+				return t_id.type;
+			}
 		}
+
 		t = SYMBOL_TABLE.getInstance().find(name);
 		if (t != null) {
 			this.offset = SYMBOL_TABLE.getInstance().find_offset(name);
