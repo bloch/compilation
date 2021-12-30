@@ -25,6 +25,7 @@ public class MIPSGenerator
 	private int WORD_SIZE=4;
 	private int MAX_NUM = Math.pow(2,15)-1;
 	private int MIN_NUM = Math.pow(-2,15);
+	// TODO: need to add this variables under data section as global variables
 	/***********************/
 	/* The file writer ... */
 	/***********************/
@@ -109,6 +110,7 @@ public class MIPSGenerator
 	}
 	public void li(TEMP t,int value)
 	{
+		int idx = t.getSerialNumber();
 //		fileWriter.format("\tli Temp_%d,%d\n",idx,value);
 		code_commands.add(String.format("\tli Temp_%d, %d\n",idx,value));
 	}
@@ -125,7 +127,6 @@ public class MIPSGenerator
 		int dstidx=dst.getSerialNumber();
 
 //		fileWriter.format("\tadd Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
-		// TODO: from where I gonna take this lables??? (same in sub. mul and div)
 		code_commands.add(String.format("\tadd Temp_%d, Temp_%d, Temp_%d\n",dstidx,i1,i2));
 		code_commands.add(String.format("\tble Temp_%d, max, %s\n",i1,label_end_max)); // chceck if dst <= max, if yes so jump to next checking
 		code_commands.add(String.format("\tli Temp_%d, max\n",dstidx)); // dst = max, so we jump to end_label
