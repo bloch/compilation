@@ -528,7 +528,7 @@ public class MIPSGenerator
 			params = params.tail;
 		}
 		//push arguments in reverse order
-		for(int i = temp_list.size() - 1; i >= 0; i--) {S
+		for(int i = temp_list.size() - 1; i >= 0; i--) {
 			TEMP cur = temp_list.get(i);
 			int cur_t = cur.getSerialNumber();
 //			fileWriter.format("\tsubu $sp, $sp, 4\n");
@@ -538,7 +538,7 @@ public class MIPSGenerator
 		}
 
 		// jal to func_name
-//		fileWriter.format("\tjal %s\n", func_name);SS
+//		fileWriter.format("\tjal %s\n", func_name);
 		code_commands.add(String.format("\tjal %s\n", func_name));
 
 		// return sp
