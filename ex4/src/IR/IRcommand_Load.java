@@ -31,12 +31,13 @@ public class IRcommand_Load extends IRcommand {
 	public void MIPSme() {
 
 		if (this.offset > 30000000) {
+			//here we use $s0 saved register in oreder to load "this" object from the stack
 			offset = offset - 30000000;
 			String offset_string1 = "8($fp)";
-			MIPSGenerator.getInstance().load(dst, offset_string1);
+			MIPSGenerator.getInstance().load_from_saved_register(offset_string1);
 
 			int idxdst = dst.getSerialNumber();
-			String offset_string2 = offset + "(TEMP_" + idxdst + ")";
+			String offset_string2 = offset + "($s0)";
 			MIPSGenerator.getInstance().load(dst, offset_string2);
 
 		} else if (offset != -300000000) {

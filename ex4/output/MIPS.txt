@@ -35,9 +35,12 @@ A_foo_prologue:
 	sw $t9, 0($sp)
 	sub $sp, $sp, 16
 A_foo_body:
-	lw $t0, x
-	move $v0, $t0
-	j A_foo_epilogue
+	lw $s0, 8($fp)
+	lw $t0, 4($s0)
+	li $t1, 1
+	add $t2, $t0, $t1
+	lw $s0, 8($fp)
+	sw $t2, 4($s0)
 A_foo_epilogue:
 	move $sp, $fp
 	lw $t0, -4($sp)
@@ -86,21 +89,23 @@ user_main_body:
 	li $v0, 9
 	li $a0, 8
 	syscall
-	move $t1, $v0
+	move $t3, $v0
 	la $s0, vt_A
-	sw $s0, 0($t1)
-	li $s0, 1
-	sw $s0, 4($t1)
-	sw $t1, -44($fp)
-	lw $t3, -44($fp)
+	sw $s0, 0($t3)
+	li $s0, 4
+	sw $s0, 4($t3)
+	sw $t3, -44($fp)
+	lw $t4, -44($fp)
 	subu $sp, $sp, 4
-	sw $t3, 0($sp)
-	lw $s0, 0($t3)
+	sw $t4, 0($sp)
+	lw $s0, 0($t4)
 	lw $s1, 0($s0)
 	jalr $s1
 	addu $sp, $sp, 4
-	move $t2, $v0
-	move $a0, $t2
+	lw $t6, -44($fp)
+	beq $t6, 0, abort
+	lw $t5, 4($t6)
+	move $a0, $t5
 	li $v0, 1
 	syscall
 	la $a0, space_for_printInt_space

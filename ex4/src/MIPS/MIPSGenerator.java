@@ -101,6 +101,11 @@ public class MIPSGenerator
 //		fileWriter.format("\tlw Temp_%d,%s\n",idxdst,var_name);
 		code_commands.add(String.format("\tlw Temp_%d, %s\n",idxdst,var_name));
 	}
+	public void load_from_saved_register(String var_name)
+	{
+		//for now we need only $s0 , if needed more saved registers -->ovveride this func with addistional arg - index for saved reg
+		code_commands.add(String.format("\tlw $s0, %s\n",var_name));
+	}
 	public void store(String var_name,TEMP src)
 	{
 		int idxsrc=src.getSerialNumber();
