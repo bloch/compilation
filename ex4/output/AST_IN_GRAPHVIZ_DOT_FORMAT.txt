@@ -1,0 +1,183 @@
+digraph
+{
+graph [ordering = "out"]
+v66 [label = "Program
+"];
+v21 [label = "classDec_1
+ID(A)
+"];
+v0 [label = "TYPE_INT
+"];
+v3 [label = "TYPE_WITH_ID
+ID (y);
+"];
+v3 -> v0;
+v1 [label = "INT
+(1)"];
+v2 [label = "varDec_2
+"];
+v2 -> v3;
+v2 -> v1;
+v4 [label = "CFIELD
+VAR_DEC"];
+v4 -> v2;
+v5 [label = "TYPE_INT
+"];
+v8 [label = "TYPE_WITH_ID
+ID (x);
+"];
+v8 -> v5;
+v6 [label = "INT
+(4)"];
+v7 [label = "varDec_2
+"];
+v7 -> v8;
+v7 -> v6;
+v9 [label = "CFIELD
+VAR_DEC"];
+v9 -> v7;
+v10 [label = "TYPE_VOID
+"];
+v16 [label = "TYPE_WITH_ID
+ID (foo);
+"];
+v16 -> v10;
+v15 [label = "funcDec_1
+"];
+v11 [label = "SIMPLE
+VAR
+(x)"];
+v12 [label = "INT
+(1)"];
+v13 [label = "ASSIGN
+left := right
+"];
+v13 -> v11;
+v13 -> v12;
+v15 -> v13;
+v15 -> v16;
+v17 [label = "CFIELD
+FUNC_DEC"];
+v17 -> v15;
+v21 -> v4;
+v21 -> v9;
+v21 -> v17;
+v22 [label = "classDec"];
+v22 -> v21;
+v42 [label = "classDec_2
+ID1(B) ID2(A)
+"];
+v23 [label = "TYPE_INT
+"];
+v26 [label = "TYPE_WITH_ID
+ID (y);
+"];
+v26 -> v23;
+v24 [label = "INT
+(3)"];
+v25 [label = "varDec_2
+"];
+v25 -> v26;
+v25 -> v24;
+v27 [label = "CFIELD
+VAR_DEC"];
+v27 -> v25;
+v28 [label = "TYPE_VOID
+"];
+v38 [label = "TYPE_WITH_ID
+ID (foo);
+"];
+v38 -> v28;
+v37 [label = "funcDec_1
+"];
+v29 [label = "SIMPLE
+VAR
+(x)"];
+v30 [label = "SIMPLE
+VAR
+(x)"];
+v31 [label = "EXP
+VAR"];
+v31 -> v30;
+v32 [label = "SIMPLE
+VAR
+(y)"];
+v33 [label = "EXP
+VAR"];
+v33 -> v32;
+v34 [label = "BINOP
+(+)"];
+v34 -> v31;
+v34 -> v33;
+v35 [label = "ASSIGN
+left := right
+"];
+v35 -> v29;
+v35 -> v34;
+v37 -> v35;
+v37 -> v38;
+v39 [label = "CFIELD
+FUNC_DEC"];
+v39 -> v37;
+v42 -> v27;
+v42 -> v39;
+v43 [label = "classDec"];
+v43 -> v42;
+v44 [label = "TYPE_VOID
+"];
+v61 [label = "TYPE_WITH_ID
+ID (main);
+"];
+v61 -> v44;
+v60 [label = "funcDec_1
+"];
+v45 [label = "TYPE_ID
+(A)
+"];
+v49 [label = "TYPE_WITH_ID
+ID (a);
+"];
+v49 -> v45;
+v46 [label = "TYPE_ID
+(B)
+"];
+v47 [label = "newExp_1"];
+v47 -> v46;
+v48 [label = "varDec_3"];
+v48 -> v49;
+v48 -> v47;
+v50 [label = "STMT_VAR_DEC
+"];
+v50 -> v48;
+v51 [label = "SIMPLE
+VAR
+(a)"];
+v52 [label = "STMT_MODIFY_4
+var . ID(foo);
+"];
+v52 -> v51;
+v53 [label = "SIMPLE
+VAR
+(a)"];
+v54 [label = "FIELD
+VAR
+...->x"];
+v54 -> v53;
+v55 [label = "EXP
+VAR"];
+v55 -> v54;
+v56 [label = "STMT_MODIFY_2
+ID(PrintInt)
+(exp);
+"];
+v56 -> v55;
+v60 -> v50;
+v60 -> v52;
+v60 -> v56;
+v60 -> v61;
+v62 [label = "funcDec"];
+v62 -> v60;
+v66 -> v22;
+v66 -> v43;
+v66 -> v62;
+}

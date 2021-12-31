@@ -1,6 +1,23 @@
 
+class A{
+    int y := 1;
+    int x := 4;
+    void foo() {
+        x := 1;
+    }
+}
+
+class B extends A{
+    int y := 3;
+    void foo() {
+        x := x + y;
+    }
+}
+
 void main() {
-    C a := new a;
+    A a := new B;
+    a.foo();
+    PrintInt(a.x);
 
 }
 
