@@ -62,7 +62,7 @@ public class AST_VAR_SIMPLE extends AST_VAR
 //			System.out.println("Name " + name + ", offset: " + this.offset);
 //			return t;
 //		}
-		t = isVarInClassFields(name);
+		t = isVarInClassFields(name); // now t is type_id
 		if (t!=null){
 			System.out.println("print here 1 ############");
 			TYPE_ID t_id = (TYPE_ID) t;

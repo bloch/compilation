@@ -1,15 +1,6 @@
 
-class A{
-    int x := 4;
-    void foo() {
-        x := x + 1;
-    }
-}
-
 void main() {
-    A a := new A;
-    a.foo();
-    PrintInt(a.x);
+    C a := new a;
 
 }
 
