@@ -4,6 +4,6 @@ All Rights Reserved.
 See the file README for a full copyright notice.
 Loaded: /usr/lib/spim/exceptions.s
 The following symbols are undefined:
-main
+goo
 
-[0x00400014]	0x0c000000  jal 0x00000000 [main]           ; 188: jal main
+[0x0040013c]	0x0c000000  jal 0x00000000 [goo]            ; 87: jal goo

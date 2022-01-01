@@ -1,14 +1,16 @@
-class A {
-    int x := 5;
-    string y := "a";
-    int z;
+class B {
+    int goo() {
+        return 5;
+    }
+    int foo() {
+        return goo();
+    }
 }
 
-class B extends A {
-    string y := "b";
-}
 
 void main() {
     B b := new B;
-    PrintString(b.y);
+    PrintInt(b.foo());
 }
+
+

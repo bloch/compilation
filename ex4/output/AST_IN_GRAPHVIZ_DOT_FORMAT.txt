@@ -1,123 +1,99 @@
 digraph
 {
 graph [ordering = "out"]
-v46 [label = "Program
+v35 [label = "Program
 "];
-v17 [label = "classDec_1
-ID(A)
+v16 [label = "classDec_1
+ID(B)
 "];
 v0 [label = "TYPE_INT
 "];
-v3 [label = "TYPE_WITH_ID
-ID (x);
+v5 [label = "TYPE_WITH_ID
+ID (goo);
 "];
-v3 -> v0;
+v5 -> v0;
+v4 [label = "funcDec_1
+"];
 v1 [label = "INT
 (5)"];
-v2 [label = "varDec_2
+v2 [label = "STMT
+RETURN
+EXP
 "];
-v2 -> v3;
 v2 -> v1;
-v4 [label = "CFIELD
-VAR_DEC"];
 v4 -> v2;
-v5 [label = "TYPE_STRING
-"];
-v8 [label = "TYPE_WITH_ID
-ID (y);
-"];
-v8 -> v5;
-v6 [label = "STRING('a')"];
-v7 [label = "varDec_2
-"];
-v7 -> v8;
-v7 -> v6;
-v9 [label = "CFIELD
-VAR_DEC"];
-v9 -> v7;
-v10 [label = "TYPE_INT
+v4 -> v5;
+v6 [label = "CFIELD
+FUNC_DEC"];
+v6 -> v4;
+v7 [label = "TYPE_INT
 "];
 v12 [label = "TYPE_WITH_ID
-ID (z);
+ID (foo);
 "];
-v12 -> v10;
-v11 [label = "varDec_1"];
+v12 -> v7;
+v11 [label = "funcDec_1
+"];
+v8 [label = "EXP_MODIFY_1
+ID(goo);
+"];
+v9 [label = "STMT
+RETURN
+EXP
+"];
+v9 -> v8;
+v11 -> v9;
 v11 -> v12;
 v13 [label = "CFIELD
-VAR_DEC"];
+FUNC_DEC"];
 v13 -> v11;
-v17 -> v4;
-v17 -> v9;
-v17 -> v13;
-v18 [label = "classDec"];
-v18 -> v17;
-v25 [label = "classDec_2
-ID1(B) ID2(A)
+v16 -> v6;
+v16 -> v13;
+v17 [label = "classDec"];
+v17 -> v16;
+v18 [label = "TYPE_VOID
 "];
-v19 [label = "TYPE_STRING
-"];
-v22 [label = "TYPE_WITH_ID
-ID (y);
-"];
-v22 -> v19;
-v20 [label = "STRING('b')"];
-v21 [label = "varDec_2
-"];
-v21 -> v22;
-v21 -> v20;
-v23 [label = "CFIELD
-VAR_DEC"];
-v23 -> v21;
-v25 -> v23;
-v26 [label = "classDec"];
-v26 -> v25;
-v27 [label = "TYPE_VOID
-"];
-v41 [label = "TYPE_WITH_ID
+v31 [label = "TYPE_WITH_ID
 ID (main);
 "];
-v41 -> v27;
-v40 [label = "funcDec_1
+v31 -> v18;
+v30 [label = "funcDec_1
 "];
-v28 [label = "TYPE_ID
+v19 [label = "TYPE_ID
 (B)
 "];
-v32 [label = "TYPE_WITH_ID
+v23 [label = "TYPE_WITH_ID
 ID (b);
 "];
-v32 -> v28;
-v29 [label = "TYPE_ID
+v23 -> v19;
+v20 [label = "TYPE_ID
 (B)
 "];
-v30 [label = "newExp_1"];
-v30 -> v29;
-v31 [label = "varDec_3"];
-v31 -> v32;
-v31 -> v30;
-v33 [label = "STMT_VAR_DEC
+v21 [label = "newExp_1"];
+v21 -> v20;
+v22 [label = "varDec_3"];
+v22 -> v23;
+v22 -> v21;
+v24 [label = "STMT_VAR_DEC
 "];
-v33 -> v31;
-v34 [label = "SIMPLE
+v24 -> v22;
+v25 [label = "SIMPLE
 VAR
 (b)"];
-v35 [label = "FIELD
-VAR
-...->y"];
-v35 -> v34;
-v36 [label = "EXP
-VAR"];
-v36 -> v35;
-v37 [label = "STMT_MODIFY_2
-ID(PrintString)
+v26 [label = "EXP_MODIFY_4
+ID(foo);
+"];
+v26 -> v25;
+v27 [label = "STMT_MODIFY_2
+ID(PrintInt)
 (exp);
 "];
-v37 -> v36;
-v40 -> v33;
-v40 -> v37;
-v40 -> v41;
-v42 [label = "funcDec"];
-v42 -> v40;
-v46 -> v18;
-v46 -> v26;
-v46 -> v42;
+v27 -> v26;
+v30 -> v24;
+v30 -> v27;
+v30 -> v31;
+v32 [label = "funcDec"];
+v32 -> v30;
+v35 -> v17;
+v35 -> v32;
 }

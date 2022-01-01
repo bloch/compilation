@@ -1,5 +1,15 @@
-class A {
-    int PrintInt() {
-        int y := 3;
+
+class A{
+    int x := 4;
+    void foo() {
+        x := 1;
     }
+}
+
+void main() {
+    int a := 1;
+    C a := new a;
+    a.foo();
+    PrintInt(a.x);
+
 }
