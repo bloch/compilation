@@ -42,6 +42,9 @@ public class MIPSGenerator
 		for(int i = 0; i < code_commands.size(); i++) {
 			fileWriter.print(code_commands.get(i));
 		}
+		fileWriter.print("abort:\n");
+		fileWriter.print("\tli $v0,10\n");
+		fileWriter.print("\tsyscall\n");
 		fileWriter.print("main:\n");
 		fileWriter.print("\tjal user_main\n");
 		fileWriter.print("\tli $v0,10\n");
@@ -65,7 +68,7 @@ public class MIPSGenerator
 	public void print_string(TEMP t)
 	{
 		int idx=t.getSerialNumber();
-		code_commands.add(String.format("\tla $a0, Temp_%d\n", idx));
+		code_commands.add(String.format("\tmove $a0, Temp_%d\n", idx));
 		code_commands.add(String.format("\tli $v0, 4\n"));
 		code_commands.add(String.format("\tsyscall\n"));
 	}
@@ -86,7 +89,7 @@ public class MIPSGenerator
 	public void allocate_int(String var_name, int value)
 	{
 //		fileWriter.format(".data\n");
-		fileWriter.format("\t%s: .word %s\n",var_name, value);
+		fileWriter.format("%s: .word %s\n",var_name, value);
 	}
 	public void allocate_string(String var_name, String value, boolean global)
 	{
@@ -145,6 +148,12 @@ public class MIPSGenerator
 //		fileWriter.format("\tlw Temp_%d,%s\n",idxdst,var_name);
 		code_commands.add(String.format("\tlw Temp_%d, %s\n",idxdst,var_name));
 	}
+	public void load_from_saved_register(String var_name)
+	{
+		//for now we need only $s0 , if needed more saved registers -->ovveride this func with addistional arg - index for saved reg
+		code_commands.add(String.format("\tlw $s0, %s\n",var_name));
+	}
+
 	public void store(String var_name,TEMP src)
 	{
 		int idxsrc=src.getSerialNumber();
@@ -153,7 +162,7 @@ public class MIPSGenerator
 	}
 	public void li(TEMP t,int value)
 	{
-		int idx = t.getSerialNumber();
+		int idx=t.getSerialNumber();
 //		fileWriter.format("\tli Temp_%d,%d\n",idx,value);
 		code_commands.add(String.format("\tli Temp_%d, %d\n",idx,value));
 	}
@@ -162,6 +171,12 @@ public class MIPSGenerator
 //		fileWriter.format(".text\n");
 //		fileWriter.format("\tla %s,%s\n",offset,value);
 		code_commands.add(String.format("\tla %s, %s\n",offset,value));
+	}
+	public void allocate_and_store_const_string(TEMP t, String value)
+	{
+		int idx=t.getSerialNumber();
+		fileWriter.format("\tstr_aconst: .asciiz \"%s\"\n", value);
+		code_commands.add(String.format("\tla Temp_%d, %s\n",idx,"str_aconst"));
 	}
 	public void add(TEMP dst,TEMP oprnd1,TEMP oprnd2, String label_end_max, String label_end_min)
 	{
@@ -339,7 +354,6 @@ public class MIPSGenerator
 	}
 	public void virtual_call(TEMP object, int offset, TEMP_LIST params, TEMP dst) {
 		int t0 = object.getSerialNumber();
-		int t2 = dst.getSerialNumber();
 		ArrayList<TEMP> temp_list = new ArrayList<TEMP>();
 		while(params != null) {
 			temp_list.add(params.head);
@@ -381,7 +395,11 @@ public class MIPSGenerator
 		// read return value
 
 		//fileWriter.format("\tmove Temp_%d, $v0\n", t2);
-		code_commands.add(String.format("\tmove Temp_%d, $v0\n", t2));
+		if (dst!=null){
+			int t2 = dst.getSerialNumber();
+			code_commands.add(String.format("\tmove Temp_%d, $v0\n", t2));
+		}
+
 
 	}
 
@@ -392,11 +410,11 @@ public class MIPSGenerator
 
 		//error handilng
 		//fileWriter.format("\tbltz Temp_%d, abort_nathannnnn\n",t2_idx);
-		code_commands.add(String.format("\tbltz Temp_%d, abort_nathannnnn\n",t2_idx));
+		code_commands.add(String.format("\tbltz Temp_%d, abort\n",t2_idx));
 //		fileWriter.format("\tlw $s0, 0(Temp_%d)\n",t1_idx);
 		code_commands.add(String.format("\tlw $s0, 0(Temp_%d)\n",t1_idx));
 //		fileWriter.format("\tbge Temp_%d, $s0, abort_nathannnnn\n",t2_idx);
-		code_commands.add(String.format("\tbge Temp_%d, $s0, abort_nathannnnn\n",t2_idx));
+		code_commands.add(String.format("\tbge Temp_%d, $s0, abort\n",t2_idx));
 
 //		fileWriter.format("\tmove $s0, Temp_%d\n",t2_idx);
 		code_commands.add(String.format("\tmove $s0, Temp_%d\n",t2_idx));
@@ -410,11 +428,11 @@ public class MIPSGenerator
 		code_commands.add(String.format("\tlw Temp_%d, 0($s0)\n",t0_idx));
 
 //		fileWriter.format("\tabort_nathannnnn:\n");
-		code_commands.add(String.format("\tabort_nathannnnn:\n"));
+//		code_commands.add(String.format("\tabort_nathannnnn:\n"));
 //		fileWriter.format("\tli $v0,10\n");
-		code_commands.add(String.format("\tli $v0, 10\n"));
+//		code_commands.add(String.format("\tli $v0, 10\n"));
 //		fileWriter.format("\tsyscall\n");
-		code_commands.add(String.format("\tsyscall\n"));
+//		code_commands.add(String.format("\tsyscall\n"));
 	}
 
 	public void new_class(TEMP t0 , TYPE_ID[] fields_array , int size_of_class , String class_name){
@@ -533,6 +551,16 @@ public class MIPSGenerator
 		code_commands.add(String.format("\tsub $sp, $sp, %d\n", sp_offset));
 //		fileWriter.format("%s_body:\n", func_name);
 		code_commands.add(String.format("%s_body:\n", func_name));
+	}
+
+	public void array_set(TEMP t1 , TEMP t2 , TEMP t3) {
+		int t2_idx = t2.getSerialNumber();
+		code_commands.add(String.format("\taddu Temp_%d, Temp_%d, 1\n", t2_idx, t2_idx));
+		code_commands.add(String.format("\tmul Temp_%d, Temp_%d, 4\n", t2_idx, t2_idx));
+		int t1_idx = t1.getSerialNumber();
+		int t3_idx = t3.getSerialNumber();
+		code_commands.add(String.format("\taddu Temp_%d, Temp_%d, Temp_%d\n", t1_idx, t1_idx, t2_idx));
+		code_commands.add(String.format("\tsw Temp_%d, 0(Temp_%d)\n", t3_idx, t1_idx));
 	}
 
 	public void function_epilogue(String func_name) {
