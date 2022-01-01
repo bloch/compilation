@@ -151,7 +151,13 @@ public class AST_EXP_BINOP extends AST_EXP
 		TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
 
 		if (OP == 0) {
-			IR.getInstance().Add_IRcommand(new IRcommand_Binop_Add_Integers(dst,t1,t2));
+			IR.getInstance().Add_IRcommand(new IRcommand_Binop_Concat_Strings(dst, t1, t2));
+//			if (right instanceof AST_EXP_STRING && left instanceof AST_EXP_STRING){
+//				IR.getInstance().Add_IRcommand(new IRcommand_Binop_Concat_Strings(dst, t1, t2));
+//			}
+//			else {
+//				IR.getInstance().Add_IRcommand(new IRcommand_Binop_Add_Integers(dst, t1, t2));
+//			}
 		}
 		if (OP == 1) {
 			IR.getInstance().Add_IRcommand(new IRcommand_Binop_Subtract_Integers(dst,t1,t2));
@@ -169,7 +175,7 @@ public class AST_EXP_BINOP extends AST_EXP
 			IR.getInstance().Add_IRcommand(new IRcommand_Binop_GT_Integers(dst,t1,t2));
 		}
 		if (OP == 6) {
-			if (rigt instanceof AST_EXP_STRING && left instanceof AST_EXP_STRING){
+			if (right instanceof AST_EXP_STRING && left instanceof AST_EXP_STRING){
 				IR.getInstance().Add_IRcommand(new IRcommand_Binop_EQ_Strings(dst,t1,t2));
 			}
 			else {

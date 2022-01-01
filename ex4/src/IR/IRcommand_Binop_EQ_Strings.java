@@ -33,7 +33,7 @@ public class IRcommand_Binop_EQ_Strings extends IRcommand
 	{
 	    String neq_label  = getFreshLabel("neq_label");
         String str_eq_end = getFreshLabel("str_eq_end");
-        String str_eq_end = getFreshLabel("str_eq_loop");
+        String str_eq_loop = getFreshLabel("str_eq_loop");
         MIPSGenerator.getInstance().str_eq(dst, t1, t2, neq_label, str_eq_end, str_eq_loop);
 	}
 }

@@ -3,12 +3,39 @@ string_access_violation: .asciiz "Access Violation"
 string_illegal_div_by_0: .asciiz "Illegal Division By Zero"
 string_invalid_ptr_dref: .asciiz "Invalid Pointer Dereference"
 space_for_printInt_space: .asciiz " "
-vt_A:
-vt_B:
-y_B_str: .asciiz "b"
+	aa_str: .asciiz "n"
+	aa: .word aa_str
+	bb_str: .asciiz "n"
+	bb: .word bb_str
 .text
-	li $t0, 5
-	sw $t0, x
+	lw $t0, aa
+	lw $t1, bb
+	li $v0, 9
+	move $a0, $t0
+	add $a0, $a0, $t1
+	sub $a0, $a0, 1
+	syscall
+	move $t2, $v0
+	move $s0, $t0
+	move $s1, $t1
+	move $s2, $2
+	Label_0_string1:
+	lb $t4, 0($s0)
+	beq $t4, $zero, Label_1_string2
+	sb $t4, 0($s2)
+	addi $s0, $s0, 1
+	addi $s2, $s2, 1
+	j Label_0_string1
+	Label_1_string2:
+	lb $t4, 0($s1)
+	beq $t4, $zero, Label_2_end
+	sb $t4, 0($s2)
+	addi $s1, $s1, 1
+	addi $s2, $s2, 1
+	j Label_1_string2
+	Label_2_end:
+	sb $zero, 0($s2)
+	move $t2, $s2
 user_main:
 user_main_prologue:
 	subu $sp, $sp, 4
@@ -38,23 +65,8 @@ user_main_prologue:
 	sw $t9, 0($sp)
 	sub $sp, $sp, 16
 user_main_body:
-	li $v0, 9
-	li $a0, 16
-	syscall
-	move $t1, $v0
-	la $s0, vt_B
-	sw $s0, 0($t1)
-	li $s0, 5
-	sw $s0, 4($t1)
-	la $s0, y_B_str
-	sw $s0, 8($t1)
-	li $s0, DEFAULT
-	sw $s0, 12($t1)
-	sw $t1, -44($fp)
-	lw $t3, -44($fp)
-	beq $t3, 0, abort
-	lw $t2, 8($t3)
-	la $a0, $t2
+	lw $t3, res
+	la $a0, $t3
 	li $v0, 4
 	syscall
 user_main_epilogue:

@@ -8,7 +8,7 @@ package MIPS;
 /*******************/
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.lang.Math;
+//import java.lang.Math;
 
 import java.util.*;
 import TYPES.*;
@@ -23,8 +23,8 @@ import TEMP.*;
 public class MIPSGenerator
 {
 	private int WORD_SIZE=4;
-	private int MAX_NUM = Math.pow(2,15)-1;
-	private int MIN_NUM = Math.pow(-2,15);
+	private int MAX_NUM = 32767;
+	private int MIN_NUM = -32768;
 	// TODO: need to add this variables under data section as global variables
 	/***********************/
 	/* The file writer ... */
@@ -96,6 +96,49 @@ public class MIPSGenerator
 			fileWriter.format("\t%s: .word %s_str\n", var_name, var_name);
 		}
 	}
+	public void concat_strings(TEMP dst,TEMP oprnd1,TEMP oprnd2, TEMP tmp, String label_string1, String label_string2, String label_end){
+		int i1 =oprnd1.getSerialNumber();
+		int i2 =oprnd2.getSerialNumber();
+		int dstidx=dst.getSerialNumber();
+		int tmpid = tmp.getSerialNumber();
+
+		code_commands.add(String.format("\tli $v0, 9\n"));
+		code_commands.add(String.format("\tmove $a0, Temp_%d\n",i1));
+		code_commands.add(String.format("\tadd $a0, $a0, Temp_%d\n",i2));;
+		code_commands.add(String.format("\tsub $a0, $a0, 1\n"));
+		code_commands.add(String.format("\tsyscall\n"));
+		code_commands.add(String.format("\tmove Temp_%d, $v0\n",dstidx));
+
+		// alocate string for dst
+		// la command from string label to dst
+		code_commands.add(String.format("\tmove $s0, Temp_%d\n",i1));
+		code_commands.add(String.format("\tmove $s1, Temp_%d\n",i2));
+		code_commands.add(String.format("\tmove $s2, Temp_%d\n",dstidx));
+
+		code_commands.add(String.format("\t%s:\n",label_string1));
+		code_commands.add(String.format("\tlb temp_%d, 0($s0)\n",tmpid));
+		code_commands.add(String.format("\tbeq Temp_%d, $zero, %s\n",tmpid,label_string2));
+		code_commands.add(String.format("\tsb temp_%d, 0($s2)\n",tmpid));
+		code_commands.add(String.format("\taddi $s0, $s0, 1\n"));
+		code_commands.add(String.format("\taddi $s2, $s2, 1\n"));
+		code_commands.add(String.format("\tj %s\n",label_string1));
+
+		code_commands.add(String.format("\t%s:\n",label_string2));
+		code_commands.add(String.format("\tlb temp_%d, 0($s1)\n",tmpid));
+		code_commands.add(String.format("\tbeq Temp_%d, $zero, %s\n",tmpid,label_end));
+		code_commands.add(String.format("\tsb temp_%d, 0($s2)\n",tmpid));
+		code_commands.add(String.format("\taddi $s1, $s1, 1\n"));
+		code_commands.add(String.format("\taddi $s2, $s2, 1\n"));
+		code_commands.add(String.format("\tj %s\n",label_string2));
+
+		code_commands.add(String.format("\t%s:\n",label_end));
+		code_commands.add(String.format("\tsb $zero, 0($s2)\n"));
+		code_commands.add(String.format("\tmove Temp_%d, $s2\n",dstidx));
+
+
+		//fileWriter.format("\t%s_str: .asciiz $s2\n",idxdst);
+		//fileWriter.format("\tla Temp_%d, %s_str\n",dstidx,var_name);
+	}
 	public void load(TEMP dst,String var_name)
 	{
 		int idxdst=dst.getSerialNumber();
@@ -129,7 +172,7 @@ public class MIPSGenerator
 //		fileWriter.format("\tadd Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
 		code_commands.add(String.format("\tadd Temp_%d, Temp_%d, Temp_%d\n",dstidx,i1,i2));
 		code_commands.add(String.format("\tli $s0, %d\n",MAX_NUM));
-		code_commands.add(String.format("\tble Temp_%d, $s0, %s\n",i1,label_end_max)); // chceck if dst <= max, if yes so jump to next checking
+		code_commands.add(String.format("\tble Temp_%d, $s0, %s\n",dstidx,label_end_max)); // chceck if dst <= max, if yes so jump to next checking
 		code_commands.add(String.format("\tli Temp_%d, %d\n",dstidx,MAX_NUM)); // dst = max, so we jump to end_label
 		code_commands.add(String.format("\tj %s\n",label_end_min)); // j end
 		code_commands.add(String.format("\t%s:\n",label_end_max)); 	// in_label:
@@ -147,7 +190,7 @@ public class MIPSGenerator
 //		fileWriter.format("\tadd Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
 		code_commands.add(String.format("\tsub Temp_%d, Temp_%d, Temp_%d\n",dstidx,i1,i2));
 		code_commands.add(String.format("\tli $s0, %d\n",MAX_NUM));
-		code_commands.add(String.format("\tble Temp_%d, $s0, %s\n",i1,label_end_max)); // chceck if dst <= max, if yes so jump to next checking
+		code_commands.add(String.format("\tble Temp_%d, $s0, %s\n",dstidx,label_end_max)); // chceck if dst <= max, if yes so jump to next checking
 		code_commands.add(String.format("\tli Temp_%d, %d\n",dstidx,MAX_NUM)); // dst = max, so we jump to end_label
 		code_commands.add(String.format("\tj %s\n",label_end_min)); // j end
 		code_commands.add(String.format("\t%s:\n",label_end_max)); 	// in_label:
@@ -165,7 +208,7 @@ public class MIPSGenerator
 //		fileWriter.format("\tmul Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
 		code_commands.add(String.format("\tmul Temp_%d, Temp_%d, Temp_%d\n",dstidx,i1,i2));
 		code_commands.add(String.format("\tli $s0, %d\n",MAX_NUM));
-		code_commands.add(String.format("\tble Temp_%d, $s0, %s\n",i1,label_end_max)); // chceck if dst <= max, if yes so jump to next checking
+		code_commands.add(String.format("\tble Temp_%d, $s0, %s\n",dstidx,label_end_max)); // chceck if dst <= max, if yes so jump to next checking
 		code_commands.add(String.format("\tli Temp_%d, %d\n",dstidx,MAX_NUM)); // dst = max, so we jump to end_label
 		code_commands.add(String.format("\tj %s\n",label_end_min)); // j end
 		code_commands.add(String.format("\t%s:\n",label_end_max)); 	// in_label:
@@ -184,7 +227,7 @@ public class MIPSGenerator
 		// TODO: check if (i1 != zero)
 		code_commands.add(String.format("\tdiv Temp_%d, Temp_%d, Temp_%d\n",dstidx,i1,i2));
 		code_commands.add(String.format("\tli $s0, %d\n",MAX_NUM));
-		code_commands.add(String.format("\tble Temp_%d, $s0, %s\n",i1,label_end_max)); // chceck if dst <= max, if yes so jump to next checking
+		code_commands.add(String.format("\tble Temp_%d, $s0, %s\n",dstidx,label_end_max)); // chceck if dst <= max, if yes so jump to next checking
 		code_commands.add(String.format("\tli Temp_%d, %d\n",dstidx,MAX_NUM)); // dst = max, so we jump to end_label
 		code_commands.add(String.format("\tj %s\n",label_end_min)); // j end
 		code_commands.add(String.format("\t%s:\n",label_end_max)); 	// in_label:
