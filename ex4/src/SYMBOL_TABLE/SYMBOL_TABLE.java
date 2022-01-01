@@ -174,6 +174,30 @@ public class SYMBOL_TABLE
 		return null;
 	}
 
+	public boolean check_if_class_field(String name)		// look-up function
+	{
+		SYMBOL_TABLE_ENTRY e;
+
+		for (e = table[hash(name)]; e != null; e = e.next)
+		{
+			if (name.equals(e.name))
+			{
+				for(SYMBOL_TABLE_ENTRY tmp = e; tmp != null; tmp = tmp.prevtop) {
+					if (tmp.name.equals("SCOPE-BOUNDARY")) {
+						if(tmp.type.name.equals("CLASS")) {
+							return true;
+						}
+						else {
+							return false;
+						}
+					}
+				}
+			}
+		}
+		System.out.println("unreachable code in check_if_class_field!!!!!!!!!!!!!!");
+		return false;
+	}
+
 	public TYPE findInLastScope(String name)
 	{
 		SYMBOL_TABLE_ENTRY e;
@@ -206,6 +230,27 @@ public class SYMBOL_TABLE
 		enter(
 			"SCOPE-BOUNDARY",
 			new TYPE_FOR_SCOPE_BOUNDARIES("NONE"));
+
+		/*********************************************/
+		/* Print the symbol table after every change */
+		/*********************************************/
+		//PrintMe();
+	}
+
+	/***************************************************************************/
+	/* begine scope = Enter the <SCOPE-BOUNDARY> element to the data structure */
+	/***************************************************************************/
+	public void beginScope(String scope_type)
+	{
+		/************************************************************************/
+		/* Though <SCOPE-BOUNDARY> entries are present inside the symbol table, */
+		/* they are not really types. In order to be ablt to debug print them,  */
+		/* a special TYPE_FOR_SCOPE_BOUNDARIES was developed for them. This     */
+		/* class only contain their type name which is the bottom sign: _|_     */
+		/************************************************************************/
+		enter(
+				"SCOPE-BOUNDARY",
+				new TYPE_FOR_SCOPE_BOUNDARIES(scope_type));
 
 		/*********************************************/
 		/* Print the symbol table after every change */

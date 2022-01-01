@@ -24,5 +24,7 @@ public class IRcommand_New_Array extends IRcommand
         this.src = src;
     }
 
-    public void MIPSme() {};
+    public void MIPSme() {
+        MIPSGenerator.getInstance().new_array(dst, src);
+    }
 }

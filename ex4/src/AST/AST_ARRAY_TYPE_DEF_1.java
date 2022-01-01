@@ -2,6 +2,10 @@ package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public class AST_ARRAY_TYPE_DEF_1 extends AST_ARRAY_TYPE_DEF {
     String id_name;
     public AST_TYPE type;
@@ -127,5 +131,8 @@ public class AST_ARRAY_TYPE_DEF_1 extends AST_ARRAY_TYPE_DEF {
         return null;
 
     }
-
+    public TEMP IRme() {
+        System.out.format("DOING NOTHING IN IRme() IN AST_ARRAY_TYPE_DEF_1");
+        return null;
+    }
 }

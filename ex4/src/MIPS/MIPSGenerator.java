@@ -153,7 +153,10 @@ public class MIPSGenerator
 		//for now we need only $s0 , if needed more saved registers -->ovveride this func with addistional arg - index for saved reg
 		code_commands.add(String.format("\tlw $s0, %s\n",var_name));
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 	public void store(String var_name,TEMP src)
 	{
 		int idxsrc=src.getSerialNumber();
@@ -172,13 +175,21 @@ public class MIPSGenerator
 //		fileWriter.format("\tla %s,%s\n",offset,value);
 		code_commands.add(String.format("\tla %s, %s\n",offset,value));
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 	public void allocate_and_store_const_string(TEMP t, String value)
 	{
 		int idx=t.getSerialNumber();
 		fileWriter.format("\tstr_aconst: .asciiz \"%s\"\n", value);
 		code_commands.add(String.format("\tla Temp_%d, %s\n",idx,"str_aconst"));
 	}
+<<<<<<< HEAD
 	public void add(TEMP dst,TEMP oprnd1,TEMP oprnd2, String label_end_max, String label_end_min)
+=======
+	public void add(TEMP dst,TEMP oprnd1,TEMP oprnd2)
+>>>>>>> origin/master
 	{
 		int i1 =oprnd1.getSerialNumber();
 		int i2 =oprnd2.getSerialNumber();
@@ -399,7 +410,10 @@ public class MIPSGenerator
 			int t2 = dst.getSerialNumber();
 			code_commands.add(String.format("\tmove Temp_%d, $v0\n", t2));
 		}
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 
 	}
 
@@ -620,6 +634,16 @@ public class MIPSGenerator
 //			fileWriter.format("\tmove Temp_%d, $v0\n", t0);
 			code_commands.add(String.format("\tmove Temp_%d, $v0\n", t0));
 		}
+	}
+
+	public void array_set(TEMP t1 , TEMP t2 , TEMP t3) {
+		int t2_idx = t2.getSerialNumber();
+		code_commands.add(String.format("\taddu Temp_%d, Temp_%d, 1\n", t2_idx, t2_idx));
+		code_commands.add(String.format("\tmul Temp_%d, Temp_%d, 4\n", t2_idx, t2_idx));
+		int t1_idx = t1.getSerialNumber();
+		int t3_idx = t3.getSerialNumber();
+		code_commands.add(String.format("\taddu Temp_%d, Temp_%d, Temp_%d\n", t1_idx, t1_idx, t2_idx));
+		code_commands.add(String.format("\tsw Temp_%d, 0(Temp_%d)\n", t3_idx, t1_idx));
 	}
 	
 	/**************************************/
