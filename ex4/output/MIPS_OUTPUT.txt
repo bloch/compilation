@@ -3,4 +3,7 @@ Copyright 1990-2010, James R. Larus.
 All Rights Reserved.
 See the file README for a full copyright notice.
 Loaded: /usr/lib/spim/exceptions.s
-1 
+The following symbols are undefined:
+goo
+
+[0x0040013c]	0x0c000000  jal 0x00000000 [goo]            ; 87: jal goo

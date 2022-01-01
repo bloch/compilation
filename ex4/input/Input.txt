@@ -1,17 +1,16 @@
-array IntArray = int[];
 class B {
-    IntArray arr;
-    void foo() {
-        arr[0] := 1;
+    int goo() {
+        return 5;
+    }
+    int foo() {
+        return goo();
     }
 }
 
 
 void main() {
     B b := new B;
-    b.arr := new int[3];
-    b.foo();
-    PrintInt(b.arr[0]);
+    PrintInt(b.foo());
 }
 
 

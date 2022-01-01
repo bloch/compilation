@@ -57,11 +57,13 @@ public class AST_VAR_SIMPLE extends AST_VAR
 
 	public TYPE SemantMe() {
 		TYPE t = SYMBOL_TABLE.getInstance().findNotInGlobalScope(name);//need to be change to functionscope
-//		if (t != null) {
-//			this.offset = SYMBOL_TABLE.getInstance().find_offset(name);
-//			System.out.println("Name " + name + ", offset: " + this.offset);
-//			return t;
-//		}
+		if (t != null) {
+			if(SYMBOL_TABLE.getInstance().check_if_class_field(name) == false) {
+				this.offset = SYMBOL_TABLE.getInstance().find_offset(name);
+				System.out.println("Name " + name + ", offset: " + this.offset);
+				return t;
+			}
+		}
 		t = isVarInClassFields(name); // now t is type_id
 		if (t!=null){
 			System.out.println("print here 1 ############");
