@@ -2,6 +2,10 @@ package AST;
 import SYMBOL_TABLE.*;
 import TYPES.*;
 
+import TEMP.*;
+import MIPS.*;
+import IR.*;
+
 public class AST_ARRAY_TYPE_DEF extends AST_DEC {
     public AST_ARRAY_TYPE_DEF atd;
 
@@ -59,4 +63,5 @@ public class AST_ARRAY_TYPE_DEF extends AST_DEC {
         return this.atd.GetSignature();
     }
 
+    public TEMP IRme() { return this.atd.IRme(); }
 }

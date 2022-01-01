@@ -3,59 +3,9 @@ string_access_violation: .asciiz "Access Violation"
 string_illegal_div_by_0: .asciiz "Illegal Division By Zero"
 string_invalid_ptr_dref: .asciiz "Invalid Pointer Dereference"
 space_for_printInt_space: .asciiz " "
-vt_A:
-	.word A_foo
 vt_B:
 	.word B_foo
 .text
-A_foo:
-A_foo_prologue:
-	subu $sp, $sp, 4
-	sw $ra, 0($sp)
-	subu $sp, $sp, 4
-	sw $fp, 0($sp)
-	move $fp, $sp
-	subu $sp, $sp, 4
-	sw $t0, 0($sp)
-	subu $sp, $sp, 4
-	sw $t1, 0($sp)
-	subu $sp, $sp, 4
-	sw $t2, 0($sp)
-	subu $sp, $sp, 4
-	sw $t3, 0($sp)
-	subu $sp, $sp, 4
-	sw $t4, 0($sp)
-	subu $sp, $sp, 4
-	sw $t5, 0($sp)
-	subu $sp, $sp, 4
-	sw $t6, 0($sp)
-	subu $sp, $sp, 4
-	sw $t7, 0($sp)
-	subu $sp, $sp, 4
-	sw $t8, 0($sp)
-	subu $sp, $sp, 4
-	sw $t9, 0($sp)
-	sub $sp, $sp, 16
-A_foo_body:
-	li $t0, 1
-	lw $s0, 8($fp)
-	sw $t0, 8($s0)
-A_foo_epilogue:
-	move $sp, $fp
-	lw $t0, -4($sp)
-	lw $t1, -8($sp)
-	lw $t2, -12($sp)
-	lw $t3, -16($sp)
-	lw $t4, -20($sp)
-	lw $t5, -24($sp)
-	lw $t6, -28($sp)
-	lw $t7, -32($sp)
-	lw $t8, -36($sp)
-	lw $t9, -40($sp)
-	lw $fp, 0($sp)
-	lw $ra, 4($sp)
-	addu $sp, $sp, 8
-	jr $ra
 B_foo:
 B_foo_prologue:
 	subu $sp, $sp, 4
@@ -85,13 +35,14 @@ B_foo_prologue:
 	sw $t9, 0($sp)
 	sub $sp, $sp, 16
 B_foo_body:
+	li $t0, 1
 	lw $s0, 8($fp)
-	lw $t1, 8($s0)
-	lw $s0, 8($fp)
-	lw $t2, 4($s0)
-	add $t3, $t1, $t2
-	lw $s0, 8($fp)
-	sw $t3, 8($s0)
+	lw $t1, 4($s0)
+	li $t2, 0
+	addu $t2, $t2, 1
+	mul $t2, $t2, 4
+	addu $t1, $t1, $t2
+	sw $t0, 0($t1)
 B_foo_epilogue:
 	move $sp, $fp
 	lw $t0, -4($sp)
@@ -138,27 +89,44 @@ user_main_prologue:
 	sub $sp, $sp, 16
 user_main_body:
 	li $v0, 9
-	li $a0, 12
+	li $a0, 8
+	syscall
+	move $t3, $v0
+	la $s0, vt_B
+	sw $s0, 0($t3)
+	sw $s0, 4($t3)
+	sw $t3, -44($fp)
+	li $t5, 3
+	li $v0, 9
+	move $a0, $t5
+	add $a0, $a0, 1
+	mul $a0, $a0, 4
 	syscall
 	move $t4, $v0
-	la $s0, vt_B
-	sw $s0, 0($t4)
-	li $s0, 3
-	sw $s0, 4($t4)
-	li $s0, 4
-	sw $s0, 8($t4)
-	sw $t4, -44($fp)
-	lw $t5, -44($fp)
+	sw $t5, 0($t4)
+	lw $t6, -44($fp)
+	beq $t6, 0, abort
+	sw $t4, 4($t6)
+	lw $t7, -44($fp)
 	subu $sp, $sp, 4
-	sw $t5, 0($sp)
-	lw $s0, 0($t5)
+	sw $t7, 0($sp)
+	lw $s0, 0($t7)
 	lw $s1, 0($s0)
 	jalr $s1
 	addu $sp, $sp, 4
-	lw $t7, -44($fp)
-	beq $t7, 0, abort
-	lw $t6, 8($t7)
-	move $a0, $t6
+	lw $t9, -44($fp)
+	beq $t9, 0, abort
+	lw $t8, 4($t9)
+	li $t0, 0
+	bltz $t0, abort
+	lw $s0, 0($t8)
+	bge $t0, $s0, abort
+	move $s0, $t0
+	add $s0, $s0, 1
+	mul $s0, $s0, 4
+	addu $s0, $t8, $s0
+	lw $t3, 0($s0)
+	move $a0, $t3
 	li $v0, 1
 	syscall
 	la $a0, space_for_printInt_space

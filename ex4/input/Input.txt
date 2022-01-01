@@ -1,24 +1,17 @@
-
-class A{
-    int y := 1;
-    int x := 4;
+array IntArray = int[];
+class B {
+    IntArray arr;
     void foo() {
-        x := 1;
+        arr[0] := 1;
     }
 }
 
-class B extends A{
-    int y := 3;
-    void foo() {
-        x := x + y;
-    }
-}
 
 void main() {
-    A a := new B;
-    a.foo();
-    PrintInt(a.x);
-
+    B b := new B;
+    b.arr := new int[3];
+    b.foo();
+    PrintInt(b.arr[0]);
 }
 
 
