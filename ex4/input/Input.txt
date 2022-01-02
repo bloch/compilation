@@ -1,6 +1,6 @@
-string aa := "n";
-string bb := "n";
-string res := aa+bb;
 void main() {
+    string aa := "niv";
+    string bb := "merav";
+    string res := aa+bb;
     PrintString(res);
 }

@@ -25,6 +25,8 @@ public class MIPSGenerator
 	private int WORD_SIZE=4;
 	private int MAX_NUM = 32767;
 	private int MIN_NUM = -32768;
+    private int const_str_cnt = 0;
+    private int str_concat_cnt = 0;
 	// TODO: need to add this variables under data section as global variables
 	/***********************/
 	/* The file writer ... */
@@ -104,40 +106,41 @@ public class MIPSGenerator
 		int i2 =oprnd2.getSerialNumber();
 		int dstidx=dst.getSerialNumber();
 		int tmpid = tmp.getSerialNumber();
+		str_concat_cnt++;
 
-		code_commands.add(String.format("\tli $v0, 9\n"));
-		code_commands.add(String.format("\tmove $a0, Temp_%d\n",i1));
-		code_commands.add(String.format("\tadd $a0, $a0, Temp_%d\n",i2));;
-		code_commands.add(String.format("\tsub $a0, $a0, 1\n"));
-		code_commands.add(String.format("\tsyscall\n"));
-		code_commands.add(String.format("\tmove Temp_%d, $v0\n",dstidx));
+//		code_commands.add(String.format("\tli $v0, 9\n"));
+//		code_commands.add(String.format("\tmove $a0, Temp_%d\n",i1));
+//		code_commands.add(String.format("\tadd $a0, $a0, Temp_%d\n",i2));;
+//		code_commands.add(String.format("\tsub $a0, $a0, 1\n"));
+//		code_commands.add(String.format("\tsyscall\n"));
+//		code_commands.add(String.format("\tmove Temp_%d, $v0\n",dstidx));
 
-		// alocate string for dst
-		// la command from string label to dst
-		code_commands.add(String.format("\tmove $s0, Temp_%d\n",i1));
-		code_commands.add(String.format("\tmove $s1, Temp_%d\n",i2));
-		code_commands.add(String.format("\tmove $s2, Temp_%d\n",dstidx));
+		fileWriter.format("\tconcat_str%d: .asciiz \"\"\n",str_concat_cnt);
+		code_commands.add(String.format("\tla $t%d, concat_str%d\n",dstidx, str_concat_cnt));
+		code_commands.add(String.format("\tmove $s0, $t%d\n",i1));
+		code_commands.add(String.format("\tmove $s1, $t%d\n",i2));
+		code_commands.add(String.format("\tmove $s2, $t%d\n",dstidx));
 
 		code_commands.add(String.format("\t%s:\n",label_string1));
-		code_commands.add(String.format("\tlb temp_%d, 0($s0)\n",tmpid));
-		code_commands.add(String.format("\tbeq Temp_%d, $zero, %s\n",tmpid,label_string2));
-		code_commands.add(String.format("\tsb temp_%d, 0($s2)\n",tmpid));
+		code_commands.add(String.format("\tlb $t%d, 0($s0)\n",tmpid));
+		code_commands.add(String.format("\tbeq $t%d, $zero, %s\n",tmpid,label_string2));
+		code_commands.add(String.format("\tsb $t%d, 0($s2)\n",tmpid));
 		code_commands.add(String.format("\taddi $s0, $s0, 1\n"));
 		code_commands.add(String.format("\taddi $s2, $s2, 1\n"));
 		code_commands.add(String.format("\tj %s\n",label_string1));
 
 		code_commands.add(String.format("\t%s:\n",label_string2));
-		code_commands.add(String.format("\tlb temp_%d, 0($s1)\n",tmpid));
-		code_commands.add(String.format("\tbeq Temp_%d, $zero, %s\n",tmpid,label_end));
-		code_commands.add(String.format("\tsb temp_%d, 0($s2)\n",tmpid));
+		code_commands.add(String.format("\tlb $t%d, 0($s1)\n",tmpid));
+		code_commands.add(String.format("\tbeq $t%d, $zero, %s\n",tmpid,label_end));
+		code_commands.add(String.format("\tsb $t%d, 0($s2)\n",tmpid));
 		code_commands.add(String.format("\taddi $s1, $s1, 1\n"));
 		code_commands.add(String.format("\taddi $s2, $s2, 1\n"));
 		code_commands.add(String.format("\tj %s\n",label_string2));
 
 		code_commands.add(String.format("\t%s:\n",label_end));
 		code_commands.add(String.format("\tsb $zero, 0($s2)\n"));
-		code_commands.add(String.format("\tmove Temp_%d, $s2\n",dstidx));
-
+		//code_commands.add(String.format("\tmove $t%d, $s2\n",dstidx));
+		code_commands.add(String.format("\tla $t%d, concat_str%d\n",dstidx, str_concat_cnt));
 
 		//fileWriter.format("\t%s_str: .asciiz $s2\n",idxdst);
 		//fileWriter.format("\tla Temp_%d, %s_str\n",dstidx,var_name);
@@ -153,10 +156,6 @@ public class MIPSGenerator
 		//for now we need only $s0 , if needed more saved registers -->ovveride this func with addistional arg - index for saved reg
 		code_commands.add(String.format("\tlw $s0, %s\n",var_name));
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 	public void store(String var_name,TEMP src)
 	{
 		int idxsrc=src.getSerialNumber();
@@ -175,21 +174,14 @@ public class MIPSGenerator
 //		fileWriter.format("\tla %s,%s\n",offset,value);
 		code_commands.add(String.format("\tla %s, %s\n",offset,value));
 	}
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
 	public void allocate_and_store_const_string(TEMP t, String value)
 	{
+        const_str_cnt++;
 		int idx=t.getSerialNumber();
-		fileWriter.format("\tstr_aconst: .asciiz \"%s\"\n", value);
-		code_commands.add(String.format("\tla Temp_%d, %s\n",idx,"str_aconst"));
+		fileWriter.format("\tstr_aconst%d: .asciiz \"%s\"\n", const_str_cnt, value);
+		code_commands.add(String.format("\tla Temp_%d, %s%d\n",idx,"str_aconst",const_str_cnt));
 	}
-<<<<<<< HEAD
 	public void add(TEMP dst,TEMP oprnd1,TEMP oprnd2, String label_end_max, String label_end_min)
-=======
-	public void add(TEMP dst,TEMP oprnd1,TEMP oprnd2)
->>>>>>> origin/master
 	{
 		int i1 =oprnd1.getSerialNumber();
 		int i2 =oprnd2.getSerialNumber();
@@ -410,11 +402,6 @@ public class MIPSGenerator
 			int t2 = dst.getSerialNumber();
 			code_commands.add(String.format("\tmove Temp_%d, $v0\n", t2));
 		}
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
-
 	}
 
 	public void arrray_access(TEMP t0 , TEMP t1 , TEMP t2){
@@ -565,16 +552,6 @@ public class MIPSGenerator
 		code_commands.add(String.format("\tsub $sp, $sp, %d\n", sp_offset));
 //		fileWriter.format("%s_body:\n", func_name);
 		code_commands.add(String.format("%s_body:\n", func_name));
-	}
-
-	public void array_set(TEMP t1 , TEMP t2 , TEMP t3) {
-		int t2_idx = t2.getSerialNumber();
-		code_commands.add(String.format("\taddu Temp_%d, Temp_%d, 1\n", t2_idx, t2_idx));
-		code_commands.add(String.format("\tmul Temp_%d, Temp_%d, 4\n", t2_idx, t2_idx));
-		int t1_idx = t1.getSerialNumber();
-		int t3_idx = t3.getSerialNumber();
-		code_commands.add(String.format("\taddu Temp_%d, Temp_%d, Temp_%d\n", t1_idx, t1_idx, t2_idx));
-		code_commands.add(String.format("\tsw Temp_%d, 0(Temp_%d)\n", t3_idx, t1_idx));
 	}
 
 	public void function_epilogue(String func_name) {
