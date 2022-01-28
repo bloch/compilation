@@ -3,9 +3,6 @@ string_access_violation: .asciiz "Access Violation"
 string_illegal_div_by_0: .asciiz "Illegal Division By Zero"
 string_invalid_ptr_dref: .asciiz "Invalid Pointer Dereference"
 space_for_printInt_space: .asciiz " "
-	str_aconst1: .asciiz "niv"
-	str_aconst2: .asciiz "merav"
-	concat_str1: .asciiz ""
 .text
 user_main:
 user_main_prologue:
@@ -36,36 +33,55 @@ user_main_prologue:
 	sw $t9, 0($sp)
 	sub $sp, $sp, 16
 user_main_body:
-	la $t0, str_aconst1
+	li $t1, 1
+	li $v0, 9
+	move $a0, $t1
+	add $a0, $a0, 1
+	mul $a0, $a0, 4
+	syscall
+	move $t0, $v0
+	sw $t1, 0($t0)
 	sw $t0, -44($fp)
-	la $t1, str_aconst2
-	sw $t1, -48($fp)
-	lw $t2, -44($fp)
-	lw $t3, -48($fp)
-	la $t4, concat_str1
-	move $s0, $t2
-	move $s1, $t3
-	move $s2, $t4
-	Label_0_string1:
-	lb $t6, 0($s0)
-	beq $t6, $zero, Label_1_string2
-	sb $t6, 0($s2)
-	addi $s0, $s0, 1
-	addi $s2, $s2, 1
-	j Label_0_string1
-	Label_1_string2:
-	lb $t6, 0($s1)
-	beq $t6, $zero, Label_2_end
-	sb $t6, 0($s2)
-	addi $s1, $s1, 1
-	addi $s2, $s2, 1
-	j Label_1_string2
-	Label_2_end:
-	sb $zero, 0($s2)
-	la $t4, concat_str1
-	sw $t4, -52($fp)
-	lw $t5, -52($fp)
-	move $a0, $t5
+	li $t3, 1
+	li $v0, 9
+	move $a0, $t3
+	add $a0, $a0, 1
+	mul $a0, $a0, 4
+	syscall
+	move $t2, $v0
+	sw $t3, 0($t2)
+	sw $t2, -48($fp)
+	li $t4, 5
+	lw $t5, -44($fp)
+	li $t6, 0
+	addu $t6, $t6, 1
+	mul $t6, $t6, 4
+	addu $t5, $t5, $t6
+	sw $t4, 0($t5)
+	li $t7, 5
+	lw $t8, -48($fp)
+	li $t9, 0
+	addu $t9, $t9, 1
+	mul $t9, $t9, 4
+	addu $t8, $t8, $t9
+	sw $t7, 0($t8)
+	lw $t5, -44($fp)
+	lw $t6, -48($fp)
+	beq $t5, $t6, Label_1_AssignOne
+	bne $t5, $t6, Label_2_AssignZero
+Label_1_AssignOne:
+	li $t8, 1
+	j Label_0_end
+Label_2_AssignZero:
+	li $t8, 0
+	j Label_0_end
+Label_0_end:
+	sw $t8, -52($fp)
+	lw $t9, -52($fp)
+	move $a0, $t9
+	li $v0, 1
+	syscall
+	la $a0, space_for_printInt_space
 	li $v0, 4
 	syscall
 user_main_epilogue:

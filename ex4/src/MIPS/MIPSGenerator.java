@@ -242,7 +242,10 @@ public class MIPSGenerator
 		int dstidx=dst.getSerialNumber();
 
 //		fileWriter.format("\tdiv Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
-		// TODO: check if (i1 != zero)
+		// TODO: check if (i2 != zero)
+		code_commands.add(String.format("\tbeq Temp_%d, $zero, abort\n",i2));
+		// TODO: need to print "Division by zero" in abort label
+
 		code_commands.add(String.format("\tdiv Temp_%d, Temp_%d, Temp_%d\n",dstidx,i1,i2));
 		code_commands.add(String.format("\tli $s0, %d\n",MAX_NUM));
 		code_commands.add(String.format("\tble Temp_%d, $s0, %s\n",dstidx,label_end_max)); // chceck if dst <= max, if yes so jump to next checking

@@ -1,6 +1,9 @@
+array intArray = int[];
 void main() {
-    string aa := "niv";
-    string bb := "merav";
-    string res := aa+bb;
-    PrintString(res);
+    intArray a := new int[1];
+    intArray b := new int[1];
+    a[0] := 5;
+    b[0] := 5;
+    int res := a = b;
+    PrintInt(res);
 }
