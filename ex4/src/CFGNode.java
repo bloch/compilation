@@ -92,7 +92,7 @@ public class CFGNode
             }
         }
         else if(cmd_tokens[0].equals("blt") || cmd_tokens[0].equals("bge") || cmd_tokens[0].equals("bne")
-                || cmd_tokens[0].equals("beq")  || cmd_tokens[0].equals("bltz")) {
+                || cmd_tokens[0].equals("beq")  || cmd_tokens[0].equals("bltz")  || cmd_tokens[0].equals("ble")  || cmd_tokens[0].equals("bgt")) {
 
             if(cmd_tokens[1].contains("Temp_")) {
                 String arg1 = cmd_tokens[1].substring(0, cmd_tokens[1].length() - 1);

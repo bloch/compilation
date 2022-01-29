@@ -38,23 +38,33 @@ void main()
 {
     IntList a := new IntList;
     IntList b := new IntList;
+    IntList c := new IntList;
+    IntList d := new IntList;
 
     IntList A := new IntList;
     IntList B := new IntList;
+    IntList C := new IntList;
+    IntList D := new IntList;
        
     a.head := 34;
     b.head := 70;
+    c.head := 92;
+    d.head := 96;
 
     A.head := 12;
     B.head := 50;
+    C.head := 97;
+    D.head := 99;
 
     a.tail := b;
-    b.tail := nil;
-
+    b.tail := c;
+    c.tail := d;
+    d.tail := nil;
 
     A.tail := B;
-    B.tail := nil;
-
+    B.tail := C;
+    C.tail := D;
+    D.tail := nil;
     
     IntList l := MergeLists(a,A);
     

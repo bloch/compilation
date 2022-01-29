@@ -29,7 +29,7 @@ public class RegisterAllocation {
 
                 while (!line.equals(function_name + "_epilogue:")) {
                     CFGNode cur_node = new CFGNode(line);
-                    System.out.println(line);
+//                    System.out.println(line);
                     cfg_list.get(cfg_list.size() - 1).add(cur_node);
                     line = buffered_reader.readLine();
                 }
