@@ -92,16 +92,16 @@ public class AST_STMT_ASSIGN extends AST_STMT
 
 
 	public TEMP IRme(){
-		TEMP src = exp.IRme();
+//		TEMP src = exp.IRme();
 		if (var instanceof AST_VAR_SIMPLE){
 			AST_VAR_SIMPLE var_simple = (AST_VAR_SIMPLE) var;
-			IR.getInstance().Add_IRcommand(new IRcommand_Store(var_simple.name , src, var_simple.offset));
+			IR.getInstance().Add_IRcommand(new IRcommand_Store(var_simple.name , exp.IRme(), var_simple.offset));
 		}
 		else if (var instanceof AST_VAR_SUBSCRIPT){
 			AST_VAR_SUBSCRIPT var_sub = (AST_VAR_SUBSCRIPT) var;
 			TEMP arrReg = var_sub.var.IRme();
 			TEMP entryReg = var_sub.subscript.IRme();
-			IR.getInstance().Add_IRcommand(new IRcommand_Array_Set(arrReg , entryReg , src));
+			IR.getInstance().Add_IRcommand(new IRcommand_Array_Set(arrReg , entryReg , exp.IRme()));
 
 		}
 		else if (var instanceof AST_VAR_FIELD){
@@ -109,7 +109,7 @@ public class AST_STMT_ASSIGN extends AST_STMT
 			TEMP object = var_field.var.IRme();
 			String field_name = var_field.fieldName;
 			int class_offset = var_field.class_offset;
-			IR.getInstance().Add_IRcommand(new IRcommand_Field_Set(object,field_name,src, class_offset));
+			IR.getInstance().Add_IRcommand(new IRcommand_Field_Set(object,field_name,exp.IRme(), class_offset));
 
 		}
 		return null;
