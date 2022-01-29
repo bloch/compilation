@@ -35,19 +35,23 @@ public class InterferenceGraph
         this.stk.push(node); //add to stack
         node.isInStack = true; //change flag
 
-        //don't iterate and remove paralel
+        ArrayList<Integer> indexes_to_remove = new ArrayList<Integer>();
         for (int i = 0; i < this.edges.size(); i++) { //remove all edges from the graph which contain <node>
-            if (this.edges.get(i).get(0).node_name.equals(node_name) || this.edges.get(i).get(1).node_name.equals(node_name)) {
-                this.edges.remove(i);
+            if (this.edges.get(i).get(0).node_name.equals(node.node_name) || this.edges.get(i).get(1).node_name.equals(node.node_name)) {
+                //this.edges.remove(i);
+                indexes_to_remove.add(i);
             }
+        }
+        for(int i = 0; i < indexes_to_remove.size(); i++) {
+            this.edges.remove(indexes_to_remove.get(i));
         }
     }
 
     public HashSet<Integer> neighbors_colors(InterferenceGraphNode node) {
         HashSet<Integer> color_set = new HashSet<>();
-        for (InterferenceGraphNode neighbor : curr_node.neighbors) {
+        for (InterferenceGraphNode neighbor : node.neighbors) {
             if (!neighbor.isInStack) {
-                color_set.add(neighbor.color)
+                color_set.add(neighbor.color);
             }
         }
         return color_set;
@@ -80,7 +84,7 @@ public class InterferenceGraph
 
     public void print_nodes_colors(){
         for (int i = 0; i < this.nodes.size(); i++) {
-            System.out.println(this.nodes.get(i).node_name + " color = " + this.nodes.get(i).color)
+            System.out.println(this.nodes.get(i).node_name + " color = " + this.nodes.get(i).color);
         }
     }
 
