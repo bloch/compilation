@@ -29,7 +29,7 @@ public class RegisterAllocation {
 
                 while (!line.equals(function_name + "_epilogue:")) {
                     CFGNode cur_node = new CFGNode(line);
-                    System.out.println(line);
+                    //System.out.println(line);
                     cfg_list.get(cfg_list.size() - 1).add(cur_node);
                     line = buffered_reader.readLine();
                 }
@@ -65,7 +65,6 @@ public class RegisterAllocation {
                         if (cur_cfg.size() > j + 1) {
                             cur_node.successors.add(cur_cfg.get(j + 1));
                         }
-
                     } else if (splitted_cmds[0].equals("bne")) {
                         if (!splitted_cmds[3].equals("abort")) {
                             CFGNode dest_node = find_cfg_node(cur_cfg, splitted_cmds[3] + ":");
@@ -74,7 +73,6 @@ public class RegisterAllocation {
                         if (cur_cfg.size() > j + 1) {
                             cur_node.successors.add(cur_cfg.get(j + 1));
                         }
-
                     } else {
                         if (cur_cfg.size() > j + 1) {
                             cur_node.successors.add(cur_cfg.get(j + 1));
