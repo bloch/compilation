@@ -27,6 +27,9 @@ public class MIPSGenerator
 	/***********************/
 	private PrintWriter fileWriter;
 
+	private int MAX_NUM = 32767;
+	private int MIN_NUM = -32768;
+
 	private ArrayList<String> code_commands;
 
 	/***********************/
@@ -482,6 +485,29 @@ public class MIPSGenerator
 		int t3_idx = t3.getSerialNumber();
 		code_commands.add(String.format("\taddu Temp_%d, Temp_%d, Temp_%d\n", t1_idx, t1_idx, t2_idx));
 		code_commands.add(String.format("\tsw Temp_%d, 0(Temp_%d)\n", t3_idx, t1_idx));
+	}
+
+	public void div(TEMP dst,TEMP oprnd1,TEMP oprnd2, String label_end_max, String label_end_min)
+	{
+		int i1 =oprnd1.getSerialNumber();
+		int i2 =oprnd2.getSerialNumber();
+		int dstidx=dst.getSerialNumber();
+
+//		fileWriter.format("\tdiv Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
+		// TODO: check if (i2 != zero)
+		code_commands.add(String.format("\tbeq Temp_%d, $zero, abort\n",i2));
+		// TODO: need to print "Division by zero" in abort label
+
+		code_commands.add(String.format("\tdiv Temp_%d, Temp_%d, Temp_%d\n",dstidx,i1,i2));
+		code_commands.add(String.format("\tli $s0, %d\n",MAX_NUM));
+		code_commands.add(String.format("\tble Temp_%d, $s0, %s\n",dstidx,label_end_max)); // chceck if dst <= max, if yes so jump to next checking
+		code_commands.add(String.format("\tli Temp_%d, %d\n",dstidx,MAX_NUM)); // dst = max, so we jump to end_label
+		code_commands.add(String.format("\tj %s\n",label_end_min)); // j end
+		code_commands.add(String.format("%s:\n",label_end_max)); 	// in_label:
+		code_commands.add(String.format("\tli $s0, %d\n",MIN_NUM));
+		code_commands.add(String.format("\tbgt Temp_%d, $s0, %s\n",dstidx,label_end_min)); // check if dst > min
+		code_commands.add(String.format("\tli Temp_%d, %d\n",dstidx,MIN_NUM));
+		code_commands.add(String.format("%s:\n",label_end_min)); // end_label:
 	}
 	
 	/**************************************/

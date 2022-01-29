@@ -1,10 +1,5 @@
-class A{
-    int x :=1;
-}
+
 void main() {
-    A a := new A;
-    A b := new A;
-    if (a = b) {
-        PrintInt(10);
-    }
+    int x := 4 / 2;
+    PrintInt(x);
 }
