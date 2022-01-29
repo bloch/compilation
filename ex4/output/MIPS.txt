@@ -147,6 +147,14 @@ Person_birthday_body:
 	sw $t0, 8($s0)
 	lw $s0, 8($fp)
 	lw $t0, 8($s0)
+	move $a0, $t0
+	li $v0, 1
+	syscall
+	la $a0, space_for_printInt_space
+	li $v0, 4
+	syscall
+	lw $s0, 8($fp)
+	lw $t0, 8($s0)
 	move $v0, $t0
 	j Person_birthday_epilogue
 Person_birthday_epilogue:
@@ -328,123 +336,123 @@ user_main_body:
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
 	sw $t1, 12($t0)
-	li $t2, 7400
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 12($t0)
-	li $t0, 0
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
-	li $t2, 7400
+	lw $t2, 12($t0)
+	li $t1, 0
+	li $t0, 7400
+	addu $t1, $t1, 1
+	mul $t1, $t1, 4
+	addu $t2, $t2, $t1
+	sw $t0, 0($t2)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 12($t0)
-	li $t0, 1
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
-	li $t2, 7400
+	lw $t2, 12($t0)
+	li $t1, 1
+	li $t0, 7400
+	addu $t1, $t1, 1
+	mul $t1, $t1, 4
+	addu $t2, $t2, $t1
+	sw $t0, 0($t2)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 12($t0)
-	li $t0, 2
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
-	li $t2, 7400
+	lw $t2, 12($t0)
+	li $t1, 2
+	li $t0, 7400
+	addu $t1, $t1, 1
+	mul $t1, $t1, 4
+	addu $t2, $t2, $t1
+	sw $t0, 0($t2)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 12($t0)
-	li $t0, 3
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
-	li $t2, 7400
+	lw $t2, 12($t0)
+	li $t1, 3
+	li $t0, 7400
+	addu $t1, $t1, 1
+	mul $t1, $t1, 4
+	addu $t2, $t2, $t1
+	sw $t0, 0($t2)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 12($t0)
-	li $t0, 4
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
-	li $t2, 7400
+	lw $t2, 12($t0)
+	li $t1, 4
+	li $t0, 7400
+	addu $t1, $t1, 1
+	mul $t1, $t1, 4
+	addu $t2, $t2, $t1
+	sw $t0, 0($t2)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 12($t0)
-	li $t0, 5
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
-	li $t2, 7400
+	lw $t2, 12($t0)
+	li $t1, 5
+	li $t0, 7400
+	addu $t1, $t1, 1
+	mul $t1, $t1, 4
+	addu $t2, $t2, $t1
+	sw $t0, 0($t2)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 12($t0)
-	li $t0, 6
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
-	li $t2, 7400
+	lw $t2, 12($t0)
+	li $t1, 6
+	li $t0, 7400
+	addu $t1, $t1, 1
+	mul $t1, $t1, 4
+	addu $t2, $t2, $t1
+	sw $t0, 0($t2)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 12($t0)
-	li $t0, 7
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
-	li $t2, 7400
+	lw $t2, 12($t0)
+	li $t1, 7
+	li $t0, 7400
+	addu $t1, $t1, 1
+	mul $t1, $t1, 4
+	addu $t2, $t2, $t1
+	sw $t0, 0($t2)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 12($t0)
-	li $t0, 8
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
-	li $t2, 7400
+	lw $t2, 12($t0)
+	li $t1, 8
+	li $t0, 7400
+	addu $t1, $t1, 1
+	mul $t1, $t1, 4
+	addu $t2, $t2, $t1
+	sw $t0, 0($t2)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 12($t0)
-	li $t0, 9
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
-	li $t2, 7400
+	lw $t2, 12($t0)
+	li $t1, 9
+	li $t0, 7400
+	addu $t1, $t1, 1
+	mul $t1, $t1, 4
+	addu $t2, $t2, $t1
+	sw $t0, 0($t2)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 12($t0)
-	li $t0, 10
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
-	li $t2, 7400
+	lw $t2, 12($t0)
+	li $t1, 10
+	li $t0, 7400
+	addu $t1, $t1, 1
+	mul $t1, $t1, 4
+	addu $t2, $t2, $t1
+	sw $t0, 0($t2)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 12($t0)
-	li $t0, 11
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
-	li $t2, 7400
+	lw $t2, 12($t0)
+	li $t1, 11
+	li $t0, 7400
+	addu $t1, $t1, 1
+	mul $t1, $t1, 4
+	addu $t2, $t2, $t1
+	sw $t0, 0($t2)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 12($t0)
-	li $t0, 12
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
+	lw $t2, 12($t0)
+	li $t1, 12
+	li $t0, 7400
+	addu $t1, $t1, 1
+	mul $t1, $t1, 4
+	addu $t2, $t2, $t1
+	sw $t0, 0($t2)
 	li $t0, 0
 	sw $t0, -48($fp)
 	li $t0, 1
@@ -465,96 +473,96 @@ user_main_body:
 	sw $t0, -80($fp)
 	li $t0, 9
 	sw $t0, -84($fp)
-	li $t2, 96
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 16($t0)
-	lw $t0, -48($fp)
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
-	li $t2, 100
+	lw $t2, 16($t0)
+	lw $t1, -48($fp)
+	li $t0, 96
+	addu $t1, $t1, 1
+	mul $t1, $t1, 4
+	addu $t2, $t2, $t1
+	sw $t0, 0($t2)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 16($t0)
-	lw $t0, -52($fp)
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
-	li $t2, 95
+	lw $t2, 16($t0)
+	lw $t1, -52($fp)
+	li $t0, 100
+	addu $t1, $t1, 1
+	mul $t1, $t1, 4
+	addu $t2, $t2, $t1
+	sw $t0, 0($t2)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 16($t0)
-	lw $t0, -56($fp)
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
-	li $t2, 81
+	lw $t2, 16($t0)
+	lw $t1, -56($fp)
+	li $t0, 95
+	addu $t1, $t1, 1
+	mul $t1, $t1, 4
+	addu $t2, $t2, $t1
+	sw $t0, 0($t2)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 16($t0)
-	lw $t0, -60($fp)
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
-	li $t2, 95
+	lw $t2, 16($t0)
+	lw $t1, -60($fp)
+	li $t0, 81
+	addu $t1, $t1, 1
+	mul $t1, $t1, 4
+	addu $t2, $t2, $t1
+	sw $t0, 0($t2)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 16($t0)
-	lw $t0, -64($fp)
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
-	li $t2, 95
+	lw $t2, 16($t0)
+	lw $t1, -64($fp)
+	li $t0, 95
+	addu $t1, $t1, 1
+	mul $t1, $t1, 4
+	addu $t2, $t2, $t1
+	sw $t0, 0($t2)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 16($t0)
-	lw $t0, -68($fp)
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
-	li $t2, 100
+	lw $t2, 16($t0)
+	lw $t1, -68($fp)
+	li $t0, 95
+	addu $t1, $t1, 1
+	mul $t1, $t1, 4
+	addu $t2, $t2, $t1
+	sw $t0, 0($t2)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 16($t0)
-	lw $t0, -72($fp)
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
-	li $t2, 100
+	lw $t2, 16($t0)
+	lw $t1, -72($fp)
+	li $t0, 100
+	addu $t1, $t1, 1
+	mul $t1, $t1, 4
+	addu $t2, $t2, $t1
+	sw $t0, 0($t2)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 16($t0)
-	lw $t0, -76($fp)
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
-	li $t2, 74
+	lw $t2, 16($t0)
+	lw $t1, -76($fp)
+	li $t0, 100
+	addu $t1, $t1, 1
+	mul $t1, $t1, 4
+	addu $t2, $t2, $t1
+	sw $t0, 0($t2)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 16($t0)
-	lw $t0, -80($fp)
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
-	li $t2, 99
+	lw $t2, 16($t0)
+	lw $t1, -80($fp)
+	li $t0, 74
+	addu $t1, $t1, 1
+	mul $t1, $t1, 4
+	addu $t2, $t2, $t1
+	sw $t0, 0($t2)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 16($t0)
-	lw $t0, -84($fp)
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
+	lw $t2, 16($t0)
+	lw $t1, -84($fp)
+	li $t0, 99
+	addu $t1, $t1, 1
+	mul $t1, $t1, 4
+	addu $t2, $t2, $t1
+	sw $t0, 0($t2)
 	li $t1, 60
 	lw $t0, -44($fp)
 	subu $sp, $sp, 4
@@ -576,35 +584,10 @@ Label_8_end:
 	beq $t0, $zero, Label_2_after_if
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 12($t0)
-	lw $t0, -44($fp)
-	subu $sp, $sp, 4
-	sw $t0, 0($sp)
-	lw $s0, 0($t0)
-	lw $s1, 4($s0)
-	jalr $s1
-	addu $sp, $sp, 4
-	move $t0, $v0
-	bltz $t0, abort
-	lw $s0, 0($t1)
-	bge $t0, $s0, abort
-	move $s0, $t0
-	add $s0, $s0, 1
-	mul $s0, $s0, 4
-	addu $s0, $t1, $s0
-	lw $t1, 0($s0)
-	li $t0, 1000
-	add $t2, $t1, $t0
+	lw $t3, 12($t0)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
-	lw $t1, 12($t0)
-	lw $t0, -44($fp)
-	beq $t0, 0, abort
-	lw $t0, 8($t0)
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
+	lw $t2, 8($t0)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
 	lw $t1, 12($t0)
@@ -625,17 +608,42 @@ Label_8_end:
 	addu $s0, $t1, $s0
 	lw $t1, 0($s0)
 	li $t0, 1000
-	add $t2, $t1, $t0
+	add $t0, $t1, $t0
+	addu $t2, $t2, 1
+	mul $t2, $t2, 4
+	addu $t3, $t3, $t2
+	sw $t0, 0($t3)
+	lw $t0, -44($fp)
+	beq $t0, 0, abort
+	lw $t3, 12($t0)
+	lw $t0, -44($fp)
+	beq $t0, 0, abort
+	lw $t2, 8($t0)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
 	lw $t1, 12($t0)
 	lw $t0, -44($fp)
-	beq $t0, 0, abort
-	lw $t0, 8($t0)
-	addu $t0, $t0, 1
-	mul $t0, $t0, 4
-	addu $t1, $t1, $t0
-	sw $t2, 0($t1)
+	subu $sp, $sp, 4
+	sw $t0, 0($sp)
+	lw $s0, 0($t0)
+	lw $s1, 4($s0)
+	jalr $s1
+	addu $sp, $sp, 4
+	move $t0, $v0
+	bltz $t0, abort
+	lw $s0, 0($t1)
+	bge $t0, $s0, abort
+	move $s0, $t0
+	add $s0, $s0, 1
+	mul $s0, $s0, 4
+	addu $s0, $t1, $s0
+	lw $t1, 0($s0)
+	li $t0, 1000
+	add $t0, $t1, $t0
+	addu $t2, $t2, 1
+	mul $t2, $t2, 4
+	addu $t3, $t3, $t2
+	sw $t0, 0($t3)
 	lw $t0, -44($fp)
 	beq $t0, 0, abort
 	lw $t1, 12($t0)
