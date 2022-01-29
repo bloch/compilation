@@ -1,0 +1,832 @@
+digraph
+{
+graph [ordering = "out"]
+v283 [label = "Program
+"];
+v10 [label = "classDec_1
+ID(IntList)
+"];
+v0 [label = "TYPE_INT
+"];
+v2 [label = "TYPE_WITH_ID
+ID (head);
+"];
+v2 -> v0;
+v1 [label = "varDec_1"];
+v1 -> v2;
+v3 [label = "CFIELD
+VAR_DEC"];
+v3 -> v1;
+v4 [label = "TYPE_ID
+(IntList)
+"];
+v6 [label = "TYPE_WITH_ID
+ID (tail);
+"];
+v6 -> v4;
+v5 [label = "varDec_1"];
+v5 -> v6;
+v7 [label = "CFIELD
+VAR_DEC"];
+v7 -> v5;
+v10 -> v3;
+v10 -> v7;
+v11 [label = "classDec"];
+v11 -> v10;
+v12 [label = "TYPE_ID
+(IntList)
+"];
+v100 [label = "TYPE_WITH_ID
+ID (MergeLists);
+"];
+v100 -> v12;
+v13 [label = "TYPE_ID
+(IntList)
+"];
+v101 [label = "TYPE_WITH_ID
+ID (l1);
+"];
+v101 -> v13;
+v99 [label = "funcDec_3
+"];
+v25 [label = "IF STMT
+"];
+v17 [label = "SIMPLE
+VAR
+(l1)"];
+v18 [label = "EXP
+VAR"];
+v18 -> v17;
+v19 [label = "EXP_NIL
+"];
+v20 [label = "BINOP
+(=)"];
+v20 -> v18;
+v20 -> v19;
+v25 -> v20;
+v21 [label = "SIMPLE
+VAR
+(l2)"];
+v22 [label = "EXP
+VAR"];
+v22 -> v21;
+v23 [label = "STMT
+RETURN
+EXP
+"];
+v23 -> v22;
+v25 -> v23;
+v34 [label = "IF STMT
+"];
+v26 [label = "SIMPLE
+VAR
+(l2)"];
+v27 [label = "EXP
+VAR"];
+v27 -> v26;
+v28 [label = "EXP_NIL
+"];
+v29 [label = "BINOP
+(=)"];
+v29 -> v27;
+v29 -> v28;
+v34 -> v29;
+v30 [label = "SIMPLE
+VAR
+(l1)"];
+v31 [label = "EXP
+VAR"];
+v31 -> v30;
+v32 [label = "STMT
+RETURN
+EXP
+"];
+v32 -> v31;
+v34 -> v32;
+v64 [label = "IF STMT
+"];
+v35 [label = "SIMPLE
+VAR
+(l1)"];
+v36 [label = "FIELD
+VAR
+...->head"];
+v36 -> v35;
+v37 [label = "EXP
+VAR"];
+v37 -> v36;
+v38 [label = "SIMPLE
+VAR
+(l2)"];
+v39 [label = "FIELD
+VAR
+...->head"];
+v39 -> v38;
+v40 [label = "EXP
+VAR"];
+v40 -> v39;
+v41 [label = "BINOP
+(<)"];
+v41 -> v37;
+v41 -> v40;
+v64 -> v41;
+v42 [label = "TYPE_ID
+(IntList)
+"];
+v46 [label = "TYPE_WITH_ID
+ID (l3);
+"];
+v46 -> v42;
+v43 [label = "SIMPLE
+VAR
+(l1)"];
+v44 [label = "EXP
+VAR"];
+v44 -> v43;
+v45 [label = "varDec_2
+"];
+v45 -> v46;
+v45 -> v44;
+v47 [label = "STMT_VAR_DEC
+"];
+v47 -> v45;
+v48 [label = "SIMPLE
+VAR
+(l3)"];
+v49 [label = "FIELD
+VAR
+...->tail"];
+v49 -> v48;
+v50 [label = "SIMPLE
+VAR
+(l1)"];
+v51 [label = "FIELD
+VAR
+...->tail"];
+v51 -> v50;
+v52 [label = "EXP
+VAR"];
+v52 -> v51;
+v56 [label = "EXP_MODIFY_3
+ID(MergeLists);
+"];
+v56 -> v52;
+v53 [label = "SIMPLE
+VAR
+(l2)"];
+v54 [label = "EXP
+VAR"];
+v54 -> v53;
+v56 -> v54;
+v57 [label = "ASSIGN
+left := right
+"];
+v57 -> v49;
+v57 -> v56;
+v58 [label = "SIMPLE
+VAR
+(l3)"];
+v59 [label = "EXP
+VAR"];
+v59 -> v58;
+v60 [label = "STMT
+RETURN
+EXP
+"];
+v60 -> v59;
+v64 -> v47;
+v64 -> v57;
+v64 -> v60;
+v94 [label = "IF STMT
+"];
+v65 [label = "SIMPLE
+VAR
+(l2)"];
+v66 [label = "FIELD
+VAR
+...->head"];
+v66 -> v65;
+v67 [label = "EXP
+VAR"];
+v67 -> v66;
+v68 [label = "SIMPLE
+VAR
+(l1)"];
+v69 [label = "FIELD
+VAR
+...->head"];
+v69 -> v68;
+v70 [label = "EXP
+VAR"];
+v70 -> v69;
+v71 [label = "BINOP
+(<)"];
+v71 -> v67;
+v71 -> v70;
+v94 -> v71;
+v72 [label = "TYPE_ID
+(IntList)
+"];
+v76 [label = "TYPE_WITH_ID
+ID (l3);
+"];
+v76 -> v72;
+v73 [label = "SIMPLE
+VAR
+(l2)"];
+v74 [label = "EXP
+VAR"];
+v74 -> v73;
+v75 [label = "varDec_2
+"];
+v75 -> v76;
+v75 -> v74;
+v77 [label = "STMT_VAR_DEC
+"];
+v77 -> v75;
+v78 [label = "SIMPLE
+VAR
+(l3)"];
+v79 [label = "FIELD
+VAR
+...->tail"];
+v79 -> v78;
+v80 [label = "SIMPLE
+VAR
+(l1)"];
+v81 [label = "EXP
+VAR"];
+v81 -> v80;
+v86 [label = "EXP_MODIFY_3
+ID(MergeLists);
+"];
+v86 -> v81;
+v82 [label = "SIMPLE
+VAR
+(l2)"];
+v83 [label = "FIELD
+VAR
+...->tail"];
+v83 -> v82;
+v84 [label = "EXP
+VAR"];
+v84 -> v83;
+v86 -> v84;
+v87 [label = "ASSIGN
+left := right
+"];
+v87 -> v79;
+v87 -> v86;
+v88 [label = "SIMPLE
+VAR
+(l3)"];
+v89 [label = "EXP
+VAR"];
+v89 -> v88;
+v90 [label = "STMT
+RETURN
+EXP
+"];
+v90 -> v89;
+v94 -> v77;
+v94 -> v87;
+v94 -> v90;
+v99 -> v25;
+v99 -> v34;
+v99 -> v64;
+v99 -> v94;
+v14 [label = "TYPE_ID
+(IntList)
+"];
+v16 [label = "TYPE_WITH_ID
+ID (l2);
+"];
+v16 -> v14;
+v99 -> v16;
+v99 -> v100;
+v99 -> v101;
+v102 [label = "funcDec"];
+v102 -> v99;
+v103 [label = "TYPE_VOID
+"];
+v278 [label = "TYPE_WITH_ID
+ID (main);
+"];
+v278 -> v103;
+v277 [label = "funcDec_1
+"];
+v104 [label = "TYPE_ID
+(IntList)
+"];
+v108 [label = "TYPE_WITH_ID
+ID (a);
+"];
+v108 -> v104;
+v105 [label = "TYPE_ID
+(IntList)
+"];
+v106 [label = "newExp_1"];
+v106 -> v105;
+v107 [label = "varDec_3"];
+v107 -> v108;
+v107 -> v106;
+v109 [label = "STMT_VAR_DEC
+"];
+v109 -> v107;
+v110 [label = "TYPE_ID
+(IntList)
+"];
+v114 [label = "TYPE_WITH_ID
+ID (b);
+"];
+v114 -> v110;
+v111 [label = "TYPE_ID
+(IntList)
+"];
+v112 [label = "newExp_1"];
+v112 -> v111;
+v113 [label = "varDec_3"];
+v113 -> v114;
+v113 -> v112;
+v115 [label = "STMT_VAR_DEC
+"];
+v115 -> v113;
+v116 [label = "TYPE_ID
+(IntList)
+"];
+v120 [label = "TYPE_WITH_ID
+ID (c);
+"];
+v120 -> v116;
+v117 [label = "TYPE_ID
+(IntList)
+"];
+v118 [label = "newExp_1"];
+v118 -> v117;
+v119 [label = "varDec_3"];
+v119 -> v120;
+v119 -> v118;
+v121 [label = "STMT_VAR_DEC
+"];
+v121 -> v119;
+v122 [label = "TYPE_ID
+(IntList)
+"];
+v126 [label = "TYPE_WITH_ID
+ID (d);
+"];
+v126 -> v122;
+v123 [label = "TYPE_ID
+(IntList)
+"];
+v124 [label = "newExp_1"];
+v124 -> v123;
+v125 [label = "varDec_3"];
+v125 -> v126;
+v125 -> v124;
+v127 [label = "STMT_VAR_DEC
+"];
+v127 -> v125;
+v128 [label = "TYPE_ID
+(IntList)
+"];
+v132 [label = "TYPE_WITH_ID
+ID (A);
+"];
+v132 -> v128;
+v129 [label = "TYPE_ID
+(IntList)
+"];
+v130 [label = "newExp_1"];
+v130 -> v129;
+v131 [label = "varDec_3"];
+v131 -> v132;
+v131 -> v130;
+v133 [label = "STMT_VAR_DEC
+"];
+v133 -> v131;
+v134 [label = "TYPE_ID
+(IntList)
+"];
+v138 [label = "TYPE_WITH_ID
+ID (B);
+"];
+v138 -> v134;
+v135 [label = "TYPE_ID
+(IntList)
+"];
+v136 [label = "newExp_1"];
+v136 -> v135;
+v137 [label = "varDec_3"];
+v137 -> v138;
+v137 -> v136;
+v139 [label = "STMT_VAR_DEC
+"];
+v139 -> v137;
+v140 [label = "TYPE_ID
+(IntList)
+"];
+v144 [label = "TYPE_WITH_ID
+ID (C);
+"];
+v144 -> v140;
+v141 [label = "TYPE_ID
+(IntList)
+"];
+v142 [label = "newExp_1"];
+v142 -> v141;
+v143 [label = "varDec_3"];
+v143 -> v144;
+v143 -> v142;
+v145 [label = "STMT_VAR_DEC
+"];
+v145 -> v143;
+v146 [label = "TYPE_ID
+(IntList)
+"];
+v150 [label = "TYPE_WITH_ID
+ID (D);
+"];
+v150 -> v146;
+v147 [label = "TYPE_ID
+(IntList)
+"];
+v148 [label = "newExp_1"];
+v148 -> v147;
+v149 [label = "varDec_3"];
+v149 -> v150;
+v149 -> v148;
+v151 [label = "STMT_VAR_DEC
+"];
+v151 -> v149;
+v152 [label = "SIMPLE
+VAR
+(a)"];
+v153 [label = "FIELD
+VAR
+...->head"];
+v153 -> v152;
+v154 [label = "INT
+(34)"];
+v155 [label = "ASSIGN
+left := right
+"];
+v155 -> v153;
+v155 -> v154;
+v156 [label = "SIMPLE
+VAR
+(b)"];
+v157 [label = "FIELD
+VAR
+...->head"];
+v157 -> v156;
+v158 [label = "INT
+(70)"];
+v159 [label = "ASSIGN
+left := right
+"];
+v159 -> v157;
+v159 -> v158;
+v160 [label = "SIMPLE
+VAR
+(c)"];
+v161 [label = "FIELD
+VAR
+...->head"];
+v161 -> v160;
+v162 [label = "INT
+(92)"];
+v163 [label = "ASSIGN
+left := right
+"];
+v163 -> v161;
+v163 -> v162;
+v164 [label = "SIMPLE
+VAR
+(d)"];
+v165 [label = "FIELD
+VAR
+...->head"];
+v165 -> v164;
+v166 [label = "INT
+(96)"];
+v167 [label = "ASSIGN
+left := right
+"];
+v167 -> v165;
+v167 -> v166;
+v168 [label = "SIMPLE
+VAR
+(A)"];
+v169 [label = "FIELD
+VAR
+...->head"];
+v169 -> v168;
+v170 [label = "INT
+(12)"];
+v171 [label = "ASSIGN
+left := right
+"];
+v171 -> v169;
+v171 -> v170;
+v172 [label = "SIMPLE
+VAR
+(B)"];
+v173 [label = "FIELD
+VAR
+...->head"];
+v173 -> v172;
+v174 [label = "INT
+(50)"];
+v175 [label = "ASSIGN
+left := right
+"];
+v175 -> v173;
+v175 -> v174;
+v176 [label = "SIMPLE
+VAR
+(C)"];
+v177 [label = "FIELD
+VAR
+...->head"];
+v177 -> v176;
+v178 [label = "INT
+(97)"];
+v179 [label = "ASSIGN
+left := right
+"];
+v179 -> v177;
+v179 -> v178;
+v180 [label = "SIMPLE
+VAR
+(D)"];
+v181 [label = "FIELD
+VAR
+...->head"];
+v181 -> v180;
+v182 [label = "INT
+(99)"];
+v183 [label = "ASSIGN
+left := right
+"];
+v183 -> v181;
+v183 -> v182;
+v184 [label = "SIMPLE
+VAR
+(a)"];
+v185 [label = "FIELD
+VAR
+...->tail"];
+v185 -> v184;
+v186 [label = "SIMPLE
+VAR
+(b)"];
+v187 [label = "EXP
+VAR"];
+v187 -> v186;
+v188 [label = "ASSIGN
+left := right
+"];
+v188 -> v185;
+v188 -> v187;
+v189 [label = "SIMPLE
+VAR
+(b)"];
+v190 [label = "FIELD
+VAR
+...->tail"];
+v190 -> v189;
+v191 [label = "SIMPLE
+VAR
+(c)"];
+v192 [label = "EXP
+VAR"];
+v192 -> v191;
+v193 [label = "ASSIGN
+left := right
+"];
+v193 -> v190;
+v193 -> v192;
+v194 [label = "SIMPLE
+VAR
+(c)"];
+v195 [label = "FIELD
+VAR
+...->tail"];
+v195 -> v194;
+v196 [label = "SIMPLE
+VAR
+(d)"];
+v197 [label = "EXP
+VAR"];
+v197 -> v196;
+v198 [label = "ASSIGN
+left := right
+"];
+v198 -> v195;
+v198 -> v197;
+v199 [label = "SIMPLE
+VAR
+(d)"];
+v200 [label = "FIELD
+VAR
+...->tail"];
+v200 -> v199;
+v201 [label = "EXP_NIL
+"];
+v202 [label = "ASSIGN
+left := right
+"];
+v202 -> v200;
+v202 -> v201;
+v203 [label = "SIMPLE
+VAR
+(A)"];
+v204 [label = "FIELD
+VAR
+...->tail"];
+v204 -> v203;
+v205 [label = "SIMPLE
+VAR
+(B)"];
+v206 [label = "EXP
+VAR"];
+v206 -> v205;
+v207 [label = "ASSIGN
+left := right
+"];
+v207 -> v204;
+v207 -> v206;
+v208 [label = "SIMPLE
+VAR
+(B)"];
+v209 [label = "FIELD
+VAR
+...->tail"];
+v209 -> v208;
+v210 [label = "SIMPLE
+VAR
+(C)"];
+v211 [label = "EXP
+VAR"];
+v211 -> v210;
+v212 [label = "ASSIGN
+left := right
+"];
+v212 -> v209;
+v212 -> v211;
+v213 [label = "SIMPLE
+VAR
+(C)"];
+v214 [label = "FIELD
+VAR
+...->tail"];
+v214 -> v213;
+v215 [label = "SIMPLE
+VAR
+(D)"];
+v216 [label = "EXP
+VAR"];
+v216 -> v215;
+v217 [label = "ASSIGN
+left := right
+"];
+v217 -> v214;
+v217 -> v216;
+v218 [label = "SIMPLE
+VAR
+(D)"];
+v219 [label = "FIELD
+VAR
+...->tail"];
+v219 -> v218;
+v220 [label = "EXP_NIL
+"];
+v221 [label = "ASSIGN
+left := right
+"];
+v221 -> v219;
+v221 -> v220;
+v222 [label = "TYPE_ID
+(IntList)
+"];
+v230 [label = "TYPE_WITH_ID
+ID (l);
+"];
+v230 -> v222;
+v223 [label = "SIMPLE
+VAR
+(a)"];
+v224 [label = "EXP
+VAR"];
+v224 -> v223;
+v228 [label = "EXP_MODIFY_3
+ID(MergeLists);
+"];
+v228 -> v224;
+v225 [label = "SIMPLE
+VAR
+(A)"];
+v226 [label = "EXP
+VAR"];
+v226 -> v225;
+v228 -> v226;
+v229 [label = "varDec_2
+"];
+v229 -> v230;
+v229 -> v228;
+v231 [label = "STMT_VAR_DEC
+"];
+v231 -> v229;
+v250 [label = "WHILE STMT
+"];
+v232 [label = "INT
+(1)"];
+v233 [label = "SIMPLE
+VAR
+(l)"];
+v234 [label = "EXP
+VAR"];
+v234 -> v233;
+v235 [label = "EXP_NIL
+"];
+v236 [label = "BINOP
+(=)"];
+v236 -> v234;
+v236 -> v235;
+v237 [label = "EXP
+PARENTHESES"];
+v237 -> v236;
+v238 [label = "BINOP
+(-)"];
+v238 -> v232;
+v238 -> v237;
+v250 -> v238;
+v239 [label = "SIMPLE
+VAR
+(l)"];
+v240 [label = "FIELD
+VAR
+...->head"];
+v240 -> v239;
+v241 [label = "EXP
+VAR"];
+v241 -> v240;
+v242 [label = "STMT_MODIFY_2
+ID(PrintInt)
+(exp);
+"];
+v242 -> v241;
+v243 [label = "SIMPLE
+VAR
+(l)"];
+v244 [label = "SIMPLE
+VAR
+(l)"];
+v245 [label = "FIELD
+VAR
+...->tail"];
+v245 -> v244;
+v246 [label = "EXP
+VAR"];
+v246 -> v245;
+v247 [label = "ASSIGN
+left := right
+"];
+v247 -> v243;
+v247 -> v246;
+v250 -> v242;
+v250 -> v247;
+v277 -> v109;
+v277 -> v115;
+v277 -> v121;
+v277 -> v127;
+v277 -> v133;
+v277 -> v139;
+v277 -> v145;
+v277 -> v151;
+v277 -> v155;
+v277 -> v159;
+v277 -> v163;
+v277 -> v167;
+v277 -> v171;
+v277 -> v175;
+v277 -> v179;
+v277 -> v183;
+v277 -> v188;
+v277 -> v193;
+v277 -> v198;
+v277 -> v202;
+v277 -> v207;
+v277 -> v212;
+v277 -> v217;
+v277 -> v221;
+v277 -> v231;
+v277 -> v250;
+v277 -> v278;
+v279 [label = "funcDec"];
+v279 -> v277;
+v283 -> v11;
+v283 -> v102;
+v283 -> v279;
+}

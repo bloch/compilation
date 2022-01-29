@@ -361,7 +361,7 @@ public class MIPSGenerator
 
 		//start to set the fields
 		//for now store in $s0 some defoult value
-		String default_val = "DEFAULT";
+		String default_val = "0";
 		for (int i = 1; i < size_of_class; i++) {
 			int offest = 4*i;
 //			System.out.println(fields_array[i]);
