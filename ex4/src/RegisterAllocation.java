@@ -3,7 +3,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-
+import java.io.PrintWriter;
 
 public class RegisterAllocation {
 
@@ -29,6 +29,7 @@ public class RegisterAllocation {
 
                 while (!line.equals(function_name + "_epilogue:")) {
                     CFGNode cur_node = new CFGNode(line);
+                    System.out.println(line);
                     cfg_list.get(cfg_list.size() - 1).add(cur_node);
                     line = buffered_reader.readLine();
                 }
@@ -243,5 +244,208 @@ public class RegisterAllocation {
                 System.out.println("\t" + var_name);
             }
         }
+    }
+
+
+    static public void replace_temps(InterferenceGraph graph, ArrayList<CFGNode> cfg, String outputFilename) {
+        try {
+            FileReader file_reader = new FileReader(outputFilename);
+            BufferedReader buffered_reader = new BufferedReader(file_reader);
+            ArrayList<String> lines = new ArrayList<String>();
+
+            String line = buffered_reader.readLine();
+            while (!line.equals(cfg.get(0).command)) {
+                lines.add(line);
+                line = buffered_reader.readLine();
+            }
+
+            String function_name = cfg.get(0).command.substring(0, cfg.get(0).command.length() - 6);
+            while (!line.equals(function_name + "_epilogue:")) {
+                lines.add(replace_temps_in_line(graph, line));
+                line = buffered_reader.readLine();
+            }
+
+            while (line != null) {
+                lines.add(line);
+                line = buffered_reader.readLine();
+            }
+
+            PrintWriter file_writer = new PrintWriter(outputFilename);
+            for(int i = 0; i < lines.size(); i++) {
+                file_writer.println(lines.get(i));
+            }
+            file_writer.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+    }
+
+    static public String replace_temps_in_line(InterferenceGraph graph, String cmd) {
+        String[] cmd_tokens = cmd.trim().split(" ");
+
+        if(cmd_tokens[0].equals("add") || cmd_tokens[0].equals("addu") || cmd_tokens[0].equals("sub")
+                || cmd_tokens[0].equals("subu") || cmd_tokens[0].equals("mul") || cmd_tokens[0].equals("div")) {
+            String[] new_cmd = new String[4];
+            new_cmd[0] = "\t" + cmd_tokens[0];
+            if(cmd_tokens[1].contains("Temp_")) {
+                String dest = cmd_tokens[1].substring(0, cmd_tokens[1].length() - 1);
+                InterferenceGraphNode node = CheckIfNodeExists(graph, dest);
+                if(node == null) {
+                    System.out.println("ERROR!!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.exit(0);
+                }
+                new_cmd[1] = "$t" + node.color + ",";
+            }
+            else {
+                new_cmd[1] = cmd_tokens[1];
+            }
+
+            if(cmd_tokens[2].contains("Temp_")) {
+                String arg1 = cmd_tokens[2].substring(0, cmd_tokens[2].length() - 1);
+                InterferenceGraphNode node = CheckIfNodeExists(graph, arg1);
+                if(node == null) {
+                    System.out.println("ERROR!!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.exit(0);
+                }
+                new_cmd[2] = "$t" + node.color + ",";
+            }
+            else {
+                new_cmd[2] = cmd_tokens[2];
+            }
+
+            if(cmd_tokens[3].contains("Temp_")) {
+                String arg2 = cmd_tokens[3];
+                InterferenceGraphNode node = CheckIfNodeExists(graph, arg2);
+                if(node == null) {
+                    System.out.println("ERROR!!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.exit(0);
+                }
+                new_cmd[3] = "$t" + node.color;
+            }
+            else  {
+                new_cmd[3] = cmd_tokens[3];
+            }
+            return String.join(" ", new_cmd);
+        }
+        else if(cmd_tokens[0].equals("move") || cmd_tokens[0].equals("la") || cmd_tokens[0].equals("li")) {
+            /**
+             *  move register, register
+             *  la   register, label
+             *  li   register, immediate (a number)
+             * */
+            String[] new_cmd = new String[3];
+            new_cmd[0] = "\t" + cmd_tokens[0];
+            if(cmd_tokens[1].contains("Temp_")) {
+                String dest = cmd_tokens[1].substring(0, cmd_tokens[1].length() - 1);
+                InterferenceGraphNode node = CheckIfNodeExists(graph, dest);
+                if(node == null) {
+                    System.out.println("ERROR!!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.exit(0);
+                }
+                new_cmd[1] = "$t" + node.color + ",";
+            }
+            else {
+                new_cmd[1] = cmd_tokens[1];
+            }
+
+            if(cmd_tokens[2].contains("Temp_")) {
+                String arg1 = cmd_tokens[2];
+                InterferenceGraphNode node = CheckIfNodeExists(graph, arg1);
+                if(node == null) {
+                    System.out.println("ERROR!!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.exit(0);
+                }
+                new_cmd[2] = "$t" + node.color;
+            }
+            else {
+                new_cmd[2] = cmd_tokens[2];
+            }
+            return String.join(" ", new_cmd);
+        }
+        else if(cmd_tokens[0].equals("lw") || cmd_tokens[0].equals("lb") || cmd_tokens[0].equals("sw") || cmd_tokens[0].equals("sb")) {
+            String[] new_cmd = new String[3];
+            new_cmd[0] = "\t" + cmd_tokens[0];
+            if(cmd_tokens[1].contains("Temp_")) {
+                String dest = cmd_tokens[1].substring(0, cmd_tokens[1].length() - 1);
+                InterferenceGraphNode node = CheckIfNodeExists(graph, dest);
+                if(node == null) {
+                    System.out.println("ERROR!!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.exit(0);
+                }
+                new_cmd[1] = "$t" + node.color + ",";
+            }
+            else {
+                new_cmd[1] = cmd_tokens[1];
+            }
+
+            if(cmd_tokens[2].contains("Temp_")) {
+                int index = cmd_tokens[2].indexOf("Temp_");
+                String arg1 = cmd_tokens[2].substring(index, cmd_tokens[2].length() - 1);
+                InterferenceGraphNode node = CheckIfNodeExists(graph, arg1);
+                if(node == null) {
+                    System.out.println("ERROR!!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.exit(0);
+                }
+                new_cmd[2] = cmd_tokens[2].replace(arg1, "$t" + node.color);
+            }
+            else {
+                new_cmd[2] = cmd_tokens[2];
+            }
+            return String.join(" ", new_cmd);
+        }
+        else if(cmd_tokens[0].equals("blt") || cmd_tokens[0].equals("bge") || cmd_tokens[0].equals("bne")
+                || cmd_tokens[0].equals("beq")) {
+            String[] new_cmd = new String[4];
+            new_cmd[0] = "\t" + cmd_tokens[0];
+
+            new_cmd[3] = cmd_tokens[3];
+            if(cmd_tokens[1].contains("Temp_")) {
+                String arg1 = cmd_tokens[1].substring(0, cmd_tokens[1].length() - 1);
+                InterferenceGraphNode node = CheckIfNodeExists(graph, arg1);
+                if(node == null) {
+                    System.out.println("ERROR!!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.exit(0);
+                }
+                new_cmd[1] = "$t" + node.color + ",";
+            }
+            else {
+                new_cmd[1] = cmd_tokens[1];
+            }
+
+            if(cmd_tokens[2].contains("Temp_")) {
+                String arg2 = cmd_tokens[2].substring(0, cmd_tokens[2].length() - 1);
+                InterferenceGraphNode node = CheckIfNodeExists(graph, arg2);
+                if(node == null) {
+                    System.out.println("ERROR!!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.exit(0);
+                }
+                new_cmd[2] = "$t" + node.color + ",";
+            }
+            else {
+                new_cmd[2] = cmd_tokens[2];
+            }
+            return String.join(" ", new_cmd);
+        }
+        else if(cmd_tokens[0].equals("bltz")) {
+            String[] new_cmd = new String[3];
+            new_cmd[0] = "\t" + cmd_tokens[0];
+            new_cmd[2] = cmd_tokens[2];
+            if(cmd_tokens[1].contains("Temp_")) {
+                String arg1 = cmd_tokens[1].substring(0, cmd_tokens[1].length() - 1);
+                InterferenceGraphNode node = CheckIfNodeExists(graph, arg1);
+                if(node == null) {
+                    System.out.println("ERROR!!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.exit(0);
+                }
+                new_cmd[1] = "$t" + node.color + ",";
+            }
+            else {
+                new_cmd[1] = cmd_tokens[1];
+            }
+            return String.join(" ", new_cmd);
+        }
+        return cmd;
     }
 }
