@@ -169,6 +169,35 @@ public class RegisterAllocation {
 
             }
         }
+        /** fix a bug that Temps_ that were not inany hash set are not in interference graph **/
+        for (int i = 0; i < cfg.size(); i++) {
+            String[] cmd_tokens = cfg.get(i).command.split(" ");
+            for(int j = 1; j < cmd_tokens.length; j++) {
+                if(cmd_tokens[j].contains("Temp_")) {
+                    int index = cmd_tokens[j].indexOf("Temp_");
+                    if(cmd_tokens[j].endsWith(",")) {
+                        String var_name = cmd_tokens[j].substring(index, cmd_tokens[j].length() - 1);
+                        if(CheckIfNodeExists(graph, var_name) == null) {
+                            InterferenceGraphNode node = new InterferenceGraphNode(var_name);
+                            graph.nodes.add(node);
+                        }
+                    }
+                    else if(cmd_tokens[j].endsWith(")")) {
+                        String var_name = cmd_tokens[j].substring(index, cmd_tokens[j].length() - 1);
+                        if(CheckIfNodeExists(graph, var_name) == null) {
+                            InterferenceGraphNode node = new InterferenceGraphNode(var_name);
+                            graph.nodes.add(node);
+                        }
+                    }
+                    else {
+                        if(CheckIfNodeExists(graph, cmd_tokens[j]) == null) {
+                            InterferenceGraphNode node = new InterferenceGraphNode(cmd_tokens[j]);
+                            graph.nodes.add(node);
+                        }
+                    }
+                }
+            }
+        }
         print_interference_graph(graph);
         return graph;
     }
@@ -203,6 +232,16 @@ public class RegisterAllocation {
         System.out.println("Edges: ");
         for (int i = 0; i < graph.edges.size(); i++) {
             System.out.println("\t" + graph.edges.get(i).get(0).node_name + ", " + graph.edges.get(i).get(1).node_name);
+        }
+    }
+
+    static public void print_out_sets(ArrayList<CFGNode> cfg) {
+        for (int i = 0; i < cfg.size(); i++) {
+            CFGNode cur_cfg = cfg.get(i);
+            System.out.println(cur_cfg.command.trim());
+            for(String var_name : cur_cfg.OUT) {
+                System.out.println("\t" + var_name);
+            }
         }
     }
 }
