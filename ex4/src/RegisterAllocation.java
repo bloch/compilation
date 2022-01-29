@@ -52,20 +52,26 @@ public class RegisterAllocation {
                                 cur_node.successors.add(cur_cfg.get(j + 1));
                             }
                         } else {
-                            CFGNode dest_node = find_cfg_node(cur_cfg, splitted_cmds[1] + ":");
-                            cur_node.successors.add(dest_node);
+                            if (!splitted_cmds[1].equals("abort")){
+                                CFGNode dest_node = find_cfg_node(cur_cfg, splitted_cmds[1] + ":");
+                                cur_node.successors.add(dest_node);
+                            }
                         }
                     } else if (splitted_cmds[0].equals("beq")) {
-                        CFGNode dest_node = find_cfg_node(cur_cfg, splitted_cmds[3] + ":");
-                        cur_node.successors.add(dest_node);
-                        if (cur_cfg.size() > j + 1) {
-                            cur_node.successors.add(cur_cfg.get(j + 1));
+                        if (!splitted_cmds[3].equals("abort")) {
+                            CFGNode dest_node = find_cfg_node(cur_cfg, splitted_cmds[3] + ":");
+                            cur_node.successors.add(dest_node);
+                            if (cur_cfg.size() > j + 1) {
+                                cur_node.successors.add(cur_cfg.get(j + 1));
+                            }
                         }
                     } else if (splitted_cmds[0].equals("bne")) {
-                        CFGNode dest_node = find_cfg_node(cur_cfg, splitted_cmds[3] + ":");
-                        cur_node.successors.add(dest_node);
-                        if (cur_cfg.size() > j + 1) {
-                            cur_node.successors.add(cur_cfg.get(j + 1));
+                        if (!splitted_cmds[3].equals("abort")) {
+                            CFGNode dest_node = find_cfg_node(cur_cfg, splitted_cmds[3] + ":");
+                            cur_node.successors.add(dest_node);
+                            if (cur_cfg.size() > j + 1) {
+                                cur_node.successors.add(cur_cfg.get(j + 1));
+                            }
                         }
                     } else {
                         if (cur_cfg.size() > j + 1) {
@@ -91,6 +97,7 @@ public class RegisterAllocation {
             }
         }
         System.out.println("UNREACHABLE CODE!!!!!!!!!!");
+        System.out.println(label);
         return null;
     }
 
