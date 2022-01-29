@@ -1,21 +1,12 @@
 
 void main() {
     int x := 5;
-    if(x = 0) {
-        PrintInt(5);
+    int y := 3;
+    int z := 4;
+    if(x) {
+        y := x;
+        z := 2;
     }
-    PrintInt(1);
-    if(x = 5) {
-        PrintInt(0);
-    }
-    PrintInt(2);
-}
-
-
-int foo() {
-    int z := 3;
-    if(z) {
-        PrintInt(4);
-    }
-    return 3;
+    y := x;
+    z := 8;
 }

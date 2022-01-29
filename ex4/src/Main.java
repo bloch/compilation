@@ -87,6 +87,9 @@ public class Main
 
 			for(int i = 0; i < cfg_list.size(); i++) {
 				RegisterAllocation.LivenessAnalysis(cfg_list.get(i));
+				System.out.println();
+				RegisterAllocation.print_out_sets(cfg_list.get(i));
+				System.out.println();
 				InterferenceGraph graph = RegisterAllocation.BuildInterferenceGraph(cfg_list.get(i));
 			}
 
