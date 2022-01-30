@@ -1,1087 +1,227 @@
 digraph
 {
 graph [ordering = "out"]
-v367 [label = "Program
+v78 [label = "Program
 "];
 v0 [label = "TYPE_INT
 "];
-v1 [label = "ARRAY_TYPE_DEF_1
-ID (IntArray);
+v3 [label = "TYPE_WITH_ID
+ID (counter);
 "];
-v1 -> v0;
-v2 [label = "arrayTypeDef"];
-v2 -> v1;
-v3 [label = "TYPE_INT
-"];
-v15 [label = "TYPE_WITH_ID
-ID (monthJuly);
-"];
-v15 -> v3;
-v14 [label = "funcDec_1
-"];
-v4 [label = "TYPE_INT
-"];
-v7 [label = "TYPE_WITH_ID
-ID (july);
-"];
-v7 -> v4;
-v5 [label = "INT
+v3 -> v0;
+v1 [label = "INT
 (7)"];
-v6 [label = "varDec_2
+v2 [label = "varDec_2
 "];
-v6 -> v7;
-v6 -> v5;
-v8 [label = "STMT_VAR_DEC
+v2 -> v3;
+v2 -> v1;
+v4 [label = "varDec"];
+v4 -> v2;
+v5 [label = "TYPE_INT
 "];
-v8 -> v6;
-v9 [label = "SIMPLE
-VAR
-(july)"];
-v10 [label = "EXP
-VAR"];
-v10 -> v9;
-v11 [label = "STMT
-RETURN
-EXP
+v8 [label = "TYPE_WITH_ID
+ID (joy);
 "];
-v11 -> v10;
-v14 -> v8;
-v14 -> v11;
-v14 -> v15;
-v16 [label = "funcDec"];
-v16 -> v14;
-v58 [label = "classDec_1
-ID(Person)
+v8 -> v5;
+v6 [label = "INT
+(9)"];
+v7 [label = "varDec_2
 "];
-v17 [label = "TYPE_INT
+v7 -> v8;
+v7 -> v6;
+v9 [label = "varDec"];
+v9 -> v7;
+v10 [label = "TYPE_INT
 "];
-v19 [label = "TYPE_WITH_ID
-ID (ID);
+v13 [label = "TYPE_WITH_ID
+ID (alex);
 "];
+v13 -> v10;
+v11 [label = "INT
+(10)"];
+v12 [label = "varDec_2
+"];
+v12 -> v13;
+v12 -> v11;
+v14 [label = "varDec"];
+v14 -> v12;
+v15 [label = "TYPE_INT
+"];
+v18 [label = "TYPE_WITH_ID
+ID (happy);
+"];
+v18 -> v15;
+v16 [label = "INT
+(6)"];
+v17 [label = "varDec_2
+"];
+v17 -> v18;
+v17 -> v16;
+v19 [label = "varDec"];
 v19 -> v17;
-v18 [label = "varDec_1"];
-v18 -> v19;
-v20 [label = "CFIELD
-VAR_DEC"];
-v20 -> v18;
-v21 [label = "TYPE_INT
+v20 [label = "TYPE_VOID
 "];
-v24 [label = "TYPE_WITH_ID
-ID (age);
-"];
-v24 -> v21;
-v22 [label = "INT
-(10)"];
-v23 [label = "varDec_2
-"];
-v23 -> v24;
-v23 -> v22;
-v25 [label = "CFIELD
-VAR_DEC"];
-v25 -> v23;
-v26 [label = "TYPE_ID
-(IntArray)
-"];
-v28 [label = "TYPE_WITH_ID
-ID (lastYearSalaries);
-"];
-v28 -> v26;
-v27 [label = "varDec_1"];
-v27 -> v28;
-v29 [label = "CFIELD
-VAR_DEC"];
-v29 -> v27;
-v30 [label = "TYPE_INT
-"];
-v36 [label = "TYPE_WITH_ID
-ID (getAge);
-"];
-v36 -> v30;
-v35 [label = "funcDec_1
-"];
-v31 [label = "SIMPLE
-VAR
-(age)"];
-v32 [label = "EXP
-VAR"];
-v32 -> v31;
-v33 [label = "STMT
-RETURN
-EXP
-"];
-v33 -> v32;
-v35 -> v33;
-v35 -> v36;
-v37 [label = "CFIELD
-FUNC_DEC"];
-v37 -> v35;
-v38 [label = "TYPE_INT
-"];
-v51 [label = "TYPE_WITH_ID
-ID (birthday);
-"];
-v51 -> v38;
-v50 [label = "funcDec_1
-"];
-v39 [label = "SIMPLE
-VAR
-(age)"];
-v40 [label = "SIMPLE
-VAR
-(age)"];
-v41 [label = "EXP
-VAR"];
-v41 -> v40;
-v42 [label = "INT
-(1)"];
-v43 [label = "BINOP
-(+)"];
-v43 -> v41;
-v43 -> v42;
-v44 [label = "ASSIGN
-left := right
-"];
-v44 -> v39;
-v44 -> v43;
-v45 [label = "SIMPLE
-VAR
-(age)"];
-v46 [label = "EXP
-VAR"];
-v46 -> v45;
-v47 [label = "STMT
-RETURN
-EXP
-"];
-v47 -> v46;
-v50 -> v44;
-v50 -> v47;
-v50 -> v51;
-v52 [label = "CFIELD
-FUNC_DEC"];
-v52 -> v50;
-v58 -> v20;
-v58 -> v25;
-v58 -> v29;
-v58 -> v37;
-v58 -> v52;
-v59 [label = "classDec"];
-v59 -> v58;
-v112 [label = "classDec_2
-ID1(Student) ID2(Person)
-"];
-v60 [label = "TYPE_ID
-(IntArray)
-"];
-v62 [label = "TYPE_WITH_ID
-ID (grades);
-"];
-v62 -> v60;
-v61 [label = "varDec_1"];
-v61 -> v62;
-v63 [label = "CFIELD
-VAR_DEC"];
-v63 -> v61;
-v64 [label = "TYPE_INT
-"];
-v108 [label = "TYPE_WITH_ID
-ID (getAverage);
-"];
-v108 -> v64;
-v107 [label = "funcDec_1
-"];
-v65 [label = "TYPE_INT
-"];
-v68 [label = "TYPE_WITH_ID
-ID (i);
-"];
-v68 -> v65;
-v66 [label = "INT
-(0)"];
-v67 [label = "varDec_2
-"];
-v67 -> v68;
-v67 -> v66;
-v69 [label = "STMT_VAR_DEC
-"];
-v69 -> v67;
-v70 [label = "TYPE_INT
-"];
-v73 [label = "TYPE_WITH_ID
-ID (sum);
-"];
-v73 -> v70;
-v71 [label = "INT
-(0)"];
-v72 [label = "varDec_2
-"];
-v72 -> v73;
-v72 -> v71;
-v74 [label = "STMT_VAR_DEC
-"];
-v74 -> v72;
-v97 [label = "WHILE STMT
-"];
-v75 [label = "SIMPLE
-VAR
-(i)"];
-v76 [label = "EXP
-VAR"];
-v76 -> v75;
-v77 [label = "INT
-(10)"];
-v78 [label = "BINOP
-(<)"];
-v78 -> v76;
-v78 -> v77;
-v97 -> v78;
-v79 [label = "SIMPLE
-VAR
-(sum)"];
-v80 [label = "SIMPLE
-VAR
-(sum)"];
-v81 [label = "EXP
-VAR"];
-v81 -> v80;
-v82 [label = "SIMPLE
-VAR
-(grades)"];
-v83 [label = "SIMPLE
-VAR
-(i)"];
-v84 [label = "EXP
-VAR"];
-v84 -> v83;
-v85 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v85 -> v82;
-v85 -> v84;
-v86 [label = "EXP
-VAR"];
-v86 -> v85;
-v87 [label = "BINOP
-(+)"];
-v87 -> v81;
-v87 -> v86;
-v88 [label = "ASSIGN
-left := right
-"];
-v88 -> v79;
-v88 -> v87;
-v89 [label = "SIMPLE
-VAR
-(i)"];
-v90 [label = "SIMPLE
-VAR
-(i)"];
-v91 [label = "EXP
-VAR"];
-v91 -> v90;
-v92 [label = "INT
-(1)"];
-v93 [label = "BINOP
-(+)"];
-v93 -> v91;
-v93 -> v92;
-v94 [label = "ASSIGN
-left := right
-"];
-v94 -> v89;
-v94 -> v93;
-v97 -> v88;
-v97 -> v94;
-v98 [label = "SIMPLE
-VAR
-(sum)"];
-v99 [label = "EXP
-VAR"];
-v99 -> v98;
-v100 [label = "INT
-(10)"];
-v101 [label = "BINOP
-(/)"];
-v101 -> v99;
-v101 -> v100;
-v102 [label = "STMT
-RETURN
-EXP
-"];
-v102 -> v101;
-v107 -> v69;
-v107 -> v74;
-v107 -> v97;
-v107 -> v102;
-v107 -> v108;
-v109 [label = "CFIELD
-FUNC_DEC"];
-v109 -> v107;
-v112 -> v63;
-v112 -> v109;
-v113 [label = "classDec"];
-v113 -> v112;
-v114 [label = "TYPE_VOID
-"];
-v360 [label = "TYPE_WITH_ID
+v71 [label = "TYPE_WITH_ID
 ID (main);
 "];
-v360 -> v114;
-v359 [label = "funcDec_1
+v71 -> v20;
+v70 [label = "funcDec_1
 "];
-v115 [label = "TYPE_INT
+v21 [label = "TYPE_INT
 "];
-v118 [label = "TYPE_WITH_ID
-ID (i);
+v41 [label = "TYPE_WITH_ID
+ID (alex);
 "];
-v118 -> v115;
-v116 [label = "INT
-(0)"];
-v117 [label = "varDec_2
-"];
-v117 -> v118;
-v117 -> v116;
-v119 [label = "STMT_VAR_DEC
-"];
-v119 -> v117;
-v120 [label = "TYPE_ID
-(Student)
-"];
-v124 [label = "TYPE_WITH_ID
-ID (moish);
-"];
-v124 -> v120;
-v121 [label = "TYPE_ID
-(Student)
-"];
-v122 [label = "newExp_1"];
-v122 -> v121;
-v123 [label = "varDec_3"];
-v123 -> v124;
-v123 -> v122;
-v125 [label = "STMT_VAR_DEC
-"];
-v125 -> v123;
-v126 [label = "SIMPLE
-VAR
-(moish)"];
-v127 [label = "FIELD
-VAR
-...->grades"];
-v127 -> v126;
-v128 [label = "TYPE_INT
-"];
-v129 [label = "INT
-(10)"];
-v130 [label = "newExp_2"];
-v130 -> v128;
-v130 -> v129;
-v131 [label = "NEW ASSIGN
-left := right
-"];
-v131 -> v127;
-v131 -> v130;
-v132 [label = "SIMPLE
-VAR
-(moish)"];
-v133 [label = "FIELD
-VAR
-...->lastYearSalaries"];
-v133 -> v132;
-v134 [label = "TYPE_INT
-"];
-v135 [label = "INT
-(12)"];
-v136 [label = "newExp_2"];
-v136 -> v134;
-v136 -> v135;
-v137 [label = "NEW ASSIGN
-left := right
-"];
-v137 -> v133;
-v137 -> v136;
-v161 [label = "WHILE STMT
-"];
-v138 [label = "SIMPLE
-VAR
-(i)"];
-v139 [label = "EXP
-VAR"];
-v139 -> v138;
-v140 [label = "SIMPLE
-VAR
-(i)"];
-v141 [label = "EXP
-VAR"];
-v141 -> v140;
-v142 [label = "INT
+v41 -> v21;
+v22 [label = "INT
 (1)"];
-v143 [label = "BINOP
-(+)"];
-v143 -> v141;
-v143 -> v142;
-v144 [label = "BINOP
-(<)"];
-v144 -> v139;
-v144 -> v143;
-v161 -> v144;
-v145 [label = "SIMPLE
-VAR
-(moish)"];
-v146 [label = "FIELD
-VAR
-...->lastYearSalaries"];
-v146 -> v145;
-v147 [label = "SIMPLE
-VAR
-(i)"];
-v148 [label = "EXP
-VAR"];
-v148 -> v147;
-v149 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v149 -> v146;
-v149 -> v148;
-v150 [label = "SIMPLE
-VAR
-(i)"];
-v151 [label = "EXP
-VAR"];
-v151 -> v150;
-v152 [label = "ASSIGN
-left := right
-"];
-v152 -> v149;
-v152 -> v151;
-v153 [label = "SIMPLE
-VAR
-(i)"];
-v154 [label = "SIMPLE
-VAR
-(i)"];
-v155 [label = "EXP
-VAR"];
-v155 -> v154;
-v156 [label = "INT
-(7400)"];
-v157 [label = "BINOP
-(+)"];
-v157 -> v155;
-v157 -> v156;
-v158 [label = "ASSIGN
-left := right
-"];
-v158 -> v153;
-v158 -> v157;
-v161 -> v152;
-v161 -> v158;
-v162 [label = "TYPE_INT
-"];
-v165 [label = "TYPE_WITH_ID
-ID (LinearAlgebra1);
-"];
-v165 -> v162;
-v163 [label = "INT
-(0)"];
-v164 [label = "varDec_2
-"];
-v164 -> v165;
-v164 -> v163;
-v166 [label = "STMT_VAR_DEC
-"];
-v166 -> v164;
-v167 [label = "TYPE_INT
-"];
-v170 [label = "TYPE_WITH_ID
-ID (LinearAlgebra2);
-"];
-v170 -> v167;
-v168 [label = "INT
-(1)"];
-v169 [label = "varDec_2
-"];
-v169 -> v170;
-v169 -> v168;
-v171 [label = "STMT_VAR_DEC
-"];
-v171 -> v169;
-v172 [label = "TYPE_INT
-"];
-v175 [label = "TYPE_WITH_ID
-ID (Calculus1);
-"];
-v175 -> v172;
-v173 [label = "INT
+v23 [label = "INT
 (2)"];
-v174 [label = "varDec_2
-"];
-v174 -> v175;
-v174 -> v173;
-v176 [label = "STMT_VAR_DEC
-"];
-v176 -> v174;
-v177 [label = "TYPE_INT
-"];
-v180 [label = "TYPE_WITH_ID
-ID (Calculus2);
-"];
-v180 -> v177;
-v178 [label = "INT
+v24 [label = "INT
 (3)"];
-v179 [label = "varDec_2
-"];
-v179 -> v180;
-v179 -> v178;
-v181 [label = "STMT_VAR_DEC
-"];
-v181 -> v179;
-v182 [label = "TYPE_INT
-"];
-v185 [label = "TYPE_WITH_ID
-ID (Calculus3);
-"];
-v185 -> v182;
-v183 [label = "INT
+v25 [label = "INT
 (4)"];
-v184 [label = "varDec_2
-"];
-v184 -> v185;
-v184 -> v183;
-v186 [label = "STMT_VAR_DEC
-"];
-v186 -> v184;
-v187 [label = "TYPE_INT
-"];
-v190 [label = "TYPE_WITH_ID
-ID (COMPILATION);
-"];
-v190 -> v187;
-v188 [label = "INT
+v26 [label = "INT
 (5)"];
-v189 [label = "varDec_2
-"];
-v189 -> v190;
-v189 -> v188;
-v191 [label = "STMT_VAR_DEC
-"];
-v191 -> v189;
-v192 [label = "TYPE_INT
-"];
-v195 [label = "TYPE_WITH_ID
-ID (ODE);
-"];
-v195 -> v192;
-v193 [label = "INT
+v27 [label = "INT
 (6)"];
-v194 [label = "varDec_2
-"];
-v194 -> v195;
-v194 -> v193;
-v196 [label = "STMT_VAR_DEC
-"];
-v196 -> v194;
-v197 [label = "TYPE_INT
-"];
-v200 [label = "TYPE_WITH_ID
-ID (PDE);
-"];
-v200 -> v197;
-v198 [label = "INT
+v28 [label = "INT
 (7)"];
-v199 [label = "varDec_2
-"];
-v199 -> v200;
-v199 -> v198;
-v201 [label = "STMT_VAR_DEC
-"];
-v201 -> v199;
-v202 [label = "TYPE_INT
-"];
-v205 [label = "TYPE_WITH_ID
-ID (Scheme);
-"];
-v205 -> v202;
-v203 [label = "INT
-(8)"];
-v204 [label = "varDec_2
-"];
-v204 -> v205;
-v204 -> v203;
-v206 [label = "STMT_VAR_DEC
-"];
-v206 -> v204;
-v207 [label = "TYPE_INT
-"];
-v210 [label = "TYPE_WITH_ID
-ID (CPP);
-"];
-v210 -> v207;
-v208 [label = "INT
-(9)"];
-v209 [label = "varDec_2
-"];
-v209 -> v210;
-v209 -> v208;
-v211 [label = "STMT_VAR_DEC
-"];
-v211 -> v209;
-v212 [label = "SIMPLE
-VAR
-(moish)"];
-v213 [label = "FIELD
-VAR
-...->grades"];
-v213 -> v212;
-v214 [label = "SIMPLE
-VAR
-(LinearAlgebra1)"];
-v215 [label = "EXP
-VAR"];
-v215 -> v214;
-v216 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v216 -> v213;
-v216 -> v215;
-v217 [label = "INT
-(96)"];
-v218 [label = "ASSIGN
-left := right
-"];
-v218 -> v216;
-v218 -> v217;
-v219 [label = "SIMPLE
-VAR
-(moish)"];
-v220 [label = "FIELD
-VAR
-...->grades"];
-v220 -> v219;
-v221 [label = "SIMPLE
-VAR
-(LinearAlgebra2)"];
-v222 [label = "EXP
-VAR"];
-v222 -> v221;
-v223 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v223 -> v220;
-v223 -> v222;
-v224 [label = "INT
-(100)"];
-v225 [label = "ASSIGN
-left := right
-"];
-v225 -> v223;
-v225 -> v224;
-v226 [label = "SIMPLE
-VAR
-(moish)"];
-v227 [label = "FIELD
-VAR
-...->grades"];
-v227 -> v226;
-v228 [label = "SIMPLE
-VAR
-(Calculus1)"];
-v229 [label = "EXP
-VAR"];
-v229 -> v228;
-v230 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v230 -> v227;
-v230 -> v229;
-v231 [label = "INT
-(95)"];
-v232 [label = "ASSIGN
-left := right
-"];
-v232 -> v230;
-v232 -> v231;
-v233 [label = "SIMPLE
-VAR
-(moish)"];
-v234 [label = "FIELD
-VAR
-...->grades"];
-v234 -> v233;
-v235 [label = "SIMPLE
-VAR
-(Calculus2)"];
-v236 [label = "EXP
-VAR"];
-v236 -> v235;
-v237 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v237 -> v234;
-v237 -> v236;
-v238 [label = "INT
-(81)"];
-v239 [label = "ASSIGN
-left := right
-"];
-v239 -> v237;
-v239 -> v238;
-v240 [label = "SIMPLE
-VAR
-(moish)"];
-v241 [label = "FIELD
-VAR
-...->grades"];
-v241 -> v240;
-v242 [label = "SIMPLE
-VAR
-(Calculus3)"];
-v243 [label = "EXP
-VAR"];
-v243 -> v242;
-v244 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v244 -> v241;
-v244 -> v243;
-v245 [label = "INT
-(95)"];
-v246 [label = "ASSIGN
-left := right
-"];
-v246 -> v244;
-v246 -> v245;
-v247 [label = "SIMPLE
-VAR
-(moish)"];
-v248 [label = "FIELD
-VAR
-...->grades"];
-v248 -> v247;
-v249 [label = "SIMPLE
-VAR
-(COMPILATION)"];
-v250 [label = "EXP
-VAR"];
-v250 -> v249;
-v251 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v251 -> v248;
-v251 -> v250;
-v252 [label = "INT
-(95)"];
-v253 [label = "ASSIGN
-left := right
-"];
-v253 -> v251;
-v253 -> v252;
-v254 [label = "SIMPLE
-VAR
-(moish)"];
-v255 [label = "FIELD
-VAR
-...->grades"];
-v255 -> v254;
-v256 [label = "SIMPLE
-VAR
-(ODE)"];
-v257 [label = "EXP
-VAR"];
-v257 -> v256;
-v258 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v258 -> v255;
-v258 -> v257;
-v259 [label = "INT
-(100)"];
-v260 [label = "ASSIGN
-left := right
-"];
-v260 -> v258;
-v260 -> v259;
-v261 [label = "SIMPLE
-VAR
-(moish)"];
-v262 [label = "FIELD
-VAR
-...->grades"];
-v262 -> v261;
-v263 [label = "SIMPLE
-VAR
-(PDE)"];
-v264 [label = "EXP
-VAR"];
-v264 -> v263;
-v265 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v265 -> v262;
-v265 -> v264;
-v266 [label = "INT
-(100)"];
-v267 [label = "ASSIGN
-left := right
-"];
-v267 -> v265;
-v267 -> v266;
-v268 [label = "SIMPLE
-VAR
-(moish)"];
-v269 [label = "FIELD
-VAR
-...->grades"];
-v269 -> v268;
-v270 [label = "SIMPLE
-VAR
-(Scheme)"];
-v271 [label = "EXP
-VAR"];
-v271 -> v270;
-v272 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v272 -> v269;
-v272 -> v271;
-v273 [label = "INT
-(74)"];
-v274 [label = "ASSIGN
-left := right
-"];
-v274 -> v272;
-v274 -> v273;
-v275 [label = "SIMPLE
-VAR
-(moish)"];
-v276 [label = "FIELD
-VAR
-...->grades"];
-v276 -> v275;
-v277 [label = "SIMPLE
-VAR
-(CPP)"];
-v278 [label = "EXP
-VAR"];
-v278 -> v277;
-v279 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v279 -> v276;
-v279 -> v278;
-v280 [label = "INT
-(99)"];
-v281 [label = "ASSIGN
-left := right
-"];
-v281 -> v279;
-v281 -> v280;
-v332 [label = "IF STMT
-"];
-v282 [label = "SIMPLE
-VAR
-(moish)"];
-v283 [label = "EXP_MODIFY_4
-ID(getAverage);
-"];
-v283 -> v282;
-v284 [label = "INT
-(60)"];
-v285 [label = "BINOP
-(>)"];
-v285 -> v283;
-v285 -> v284;
-v332 -> v285;
-v286 [label = "SIMPLE
-VAR
-(moish)"];
-v287 [label = "FIELD
-VAR
-...->lastYearSalaries"];
-v287 -> v286;
-v288 [label = "SIMPLE
-VAR
-(moish)"];
-v289 [label = "FIELD
-VAR
-...->age"];
-v289 -> v288;
-v290 [label = "EXP
-VAR"];
-v290 -> v289;
-v291 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v291 -> v287;
-v291 -> v290;
-v292 [label = "SIMPLE
-VAR
-(moish)"];
-v293 [label = "FIELD
-VAR
-...->lastYearSalaries"];
-v293 -> v292;
-v294 [label = "SIMPLE
-VAR
-(moish)"];
-v295 [label = "EXP_MODIFY_4
-ID(birthday);
-"];
-v295 -> v294;
-v296 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v296 -> v293;
-v296 -> v295;
-v297 [label = "EXP
-VAR"];
-v297 -> v296;
-v298 [label = "INT
-(1000)"];
-v299 [label = "BINOP
+v29 [label = "BINOP
 (+)"];
-v299 -> v297;
-v299 -> v298;
-v300 [label = "ASSIGN
-left := right
-"];
-v300 -> v291;
-v300 -> v299;
-v301 [label = "SIMPLE
-VAR
-(moish)"];
-v302 [label = "FIELD
-VAR
-...->lastYearSalaries"];
-v302 -> v301;
-v303 [label = "SIMPLE
-VAR
-(moish)"];
-v304 [label = "FIELD
-VAR
-...->age"];
-v304 -> v303;
-v305 [label = "EXP
-VAR"];
-v305 -> v304;
-v306 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v306 -> v302;
-v306 -> v305;
-v307 [label = "SIMPLE
-VAR
-(moish)"];
-v308 [label = "FIELD
-VAR
-...->lastYearSalaries"];
-v308 -> v307;
-v309 [label = "SIMPLE
-VAR
-(moish)"];
-v310 [label = "EXP_MODIFY_4
-ID(birthday);
-"];
-v310 -> v309;
-v311 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v311 -> v308;
-v311 -> v310;
-v312 [label = "EXP
-VAR"];
-v312 -> v311;
-v313 [label = "INT
-(1000)"];
-v314 [label = "BINOP
+v29 -> v27;
+v29 -> v28;
+v30 [label = "EXP
+PARENTHESES"];
+v30 -> v29;
+v31 [label = "BINOP
 (+)"];
-v314 -> v312;
-v314 -> v313;
-v315 [label = "ASSIGN
+v31 -> v26;
+v31 -> v30;
+v32 [label = "EXP
+PARENTHESES"];
+v32 -> v31;
+v33 [label = "BINOP
+(+)"];
+v33 -> v25;
+v33 -> v32;
+v34 [label = "EXP
+PARENTHESES"];
+v34 -> v33;
+v35 [label = "BINOP
+(+)"];
+v35 -> v24;
+v35 -> v34;
+v36 [label = "EXP
+PARENTHESES"];
+v36 -> v35;
+v37 [label = "BINOP
+(+)"];
+v37 -> v23;
+v37 -> v36;
+v38 [label = "EXP
+PARENTHESES"];
+v38 -> v37;
+v39 [label = "BINOP
+(+)"];
+v39 -> v22;
+v39 -> v38;
+v40 [label = "varDec_2
+"];
+v40 -> v41;
+v40 -> v39;
+v42 [label = "STMT_VAR_DEC
+"];
+v42 -> v40;
+v43 [label = "SIMPLE
+VAR
+(happy)"];
+v44 [label = "SIMPLE
+VAR
+(joy)"];
+v45 [label = "EXP
+VAR"];
+v45 -> v44;
+v46 [label = "SIMPLE
+VAR
+(counter)"];
+v47 [label = "EXP
+VAR"];
+v47 -> v46;
+v48 [label = "BINOP
+(+)"];
+v48 -> v45;
+v48 -> v47;
+v49 [label = "ASSIGN
 left := right
 "];
-v315 -> v306;
-v315 -> v314;
-v316 [label = "SIMPLE
+v49 -> v43;
+v49 -> v48;
+v50 [label = "SIMPLE
 VAR
-(moish)"];
-v317 [label = "FIELD
+(counter)"];
+v51 [label = "SIMPLE
 VAR
-...->lastYearSalaries"];
-v317 -> v316;
-v318 [label = "INT
-(10)"];
-v319 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v319 -> v317;
-v319 -> v318;
-v320 [label = "EXP
+(alex)"];
+v52 [label = "EXP
 VAR"];
-v320 -> v319;
-v321 [label = "STMT_MODIFY_2
+v52 -> v51;
+v53 [label = "SIMPLE
+VAR
+(joy)"];
+v54 [label = "EXP
+VAR"];
+v54 -> v53;
+v55 [label = "BINOP
+(+)"];
+v55 -> v52;
+v55 -> v54;
+v56 [label = "ASSIGN
+left := right
+"];
+v56 -> v50;
+v56 -> v55;
+v57 [label = "SIMPLE
+VAR
+(happy)"];
+v58 [label = "EXP
+VAR"];
+v58 -> v57;
+v59 [label = "SIMPLE
+VAR
+(happy)"];
+v60 [label = "EXP
+VAR"];
+v60 -> v59;
+v61 [label = "SIMPLE
+VAR
+(joy)"];
+v62 [label = "EXP
+VAR"];
+v62 -> v61;
+v63 [label = "BINOP
+(*)"];
+v63 -> v60;
+v63 -> v62;
+v64 [label = "BINOP
+(+)"];
+v64 -> v58;
+v64 -> v63;
+v65 [label = "STMT_MODIFY_2
 ID(PrintInt)
 (exp);
 "];
-v321 -> v320;
-v322 [label = "SIMPLE
-VAR
-(moish)"];
-v323 [label = "FIELD
-VAR
-...->lastYearSalaries"];
-v323 -> v322;
-v324 [label = "INT
-(11)"];
-v325 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v325 -> v323;
-v325 -> v324;
-v326 [label = "EXP
-VAR"];
-v326 -> v325;
-v327 [label = "STMT_MODIFY_2
-ID(PrintInt)
-(exp);
-"];
-v327 -> v326;
-v332 -> v300;
-v332 -> v315;
-v332 -> v321;
-v332 -> v327;
-v359 -> v119;
-v359 -> v125;
-v359 -> v131;
-v359 -> v137;
-v359 -> v161;
-v359 -> v166;
-v359 -> v171;
-v359 -> v176;
-v359 -> v181;
-v359 -> v186;
-v359 -> v191;
-v359 -> v196;
-v359 -> v201;
-v359 -> v206;
-v359 -> v211;
-v359 -> v218;
-v359 -> v225;
-v359 -> v232;
-v359 -> v239;
-v359 -> v246;
-v359 -> v253;
-v359 -> v260;
-v359 -> v267;
-v359 -> v274;
-v359 -> v281;
-v359 -> v332;
-v359 -> v360;
-v361 [label = "funcDec"];
-v361 -> v359;
-v367 -> v2;
-v367 -> v16;
-v367 -> v59;
-v367 -> v113;
-v367 -> v361;
+v65 -> v64;
+v70 -> v42;
+v70 -> v49;
+v70 -> v56;
+v70 -> v65;
+v70 -> v71;
+v72 [label = "funcDec"];
+v72 -> v70;
+v78 -> v4;
+v78 -> v9;
+v78 -> v14;
+v78 -> v19;
+v78 -> v72;
 }

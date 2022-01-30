@@ -335,31 +335,14 @@ public class MIPSGenerator
 		int t1_idx = t1.getSerialNumber();
 		int t2_idx = t2.getSerialNumber();
 
-		//error handilng
-		//fileWriter.format("\tbltz Temp_%d, abort_nathannnnn\n",t2_idx);
 		code_commands.add(String.format("\tbltz Temp_%d, abort\n",t2_idx));
-//		fileWriter.format("\tlw $s0, 0(Temp_%d)\n",t1_idx);
 		code_commands.add(String.format("\tlw $s0, 0(Temp_%d)\n",t1_idx));
-//		fileWriter.format("\tbge Temp_%d, $s0, abort_nathannnnn\n",t2_idx);
 		code_commands.add(String.format("\tbge Temp_%d, $s0, abort\n",t2_idx));
-
-//		fileWriter.format("\tmove $s0, Temp_%d\n",t2_idx);
 		code_commands.add(String.format("\tmove $s0, Temp_%d\n",t2_idx));
-//		fileWriter.format("\tadd $s0, $s0, 1\n");
 		code_commands.add(String.format("\tadd $s0, $s0, 1\n"));
-//		fileWriter.format("\tmul $s0, $s0, 4\n");
 		code_commands.add(String.format("\tmul $s0, $s0, 4\n"));
-//		fileWriter.format("\taddu $s0, Temp_%d, $s0\n",t1_idx);
 		code_commands.add(String.format("\taddu $s0, Temp_%d, $s0\n",t1_idx));
-//		fileWriter.format("\tlw Temp_%d, 0($s0)\n",t0_idx);
 		code_commands.add(String.format("\tlw Temp_%d, 0($s0)\n",t0_idx));
-
-//		fileWriter.format("\tabort_nathannnnn:\n");
-//		code_commands.add(String.format("\tabort_nathannnnn:\n"));
-//		fileWriter.format("\tli $v0,10\n");
-//		code_commands.add(String.format("\tli $v0, 10\n"));
-//		fileWriter.format("\tsyscall\n");
-//		code_commands.add(String.format("\tsyscall\n"));
 	}
 
 	public void new_class(TEMP t0 , TYPE_ID[] fields_array , int size_of_class , String class_name){
@@ -497,12 +480,18 @@ public class MIPSGenerator
 
 	public void array_set(TEMP t1 , TEMP t2 , TEMP t3) {
 		int t2_idx = t2.getSerialNumber();
-		code_commands.add(String.format("\taddu Temp_%d, Temp_%d, 1\n", t2_idx, t2_idx));
-		code_commands.add(String.format("\tmul Temp_%d, Temp_%d, 4\n", t2_idx, t2_idx));
 		int t1_idx = t1.getSerialNumber();
 		int t3_idx = t3.getSerialNumber();
-		code_commands.add(String.format("\taddu Temp_%d, Temp_%d, Temp_%d\n", t1_idx, t1_idx, t2_idx));
-		code_commands.add(String.format("\tsw Temp_%d, 0(Temp_%d)\n", t3_idx, t1_idx));
+		code_commands.add(String.format("\tbltz Temp_%d, abort\n",t2_idx));
+		code_commands.add(String.format("\tlw $s0, 0(Temp_%d)\n",t1_idx));
+		code_commands.add(String.format("\tbge Temp_%d, $s0, abort\n",t2_idx));
+
+		code_commands.add(String.format("\tmove $s0, Temp_%d\n",t2_idx));
+		code_commands.add(String.format("\tadd $s0, $s0, 1\n"));
+		code_commands.add(String.format("\tmul $s0, $s0, 4\n"));
+		code_commands.add(String.format("\taddu $s0, Temp_%d, $s0\n",t1_idx));
+
+		code_commands.add(String.format("\tsw Temp_%d, 0($s0)\n", t3_idx));
 	}
 
 	public void div(TEMP dst,TEMP oprnd1,TEMP oprnd2, String label_end_max, String label_end_min)
