@@ -101,34 +101,34 @@ public class MIPSGenerator
 //		code_commands.add(String.format("\tadd $a0, $a0, Temp_%d\n",i2));;
 //		code_commands.add(String.format("\tsub $a0, $a0, 1\n"));
 //		code_commands.add(String.format("\tsyscall\n"));
-//		code_commands.add(String.format("\tmove Temp_%d, $v0\n",dstidx));
+//		code_commands.add(String.format("\tmove Temp_%d, $v0\n",dstidx)); Temp_
 
 		fileWriter.format("\tconcat_str%d: .asciiz \"\"\n",str_concat_cnt);
-		code_commands.add(String.format("\tla $t%d, concat_str%d\n",dstidx, str_concat_cnt));
-		code_commands.add(String.format("\tmove $s0, $t%d\n",i1));
-		code_commands.add(String.format("\tmove $s1, $t%d\n",i2));
-		code_commands.add(String.format("\tmove $s2, $t%d\n",dstidx));
+		code_commands.add(String.format("\tla Temp_%d, concat_str%d\n",dstidx, str_concat_cnt));
+		code_commands.add(String.format("\tmove $s0, Temp_%d\n",i1));
+		code_commands.add(String.format("\tmove $s1, Temp_%d\n",i2));
+		code_commands.add(String.format("\tmove $s2, Temp_%d\n",dstidx));
 
-		code_commands.add(String.format("\t%s:\n",label_string1));
-		code_commands.add(String.format("\tlb $t%d, 0($s0)\n",tmpid));
-		code_commands.add(String.format("\tbeq $t%d, $zero, %s\n",tmpid,label_string2));
-		code_commands.add(String.format("\tsb $t%d, 0($s2)\n",tmpid));
+		code_commands.add(String.format("%s:\n",label_string1));
+		code_commands.add(String.format("\tlb Temp_%d, 0($s0)\n",tmpid));
+		code_commands.add(String.format("\tbeq Temp_%d, $zero, %s\n",tmpid,label_string2));
+		code_commands.add(String.format("\tsb Temp_%d, 0($s2)\n",tmpid));
 		code_commands.add(String.format("\taddi $s0, $s0, 1\n"));
 		code_commands.add(String.format("\taddi $s2, $s2, 1\n"));
 		code_commands.add(String.format("\tj %s\n",label_string1));
 
-		code_commands.add(String.format("\t%s:\n",label_string2));
-		code_commands.add(String.format("\tlb $t%d, 0($s1)\n",tmpid));
-		code_commands.add(String.format("\tbeq $t%d, $zero, %s\n",tmpid,label_end));
-		code_commands.add(String.format("\tsb $t%d, 0($s2)\n",tmpid));
+		code_commands.add(String.format("%s:\n",label_string2));
+		code_commands.add(String.format("\tlb Temp_%d, 0($s1)\n",tmpid));
+		code_commands.add(String.format("\tbeq Temp_%d, $zero, %s\n",tmpid,label_end));
+		code_commands.add(String.format("\tsb Temp_%d, 0($s2)\n",tmpid));
 		code_commands.add(String.format("\taddi $s1, $s1, 1\n"));
 		code_commands.add(String.format("\taddi $s2, $s2, 1\n"));
 		code_commands.add(String.format("\tj %s\n",label_string2));
 
-		code_commands.add(String.format("\t%s:\n",label_end));
+		code_commands.add(String.format("%s:\n",label_end));
 		code_commands.add(String.format("\tsb $zero, 0($s2)\n"));
-		//code_commands.add(String.format("\tmove $t%d, $s2\n",dstidx));
-		code_commands.add(String.format("\tla $t%d, concat_str%d\n",dstidx, str_concat_cnt));
+		//code_commands.add(String.format("\tmove Temp_%d, $s2\n",dstidx));
+		code_commands.add(String.format("\tla Temp_%d, concat_str%d\n",dstidx, str_concat_cnt));
 
 		//fileWriter.format("\t%s_str: .asciiz $s2\n",idxdst);
 		//fileWriter.format("\tla Temp_%d, %s_str\n",dstidx,var_name);
@@ -200,11 +200,12 @@ public class MIPSGenerator
 
 	public void allocate_and_store_const_string(TEMP t, String value)
 	{
+		const_str_cnt++;
 		int idx=t.getSerialNumber();
-		fileWriter.format("\tstr_aconst: .asciiz \"%s\"\n", value);
-		code_commands.add(String.format("\tla Temp_%d, %s\n",idx,"str_aconst"));
+		fileWriter.format("\tstr_aconst%d: .asciiz \"%s\"\n", const_str_cnt, value);
+		code_commands.add(String.format("\tla Temp_%d, %s%d\n",idx,"str_aconst",const_str_cnt));
 	}
-	public void add(TEMP dst,TEMP oprnd1,TEMP oprnd2)
+	public void add(TEMP dst,TEMP oprnd1,TEMP oprnd2, String label_end_max, String label_end_min)
 	{
 		int i1 =oprnd1.getSerialNumber();
 		int i2 =oprnd2.getSerialNumber();
@@ -212,8 +213,19 @@ public class MIPSGenerator
 
 //		fileWriter.format("\tadd Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
 		code_commands.add(String.format("\tadd Temp_%d, Temp_%d, Temp_%d\n",dstidx,i1,i2));
+
+		code_commands.add(String.format("\tli $s0, %d\n",MAX_NUM));
+		code_commands.add(String.format("\tble Temp_%d, $s0, %s\n",dstidx,label_end_max)); // chceck if dst <= max, if yes so jump to next checking
+		code_commands.add(String.format("\tli Temp_%d, %d\n",dstidx,MAX_NUM)); // dst = max, so we jump to end_label
+		code_commands.add(String.format("\tj %s\n",label_end_min)); // j end
+		code_commands.add(String.format("%s:\n",label_end_max)); 	// in_label:
+		code_commands.add(String.format("\tli $s0, %d\n",MIN_NUM));
+		code_commands.add(String.format("\tbgt Temp_%d, $s0, %s\n",dstidx,label_end_min)); // check if dst > min
+		code_commands.add(String.format("\tli Temp_%d, %d\n",dstidx,MIN_NUM));
+		code_commands.add(String.format("%s:\n",label_end_min)); // end_label:
+
 	}
-	public void sub(TEMP dst,TEMP oprnd1,TEMP oprnd2)
+	public void sub(TEMP dst,TEMP oprnd1,TEMP oprnd2, String label_end_max, String label_end_min)
 	{
 		int i1 =oprnd1.getSerialNumber();
 		int i2 =oprnd2.getSerialNumber();
@@ -221,8 +233,19 @@ public class MIPSGenerator
 
 //		fileWriter.format("\tadd Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
 		code_commands.add(String.format("\tsub Temp_%d, Temp_%d, Temp_%d\n",dstidx,i1,i2));
+
+		code_commands.add(String.format("\tli $s0, %d\n",MAX_NUM));
+		code_commands.add(String.format("\tble Temp_%d, $s0, %s\n",dstidx,label_end_max)); // chceck if dst <= max, if yes so jump to next checking
+		code_commands.add(String.format("\tli Temp_%d, %d\n",dstidx,MAX_NUM)); // dst = max, so we jump to end_label
+		code_commands.add(String.format("\tj %s\n",label_end_min)); // j end
+		code_commands.add(String.format("%s:\n",label_end_max)); 	// in_label:
+		code_commands.add(String.format("\tli $s0, %d\n",MIN_NUM));
+		code_commands.add(String.format("\tbgt Temp_%d, $s0, %s\n",dstidx,label_end_min)); // check if dst > min
+		code_commands.add(String.format("\tli Temp_%d, %d\n",dstidx,MIN_NUM));
+		code_commands.add(String.format("%s:\n",label_end_min)); // end_label:
+
 	}
-	public void mul(TEMP dst,TEMP oprnd1,TEMP oprnd2)
+	public void mul(TEMP dst,TEMP oprnd1,TEMP oprnd2, String label_end_max, String label_end_min)
 	{
 		int i1 =oprnd1.getSerialNumber();
 		int i2 =oprnd2.getSerialNumber();
@@ -230,6 +253,17 @@ public class MIPSGenerator
 
 //		fileWriter.format("\tmul Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
 		code_commands.add(String.format("\tmul Temp_%d, Temp_%d, Temp_%d\n",dstidx,i1,i2));
+
+		code_commands.add(String.format("\tli $s0, %d\n",MAX_NUM));
+		code_commands.add(String.format("\tble Temp_%d, $s0, %s\n",dstidx,label_end_max)); // chceck if dst <= max, if yes so jump to next checking
+		code_commands.add(String.format("\tli Temp_%d, %d\n",dstidx,MAX_NUM)); // dst = max, so we jump to end_label
+		code_commands.add(String.format("\tj %s\n",label_end_min)); // j end
+		code_commands.add(String.format("%s:\n",label_end_max)); 	// in_label:
+		code_commands.add(String.format("\tli $s0, %d\n",MIN_NUM));
+		code_commands.add(String.format("\tbgt Temp_%d, $s0, %s\n",dstidx,label_end_min)); // check if dst > min
+		code_commands.add(String.format("\tli Temp_%d, %d\n",dstidx,MIN_NUM));
+		code_commands.add(String.format("%s:\n",label_end_min)); // end_label:
+
 	}
 	public void label(String inlabel)
 	{
@@ -580,6 +614,27 @@ public class MIPSGenerator
 		code_commands.add(String.format("\tbgt Temp_%d, $s0, %s\n",dstidx,label_end_min)); // check if dst > min
 		code_commands.add(String.format("\tli Temp_%d, %d\n",dstidx,MIN_NUM));
 		code_commands.add(String.format("%s:\n",label_end_min)); // end_label:
+	}
+
+	public void str_eq(TEMP t3,TEMP t1,TEMP t2, String neq_label, String str_eq_end, String str_eq_loop){
+		int t3_idx = t3.getSerialNumber();
+		int t1_idx = t1.getSerialNumber();
+		int t2_idx = t2.getSerialNumber();
+
+		code_commands.add(String.format("\tli Temp_%d, %d\n",t3_idx,1));
+		code_commands.add(String.format("\tmove $s0, Temp_%d\n",t1_idx));
+		code_commands.add(String.format("\tmove $s1, Temp_%d\n",t2_idx));
+		code_commands.add(String.format("%s:\n",str_eq_loop));
+		code_commands.add(String.format("\tlb $s2, 0($s0)\n"));
+		code_commands.add(String.format("\tlb $s3, 0($s1)\n"));
+		code_commands.add(String.format("\tbne $s2, $s3, %s\n",neq_label));
+		code_commands.add(String.format("\tbeq $s2, $zero, %s\n",str_eq_end));
+		code_commands.add(String.format("\taddu $s0, $s0, 1\n"));
+		code_commands.add(String.format("\taddu $s1, $s1, 1\n"));
+		code_commands.add(String.format("\tj %s\n",str_eq_loop));
+		code_commands.add(String.format("%s:\n",neq_label));
+		code_commands.add(String.format("\tli Temp_%d, %d\n",t3_idx,0));
+		code_commands.add(String.format("%s:\n",str_eq_end));
 	}
 	
 	/**************************************/
