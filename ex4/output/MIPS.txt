@@ -1,13 +1,77 @@
 .data
 string_access_violation: .asciiz "Access Violation"
-string_illegal_div_by_0: .asciiz "Illegal Division By Zero"
+string_illegal_div_by_0: .asciiz "Division By Zero"
 string_invalid_ptr_dref: .asciiz "Invalid Pointer Dereference"
 space_for_printInt_space: .asciiz " "
-counter: .word 7
-joy: .word 9
-alex: .word 10
-happy: .word 6
+vt_MyClass:
+	.word MyClass_oops
+	str_aconst: .asciiz "what"
 .text
+MyClass_oops:
+MyClass_oops_prologue:
+	subu $sp, $sp, 4
+	sw $ra, 0($sp)
+	subu $sp, $sp, 4
+	sw $fp, 0($sp)
+	move $fp, $sp
+	subu $sp, $sp, 4
+	sw $t0, 0($sp)
+	subu $sp, $sp, 4
+	sw $t1, 0($sp)
+	subu $sp, $sp, 4
+	sw $t2, 0($sp)
+	subu $sp, $sp, 4
+	sw $t3, 0($sp)
+	subu $sp, $sp, 4
+	sw $t4, 0($sp)
+	subu $sp, $sp, 4
+	sw $t5, 0($sp)
+	subu $sp, $sp, 4
+	sw $t6, 0($sp)
+	subu $sp, $sp, 4
+	sw $t7, 0($sp)
+	subu $sp, $sp, 4
+	sw $t8, 0($sp)
+	subu $sp, $sp, 4
+	sw $t9, 0($sp)
+	sub $sp, $sp, 16
+MyClass_oops_body:
+	la $t0, str_aconst
+	move $a0, $t0
+	li $v0, 4
+	syscall
+	li $t0, 0
+	sw $t0, -44($fp)
+	li $t1, 3
+	lw $t0, -44($fp)
+	beq $t0, $zero, abort_division_by_zero
+	div $t0, $t1, $t0
+	li $s0, 32767
+	ble $t0, $s0, Label_0_endMax
+	li $t0, 32767
+	j Label_1_endMin
+Label_0_endMax:
+	li $s0, -32768
+	bgt $t0, $s0, Label_1_endMin
+	li $t0, -32768
+Label_1_endMin:
+	sw $t0, -48($fp)
+MyClass_oops_epilogue:
+	move $sp, $fp
+	lw $t0, -4($sp)
+	lw $t1, -8($sp)
+	lw $t2, -12($sp)
+	lw $t3, -16($sp)
+	lw $t4, -20($sp)
+	lw $t5, -24($sp)
+	lw $t6, -28($sp)
+	lw $t7, -32($sp)
+	lw $t8, -36($sp)
+	lw $t9, -40($sp)
+	lw $fp, 0($sp)
+	lw $ra, 4($sp)
+	addu $sp, $sp, 8
+	jr $ra
 user_main:
 user_main_prologue:
 	subu $sp, $sp, 4
@@ -37,39 +101,20 @@ user_main_prologue:
 	sw $t9, 0($sp)
 	sub $sp, $sp, 16
 user_main_body:
-	li Temp_0, 1
-	li Temp_1, 2
-	li Temp_2, 3
-	li Temp_3, 4
-	li Temp_4, 5
-	li Temp_5, 6
-	li Temp_6, 7
-	add Temp_7, Temp_5, Temp_6
-	add Temp_8, Temp_4, Temp_7
-	add Temp_9, Temp_3, Temp_8
-	add Temp_10, Temp_2, Temp_9
-	add Temp_11, Temp_1, Temp_10
-	add Temp_12, Temp_0, Temp_11
-	sw Temp_12, -44($fp)
-	lw Temp_13, joy
-	lw Temp_14, counter
-	add Temp_15, Temp_13, Temp_14
-	sw Temp_15, happy
-	lw Temp_16, -44($fp)
-	lw Temp_17, joy
-	add Temp_18, Temp_16, Temp_17
-	sw Temp_18, counter
-	lw Temp_19, happy
-	lw Temp_20, happy
-	lw Temp_21, joy
-	mul Temp_22, Temp_20, Temp_21
-	add Temp_23, Temp_19, Temp_22
-	move $a0, Temp_23
-	li $v0, 1
+	li $v0, 9
+	li $a0, 4
 	syscall
-	la $a0, space_for_printInt_space
-	li $v0, 4
-	syscall
+	move $t0, $v0
+	la $s0, vt_MyClass
+	sw $s0, 0($t0)
+	sw $t0, -44($fp)
+	lw $t0, -44($fp)
+	subu $sp, $sp, 4
+	sw $t0, 0($sp)
+	lw $s0, 0($t0)
+	lw $s1, 0($s0)
+	jalr $s1
+	addu $sp, $sp, 4
 user_main_epilogue:
 	move $sp, $fp
 	lw $t0, -4($sp)
@@ -87,7 +132,25 @@ user_main_epilogue:
 	addu $sp, $sp, 8
 	jr $ra
 abort:
-	li $v0,10
+	li $v0, 10
+	syscall
+abort_access_violation:
+	la $a0, string_access_violation
+	li $v0, 4
+	syscall
+	li $v0, 10
+	syscall
+abort_invalid_pointer_dereference:
+	la $a0, string_invalid_ptr_dref
+	li $v0, 4
+	syscall
+	li $v0, 10
+	syscall
+abort_division_by_zero:
+	la $a0, string_illegal_div_by_0
+	li $v0, 4
+	syscall
+	li $v0, 10
 	syscall
 main:
 	jal user_main

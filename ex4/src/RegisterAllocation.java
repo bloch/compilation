@@ -52,14 +52,18 @@ public class RegisterAllocation {
                                 cur_node.successors.add(cur_cfg.get(j + 1));
                             }
                         } else {
-                            if (!splitted_cmds[1].equals("abort")){
+                            if (!splitted_cmds[1].equals("abort") && !splitted_cmds[1].equals("abort_access_violation")
+                                && !splitted_cmds[1].equals("abort_invalid_pointer_dereference")
+                                && !splitted_cmds[1].equals("abort_division_by_zero")){
                                 CFGNode dest_node = find_cfg_node(cur_cfg, splitted_cmds[1] + ":");
                                 cur_node.successors.add(dest_node);
                             }
                         }
                     } else if (splitted_cmds[0].equals("beq") || splitted_cmds[0].equals("bne") || splitted_cmds[0].equals("blt")
                                || splitted_cmds[0].equals("bge") || splitted_cmds[0].equals("ble") || splitted_cmds[0].equals("bgt")) {
-                        if (!splitted_cmds[3].equals("abort")) {
+                        if (!splitted_cmds[3].equals("abort") && !splitted_cmds[3].equals("abort_access_violation")
+                            && !splitted_cmds[3].equals("abort_invalid_pointer_dereference")
+                            && !splitted_cmds[3].equals("abort_division_by_zero")){
                             CFGNode dest_node = find_cfg_node(cur_cfg, splitted_cmds[3] + ":");
                             cur_node.successors.add(dest_node);
                         }
@@ -68,7 +72,9 @@ public class RegisterAllocation {
                         }
                     }
                     else if (splitted_cmds[0].equals("bltz")) {
-                        if (!splitted_cmds[2].equals("abort")) {
+                        if (!splitted_cmds[2].equals("abort") && !splitted_cmds[2].equals("abort_access_violation")
+                            && !splitted_cmds[2].equals("abort_invalid_pointer_dereference")
+                            && !splitted_cmds[2].equals("abort_division_by_zero")){
                             CFGNode dest_node = find_cfg_node(cur_cfg, splitted_cmds[2] + ":");
                             cur_node.successors.add(dest_node);
                         }

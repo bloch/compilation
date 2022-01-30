@@ -42,8 +42,30 @@ public class MIPSGenerator
 			fileWriter.print(code_commands.get(i));
 		}
 		fileWriter.print("abort:\n");
-		fileWriter.print("\tli $v0,10\n");
+		fileWriter.print("\tli $v0, 10\n");
 		fileWriter.print("\tsyscall\n");
+
+		fileWriter.print("abort_access_violation:\n");
+		fileWriter.print("\tla $a0, string_access_violation\n");
+		fileWriter.print("\tli $v0, 4\n");
+		fileWriter.print("\tsyscall\n");
+		fileWriter.print("\tli $v0, 10\n");
+		fileWriter.print("\tsyscall\n");
+
+		fileWriter.print("abort_invalid_pointer_dereference:\n");
+		fileWriter.print("\tla $a0, string_invalid_ptr_dref\n");
+		fileWriter.print("\tli $v0, 4\n");
+		fileWriter.print("\tsyscall\n");
+		fileWriter.print("\tli $v0, 10\n");
+		fileWriter.print("\tsyscall\n");
+
+		fileWriter.print("abort_division_by_zero:\n");
+		fileWriter.print("\tla $a0, string_illegal_div_by_0\n");
+		fileWriter.print("\tli $v0, 4\n");
+		fileWriter.print("\tsyscall\n");
+		fileWriter.print("\tli $v0, 10\n");
+		fileWriter.print("\tsyscall\n");
+
 		fileWriter.print("main:\n");
 		fileWriter.print("\tjal user_main\n");
 		fileWriter.print("\tli $v0,10\n");
@@ -267,17 +289,13 @@ public class MIPSGenerator
 	public void field_access(TEMP dst, int offset, TEMP src) {
 		int t0 = dst.getSerialNumber();
 		int t1 = src.getSerialNumber();
-//		fileWriter.format("\tbeq Temp_%d, 0, abort\n", t1);
-//		fileWriter.format("\tlw Temp_%d, %d(Temp_%d)\n", t0, offset, t1);
-		code_commands.add(String.format("\tbeq Temp_%d, 0, abort\n", t1));
+		code_commands.add(String.format("\tbeq Temp_%d, 0, abort_invalid_pointer_dereference\n", t1));
 		code_commands.add(String.format("\tlw Temp_%d, %d(Temp_%d)\n", t0, offset, t1));
 	}
 	public void field_set(TEMP o, int offset, TEMP e) {
 		int t0 = o.getSerialNumber();
 		int t1 = e.getSerialNumber();
-//		fileWriter.format("\tbeq Temp_%d, 0, abort\n", t0);
-//		fileWriter.format("\tsw Temp_%d, %d(Temp_%d)\n", t1, offset, t0);
-		code_commands.add(String.format("\tbeq Temp_%d, 0, abort\n", t0));
+		code_commands.add(String.format("\tbeq Temp_%d, 0, abort_invalid_pointer_dereference\n", t0));
 		code_commands.add(String.format("\tsw Temp_%d, %d(Temp_%d)\n", t1, offset, t0));
 	}
 	public void virtual_call(TEMP object, int offset, TEMP_LIST params, TEMP dst) {
@@ -335,9 +353,9 @@ public class MIPSGenerator
 		int t1_idx = t1.getSerialNumber();
 		int t2_idx = t2.getSerialNumber();
 
-		code_commands.add(String.format("\tbltz Temp_%d, abort\n",t2_idx));
+		code_commands.add(String.format("\tbltz Temp_%d, abort_access_violation\n",t2_idx));
 		code_commands.add(String.format("\tlw $s0, 0(Temp_%d)\n",t1_idx));
-		code_commands.add(String.format("\tbge Temp_%d, $s0, abort\n",t2_idx));
+		code_commands.add(String.format("\tbge Temp_%d, $s0, abort_access_violation\n",t2_idx));
 		code_commands.add(String.format("\tmove $s0, Temp_%d\n",t2_idx));
 		code_commands.add(String.format("\tadd $s0, $s0, 1\n"));
 		code_commands.add(String.format("\tmul $s0, $s0, 4\n"));
@@ -482,9 +500,9 @@ public class MIPSGenerator
 		int t2_idx = t2.getSerialNumber();
 		int t1_idx = t1.getSerialNumber();
 		int t3_idx = t3.getSerialNumber();
-		code_commands.add(String.format("\tbltz Temp_%d, abort\n",t2_idx));
+		code_commands.add(String.format("\tbltz Temp_%d, abort_access_violation\n",t2_idx));
 		code_commands.add(String.format("\tlw $s0, 0(Temp_%d)\n",t1_idx));
-		code_commands.add(String.format("\tbge Temp_%d, $s0, abort\n",t2_idx));
+		code_commands.add(String.format("\tbge Temp_%d, $s0, abort_access_violation\n",t2_idx));
 
 		code_commands.add(String.format("\tmove $s0, Temp_%d\n",t2_idx));
 		code_commands.add(String.format("\tadd $s0, $s0, 1\n"));
@@ -502,8 +520,7 @@ public class MIPSGenerator
 
 //		fileWriter.format("\tdiv Temp_%d,Temp_%d,Temp_%d\n",dstidx,i1,i2);
 		// TODO: check if (i2 != zero)
-		code_commands.add(String.format("\tbeq Temp_%d, $zero, abort\n",i2));
-		// TODO: need to print "Division by zero" in abort label
+		code_commands.add(String.format("\tbeq Temp_%d, $zero, abort_division_by_zero\n",i2));
 
 		code_commands.add(String.format("\tdiv Temp_%d, Temp_%d, Temp_%d\n",dstidx,i1,i2));
 		code_commands.add(String.format("\tli $s0, %d\n",MAX_NUM));
@@ -563,7 +580,7 @@ public class MIPSGenerator
 			/*****************************************************/
 			instance.fileWriter.print(".data\n");
 			instance.fileWriter.print("string_access_violation: .asciiz \"Access Violation\"\n");
-			instance.fileWriter.print("string_illegal_div_by_0: .asciiz \"Illegal Division By Zero\"\n");
+			instance.fileWriter.print("string_illegal_div_by_0: .asciiz \"Division By Zero\"\n");
 			instance.fileWriter.print("string_invalid_ptr_dref: .asciiz \"Invalid Pointer Dereference\"\n");
 			instance.fileWriter.print("space_for_printInt_space: .asciiz \" \"\n");
 //			instance.fileWriter.print(".text\n");
