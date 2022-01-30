@@ -11,6 +11,7 @@ public class AST_EXP_BINOP extends AST_EXP
 	int OP;
 	public AST_EXP left;
 	public AST_EXP right;
+	public boolean isString;
 	
 	/******************/
 	/* CONSTRUCTOR(S) */
@@ -34,6 +35,7 @@ public class AST_EXP_BINOP extends AST_EXP
 		this.left = left;
 		this.right = right;
 		this.OP = OP;
+		this.isString = false;
 	}
 	
 	/*************************************************/
@@ -99,6 +101,10 @@ public class AST_EXP_BINOP extends AST_EXP
 			System.exit(0);
 		}
 
+		if (t1 instanceof TYPE_STRING){
+			this.isString = true;
+		}
+
 		if(OP == 6) {			// Equality logic : page 7
 			System.out.println("enter equality in binop");
 			if (isT1SubInstanceT2(t1, t2) || isT1SubInstanceT2(t2, t1)) {
@@ -151,7 +157,13 @@ public class AST_EXP_BINOP extends AST_EXP
 		TEMP dst = TEMP_FACTORY.getInstance().getFreshTEMP();
 
 		if (OP == 0) {
-			IR.getInstance().Add_IRcommand(new IRcommand_Binop_Add_Integers(dst,t1,t2));
+			if (this.isString){//strings
+				IR.getInstance().Add_IRcommand(new IRcommand_Binop_Concat_Strings(dst, t1, t2));
+			}
+			else{
+				IR.getInstance().Add_IRcommand(new IRcommand_Binop_Add_Integers(dst,t1,t2));
+			}
+
 		}
 		if (OP == 1) {
 			IR.getInstance().Add_IRcommand(new IRcommand_Binop_Subtract_Integers(dst,t1,t2));
@@ -169,7 +181,12 @@ public class AST_EXP_BINOP extends AST_EXP
 			IR.getInstance().Add_IRcommand(new IRcommand_Binop_GT_Integers(dst,t1,t2));
 		}
 		if (OP == 6) {
-			IR.getInstance().Add_IRcommand(new IRcommand_Binop_EQ_Integers(dst,t1,t2));
+			if (this.isString){//strings
+				IR.getInstance().Add_IRcommand(new IRcommand_Binop_EQ_Strings(dst,t1,t2));
+			}
+			else{
+				IR.getInstance().Add_IRcommand(new IRcommand_Binop_EQ_Integers(dst,t1,t2));
+			}
 		}
 		return dst;
 	}

@@ -27,6 +27,8 @@ public class IRcommand_Binop_Subtract_Integers extends IRcommand
     }
 
     public void MIPSme() {
-        MIPSGenerator.getInstance().sub(dst,t1,t2);
+        String label_end_max  = getFreshLabel("endMax");
+        String label_end_min  = getFreshLabel("endMin");
+        MIPSGenerator.getInstance().sub(dst,t1,t2, label_end_max, label_end_min);
     }
 }
