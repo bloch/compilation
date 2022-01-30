@@ -120,7 +120,15 @@ public class AST_VAR_DEC_1 extends AST_VAR_DEC {
         TYPE t = SYMBOL_TABLE.getInstance().find(name);
         if(t != null) {
           // in global
-          IR.getInstance().Add_IRcommand(new IRcommand_Allocate(name));
+          if(t instanceof TYPE_INT) {
+              IR.getInstance().Add_IRcommand(new IRcommand_Allocate(name));
+          }
+          else if(t instanceof TYPE_STRING) {
+              IR.getInstance().Add_IRcommand(new IRcommand_Allocate_String(name, "uninitialized", true));
+          }
+          else {
+              IR.getInstance().Add_IRcommand(new IRcommand_Allocate(name));
+          }
         }
 
         return null;
