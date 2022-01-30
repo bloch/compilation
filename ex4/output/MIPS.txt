@@ -4,8 +4,8 @@ string_illegal_div_by_0: .asciiz "Illegal Division By Zero"
 string_invalid_ptr_dref: .asciiz "Invalid Pointer Dereference"
 space_for_printInt_space: .asciiz " "
 .text
-trace3x3:
-trace3x3_prologue:
+fib:
+fib_prologue:
 	subu $sp, $sp, 4
 	sw $ra, 0($sp)
 	subu $sp, $sp, 4
@@ -32,69 +32,43 @@ trace3x3_prologue:
 	subu $sp, $sp, 4
 	sw $t9, 0($sp)
 	sub $sp, $sp, 16
-trace3x3_body:
-	lw $t1, 8($fp)
-	li $t0, 0
-	bltz $t0, abort
-	lw $s0, 0($t1)
-	bge $t0, $s0, abort
-	move $s0, $t0
-	add $s0, $s0, 1
-	mul $s0, $s0, 4
-	addu $s0, $t1, $s0
-	lw $t1, 0($s0)
-	li $t0, 0
-	bltz $t0, abort
-	lw $s0, 0($t1)
-	bge $t0, $s0, abort
-	move $s0, $t0
-	add $s0, $s0, 1
-	mul $s0, $s0, 4
-	addu $s0, $t1, $s0
-	lw $t2, 0($s0)
-	lw $t1, 8($fp)
-	li $t0, 1
-	bltz $t0, abort
-	lw $s0, 0($t1)
-	bge $t0, $s0, abort
-	move $s0, $t0
-	add $s0, $s0, 1
-	mul $s0, $s0, 4
-	addu $s0, $t1, $s0
-	lw $t1, 0($s0)
-	li $t0, 1
-	bltz $t0, abort
-	lw $s0, 0($t1)
-	bge $t0, $s0, abort
-	move $s0, $t0
-	add $s0, $s0, 1
-	mul $s0, $s0, 4
-	addu $s0, $t1, $s0
-	lw $t0, 0($s0)
-	add $t2, $t2, $t0
+fib_body:
 	lw $t1, 8($fp)
 	li $t0, 2
-	bltz $t0, abort
-	lw $s0, 0($t1)
-	bge $t0, $s0, abort
-	move $s0, $t0
-	add $s0, $s0, 1
-	mul $s0, $s0, 4
-	addu $s0, $t1, $s0
-	lw $t1, 0($s0)
+	blt $t1, $t0, Label_2_AssignOne
+	bge $t1, $t0, Label_3_AssignZero
+Label_2_AssignOne:
+	li $t0, 1
+	j Label_1_end
+Label_3_AssignZero:
+	li $t0, 0
+	j Label_1_end
+Label_1_end:
+	beq $t0, $zero, Label_0_after_if
+	lw $t0, 8($fp)
+	move $v0, $t0
+	j fib_epilogue
+Label_0_after_if:
+	lw $t1, 8($fp)
+	li $t0, 1
+	sub $t0, $t1, $t0
+	subu $sp, $sp, 4
+	sw $t0, 0($sp)
+	jal fib
+	addu $sp, $sp, 4
+	move $t2, $v0
+	lw $t1, 8($fp)
 	li $t0, 2
-	bltz $t0, abort
-	lw $s0, 0($t1)
-	bge $t0, $s0, abort
-	move $s0, $t0
-	add $s0, $s0, 1
-	mul $s0, $s0, 4
-	addu $s0, $t1, $s0
-	lw $t0, 0($s0)
+	sub $t0, $t1, $t0
+	subu $sp, $sp, 4
+	sw $t0, 0($sp)
+	jal fib
+	addu $sp, $sp, 4
+	move $t0, $v0
 	add $t0, $t2, $t0
 	move $v0, $t0
-	j trace3x3_epilogue
-trace3x3_epilogue:
+	j fib_epilogue
+fib_epilogue:
 	move $sp, $fp
 	lw $t0, -4($sp)
 	lw $t1, -8($sp)
@@ -139,211 +113,10 @@ user_main_prologue:
 	sw $t9, 0($sp)
 	sub $sp, $sp, 16
 user_main_body:
-	li $t1, 3
-	li $v0, 9
-	move $a0, $t1
-	add $a0, $a0, 1
-	mul $a0, $a0, 4
-	syscall
-	move $t0, $v0
-	sw $t1, 0($t0)
-	sw $t0, -44($fp)
-	li $t1, 3
-	li $v0, 9
-	move $a0, $t1
-	add $a0, $a0, 1
-	mul $a0, $a0, 4
-	syscall
-	move $t0, $v0
-	sw $t1, 0($t0)
-	sw $t0, -48($fp)
-	li $t1, 3
-	li $v0, 9
-	move $a0, $t1
-	add $a0, $a0, 1
-	mul $a0, $a0, 4
-	syscall
-	move $t0, $v0
-	sw $t1, 0($t0)
-	sw $t0, -52($fp)
-	li $t1, 3
-	li $v0, 9
-	move $a0, $t1
-	add $a0, $a0, 1
-	mul $a0, $a0, 4
-	syscall
-	move $t0, $v0
-	sw $t1, 0($t0)
-	sw $t0, -56($fp)
-	lw $t2, -56($fp)
-	li $t1, 0
-	lw $t0, -44($fp)
-	addu $t1, $t1, 1
-	mul $t1, $t1, 4
-	addu $t2, $t2, $t1
-	sw $t0, 0($t2)
-	lw $t2, -56($fp)
-	li $t1, 1
-	lw $t0, -48($fp)
-	addu $t1, $t1, 1
-	mul $t1, $t1, 4
-	addu $t2, $t2, $t1
-	sw $t0, 0($t2)
-	lw $t2, -56($fp)
-	li $t1, 2
-	lw $t0, -52($fp)
-	addu $t1, $t1, 1
-	mul $t1, $t1, 4
-	addu $t2, $t2, $t1
-	sw $t0, 0($t2)
-	lw $t1, -56($fp)
-	li $t0, 0
-	bltz $t0, abort
-	lw $s0, 0($t1)
-	bge $t0, $s0, abort
-	move $s0, $t0
-	add $s0, $s0, 1
-	mul $s0, $s0, 4
-	addu $s0, $t1, $s0
-	lw $t2, 0($s0)
-	li $t1, 0
-	li $t0, 0
-	addu $t1, $t1, 1
-	mul $t1, $t1, 4
-	addu $t2, $t2, $t1
-	sw $t0, 0($t2)
-	lw $t1, -56($fp)
-	li $t0, 0
-	bltz $t0, abort
-	lw $s0, 0($t1)
-	bge $t0, $s0, abort
-	move $s0, $t0
-	add $s0, $s0, 1
-	mul $s0, $s0, 4
-	addu $s0, $t1, $s0
-	lw $t2, 0($s0)
-	li $t1, 1
-	li $t0, 1
-	addu $t1, $t1, 1
-	mul $t1, $t1, 4
-	addu $t2, $t2, $t1
-	sw $t0, 0($t2)
-	lw $t1, -56($fp)
-	li $t0, 0
-	bltz $t0, abort
-	lw $s0, 0($t1)
-	bge $t0, $s0, abort
-	move $s0, $t0
-	add $s0, $s0, 1
-	mul $s0, $s0, 4
-	addu $s0, $t1, $s0
-	lw $t2, 0($s0)
-	li $t1, 2
-	li $t0, 2
-	addu $t1, $t1, 1
-	mul $t1, $t1, 4
-	addu $t2, $t2, $t1
-	sw $t0, 0($t2)
-	lw $t1, -56($fp)
-	li $t0, 1
-	bltz $t0, abort
-	lw $s0, 0($t1)
-	bge $t0, $s0, abort
-	move $s0, $t0
-	add $s0, $s0, 1
-	mul $s0, $s0, 4
-	addu $s0, $t1, $s0
-	lw $t2, 0($s0)
-	li $t1, 0
-	li $t0, 3
-	addu $t1, $t1, 1
-	mul $t1, $t1, 4
-	addu $t2, $t2, $t1
-	sw $t0, 0($t2)
-	lw $t1, -56($fp)
-	li $t0, 1
-	bltz $t0, abort
-	lw $s0, 0($t1)
-	bge $t0, $s0, abort
-	move $s0, $t0
-	add $s0, $s0, 1
-	mul $s0, $s0, 4
-	addu $s0, $t1, $s0
-	lw $t2, 0($s0)
-	li $t1, 1
-	li $t0, 4
-	addu $t1, $t1, 1
-	mul $t1, $t1, 4
-	addu $t2, $t2, $t1
-	sw $t0, 0($t2)
-	lw $t1, -56($fp)
-	li $t0, 1
-	bltz $t0, abort
-	lw $s0, 0($t1)
-	bge $t0, $s0, abort
-	move $s0, $t0
-	add $s0, $s0, 1
-	mul $s0, $s0, 4
-	addu $s0, $t1, $s0
-	lw $t2, 0($s0)
-	li $t1, 2
-	li $t0, 5
-	addu $t1, $t1, 1
-	mul $t1, $t1, 4
-	addu $t2, $t2, $t1
-	sw $t0, 0($t2)
-	lw $t1, -56($fp)
-	li $t0, 2
-	bltz $t0, abort
-	lw $s0, 0($t1)
-	bge $t0, $s0, abort
-	move $s0, $t0
-	add $s0, $s0, 1
-	mul $s0, $s0, 4
-	addu $s0, $t1, $s0
-	lw $t2, 0($s0)
-	li $t1, 0
-	li $t0, 6
-	addu $t1, $t1, 1
-	mul $t1, $t1, 4
-	addu $t2, $t2, $t1
-	sw $t0, 0($t2)
-	lw $t1, -56($fp)
-	li $t0, 2
-	bltz $t0, abort
-	lw $s0, 0($t1)
-	bge $t0, $s0, abort
-	move $s0, $t0
-	add $s0, $s0, 1
-	mul $s0, $s0, 4
-	addu $s0, $t1, $s0
-	lw $t2, 0($s0)
-	li $t1, 1
-	li $t0, 7
-	addu $t1, $t1, 1
-	mul $t1, $t1, 4
-	addu $t2, $t2, $t1
-	sw $t0, 0($t2)
-	lw $t1, -56($fp)
-	li $t0, 2
-	bltz $t0, abort
-	lw $s0, 0($t1)
-	bge $t0, $s0, abort
-	move $s0, $t0
-	add $s0, $s0, 1
-	mul $s0, $s0, 4
-	addu $s0, $t1, $s0
-	lw $t2, 0($s0)
-	li $t1, 2
-	li $t0, 8
-	addu $t1, $t1, 1
-	mul $t1, $t1, 4
-	addu $t2, $t2, $t1
-	sw $t0, 0($t2)
-	lw $t0, -56($fp)
+	li $t0, 9
 	subu $sp, $sp, 4
 	sw $t0, 0($sp)
-	jal trace3x3
+	jal fib
 	addu $sp, $sp, 4
 	move $t0, $v0
 	move $a0, $t0
@@ -352,6 +125,7 @@ user_main_body:
 	la $a0, space_for_printInt_space
 	li $v0, 4
 	syscall
+	j user_main_epilogue
 user_main_epilogue:
 	move $sp, $fp
 	lw $t0, -4($sp)

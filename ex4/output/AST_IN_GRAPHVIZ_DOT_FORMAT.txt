@@ -1,523 +1,123 @@
 digraph
 {
 graph [ordering = "out"]
-v172 [label = "Program
+v41 [label = "Program
 "];
 v0 [label = "TYPE_INT
 "];
-v1 [label = "ARRAY_TYPE_DEF_1
-ID (IntArray);
+v26 [label = "TYPE_WITH_ID
+ID (fib);
 "];
-v1 -> v0;
-v2 [label = "arrayTypeDef"];
-v2 -> v1;
-v3 [label = "TYPE_ID
-(IntArray)
+v26 -> v0;
+v1 [label = "TYPE_INT
 "];
-v4 [label = "ARRAY_TYPE_DEF_1
-ID (Mat);
+v27 [label = "TYPE_WITH_ID
+ID (n);
 "];
-v4 -> v3;
-v5 [label = "arrayTypeDef"];
+v27 -> v1;
+v25 [label = "funcDec_2
+"];
+v10 [label = "IF STMT
+"];
+v2 [label = "SIMPLE
+VAR
+(n)"];
+v3 [label = "EXP
+VAR"];
+v3 -> v2;
+v4 [label = "INT
+(2)"];
+v5 [label = "BINOP
+(<)"];
+v5 -> v3;
 v5 -> v4;
-v6 [label = "TYPE_INT
-"];
-v31 [label = "TYPE_WITH_ID
-ID (trace3x3);
-"];
-v31 -> v6;
-v7 [label = "TYPE_ID
-(Mat)
-"];
-v32 [label = "TYPE_WITH_ID
-ID (A);
-"];
-v32 -> v7;
-v30 [label = "funcDec_2
-"];
-v8 [label = "SIMPLE
+v10 -> v5;
+v6 [label = "SIMPLE
 VAR
-(A)"];
-v9 [label = "INT
-(0)"];
-v10 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v10 -> v8;
-v10 -> v9;
-v11 [label = "INT
-(0)"];
-v12 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v12 -> v10;
-v12 -> v11;
-v13 [label = "EXP
+(n)"];
+v7 [label = "EXP
 VAR"];
-v13 -> v12;
-v14 [label = "SIMPLE
-VAR
-(A)"];
-v15 [label = "INT
-(1)"];
-v16 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v16 -> v14;
-v16 -> v15;
-v17 [label = "INT
-(1)"];
-v18 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v18 -> v16;
-v18 -> v17;
-v19 [label = "EXP
-VAR"];
-v19 -> v18;
-v20 [label = "BINOP
-(+)"];
-v20 -> v13;
-v20 -> v19;
-v21 [label = "SIMPLE
-VAR
-(A)"];
-v22 [label = "INT
-(2)"];
-v23 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v23 -> v21;
-v23 -> v22;
-v24 [label = "INT
-(2)"];
-v25 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v25 -> v23;
-v25 -> v24;
-v26 [label = "EXP
-VAR"];
-v26 -> v25;
-v27 [label = "BINOP
-(+)"];
-v27 -> v20;
-v27 -> v26;
-v28 [label = "STMT
+v7 -> v6;
+v8 [label = "STMT
 RETURN
 EXP
 "];
-v28 -> v27;
-v30 -> v28;
-v30 -> v31;
-v30 -> v32;
-v33 [label = "funcDec"];
-v33 -> v30;
-v34 [label = "TYPE_VOID
+v8 -> v7;
+v10 -> v8;
+v11 [label = "SIMPLE
+VAR
+(n)"];
+v12 [label = "EXP
+VAR"];
+v12 -> v11;
+v13 [label = "INT
+(1)"];
+v14 [label = "BINOP
+(-)"];
+v14 -> v12;
+v14 -> v13;
+v15 [label = "EXP_MODIFY_2
+ID(fib);
 "];
-v166 [label = "TYPE_WITH_ID
+v15 -> v14;
+v16 [label = "SIMPLE
+VAR
+(n)"];
+v17 [label = "EXP
+VAR"];
+v17 -> v16;
+v18 [label = "INT
+(2)"];
+v19 [label = "BINOP
+(-)"];
+v19 -> v17;
+v19 -> v18;
+v20 [label = "EXP_MODIFY_2
+ID(fib);
+"];
+v20 -> v19;
+v21 [label = "BINOP
+(+)"];
+v21 -> v15;
+v21 -> v20;
+v22 [label = "STMT
+RETURN
+EXP
+"];
+v22 -> v21;
+v25 -> v10;
+v25 -> v22;
+v25 -> v26;
+v25 -> v27;
+v28 [label = "funcDec"];
+v28 -> v25;
+v29 [label = "TYPE_VOID
+"];
+v37 [label = "TYPE_WITH_ID
 ID (main);
 "];
-v166 -> v34;
-v165 [label = "funcDec_1
+v37 -> v29;
+v36 [label = "funcDec_1
 "];
-v35 [label = "TYPE_ID
-(IntArray)
+v30 [label = "INT
+(9)"];
+v31 [label = "EXP_MODIFY_2
+ID(fib);
 "];
-v40 [label = "TYPE_WITH_ID
-ID (row0);
-"];
-v40 -> v35;
-v36 [label = "TYPE_INT
-"];
-v37 [label = "INT
-(3)"];
-v38 [label = "newExp_2"];
-v38 -> v36;
-v38 -> v37;
-v39 [label = "varDec_3"];
-v39 -> v40;
-v39 -> v38;
-v41 [label = "STMT_VAR_DEC
-"];
-v41 -> v39;
-v42 [label = "TYPE_ID
-(IntArray)
-"];
-v47 [label = "TYPE_WITH_ID
-ID (row1);
-"];
-v47 -> v42;
-v43 [label = "TYPE_INT
-"];
-v44 [label = "INT
-(3)"];
-v45 [label = "newExp_2"];
-v45 -> v43;
-v45 -> v44;
-v46 [label = "varDec_3"];
-v46 -> v47;
-v46 -> v45;
-v48 [label = "STMT_VAR_DEC
-"];
-v48 -> v46;
-v49 [label = "TYPE_ID
-(IntArray)
-"];
-v54 [label = "TYPE_WITH_ID
-ID (row2);
-"];
-v54 -> v49;
-v50 [label = "TYPE_INT
-"];
-v51 [label = "INT
-(3)"];
-v52 [label = "newExp_2"];
-v52 -> v50;
-v52 -> v51;
-v53 [label = "varDec_3"];
-v53 -> v54;
-v53 -> v52;
-v55 [label = "STMT_VAR_DEC
-"];
-v55 -> v53;
-v56 [label = "TYPE_ID
-(Mat)
-"];
-v61 [label = "TYPE_WITH_ID
-ID (A);
-"];
-v61 -> v56;
-v57 [label = "TYPE_ID
-(IntArray)
-"];
-v58 [label = "INT
-(3)"];
-v59 [label = "newExp_2"];
-v59 -> v57;
-v59 -> v58;
-v60 [label = "varDec_3"];
-v60 -> v61;
-v60 -> v59;
-v62 [label = "STMT_VAR_DEC
-"];
-v62 -> v60;
-v63 [label = "SIMPLE
-VAR
-(A)"];
-v64 [label = "INT
-(0)"];
-v65 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v65 -> v63;
-v65 -> v64;
-v66 [label = "SIMPLE
-VAR
-(row0)"];
-v67 [label = "EXP
-VAR"];
-v67 -> v66;
-v68 [label = "ASSIGN
-left := right
-"];
-v68 -> v65;
-v68 -> v67;
-v69 [label = "SIMPLE
-VAR
-(A)"];
-v70 [label = "INT
-(1)"];
-v71 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v71 -> v69;
-v71 -> v70;
-v72 [label = "SIMPLE
-VAR
-(row1)"];
-v73 [label = "EXP
-VAR"];
-v73 -> v72;
-v74 [label = "ASSIGN
-left := right
-"];
-v74 -> v71;
-v74 -> v73;
-v75 [label = "SIMPLE
-VAR
-(A)"];
-v76 [label = "INT
-(2)"];
-v77 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v77 -> v75;
-v77 -> v76;
-v78 [label = "SIMPLE
-VAR
-(row2)"];
-v79 [label = "EXP
-VAR"];
-v79 -> v78;
-v80 [label = "ASSIGN
-left := right
-"];
-v80 -> v77;
-v80 -> v79;
-v81 [label = "SIMPLE
-VAR
-(A)"];
-v82 [label = "INT
-(0)"];
-v83 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v83 -> v81;
-v83 -> v82;
-v84 [label = "INT
-(0)"];
-v85 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v85 -> v83;
-v85 -> v84;
-v86 [label = "INT
-(0)"];
-v87 [label = "ASSIGN
-left := right
-"];
-v87 -> v85;
-v87 -> v86;
-v88 [label = "SIMPLE
-VAR
-(A)"];
-v89 [label = "INT
-(0)"];
-v90 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v90 -> v88;
-v90 -> v89;
-v91 [label = "INT
-(1)"];
-v92 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v92 -> v90;
-v92 -> v91;
-v93 [label = "INT
-(1)"];
-v94 [label = "ASSIGN
-left := right
-"];
-v94 -> v92;
-v94 -> v93;
-v95 [label = "SIMPLE
-VAR
-(A)"];
-v96 [label = "INT
-(0)"];
-v97 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v97 -> v95;
-v97 -> v96;
-v98 [label = "INT
-(2)"];
-v99 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v99 -> v97;
-v99 -> v98;
-v100 [label = "INT
-(2)"];
-v101 [label = "ASSIGN
-left := right
-"];
-v101 -> v99;
-v101 -> v100;
-v102 [label = "SIMPLE
-VAR
-(A)"];
-v103 [label = "INT
-(1)"];
-v104 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v104 -> v102;
-v104 -> v103;
-v105 [label = "INT
-(0)"];
-v106 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v106 -> v104;
-v106 -> v105;
-v107 [label = "INT
-(3)"];
-v108 [label = "ASSIGN
-left := right
-"];
-v108 -> v106;
-v108 -> v107;
-v109 [label = "SIMPLE
-VAR
-(A)"];
-v110 [label = "INT
-(1)"];
-v111 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v111 -> v109;
-v111 -> v110;
-v112 [label = "INT
-(1)"];
-v113 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v113 -> v111;
-v113 -> v112;
-v114 [label = "INT
-(4)"];
-v115 [label = "ASSIGN
-left := right
-"];
-v115 -> v113;
-v115 -> v114;
-v116 [label = "SIMPLE
-VAR
-(A)"];
-v117 [label = "INT
-(1)"];
-v118 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v118 -> v116;
-v118 -> v117;
-v119 [label = "INT
-(2)"];
-v120 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v120 -> v118;
-v120 -> v119;
-v121 [label = "INT
-(5)"];
-v122 [label = "ASSIGN
-left := right
-"];
-v122 -> v120;
-v122 -> v121;
-v123 [label = "SIMPLE
-VAR
-(A)"];
-v124 [label = "INT
-(2)"];
-v125 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v125 -> v123;
-v125 -> v124;
-v126 [label = "INT
-(0)"];
-v127 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v127 -> v125;
-v127 -> v126;
-v128 [label = "INT
-(6)"];
-v129 [label = "ASSIGN
-left := right
-"];
-v129 -> v127;
-v129 -> v128;
-v130 [label = "SIMPLE
-VAR
-(A)"];
-v131 [label = "INT
-(2)"];
-v132 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v132 -> v130;
-v132 -> v131;
-v133 [label = "INT
-(1)"];
-v134 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v134 -> v132;
-v134 -> v133;
-v135 [label = "INT
-(7)"];
-v136 [label = "ASSIGN
-left := right
-"];
-v136 -> v134;
-v136 -> v135;
-v137 [label = "SIMPLE
-VAR
-(A)"];
-v138 [label = "INT
-(2)"];
-v139 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v139 -> v137;
-v139 -> v138;
-v140 [label = "INT
-(2)"];
-v141 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v141 -> v139;
-v141 -> v140;
-v142 [label = "INT
-(8)"];
-v143 [label = "ASSIGN
-left := right
-"];
-v143 -> v141;
-v143 -> v142;
-v144 [label = "SIMPLE
-VAR
-(A)"];
-v145 [label = "EXP
-VAR"];
-v145 -> v144;
-v146 [label = "EXP_MODIFY_2
-ID(trace3x3);
-"];
-v146 -> v145;
-v147 [label = "STMT_MODIFY_2
+v31 -> v30;
+v32 [label = "STMT_MODIFY_2
 ID(PrintInt)
 (exp);
 "];
-v147 -> v146;
-v165 -> v41;
-v165 -> v48;
-v165 -> v55;
-v165 -> v62;
-v165 -> v68;
-v165 -> v74;
-v165 -> v80;
-v165 -> v87;
-v165 -> v94;
-v165 -> v101;
-v165 -> v108;
-v165 -> v115;
-v165 -> v122;
-v165 -> v129;
-v165 -> v136;
-v165 -> v143;
-v165 -> v147;
-v165 -> v166;
-v167 [label = "funcDec"];
-v167 -> v165;
-v172 -> v2;
-v172 -> v5;
-v172 -> v33;
-v172 -> v167;
+v32 -> v31;
+v33 [label = "STMT
+RETURN
+"];
+v36 -> v32;
+v36 -> v33;
+v36 -> v37;
+v38 [label = "funcDec"];
+v38 -> v36;
+v41 -> v28;
+v41 -> v38;
 }
