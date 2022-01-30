@@ -13,7 +13,7 @@ class Person
 	IntArray lastYearSalaries;
 
 	int getAge()  { return age;               }
-	int birthday(){ age := age+1; PrintInt(age); return age; }
+	int birthday(){ age := age+1; return age; }
 }
 
 class Student extends Person

@@ -90,6 +90,7 @@ public class Main
 //				System.out.println();
 //				RegisterAllocation.print_out_sets(cfg_list.get(i));
 //				System.out.println();
+
 				InterferenceGraph graph = RegisterAllocation.BuildInterferenceGraph(cfg_list.get(i));
 				System.out.println("finished build of interference graph..");
 				graph.select_on_graph();
