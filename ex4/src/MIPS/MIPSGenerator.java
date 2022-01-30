@@ -89,12 +89,10 @@ public class MIPSGenerator
 		code_commands.add(String.format("\tsyscall\n"));
 	}
 
-	public void concat_strings(TEMP dst,TEMP oprnd1,TEMP oprnd2, TEMP tmp, TEMP tmp2,String label_string1, String label_string2, String label_end, String label_looplen1,String label_strlen_exit1,String label_looplen2,String label_strlen_exit2){
+	public void concat_strings(TEMP dst,TEMP oprnd1,TEMP oprnd2, String label_string1, String label_string2, String label_end, String label_looplen1,String label_strlen_exit1,String label_looplen2,String label_strlen_exit2){
 		int i1 =oprnd1.getSerialNumber();
 		int i2 =oprnd2.getSerialNumber();
 		int dstidx=dst.getSerialNumber();
-		int tmpid = tmp.getSerialNumber();
-		int tmpid2 = tmp2.getSerialNumber();
 		str_concat_cnt++;
 
 //		code_commands.add(String.format("\tli $v0, 9\n"));
@@ -136,6 +134,7 @@ public class MIPSGenerator
 
 		code_commands.add(String.format("\tmove $s0, $v0\n"));
 		code_commands.add(String.format("\tmove $s3, $s0\n"));
+		code_commands.add(String.format("\tmove $s4 Temp_%d\n",i2));
 
 		code_commands.add(String.format("\tmove $s1 Temp_%d\n",i1));
 
@@ -148,14 +147,14 @@ public class MIPSGenerator
 		code_commands.add(String.format("\tj %s\n",label_string1));
 
 
-		code_commands.add(String.format("\tmove $s1 Temp_%d\n",i2));
+//		code_commands.add(String.format("\tmove $s1 Temp_%d\n",i2));
 
 		code_commands.add(String.format("%s:\n",label_string2));
-		code_commands.add(String.format("\tlb $s2, 0($s1)\n"));
+		code_commands.add(String.format("\tlb $s2, 0($s4)\n"));
 		code_commands.add(String.format("\tbeq $s2, $zero, %s\n",label_end));
 		code_commands.add(String.format("\tsb $s2, 0($s3)\n"));
 		code_commands.add(String.format("\taddi $s3, $s3, 1\n"));
-		code_commands.add(String.format("\taddi $s1, $s1, 1\n"));
+		code_commands.add(String.format("\taddi $s4, $s4, 1\n"));
 		code_commands.add(String.format("\tj %s\n",label_string2));
 
 		code_commands.add(String.format("%s:\n",label_end));

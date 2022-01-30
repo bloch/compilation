@@ -31,8 +31,8 @@ public class IRcommand_Binop_Concat_Strings extends IRcommand
     public void MIPSme()
     {
 
-        TEMP tmp = TEMP_FACTORY.getInstance().getFreshTEMP();
-        TEMP tmp2 = TEMP_FACTORY.getInstance().getFreshTEMP();
+        //TEMP tmp = TEMP_FACTORY.getInstance().getFreshTEMP();
+        //TEMP tmp2 = TEMP_FACTORY.getInstance().getFreshTEMP();
         String label_string1  = getFreshLabel("string1");
         String label_string2  = getFreshLabel("string2");
         String label_end  = getFreshLabel("end");
@@ -40,6 +40,6 @@ public class IRcommand_Binop_Concat_Strings extends IRcommand
         String label_strlen_exit1  = getFreshLabel("strlen_exit1");
         String label_looplen2  = getFreshLabel("looplen2");
         String label_strlen_exit2  = getFreshLabel("strlen_exit2");
-        MIPSGenerator.getInstance().concat_strings(dst,t1,t2,tmp,tmp2,label_string1,label_string2,label_end,label_looplen1,label_strlen_exit1,label_looplen2,label_strlen_exit2);
+        MIPSGenerator.getInstance().concat_strings(dst,t1,t2,label_string1,label_string2,label_end,label_looplen1,label_strlen_exit1,label_looplen2,label_strlen_exit2);
     }
 }

@@ -1,10 +1,9 @@
 
 void main()
 {
-
     string n1 := "abc";
-    string n2 := "abc";
+    string n2 := "def";
     string n3 := n1+n2;
 
-	PrintString(n1+n2);
+	PrintString(n3);
 }

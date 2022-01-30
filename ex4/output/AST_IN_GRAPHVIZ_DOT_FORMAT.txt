@@ -1,15 +1,15 @@
 digraph
 {
 graph [ordering = "out"]
-v34 [label = "Program
+v31 [label = "Program
 "];
 v0 [label = "TYPE_VOID
 "];
-v31 [label = "TYPE_WITH_ID
+v28 [label = "TYPE_WITH_ID
 ID (main);
 "];
-v31 -> v0;
-v30 [label = "funcDec_1
+v28 -> v0;
+v27 [label = "funcDec_1
 "];
 v1 [label = "TYPE_STRING
 "];
@@ -31,7 +31,7 @@ v9 [label = "TYPE_WITH_ID
 ID (n2);
 "];
 v9 -> v6;
-v7 [label = "STRING('abc')"];
+v7 [label = "STRING('def')"];
 v8 [label = "varDec_2
 "];
 v8 -> v9;
@@ -70,31 +70,21 @@ v19 [label = "STMT_VAR_DEC
 v19 -> v17;
 v20 [label = "SIMPLE
 VAR
-(n1)"];
+(n3)"];
 v21 [label = "EXP
 VAR"];
 v21 -> v20;
-v22 [label = "SIMPLE
-VAR
-(n2)"];
-v23 [label = "EXP
-VAR"];
-v23 -> v22;
-v24 [label = "BINOP
-(+)"];
-v24 -> v21;
-v24 -> v23;
-v25 [label = "STMT_MODIFY_2
+v22 [label = "STMT_MODIFY_2
 ID(PrintString)
 (exp);
 "];
-v25 -> v24;
-v30 -> v5;
-v30 -> v10;
-v30 -> v19;
-v30 -> v25;
-v30 -> v31;
-v32 [label = "funcDec"];
-v32 -> v30;
-v34 -> v32;
+v22 -> v21;
+v27 -> v5;
+v27 -> v10;
+v27 -> v19;
+v27 -> v22;
+v27 -> v28;
+v29 [label = "funcDec"];
+v29 -> v27;
+v31 -> v29;
 }
