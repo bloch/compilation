@@ -42,9 +42,17 @@ public class InterferenceGraph
                 indexes_to_remove.add(i);
             }
         }
-        for(int i = 0; i < indexes_to_remove.size(); i++) {
-            this.edges.remove(indexes_to_remove.get(i));
+        ArrayList <ArrayList <InterferenceGraphNode>> new_edges = new ArrayList <ArrayList<InterferenceGraphNode>>();
+        for (int i = 0; i < this.edges.size(); i++) {
+            if (!indexes_to_remove.contains(i)){
+                new_edges.add(this.edges.get(i));
+            }
         }
+        this.edges = new_edges;
+
+//        for(int i = 0; i < indexes_to_remove.size(); i++) {
+//            this.edges.remove(indexes_to_remove.get(i));
+//        }
     }
 
     public HashSet<Integer> neighbors_colors(InterferenceGraphNode node) {
