@@ -42,9 +42,18 @@ public class InterferenceGraph
                 indexes_to_remove.add(i);
             }
         }
-        for(int i = 0; i < indexes_to_remove.size(); i++) {
-            this.edges.remove(indexes_to_remove.get(i));
+        ArrayList <ArrayList <InterferenceGraphNode>> new_edges = new ArrayList <ArrayList<InterferenceGraphNode>>();
+        for (int i = 0; i < this.edges.size(); i++) {
+            if (!indexes_to_remove.contains(i)){
+                new_edges.add(this.edges.get(i));
+            }
         }
+        this.edges = new_edges;
+
+//        for(int i = 0; i < indexes_to_remove.size(); i++) {
+//            this.edges.remove(indexes_to_remove.get(i));
+//        }
+
     }
 
     public HashSet<Integer> neighbors_colors(InterferenceGraphNode node) {
@@ -67,13 +76,15 @@ public class InterferenceGraph
                     this.remove_node_from_graph_and_add_to_stack(curr_node);
                 }
             }
+//            System.out.println(this.calculate_real_degree(this.nodes.get(0)));
 //            System.out.println(this.stk.size());
 //            System.out.println(this.nodes.size());
 //            for(int i = 0; i < this.nodes.size(); i++) {
-//                if(!this.stk.contains(this.nodes.get(i))) {
-//                    System.out.println(i);
+//                if (!this.stk.contains(this.nodes.get(i))) {
+//                    System.out.println(this.calculate_real_degree(this.nodes.get(i)));
 //                }
-            System.out.println(this.nodes.get(0).node_name);
+//            }
+//            System.out.println(this.nodes.get(0).node_name);
 
         }
         System.out.println("finished build of interference graph..");

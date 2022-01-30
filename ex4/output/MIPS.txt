@@ -3,87 +3,11 @@ string_access_violation: .asciiz "Access Violation"
 string_illegal_div_by_0: .asciiz "Illegal Division By Zero"
 string_invalid_ptr_dref: .asciiz "Invalid Pointer Dereference"
 space_for_printInt_space: .asciiz " "
+counter: .word 7
+joy: .word 9
+alex: .word 10
+happy: .word 6
 .text
-fib:
-fib_prologue:
-	subu $sp, $sp, 4
-	sw $ra, 0($sp)
-	subu $sp, $sp, 4
-	sw $fp, 0($sp)
-	move $fp, $sp
-	subu $sp, $sp, 4
-	sw $t0, 0($sp)
-	subu $sp, $sp, 4
-	sw $t1, 0($sp)
-	subu $sp, $sp, 4
-	sw $t2, 0($sp)
-	subu $sp, $sp, 4
-	sw $t3, 0($sp)
-	subu $sp, $sp, 4
-	sw $t4, 0($sp)
-	subu $sp, $sp, 4
-	sw $t5, 0($sp)
-	subu $sp, $sp, 4
-	sw $t6, 0($sp)
-	subu $sp, $sp, 4
-	sw $t7, 0($sp)
-	subu $sp, $sp, 4
-	sw $t8, 0($sp)
-	subu $sp, $sp, 4
-	sw $t9, 0($sp)
-	sub $sp, $sp, 16
-fib_body:
-	lw $t1, 8($fp)
-	li $t0, 2
-	blt $t1, $t0, Label_2_AssignOne
-	bge $t1, $t0, Label_3_AssignZero
-Label_2_AssignOne:
-	li $t0, 1
-	j Label_1_end
-Label_3_AssignZero:
-	li $t0, 0
-	j Label_1_end
-Label_1_end:
-	beq $t0, $zero, Label_0_after_if
-	lw $t0, 8($fp)
-	move $v0, $t0
-	j fib_epilogue
-Label_0_after_if:
-	lw $t1, 8($fp)
-	li $t0, 1
-	sub $t0, $t1, $t0
-	subu $sp, $sp, 4
-	sw $t0, 0($sp)
-	jal fib
-	addu $sp, $sp, 4
-	move $t2, $v0
-	lw $t1, 8($fp)
-	li $t0, 2
-	sub $t0, $t1, $t0
-	subu $sp, $sp, 4
-	sw $t0, 0($sp)
-	jal fib
-	addu $sp, $sp, 4
-	move $t0, $v0
-	add $t0, $t2, $t0
-	move $v0, $t0
-	j fib_epilogue
-fib_epilogue:
-	move $sp, $fp
-	lw $t0, -4($sp)
-	lw $t1, -8($sp)
-	lw $t2, -12($sp)
-	lw $t3, -16($sp)
-	lw $t4, -20($sp)
-	lw $t5, -24($sp)
-	lw $t6, -28($sp)
-	lw $t7, -32($sp)
-	lw $t8, -36($sp)
-	lw $t9, -40($sp)
-	lw $fp, 0($sp)
-	lw $ra, 4($sp)
-	addu $sp, $sp, 8
-	jr $ra
 user_main:
 user_main_prologue:
 	subu $sp, $sp, 4
@@ -113,19 +37,39 @@ user_main_prologue:
 	sw $t9, 0($sp)
 	sub $sp, $sp, 16
 user_main_body:
-	li $t0, 9
-	subu $sp, $sp, 4
-	sw $t0, 0($sp)
-	jal fib
-	addu $sp, $sp, 4
-	move $t0, $v0
+	li $t1, 1
+	li $t0, 2
+	li $t6, 3
+	li $t5, 4
+	li $t4, 5
+	li $t3, 6
+	li $t2, 7
+	add $t2, $t3, $t2
+	add $t2, $t4, $t2
+	add $t2, $t5, $t2
+	add $t2, $t6, $t2
+	add $t0, $t0, $t2
+	add $t0, $t1, $t0
+	sw $t0, -44($fp)
+	lw $t1, joy
+	lw $t0, counter
+	add $t0, $t1, $t0
+	sw $t0, happy
+	lw $t1, -44($fp)
+	lw $t0, joy
+	add $t0, $t1, $t0
+	sw $t0, counter
+	lw $t2, happy
+	lw $t1, happy
+	lw $t0, joy
+	mul $t0, $t1, $t0
+	add $t0, $t2, $t0
 	move $a0, $t0
 	li $v0, 1
 	syscall
 	la $a0, space_for_printInt_space
 	li $v0, 4
 	syscall
-	j user_main_epilogue
 user_main_epilogue:
 	move $sp, $fp
 	lw $t0, -4($sp)
