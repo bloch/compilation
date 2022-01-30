@@ -35,7 +35,7 @@ public class CFGNode
         //2. tipul per pkuda
         String[] cmd_tokens = this.command.trim().split(" ");
 
-        if(cmd_tokens[0].equals("add") || cmd_tokens[0].equals("addu") || cmd_tokens[0].equals("sub")
+        if(cmd_tokens[0].equals("add") || cmd_tokens[0].equals("addi") || cmd_tokens[0].equals("addu") || cmd_tokens[0].equals("sub")
                 || cmd_tokens[0].equals("subu") || cmd_tokens[0].equals("mul") || cmd_tokens[0].equals("div")) {
 
             if(cmd_tokens[1].contains("Temp_")) {

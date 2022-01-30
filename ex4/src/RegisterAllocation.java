@@ -300,7 +300,7 @@ public class RegisterAllocation {
     static public String replace_temps_in_line(InterferenceGraph graph, String cmd) {
         String[] cmd_tokens = cmd.trim().split(" ");
 
-        if(cmd_tokens[0].equals("add") || cmd_tokens[0].equals("addu") || cmd_tokens[0].equals("sub")
+        if(cmd_tokens[0].equals("add") || cmd_tokens[0].equals("addi") ||cmd_tokens[0].equals("addu") || cmd_tokens[0].equals("sub")
                 || cmd_tokens[0].equals("subu") || cmd_tokens[0].equals("mul") || cmd_tokens[0].equals("div")) {
             String[] new_cmd = new String[4];
             new_cmd[0] = "\t" + cmd_tokens[0];

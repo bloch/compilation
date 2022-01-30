@@ -89,11 +89,12 @@ public class MIPSGenerator
 		code_commands.add(String.format("\tsyscall\n"));
 	}
 
-	public void concat_strings(TEMP dst,TEMP oprnd1,TEMP oprnd2, TEMP tmp, String label_string1, String label_string2, String label_end){
+	public void concat_strings(TEMP dst,TEMP oprnd1,TEMP oprnd2, TEMP tmp, TEMP tmp2,String label_string1, String label_string2, String label_end, String label_looplen1,String label_strlen_exit1,String label_looplen2,String label_strlen_exit2){
 		int i1 =oprnd1.getSerialNumber();
 		int i2 =oprnd2.getSerialNumber();
 		int dstidx=dst.getSerialNumber();
 		int tmpid = tmp.getSerialNumber();
+		int tmpid2 = tmp2.getSerialNumber();
 		str_concat_cnt++;
 
 //		code_commands.add(String.format("\tli $v0, 9\n"));
@@ -103,43 +104,156 @@ public class MIPSGenerator
 //		code_commands.add(String.format("\tsyscall\n"));
 //		code_commands.add(String.format("\tmove Temp_%d, $v0\n",dstidx)); Temp_
 
-		fileWriter.format("\tconcat_str%d: .asciiz \"\"\n",str_concat_cnt);
-		code_commands.add(String.format("\tla Temp_%d, concat_str%d\n",dstidx, str_concat_cnt));
+
+
 		code_commands.add(String.format("\tmove $s0, Temp_%d\n",i1));
-		code_commands.add(String.format("\tmove $s1, Temp_%d\n",i2));
-		code_commands.add(String.format("\tmove $s2, Temp_%d\n",dstidx));
+		code_commands.add(String.format("\tli $s1, 0\n")); //counter
+		code_commands.add(String.format("%s:\n",label_looplen1));
+		code_commands.add(String.format("\tlb $s2, 0($s0)\n"));
+		code_commands.add(String.format("\tbeq $s2, $zero, %s\n",label_strlen_exit1));
+		code_commands.add(String.format("\taddi $s1, $s1, 1\n"));
+		code_commands.add(String.format("\taddi $s0, $s0, 1\n"));
+		code_commands.add(String.format("\tj %s\n",label_looplen1));
+		code_commands.add(String.format("%s:\n",label_strlen_exit1));
+
+		code_commands.add(String.format("\tmove $a0, $s1\n"));
+
+		code_commands.add(String.format("\tmove $s0, Temp_%d\n",i2));
+		code_commands.add(String.format("\tli $s1, 0\n")); //counter
+		code_commands.add(String.format("%s:\n",label_looplen2));
+		code_commands.add(String.format("\tlb $s2, 0($s0)\n"));
+		code_commands.add(String.format("\tbeq $s2, $zero, %s\n",label_strlen_exit2));
+		code_commands.add(String.format("\taddi $s1, $s1, 1\n"));
+		code_commands.add(String.format("\taddi $s0, $s0, 1\n"));
+		code_commands.add(String.format("\tj %s\n",label_looplen2));
+		code_commands.add(String.format("%s:\n",label_strlen_exit2));
+
+		code_commands.add(String.format("\tadd $a0, $a0, $s1\n"));
+		code_commands.add(String.format("\taddi $a0, $a0, 1\n"));
+
+		code_commands.add(String.format("\tli $v0, 9\n"));
+		code_commands.add(String.format("\tsyscall\n"));
+
+		code_commands.add(String.format("\tmove $s0, $v0\n"));
+		code_commands.add(String.format("\tmove $s3, $s0\n"));
+
+		code_commands.add(String.format("\tmove $s1 Temp_%d\n",i1));
 
 		code_commands.add(String.format("%s:\n",label_string1));
-		code_commands.add(String.format("\tlb Temp_%d, 0($s0)\n",tmpid));
-		code_commands.add(String.format("\tbeq Temp_%d, $zero, %s\n",tmpid,label_string2));
-		code_commands.add(String.format("\tsb Temp_%d, 0($s2)\n",tmpid));
-		code_commands.add(String.format("\taddi $s0, $s0, 1\n"));
-		code_commands.add(String.format("\taddi $s2, $s2, 1\n"));
+		code_commands.add(String.format("\tlb $s2, 0($s1)\n"));
+		code_commands.add(String.format("\tbeq $s2, $zero, %s\n",label_string2));
+		code_commands.add(String.format("\tsb $s2, 0($s3)\n"));
+		code_commands.add(String.format("\taddi $s3, $s3, 1\n"));
+		code_commands.add(String.format("\taddi $s1, $s1, 1\n"));
 		code_commands.add(String.format("\tj %s\n",label_string1));
 
+
+		code_commands.add(String.format("\tmove $s1 Temp_%d\n",i2));
+
 		code_commands.add(String.format("%s:\n",label_string2));
-		code_commands.add(String.format("\tlb Temp_%d, 0($s1)\n",tmpid));
-		code_commands.add(String.format("\tbeq Temp_%d, $zero, %s\n",tmpid,label_end));
-		code_commands.add(String.format("\tsb Temp_%d, 0($s2)\n",tmpid));
+		code_commands.add(String.format("\tlb $s2, 0($s1)\n"));
+		code_commands.add(String.format("\tbeq $s2, $zero, %s\n",label_end));
+		code_commands.add(String.format("\tsb $s2, 0($s3)\n"));
+		code_commands.add(String.format("\taddi $s3, $s3, 1\n"));
 		code_commands.add(String.format("\taddi $s1, $s1, 1\n"));
-		code_commands.add(String.format("\taddi $s2, $s2, 1\n"));
 		code_commands.add(String.format("\tj %s\n",label_string2));
 
 		code_commands.add(String.format("%s:\n",label_end));
-		code_commands.add(String.format("\tsb $zero, 0($s2)\n"));
-		//code_commands.add(String.format("\tmove Temp_%d, $s2\n",dstidx));
-		code_commands.add(String.format("\tla Temp_%d, concat_str%d\n",dstidx, str_concat_cnt));
 
-		//fileWriter.format("\t%s_str: .asciiz $s2\n",idxdst);
-		//fileWriter.format("\tla Temp_%d, %s_str\n",dstidx,var_name);
+		code_commands.add(String.format("\tsb $zero, 0($s3)\n"));
+		code_commands.add(String.format("\tmove Temp_%d $s0\n",dstidx));
+
+
+
+//		code_commands.add(String.format("\tmove $s0, Temp_%d\n",i1));
+//		code_commands.add(String.format("\tli Temp_%d, 0\n",tmpid)); //counter
+//		code_commands.add(String.format("%s:\n",label_looplen1));
+//		code_commands.add(String.format("\tlb Temp_%d, 0($s0)\n",tmpid2));
+//		code_commands.add(String.format("\tbeq $s2, $zero, %s\n",label_strlen_exit1));
+//		code_commands.add(String.format("\taddi $s0, $s0, 1\n"));
+//		code_commands.add(String.format("\taddi Temp_%d, Temp_%d, 1\n",tmpid,tmpid));
+//		code_commands.add(String.format("\tj %s\n",label_looplen1));
+//		code_commands.add(String.format("%s:\n",label_strlen_exit1));
+//
+//
+//		//code_commands.add(String.format("\tsub $s0, $s0, Temp_%d\n",tmpid));
+//		code_commands.add(String.format("\tmove $s1, Temp_%d\n",i2));
+//		code_commands.add(String.format("\tmove $a0, Temp_%d\n", tmpid));
+//		code_commands.add(String.format("\tli $v0, 4\n"));
+//		code_commands.add(String.format("\tsyscall\n"));
+//
+//
+//		code_commands.add(String.format("%s:\n",label_looplen2));
+//		code_commands.add(String.format("\tlb Temp_%d, 0($s1)\n",tmpid2));
+//		code_commands.add(String.format("\tbeq Temp_%d, $zero, %s\n",tmpid2,label_strlen_exit2));
+//		code_commands.add(String.format("\taddi $s1, $s1, 1\n"));
+//		code_commands.add(String.format("\taddi Temp_%d, Temp_%d, 1\n",tmpid,tmpid));
+//		code_commands.add(String.format("\tj %s\n",label_looplen2));
+//		code_commands.add(String.format("%s:\n",label_strlen_exit2));
+//		code_commands.add(String.format("\taddi Temp_%d, Temp_%d, 1\n",tmpid,tmpid));
+//		//code_commands.add(String.format("\tsub Temp_%d, Temp_%d, Temp_%d\n",i2,i2,tmpid));
+
+
+
+
+
+
+
+
+
+//		fileWriter.format("\tconcat_str%d: .space 255\n",str_concat_cnt);
+//		code_commands.add(String.format("\tla Temp_%d, concat_str%d\n",dstidx, str_concat_cnt));
+//		code_commands.add(String.format("\tmove $s0, Temp_%d\n",i1));
+//		code_commands.add(String.format("\tmove $s1, Temp_%d\n",i2));
+//		code_commands.add(String.format("\tmove $s2, Temp_%d\n",dstidx));
+//
+//		code_commands.add(String.format("%s:\n",label_string1));
+//		code_commands.add(String.format("\tlb Temp_%d, 0($s0)\n",tmpid));
+//		code_commands.add(String.format("\tbeq Temp_%d, $zero, %s\n",tmpid,label_string2));
+//		code_commands.add(String.format("\tsb Temp_%d, 0($s2)\n",tmpid));
+//		code_commands.add(String.format("\taddi $s0, $s0, 1\n"));
+//		code_commands.add(String.format("\taddi $s2, $s2, 1\n"));
+//		code_commands.add(String.format("\tj %s\n",label_string1));
+//
+//		code_commands.add(String.format("%s:\n",label_string2));
+//		code_commands.add(String.format("\tlb Temp_%d, 0($s1)\n",tmpid));
+//		code_commands.add(String.format("\tbeq Temp_%d, $zero, %s\n",tmpid,label_end));
+//		code_commands.add(String.format("\tsb Temp_%d, 0($s2)\n",tmpid));
+//		code_commands.add(String.format("\taddi $s1, $s1, 1\n"));
+//		code_commands.add(String.format("\taddi $s2, $s2, 1\n"));
+//		code_commands.add(String.format("\tj %s\n",label_string2));
+//
+//		code_commands.add(String.format("%s:\n",label_end));
+//		code_commands.add(String.format("\tsb $zero, 0($s2)\n"));
+//		code_commands.add(String.format("\tla Temp_%d, concat_str%d\n",dstidx, str_concat_cnt));
 	}
 
 	public void print_string(TEMP t)
 	{
 		int idx=t.getSerialNumber();
+
+
+		//code_commands.add(String.format("\tmove $s0, Temp_%d\n",i1));
+		//code_commands.add(String.format("\tmove $s1, Temp_%d\n",i2));
+
+//		code_commands.add(String.format("\tmove $s2, Temp_%d\n", idx));
+//		code_commands.add(String.format("\tli $s0, 0\n")); //counter
+//		code_commands.add(String.format("label_looplen1:\n"));
+//		code_commands.add(String.format("\tlb $s1, 0($s2)\n",idx));
+//		code_commands.add(String.format("\tbeq $s1, $zero, label_strlen_exit1\n"));
+//		code_commands.add(String.format("\taddi $s0, $s0, 1\n"));
+//		code_commands.add(String.format("\taddi $s2, $s2, 1\n"));
+//		code_commands.add(String.format("\tj label_looplen1\n"));
+//		code_commands.add(String.format("label_strlen_exit1:\n"));
+
+
 		code_commands.add(String.format("\tmove $a0, Temp_%d\n", idx));
 		code_commands.add(String.format("\tli $v0, 4\n"));
 		code_commands.add(String.format("\tsyscall\n"));
+
+//		code_commands.add(String.format("\tmove $a0, $s0\n"));
+//		code_commands.add(String.format("\tli $v0, 1\n"));
+//		code_commands.add(String.format("\tsyscall\n"));
 	}
 	//public TEMP addressLocalVar(int serialLocalVarNum)
 	//{
