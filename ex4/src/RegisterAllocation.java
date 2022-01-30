@@ -214,7 +214,7 @@ public class RegisterAllocation {
                 }
             }
         }
-        print_interference_graph(graph);
+
         return graph;
     }
 
@@ -356,6 +356,8 @@ public class RegisterAllocation {
                 String dest = cmd_tokens[1].substring(0, cmd_tokens[1].length() - 1);
                 InterferenceGraphNode node = CheckIfNodeExists(graph, dest);
                 if(node == null) {
+                    System.out.println(cmd);
+                    System.out.println("WTF- 7 ");
                     System.out.println("ERROR!!!!!!!!!!!!!!!!!!!!!!!!");
                     System.exit(0);
                 }
@@ -369,6 +371,7 @@ public class RegisterAllocation {
                 String arg1 = cmd_tokens[2];
                 InterferenceGraphNode node = CheckIfNodeExists(graph, arg1);
                 if(node == null) {
+                    System.out.println("WTF- 6");
                     System.out.println("ERROR!!!!!!!!!!!!!!!!!!!!!!!!");
                     System.exit(0);
                 }
@@ -386,6 +389,7 @@ public class RegisterAllocation {
                 String dest = cmd_tokens[1].substring(0, cmd_tokens[1].length() - 1);
                 InterferenceGraphNode node = CheckIfNodeExists(graph, dest);
                 if(node == null) {
+                    System.out.println("WTF- 5 ");
                     System.out.println("ERROR!!!!!!!!!!!!!!!!!!!!!!!!");
                     System.exit(0);
                 }
@@ -400,6 +404,7 @@ public class RegisterAllocation {
                 String arg1 = cmd_tokens[2].substring(index, cmd_tokens[2].length() - 1);
                 InterferenceGraphNode node = CheckIfNodeExists(graph, arg1);
                 if(node == null) {
+                    System.out.println("WTF- 4 ");
                     System.out.println("ERROR!!!!!!!!!!!!!!!!!!!!!!!!");
                     System.exit(0);
                 }
@@ -420,6 +425,7 @@ public class RegisterAllocation {
                 String arg1 = cmd_tokens[1].substring(0, cmd_tokens[1].length() - 1);
                 InterferenceGraphNode node = CheckIfNodeExists(graph, arg1);
                 if(node == null) {
+                    System.out.println("WTF- 3 ");
                     System.out.println("ERROR!!!!!!!!!!!!!!!!!!!!!!!!");
                     System.exit(0);
                 }
@@ -433,6 +439,7 @@ public class RegisterAllocation {
                 String arg2 = cmd_tokens[2].substring(0, cmd_tokens[2].length() - 1);
                 InterferenceGraphNode node = CheckIfNodeExists(graph, arg2);
                 if(node == null) {
+                    System.out.println("WTF- 1 ");
                     System.out.println("ERROR!!!!!!!!!!!!!!!!!!!!!!!!");
                     System.exit(0);
                 }
@@ -451,6 +458,7 @@ public class RegisterAllocation {
                 String arg1 = cmd_tokens[1].substring(0, cmd_tokens[1].length() - 1);
                 InterferenceGraphNode node = CheckIfNodeExists(graph, arg1);
                 if(node == null) {
+                    System.out.println("WTF- 1 ");
                     System.out.println("ERROR!!!!!!!!!!!!!!!!!!!!!!!!");
                     System.exit(0);
                 }

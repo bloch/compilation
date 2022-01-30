@@ -75,16 +75,9 @@ public class InterferenceGraph
                     this.remove_node_from_graph_and_add_to_stack(curr_node);
                 }
             }
-//            System.out.println(this.stk.size());
-//            System.out.println(this.nodes.size());
-//            for(int i = 0; i < this.nodes.size(); i++) {
-//                if(!this.stk.contains(this.nodes.get(i))) {
-//                    System.out.println(i);
-//                }
-            System.out.println(this.nodes.get(0).node_name);
 
         }
-        System.out.println("finished build of interference graph..");
+
         while (!this.stk.empty()){
             InterferenceGraphNode curr_node = this.stk.pop();
             curr_node.isInStack = false;

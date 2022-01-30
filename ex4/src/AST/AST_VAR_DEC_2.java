@@ -166,10 +166,12 @@ public class AST_VAR_DEC_2 extends AST_VAR_DEC {
                 int value = ((AST_EXP_INT) exp).value;
                 IR.getInstance().Add_IRcommand(new IRcommand_Allocate_Int(name, value));
             }
-            if (exp instanceof AST_EXP_STRING) {
+            else if (exp instanceof AST_EXP_STRING) {
                 String value = ((AST_EXP_STRING) exp).value;
                 IR.getInstance().Add_IRcommand(new IRcommand_Allocate_String(name, value, true));
-
+            }
+            else if (exp instanceof AST_EXP_NIL) {
+                IR.getInstance().Add_IRcommand(new IRcommand_Allocate_Int(name, 0));
             }
         }
         return null;
