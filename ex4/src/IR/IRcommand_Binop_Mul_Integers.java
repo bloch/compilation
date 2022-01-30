@@ -30,6 +30,8 @@ public class IRcommand_Binop_Mul_Integers extends IRcommand
 	/***************/
 	public void MIPSme()
 	{
-		MIPSGenerator.getInstance().mul(dst,t1,t2);
+		String label_end_max  = getFreshLabel("endMax");
+		String label_end_min  = getFreshLabel("endMin");
+		MIPSGenerator.getInstance().mul(dst,t1,t2, label_end_max, label_end_min);
 	}
 }
