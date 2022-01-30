@@ -23,8 +23,8 @@ public class CFGNode
         //1. UNION
         HashSet<String> new_out = new HashSet<String>();
         for(CFGNode successor: this.successors) {
+            System.out.println(this.command);
             System.out.println(successor.command);
-
             new_out.addAll(successor.IN);
             //this.OUT.addAll(successor.IN);
         }
