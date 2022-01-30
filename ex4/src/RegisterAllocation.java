@@ -57,7 +57,8 @@ public class RegisterAllocation {
                                 cur_node.successors.add(dest_node);
                             }
                         }
-                    } else if (splitted_cmds[0].equals("beq")) {
+                    } else if (splitted_cmds[0].equals("beq") || splitted_cmds[0].equals("bne") || splitted_cmds[0].equals("blt")
+                               || splitted_cmds[0].equals("bge") || splitted_cmds[0].equals("ble") || splitted_cmds[0].equals("bgt")) {
                         if (!splitted_cmds[3].equals("abort")) {
                             CFGNode dest_node = find_cfg_node(cur_cfg, splitted_cmds[3] + ":");
                             cur_node.successors.add(dest_node);
@@ -65,16 +66,15 @@ public class RegisterAllocation {
                         if (cur_cfg.size() > j + 1) {
                             cur_node.successors.add(cur_cfg.get(j + 1));
                         }
-
-                    } else if (splitted_cmds[0].equals("bne")) {
-                        if (!splitted_cmds[3].equals("abort")) {
-                            CFGNode dest_node = find_cfg_node(cur_cfg, splitted_cmds[3] + ":");
+                    }
+                    else if (splitted_cmds[0].equals("bltz")) {
+                        if (!splitted_cmds[2].equals("abort")) {
+                            CFGNode dest_node = find_cfg_node(cur_cfg, splitted_cmds[2] + ":");
                             cur_node.successors.add(dest_node);
                         }
                         if (cur_cfg.size() > j + 1) {
                             cur_node.successors.add(cur_cfg.get(j + 1));
                         }
-
                     } else {
                         if (cur_cfg.size() > j + 1) {
                             cur_node.successors.add(cur_cfg.get(j + 1));
