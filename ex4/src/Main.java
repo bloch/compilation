@@ -1,4 +1,4 @@
-   
+import java.util.*;
 import java.io.*;
 import java.io.PrintWriter;
 import java_cup.runtime.Symbol;
@@ -80,6 +80,16 @@ public class Main
 			/* [12] Close output file */
 			/**************************/
 			file_writer.close();
+			System.out.println();
+			System.out.println("Register Allocation starting..");
+			System.out.println();
+			ArrayList<ArrayList<CFGNode>> cfg_list = RegisterAllocation.BuildCFG("./output/MIPS.txt");
+
+			for(int i = 0; i < cfg_list.size(); i++) {
+				RegisterAllocation.LivenessAnalysis(cfg_list.get(i));
+				InterferenceGraph graph = RegisterAllocation.BuildInterferenceGraph(cfg_list.get(i));
+			}
+
     	}
 			     
 		catch (Exception e)

@@ -33,58 +33,123 @@ user_main_prologue:
 	sw $t9, 0($sp)
 	sub $sp, $sp, 16
 user_main_body:
-	li $t1, 1
-	li $v0, 9
-	move $a0, $t1
-	add $a0, $a0, 1
-	mul $a0, $a0, 4
+	li Temp_0, 5
+	sw Temp_0, -44($fp)
+	lw Temp_1, -44($fp)
+	li Temp_2, 0
+	beq Temp_1, Temp_2, Label_4_AssignOne
+	bne Temp_1, Temp_2, Label_5_AssignZero
+Label_4_AssignOne:
+	li Temp_3, 1
+	j Label_3_end
+Label_5_AssignZero:
+	li Temp_3, 0
+	j Label_3_end
+Label_3_end:
+	beq Temp_3, $zero, Label_0_after_if
+	li Temp_4, 5
+	move $a0, Temp_4
+	li $v0, 1
 	syscall
-	move $t0, $v0
-	sw $t1, 0($t0)
-	sw $t0, -44($fp)
-	li $t3, 1
-	li $v0, 9
-	move $a0, $t3
-	add $a0, $a0, 1
-	mul $a0, $a0, 4
+	la $a0, space_for_printInt_space
+	li $v0, 4
 	syscall
-	move $t2, $v0
-	sw $t3, 0($t2)
-	sw $t2, -48($fp)
-	li $t4, 5
-	lw $t5, -44($fp)
-	li $t6, 0
-	addu $t6, $t6, 1
-	mul $t6, $t6, 4
-	addu $t5, $t5, $t6
-	sw $t4, 0($t5)
-	li $t7, 5
-	lw $t8, -48($fp)
-	li $t9, 0
-	addu $t9, $t9, 1
-	mul $t9, $t9, 4
-	addu $t8, $t8, $t9
-	sw $t7, 0($t8)
-	lw $t5, -44($fp)
-	lw $t6, -48($fp)
-	beq $t5, $t6, Label_1_AssignOne
-	bne $t5, $t6, Label_2_AssignZero
-Label_1_AssignOne:
-	li $t8, 1
-	j Label_0_end
-Label_2_AssignZero:
-	li $t8, 0
-	j Label_0_end
-Label_0_end:
-	sw $t8, -52($fp)
-	lw $t9, -52($fp)
-	move $a0, $t9
+Label_0_after_if:
+	li Temp_5, 1
+	move $a0, Temp_5
+	li $v0, 1
+	syscall
+	la $a0, space_for_printInt_space
+	li $v0, 4
+	syscall
+	lw Temp_6, -44($fp)
+	li Temp_7, 5
+	beq Temp_6, Temp_7, Label_7_AssignOne
+	bne Temp_6, Temp_7, Label_8_AssignZero
+Label_7_AssignOne:
+	li Temp_8, 1
+	j Label_6_end
+Label_8_AssignZero:
+	li Temp_8, 0
+	j Label_6_end
+Label_6_end:
+	beq Temp_8, $zero, Label_1_after_if
+	li Temp_9, 0
+	move $a0, Temp_9
+	li $v0, 1
+	syscall
+	la $a0, space_for_printInt_space
+	li $v0, 4
+	syscall
+Label_1_after_if:
+	li Temp_10, 2
+	move $a0, Temp_10
 	li $v0, 1
 	syscall
 	la $a0, space_for_printInt_space
 	li $v0, 4
 	syscall
 user_main_epilogue:
+	move $sp, $fp
+	lw $t0, -4($sp)
+	lw $t1, -8($sp)
+	lw $t2, -12($sp)
+	lw $t3, -16($sp)
+	lw $t4, -20($sp)
+	lw $t5, -24($sp)
+	lw $t6, -28($sp)
+	lw $t7, -32($sp)
+	lw $t8, -36($sp)
+	lw $t9, -40($sp)
+	lw $fp, 0($sp)
+	lw $ra, 4($sp)
+	addu $sp, $sp, 8
+	jr $ra
+foo:
+foo_prologue:
+	subu $sp, $sp, 4
+	sw $ra, 0($sp)
+	subu $sp, $sp, 4
+	sw $fp, 0($sp)
+	move $fp, $sp
+	subu $sp, $sp, 4
+	sw $t0, 0($sp)
+	subu $sp, $sp, 4
+	sw $t1, 0($sp)
+	subu $sp, $sp, 4
+	sw $t2, 0($sp)
+	subu $sp, $sp, 4
+	sw $t3, 0($sp)
+	subu $sp, $sp, 4
+	sw $t4, 0($sp)
+	subu $sp, $sp, 4
+	sw $t5, 0($sp)
+	subu $sp, $sp, 4
+	sw $t6, 0($sp)
+	subu $sp, $sp, 4
+	sw $t7, 0($sp)
+	subu $sp, $sp, 4
+	sw $t8, 0($sp)
+	subu $sp, $sp, 4
+	sw $t9, 0($sp)
+	sub $sp, $sp, 16
+foo_body:
+	li Temp_11, 3
+	sw Temp_11, -44($fp)
+	lw Temp_12, -44($fp)
+	beq Temp_12, $zero, Label_2_after_if
+	li Temp_13, 4
+	move $a0, Temp_13
+	li $v0, 1
+	syscall
+	la $a0, space_for_printInt_space
+	li $v0, 4
+	syscall
+Label_2_after_if:
+	li Temp_14, 3
+	move $v0, Temp_14
+	j foo_epilogue
+foo_epilogue:
 	move $sp, $fp
 	lw $t0, -4($sp)
 	lw $t1, -8($sp)
