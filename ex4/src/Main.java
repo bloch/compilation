@@ -92,9 +92,9 @@ public class Main
 //				System.out.println();
 
 				InterferenceGraph graph = RegisterAllocation.BuildInterferenceGraph(cfg_list.get(i));
-				System.out.println("finished build of interference graph..");
+				System.out.println("finished build of interference graph..1");
 				graph.select_on_graph();
-				System.out.println("finished build of interference graph..");
+				System.out.println("finished build of interference graph..2");
 				graph.print_nodes_colors();
 
 				RegisterAllocation.replace_temps(graph, cfg_list.get(i), "./output/MIPS.txt");
