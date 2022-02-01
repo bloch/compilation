@@ -3,61 +3,7 @@ string_access_violation: .asciiz "Access Violation"
 string_illegal_div_by_0: .asciiz "Division By Zero"
 string_invalid_ptr_dref: .asciiz "Invalid Pointer Dereference"
 space_for_printInt_space: .asciiz " "
-vt_j:
-	.word j_b
 .text
-j_b:
-j_b_prologue:
-	subu $sp, $sp, 4
-	sw $ra, 0($sp)
-	subu $sp, $sp, 4
-	sw $fp, 0($sp)
-	move $fp, $sp
-	subu $sp, $sp, 4
-	sw $t0, 0($sp)
-	subu $sp, $sp, 4
-	sw $t1, 0($sp)
-	subu $sp, $sp, 4
-	sw $t2, 0($sp)
-	subu $sp, $sp, 4
-	sw $t3, 0($sp)
-	subu $sp, $sp, 4
-	sw $t4, 0($sp)
-	subu $sp, $sp, 4
-	sw $t5, 0($sp)
-	subu $sp, $sp, 4
-	sw $t6, 0($sp)
-	subu $sp, $sp, 4
-	sw $t7, 0($sp)
-	subu $sp, $sp, 4
-	sw $t8, 0($sp)
-	subu $sp, $sp, 4
-	sw $t9, 0($sp)
-	sub $sp, $sp, 16
-j_b_body:
-	li $t0, 1
-	move $a0, $t0
-	li $v0, 1
-	syscall
-	la $a0, space_for_printInt_space
-	li $v0, 4
-	syscall
-j_b_epilogue:
-	move $sp, $fp
-	lw $t0, -4($sp)
-	lw $t1, -8($sp)
-	lw $t2, -12($sp)
-	lw $t3, -16($sp)
-	lw $t4, -20($sp)
-	lw $t5, -24($sp)
-	lw $t6, -28($sp)
-	lw $t7, -32($sp)
-	lw $t8, -36($sp)
-	lw $t9, -40($sp)
-	lw $fp, 0($sp)
-	lw $ra, 4($sp)
-	addu $sp, $sp, 8
-	jr $ra
 user_main:
 user_main_prologue:
 	subu $sp, $sp, 4
@@ -87,20 +33,260 @@ user_main_prologue:
 	sw $t9, 0($sp)
 	sub $sp, $sp, 16
 user_main_body:
-	li $v0, 9
-	li $a0, 4
+	li $t1, -1000
+	li $t0, 2000
+	mul $t0, $t1, $t0
+	li $s0, 32767
+	ble $t0, $s0, Label_0_endMax
+	li $t0, 32767
+	j Label_1_endMin
+Label_0_endMax:
+	li $s0, -32768
+	bgt $t0, $s0, Label_1_endMin
+	li $t0, -32768
+Label_1_endMin:
+	move $a0, $t0
+	li $v0, 1
 	syscall
-	move $t0, $v0
-	la $s0, vt_j
-	sw $s0, 0($t0)
-	sw $t0, -44($fp)
-	lw $t0, -44($fp)
-	subu $sp, $sp, 4
-	sw $t0, 0($sp)
-	lw $s0, 0($t0)
-	lw $s1, 0($s0)
-	jalr $s1
-	addu $sp, $sp, 4
+	la $a0, space_for_printInt_space
+	li $v0, 4
+	syscall
+	li $t1, 100
+	li $t0, 200
+	mul $t0, $t1, $t0
+	li $s0, 32767
+	ble $t0, $s0, Label_2_endMax
+	li $t0, 32767
+	j Label_3_endMin
+Label_2_endMax:
+	li $s0, -32768
+	bgt $t0, $s0, Label_3_endMin
+	li $t0, -32768
+Label_3_endMin:
+	move $a0, $t0
+	li $v0, 1
+	syscall
+	la $a0, space_for_printInt_space
+	li $v0, 4
+	syscall
+	li $t1, 1000
+	li $t0, 2000
+	mul $t0, $t1, $t0
+	li $s0, 32767
+	ble $t0, $s0, Label_4_endMax
+	li $t0, 32767
+	j Label_5_endMin
+Label_4_endMax:
+	li $s0, -32768
+	bgt $t0, $s0, Label_5_endMin
+	li $t0, -32768
+Label_5_endMin:
+	move $a0, $t0
+	li $v0, 1
+	syscall
+	la $a0, space_for_printInt_space
+	li $v0, 4
+	syscall
+	li $t1, -10000
+	li $t0, -30000
+	add $t0, $t1, $t0
+	li $s0, 32767
+	ble $t0, $s0, Label_6_endMax
+	li $t0, 32767
+	j Label_7_endMin
+Label_6_endMax:
+	li $s0, -32768
+	bgt $t0, $s0, Label_7_endMin
+	li $t0, -32768
+Label_7_endMin:
+	move $a0, $t0
+	li $v0, 1
+	syscall
+	la $a0, space_for_printInt_space
+	li $v0, 4
+	syscall
+	li $t1, 100
+	li $t0, 200
+	add $t0, $t1, $t0
+	li $s0, 32767
+	ble $t0, $s0, Label_8_endMax
+	li $t0, 32767
+	j Label_9_endMin
+Label_8_endMax:
+	li $s0, -32768
+	bgt $t0, $s0, Label_9_endMin
+	li $t0, -32768
+Label_9_endMin:
+	move $a0, $t0
+	li $v0, 1
+	syscall
+	la $a0, space_for_printInt_space
+	li $v0, 4
+	syscall
+	li $t1, 20000
+	li $t0, 20000
+	add $t0, $t1, $t0
+	li $s0, 32767
+	ble $t0, $s0, Label_10_endMax
+	li $t0, 32767
+	j Label_11_endMin
+Label_10_endMax:
+	li $s0, -32768
+	bgt $t0, $s0, Label_11_endMin
+	li $t0, -32768
+Label_11_endMin:
+	move $a0, $t0
+	li $v0, 1
+	syscall
+	la $a0, space_for_printInt_space
+	li $v0, 4
+	syscall
+	li $t1, -10000
+	li $t0, 30000
+	sub $t0, $t1, $t0
+	li $s0, 32767
+	ble $t0, $s0, Label_12_endMax
+	li $t0, 32767
+	j Label_13_endMin
+Label_12_endMax:
+	li $s0, -32768
+	bgt $t0, $s0, Label_13_endMin
+	li $t0, -32768
+Label_13_endMin:
+	move $a0, $t0
+	li $v0, 1
+	syscall
+	la $a0, space_for_printInt_space
+	li $v0, 4
+	syscall
+	li $t1, 100
+	li $t0, 200
+	sub $t0, $t1, $t0
+	li $s0, 32767
+	ble $t0, $s0, Label_14_endMax
+	li $t0, 32767
+	j Label_15_endMin
+Label_14_endMax:
+	li $s0, -32768
+	bgt $t0, $s0, Label_15_endMin
+	li $t0, -32768
+Label_15_endMin:
+	move $a0, $t0
+	li $v0, 1
+	syscall
+	la $a0, space_for_printInt_space
+	li $v0, 4
+	syscall
+	li $t1, 20000
+	li $t0, -20000
+	sub $t0, $t1, $t0
+	li $s0, 32767
+	ble $t0, $s0, Label_16_endMax
+	li $t0, 32767
+	j Label_17_endMin
+Label_16_endMax:
+	li $s0, -32768
+	bgt $t0, $s0, Label_17_endMin
+	li $t0, -32768
+Label_17_endMin:
+	move $a0, $t0
+	li $v0, 1
+	syscall
+	la $a0, space_for_printInt_space
+	li $v0, 4
+	syscall
+	li $t1, -10000
+	li $t0, 30000
+	sub $t0, $t1, $t0
+	li $s0, 32767
+	ble $t0, $s0, Label_18_endMax
+	li $t0, 32767
+	j Label_19_endMin
+Label_18_endMax:
+	li $s0, -32768
+	bgt $t0, $s0, Label_19_endMin
+	li $t0, -32768
+Label_19_endMin:
+	move $a0, $t0
+	li $v0, 1
+	syscall
+	la $a0, space_for_printInt_space
+	li $v0, 4
+	syscall
+	li $t1, 100
+	li $t0, 200
+	sub $t0, $t1, $t0
+	li $s0, 32767
+	ble $t0, $s0, Label_20_endMax
+	li $t0, 32767
+	j Label_21_endMin
+Label_20_endMax:
+	li $s0, -32768
+	bgt $t0, $s0, Label_21_endMin
+	li $t0, -32768
+Label_21_endMin:
+	move $a0, $t0
+	li $v0, 1
+	syscall
+	la $a0, space_for_printInt_space
+	li $v0, 4
+	syscall
+	li $t1, 20000
+	li $t0, -20000
+	sub $t0, $t1, $t0
+	li $s0, 32767
+	ble $t0, $s0, Label_22_endMax
+	li $t0, 32767
+	j Label_23_endMin
+Label_22_endMax:
+	li $s0, -32768
+	bgt $t0, $s0, Label_23_endMin
+	li $t0, -32768
+Label_23_endMin:
+	move $a0, $t0
+	li $v0, 1
+	syscall
+	la $a0, space_for_printInt_space
+	li $v0, 4
+	syscall
+	li $t1, 20000
+	li $t0, 20
+	beq $t0, $zero, abort_division_by_zero
+	div $t0, $t1, $t0
+	li $s0, 32767
+	ble $t0, $s0, Label_24_endMax
+	li $t0, 32767
+	j Label_25_endMin
+Label_24_endMax:
+	li $s0, -32768
+	bgt $t0, $s0, Label_25_endMin
+	li $t0, -32768
+Label_25_endMin:
+	move $a0, $t0
+	li $v0, 1
+	syscall
+	la $a0, space_for_printInt_space
+	li $v0, 4
+	syscall
+	li $t1, 20502
+	li $t0, 20
+	beq $t0, $zero, abort_division_by_zero
+	div $t0, $t1, $t0
+	li $s0, 32767
+	ble $t0, $s0, Label_26_endMax
+	li $t0, 32767
+	j Label_27_endMin
+Label_26_endMax:
+	li $s0, -32768
+	bgt $t0, $s0, Label_27_endMin
+	li $t0, -32768
+Label_27_endMin:
+	move $a0, $t0
+	li $v0, 1
+	syscall
+	la $a0, space_for_printInt_space
+	li $v0, 4
+	syscall
 user_main_epilogue:
 	move $sp, $fp
 	lw $t0, -4($sp)

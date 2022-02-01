@@ -419,19 +419,19 @@ public class MIPSGenerator
 	public void allocate(String var_name)
 	{
 //		fileWriter.format(".data\n");
-		fileWriter.format("%s: .word 0\n",var_name);
+		fileWriter.format("%s: .word 0\n",var_name + "_global_var");
 	}
 	public void allocate_int(String var_name, int value)
 	{
 //		fileWriter.format(".data\n");
-		fileWriter.format("%s: .word %s\n",var_name, value);
+		fileWriter.format("%s: .word %s\n",var_name + "_global_var", value);
 	}
 	public void allocate_string(String var_name, String value, boolean global)
 	{
 //		fileWriter.format(".data\n");
-		fileWriter.format("\t%s_str: .asciiz \"%s\"\n",var_name, value);
+		fileWriter.format("%s_str: .asciiz \"%s\"\n",var_name, value);
 		if(global) {
-			fileWriter.format("\t%s: .word %s_str\n", var_name + "_global_var", var_name);
+			fileWriter.format("%s: .word %s_str\n", var_name + "_global_var", var_name);
 		}
 	}
 	public void load(TEMP dst,String var_name)
@@ -878,4 +878,49 @@ public class MIPSGenerator
 		}
 		return instance;
 	}
+
+	/******************************/
+	/* GET SINGLETON INSTANCE ... */
+	/******************************/
+	public static MIPSGenerator getInstance(String MIPS_Code_Filename)
+	{
+		if (instance == null)
+		{
+			/*******************************/
+			/* [0] The instance itself ... */
+			/*******************************/
+			instance = new MIPSGenerator();
+
+			try
+			{
+				/*********************************************************************************/
+				/* [1] Open the MIPS text file and write data section with error message strings */
+				/*********************************************************************************/
+//				String dirname="./output/";
+//				String filename=String.format("MIPS.txt");
+
+				/***************************************/
+				/* [2] Open MIPS text file for writing */
+				/***************************************/
+//				instance.fileWriter = new PrintWriter(dirname+filename);
+				instance.fileWriter = new PrintWriter(MIPS_Code_Filename);
+				instance.code_commands = new ArrayList<String>();
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+
+			/*****************************************************/
+			/* [3] Print data section with error message strings */
+			/*****************************************************/
+			instance.fileWriter.print(".data\n");
+			instance.fileWriter.print("string_access_violation: .asciiz \"Access Violation\"\n");
+			instance.fileWriter.print("string_illegal_div_by_0: .asciiz \"Division By Zero\"\n");
+			instance.fileWriter.print("string_invalid_ptr_dref: .asciiz \"Invalid Pointer Dereference\"\n");
+			instance.fileWriter.print("space_for_printInt_space: .asciiz \" \"\n");
+		}
+		return instance;
+	}
+
 }

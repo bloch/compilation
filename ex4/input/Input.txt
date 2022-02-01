@@ -1,11 +1,21 @@
 
-class j{
-    void b(){
-        PrintInt(1);
-    }
-}
-
 void main() {
-    j a := new j;
-    a.b();
+    PrintInt(-1000 * 2000);
+    PrintInt(100 * 200);
+    PrintInt(1000 * 2000);
+
+    PrintInt(-10000 + -30000);
+    PrintInt(100 + 200);
+    PrintInt(20000 + 20000);
+
+    PrintInt(-10000 - 30000);
+    PrintInt(100 - 200);
+    PrintInt(20000 - -20000);
+
+    PrintInt(-10000 - 30000);
+    PrintInt(100 - 200);
+    PrintInt(20000 - -20000);
+
+    PrintInt(20000 / 20);
+    PrintInt(20502 / 20);
 }

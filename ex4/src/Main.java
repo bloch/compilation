@@ -17,7 +17,10 @@ public class Main
 		FileReader file_reader;
 		PrintWriter file_writer;
 		String inputFilename = argv[0];
-		String outputFilename = argv[1];
+		//String outputFilename = argv[1];
+		String outputFilename = "./output/SemanticStatus.txt";
+
+		String MIPS_Code_Filename = argv[1];
 		
 		try
 		{
@@ -74,7 +77,7 @@ public class Main
 			/***************************/
 			/* [11] Finalize MIPS file */
 			/***************************/
-			MIPSGenerator.getInstance().finalizeFile();			
+			MIPSGenerator.getInstance(MIPS_Code_Filename).finalizeFile();
 
 			/**************************/
 			/* [12] Close output file */
