@@ -44,7 +44,7 @@ public class IRcommand_Load extends IRcommand {
 			String offset_string = this.offset + "($fp)";
 			MIPSGenerator.getInstance().load(dst, offset_string);
 		} else {
-			MIPSGenerator.getInstance().load(dst, var_name);
+			MIPSGenerator.getInstance().load(dst, var_name + "_global_var");
 		}
 	}
 }

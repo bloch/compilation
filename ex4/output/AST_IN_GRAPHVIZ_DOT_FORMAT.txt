@@ -3,73 +3,70 @@ digraph
 graph [ordering = "out"]
 v26 [label = "Program
 "];
-v0 [label = "TYPE_INT
+v8 [label = "classDec_1
+ID(j)
 "];
-v1 [label = "ARRAY_TYPE_DEF_1
-ID (IntArray);
+v0 [label = "TYPE_VOID
 "];
-v1 -> v0;
-v2 [label = "arrayTypeDef"];
+v5 [label = "TYPE_WITH_ID
+ID (b);
+"];
+v5 -> v0;
+v4 [label = "funcDec_1
+"];
+v1 [label = "INT
+(1)"];
+v2 [label = "STMT_MODIFY_2
+ID(PrintInt)
+(exp);
+"];
 v2 -> v1;
-v3 [label = "TYPE_VOID
+v4 -> v2;
+v4 -> v5;
+v6 [label = "CFIELD
+FUNC_DEC"];
+v6 -> v4;
+v8 -> v6;
+v9 [label = "classDec"];
+v9 -> v8;
+v10 [label = "TYPE_VOID
 "];
 v22 [label = "TYPE_WITH_ID
 ID (main);
 "];
-v22 -> v3;
+v22 -> v10;
 v21 [label = "funcDec_1
 "];
-v4 [label = "TYPE_ID
-(IntArray)
+v11 [label = "TYPE_ID
+(j)
 "];
-v9 [label = "TYPE_WITH_ID
-ID (A);
+v15 [label = "TYPE_WITH_ID
+ID (a);
 "];
-v9 -> v4;
-v5 [label = "TYPE_INT
+v15 -> v11;
+v12 [label = "TYPE_ID
+(j)
 "];
-v6 [label = "INT
-(6)"];
-v7 [label = "newExp_2"];
-v7 -> v5;
-v7 -> v6;
-v8 [label = "varDec_3"];
-v8 -> v9;
-v8 -> v7;
-v10 [label = "STMT_VAR_DEC
-"];
-v10 -> v8;
-v11 [label = "TYPE_INT
-"];
-v17 [label = "TYPE_WITH_ID
-ID (i);
-"];
-v17 -> v11;
-v12 [label = "SIMPLE
-VAR
-(A)"];
-v13 [label = "INT
-(18)"];
-v14 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v14 -> v12;
+v13 [label = "newExp_1"];
+v13 -> v12;
+v14 [label = "varDec_3"];
+v14 -> v15;
 v14 -> v13;
-v15 [label = "EXP
-VAR"];
-v15 -> v14;
-v16 [label = "varDec_2
+v16 [label = "STMT_VAR_DEC
 "];
-v16 -> v17;
-v16 -> v15;
-v18 [label = "STMT_VAR_DEC
+v16 -> v14;
+v17 [label = "SIMPLE
+VAR
+(a)"];
+v18 [label = "STMT_MODIFY_4
+var . ID(b);
 "];
-v18 -> v16;
-v21 -> v10;
+v18 -> v17;
+v21 -> v16;
 v21 -> v18;
 v21 -> v22;
 v23 [label = "funcDec"];
 v23 -> v21;
-v26 -> v2;
+v26 -> v9;
 v26 -> v23;
 }

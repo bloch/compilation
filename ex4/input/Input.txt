@@ -1,5 +1,11 @@
 
+class j{
+    void b(){
+        PrintInt(1);
+    }
+}
+
 void main() {
-    string y := "nathan";
-    PrintString(y + "very");
+    j a := new j;
+    a.b();
 }

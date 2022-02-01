@@ -147,7 +147,7 @@ public class AST_FUNC_DEC_2 extends AST_FUNC_DEC{
             if (type_with_id1.id_name.equals("main")) {
                 function_label = "user_main";
             } else {
-                function_label = type_with_id1.id_name;
+                function_label = type_with_id1.id_name + "_function";
             }
         }
         else {
