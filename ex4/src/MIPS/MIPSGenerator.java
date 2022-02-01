@@ -431,7 +431,7 @@ public class MIPSGenerator
 //		fileWriter.format(".data\n");
 		fileWriter.format("\t%s_str: .asciiz \"%s\"\n",var_name, value);
 		if(global) {
-			fileWriter.format("\t%s: .word %s_str\n", var_name, var_name);
+			fileWriter.format("\t%s: .word %s_str\n", var_name + "_global_var", var_name);
 		}
 	}
 	public void load(TEMP dst,String var_name)
