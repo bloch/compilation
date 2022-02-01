@@ -46,7 +46,7 @@ public class IRcommand_Store extends IRcommand
 			MIPSGenerator.getInstance().store(offset_string, src);
 		}
 		else {
-			MIPSGenerator.getInstance().store(var_name, src);
+			MIPSGenerator.getInstance().store(var_name + "_global_var", src);
 		}
 	}
 }

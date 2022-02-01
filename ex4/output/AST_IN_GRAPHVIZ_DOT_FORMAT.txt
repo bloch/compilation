@@ -1,72 +1,214 @@
 digraph
 {
 graph [ordering = "out"]
-v26 [label = "Program
-"];
-v8 [label = "classDec_1
-ID(j)
+v75 [label = "Program
 "];
 v0 [label = "TYPE_VOID
 "];
-v5 [label = "TYPE_WITH_ID
-ID (b);
+v72 [label = "TYPE_WITH_ID
+ID (main);
 "];
-v5 -> v0;
-v4 [label = "funcDec_1
+v72 -> v0;
+v71 [label = "funcDec_1
 "];
 v1 [label = "INT
-(1)"];
-v2 [label = "STMT_MODIFY_2
+(-1000)"];
+v2 [label = "INT
+(2000)"];
+v3 [label = "BINOP
+(*)"];
+v3 -> v1;
+v3 -> v2;
+v4 [label = "STMT_MODIFY_2
 ID(PrintInt)
 (exp);
 "];
-v2 -> v1;
-v4 -> v2;
-v4 -> v5;
-v6 [label = "CFIELD
-FUNC_DEC"];
-v6 -> v4;
-v8 -> v6;
-v9 [label = "classDec"];
-v9 -> v8;
-v10 [label = "TYPE_VOID
+v4 -> v3;
+v5 [label = "INT
+(100)"];
+v6 [label = "INT
+(200)"];
+v7 [label = "BINOP
+(*)"];
+v7 -> v5;
+v7 -> v6;
+v8 [label = "STMT_MODIFY_2
+ID(PrintInt)
+(exp);
 "];
-v22 [label = "TYPE_WITH_ID
-ID (main);
+v8 -> v7;
+v9 [label = "INT
+(1000)"];
+v10 [label = "INT
+(2000)"];
+v11 [label = "BINOP
+(*)"];
+v11 -> v9;
+v11 -> v10;
+v12 [label = "STMT_MODIFY_2
+ID(PrintInt)
+(exp);
 "];
-v22 -> v10;
-v21 [label = "funcDec_1
+v12 -> v11;
+v13 [label = "INT
+(-10000)"];
+v14 [label = "INT
+(-30000)"];
+v15 [label = "BINOP
+(+)"];
+v15 -> v13;
+v15 -> v14;
+v16 [label = "STMT_MODIFY_2
+ID(PrintInt)
+(exp);
 "];
-v11 [label = "TYPE_ID
-(j)
+v16 -> v15;
+v17 [label = "INT
+(100)"];
+v18 [label = "INT
+(200)"];
+v19 [label = "BINOP
+(+)"];
+v19 -> v17;
+v19 -> v18;
+v20 [label = "STMT_MODIFY_2
+ID(PrintInt)
+(exp);
 "];
-v15 [label = "TYPE_WITH_ID
-ID (a);
-"];
-v15 -> v11;
-v12 [label = "TYPE_ID
-(j)
-"];
-v13 [label = "newExp_1"];
-v13 -> v12;
-v14 [label = "varDec_3"];
-v14 -> v15;
-v14 -> v13;
-v16 [label = "STMT_VAR_DEC
-"];
-v16 -> v14;
-v17 [label = "SIMPLE
-VAR
-(a)"];
-v18 [label = "STMT_MODIFY_4
-var . ID(b);
-"];
-v18 -> v17;
-v21 -> v16;
-v21 -> v18;
-v21 -> v22;
-v23 [label = "funcDec"];
+v20 -> v19;
+v21 [label = "INT
+(20000)"];
+v22 [label = "INT
+(20000)"];
+v23 [label = "BINOP
+(+)"];
 v23 -> v21;
-v26 -> v9;
-v26 -> v23;
+v23 -> v22;
+v24 [label = "STMT_MODIFY_2
+ID(PrintInt)
+(exp);
+"];
+v24 -> v23;
+v25 [label = "INT
+(-10000)"];
+v26 [label = "INT
+(30000)"];
+v27 [label = "BINOP
+(-)"];
+v27 -> v25;
+v27 -> v26;
+v28 [label = "STMT_MODIFY_2
+ID(PrintInt)
+(exp);
+"];
+v28 -> v27;
+v29 [label = "INT
+(100)"];
+v30 [label = "INT
+(200)"];
+v31 [label = "BINOP
+(-)"];
+v31 -> v29;
+v31 -> v30;
+v32 [label = "STMT_MODIFY_2
+ID(PrintInt)
+(exp);
+"];
+v32 -> v31;
+v33 [label = "INT
+(20000)"];
+v34 [label = "INT
+(-20000)"];
+v35 [label = "BINOP
+(-)"];
+v35 -> v33;
+v35 -> v34;
+v36 [label = "STMT_MODIFY_2
+ID(PrintInt)
+(exp);
+"];
+v36 -> v35;
+v37 [label = "INT
+(-10000)"];
+v38 [label = "INT
+(30000)"];
+v39 [label = "BINOP
+(-)"];
+v39 -> v37;
+v39 -> v38;
+v40 [label = "STMT_MODIFY_2
+ID(PrintInt)
+(exp);
+"];
+v40 -> v39;
+v41 [label = "INT
+(100)"];
+v42 [label = "INT
+(200)"];
+v43 [label = "BINOP
+(-)"];
+v43 -> v41;
+v43 -> v42;
+v44 [label = "STMT_MODIFY_2
+ID(PrintInt)
+(exp);
+"];
+v44 -> v43;
+v45 [label = "INT
+(20000)"];
+v46 [label = "INT
+(-20000)"];
+v47 [label = "BINOP
+(-)"];
+v47 -> v45;
+v47 -> v46;
+v48 [label = "STMT_MODIFY_2
+ID(PrintInt)
+(exp);
+"];
+v48 -> v47;
+v49 [label = "INT
+(20000)"];
+v50 [label = "INT
+(20)"];
+v51 [label = "BINOP
+(/)"];
+v51 -> v49;
+v51 -> v50;
+v52 [label = "STMT_MODIFY_2
+ID(PrintInt)
+(exp);
+"];
+v52 -> v51;
+v53 [label = "INT
+(20502)"];
+v54 [label = "INT
+(20)"];
+v55 [label = "BINOP
+(/)"];
+v55 -> v53;
+v55 -> v54;
+v56 [label = "STMT_MODIFY_2
+ID(PrintInt)
+(exp);
+"];
+v56 -> v55;
+v71 -> v4;
+v71 -> v8;
+v71 -> v12;
+v71 -> v16;
+v71 -> v20;
+v71 -> v24;
+v71 -> v28;
+v71 -> v32;
+v71 -> v36;
+v71 -> v40;
+v71 -> v44;
+v71 -> v48;
+v71 -> v52;
+v71 -> v56;
+v71 -> v72;
+v73 [label = "funcDec"];
+v73 -> v71;
+v75 -> v73;
 }
