@@ -3,14 +3,7 @@ string_access_violation: .asciiz "Access Violation"
 string_illegal_div_by_0: .asciiz "Division By Zero"
 string_invalid_ptr_dref: .asciiz "Invalid Pointer Dereference"
 space_for_printInt_space: .asciiz " "
-s1_str: .asciiz "Having"
-s1_global_var: .word s1_str
-s2_str: .asciiz "said"
-s2_global_var: .word s2_str
-s3_str: .asciiz "that"
-s3_global_var: .word s3_str
-	str_aconst1: .asciiz "Citroen"
-	str_aconst2: .asciiz "said"
+i_global_var: .word 6
 .text
 user_main:
 user_main_prologue:
@@ -39,198 +32,55 @@ user_main_prologue:
 	sw $t8, 0($sp)
 	subu $sp, $sp, 4
 	sw $t9, 0($sp)
+	sw $zero, -44($fp)
+	sw $zero, -48($fp)
+	sw $zero, -52($fp)
+	sw $zero, -56($fp)
 	sub $sp, $sp, 16
 user_main_body:
-	li $t1, 3
-	li $v0, 9
-	move $a0, $t1
-	add $a0, $a0, 1
-	mul $a0, $a0, 4
-	syscall
-	move $t0, $v0
-	sw $t1, 0($t0)
+Label_1_start:
+	lw $t1, i_global_var
+	li $t0, 1
+	add $t0, $t1, $t0
+	li $s0, 32767
+	ble $t0, $s0, Label_2_endMax
+	li $t0, 32767
+	j Label_3_endMin
+Label_2_endMax:
+	li $s0, -32768
+	bgt $t0, $s0, Label_3_endMin
+	li $t0, -32768
+Label_3_endMin:
+	beq $t0, $zero, Label_0_end
+	li $t1, 8
+	lw $t0, i_global_var
+	beq $t0, $zero, abort_division_by_zero
+	div $t0, $t1, $t0
+	li $s0, 32767
+	ble $t0, $s0, Label_4_endMax
+	li $t0, 32767
+	j Label_5_endMin
+Label_4_endMax:
+	li $s0, -32768
+	bgt $t0, $s0, Label_5_endMin
+	li $t0, -32768
+Label_5_endMin:
 	sw $t0, -44($fp)
-	lw $t2, -44($fp)
-	li $t1, 0
-	lw $t0, s1_global_var
-	bltz $t1, abort_access_violation
-	lw $s0, 0($t2)
-	bge $t1, $s0, abort_access_violation
-	move $s0, $t1
-	add $s0, $s0, 1
-	mul $s0, $s0, 4
-	addu $s0, $t2, $s0
-	sw $t0, 0($s0)
-	lw $t3, -44($fp)
-	li $t2, 1
-	la $t1, str_aconst1
-	lw $t0, s2_global_var
-	move $s0, $t1
-	li $s1, 0
-Label_3_looplen1:
-	lb $s2, 0($s0)
-	beq $s2, $zero, Label_4_strlen_exit1
-	add $s1, $s1, 1
-	add $s0, $s0, 1
-	j Label_3_looplen1
-Label_4_strlen_exit1:
-	move $a0, $s1
-	move $s0, $t0
-	li $s1, 0
-Label_5_looplen2:
-	lb $s2, 0($s0)
-	beq $s2, $zero, Label_6_strlen_exit2
-	add $s1, $s1, 1
-	add $s0, $s0, 1
-	j Label_5_looplen2
-Label_6_strlen_exit2:
-	add $a0, $a0, $s1
-	add $a0, $a0, 1
-	li $v0, 9
-	syscall
-	move $s0, $v0
-	move $s3, $s0
-	move $s4, $t0
-	move $s1, $t1
-Label_0_string1:
-	lb $s2, 0($s1)
-	beq $s2, $zero, Label_1_string2
-	sb $s2, 0($s3)
-	add $s3, $s3, 1
-	add $s1, $s1, 1
-	j Label_0_string1
-Label_1_string2:
-	lb $s2, 0($s4)
-	beq $s2, $zero, Label_2_end
-	sb $s2, 0($s3)
-	addi $s3, $s3, 1
-	addi $s4, $s4, 1
-	j Label_1_string2
-Label_2_end:
-	sb $zero, 0($s3)
-	move $t0, $s0
-	bltz $t2, abort_access_violation
-	lw $s0, 0($t3)
-	bge $t2, $s0, abort_access_violation
-	move $s0, $t2
-	add $s0, $s0, 1
-	mul $s0, $s0, 4
-	addu $s0, $t3, $s0
-	sw $t0, 0($s0)
-	lw $t3, -44($fp)
-	li $t2, 2
-	lw $t1, s1_global_var
-	la $t0, str_aconst2
-	move $s0, $t1
-	li $s1, 0
-Label_10_looplen1:
-	lb $s2, 0($s0)
-	beq $s2, $zero, Label_11_strlen_exit1
-	add $s1, $s1, 1
-	add $s0, $s0, 1
-	j Label_10_looplen1
-Label_11_strlen_exit1:
-	move $a0, $s1
-	move $s0, $t0
-	li $s1, 0
-Label_12_looplen2:
-	lb $s2, 0($s0)
-	beq $s2, $zero, Label_13_strlen_exit2
-	add $s1, $s1, 1
-	add $s0, $s0, 1
-	j Label_12_looplen2
-Label_13_strlen_exit2:
-	add $a0, $a0, $s1
-	add $a0, $a0, 1
-	li $v0, 9
-	syscall
-	move $s0, $v0
-	move $s3, $s0
-	move $s4, $t0
-	move $s1, $t1
-Label_7_string1:
-	lb $s2, 0($s1)
-	beq $s2, $zero, Label_8_string2
-	sb $s2, 0($s3)
-	add $s3, $s3, 1
-	add $s1, $s1, 1
-	j Label_7_string1
-Label_8_string2:
-	lb $s2, 0($s4)
-	beq $s2, $zero, Label_9_end
-	sb $s2, 0($s3)
-	addi $s3, $s3, 1
-	addi $s4, $s4, 1
-	j Label_8_string2
-Label_9_end:
-	sb $zero, 0($s3)
-	move $t1, $s0
-	lw $t0, s3_global_var
-	move $s0, $t1
-	li $s1, 0
-Label_17_looplen1:
-	lb $s2, 0($s0)
-	beq $s2, $zero, Label_18_strlen_exit1
-	add $s1, $s1, 1
-	add $s0, $s0, 1
-	j Label_17_looplen1
-Label_18_strlen_exit1:
-	move $a0, $s1
-	move $s0, $t0
-	li $s1, 0
-Label_19_looplen2:
-	lb $s2, 0($s0)
-	beq $s2, $zero, Label_20_strlen_exit2
-	add $s1, $s1, 1
-	add $s0, $s0, 1
-	j Label_19_looplen2
-Label_20_strlen_exit2:
-	add $a0, $a0, $s1
-	add $a0, $a0, 1
-	li $v0, 9
-	syscall
-	move $s0, $v0
-	move $s3, $s0
-	move $s4, $t0
-	move $s1, $t1
-Label_14_string1:
-	lb $s2, 0($s1)
-	beq $s2, $zero, Label_15_string2
-	sb $s2, 0($s3)
-	add $s3, $s3, 1
-	add $s1, $s1, 1
-	j Label_14_string1
-Label_15_string2:
-	lb $s2, 0($s4)
-	beq $s2, $zero, Label_16_end
-	sb $s2, 0($s3)
-	addi $s3, $s3, 1
-	addi $s4, $s4, 1
-	j Label_15_string2
-Label_16_end:
-	sb $zero, 0($s3)
-	move $t0, $s0
-	bltz $t2, abort_access_violation
-	lw $s0, 0($t3)
-	bge $t2, $s0, abort_access_violation
-	move $s0, $t2
-	add $s0, $s0, 1
-	mul $s0, $s0, 4
-	addu $s0, $t3, $s0
-	sw $t0, 0($s0)
-	lw $t1, -44($fp)
-	li $t0, 2
-	bltz $t0, abort_access_violation
-	lw $s0, 0($t1)
-	bge $t0, $s0, abort_access_violation
-	move $s0, $t0
-	add $s0, $s0, 1
-	mul $s0, $s0, 4
-	addu $s0, $t1, $s0
-	lw $t0, 0($s0)
-	move $a0, $t0
-	li $v0, 4
-	syscall
+	lw $t1, i_global_var
+	li $t0, 1
+	sub $t0, $t1, $t0
+	li $s0, 32767
+	ble $t0, $s0, Label_6_endMax
+	li $t0, 32767
+	j Label_7_endMin
+Label_6_endMax:
+	li $s0, -32768
+	bgt $t0, $s0, Label_7_endMin
+	li $t0, -32768
+Label_7_endMin:
+	sw $t0, i_global_var
+	j Label_1_start
+Label_0_end:
 user_main_epilogue:
 	move $sp, $fp
 	lw $t0, -4($sp)

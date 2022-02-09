@@ -720,6 +720,9 @@ public class MIPSGenerator
 			code_commands.add(String.format("\tsubu $sp, $sp, 4\n"));
 			code_commands.add(String.format("\tsw $t%d, 0($sp)\n", i));
 		}
+		for(int i = 0; i < sp_offset / 4; i++) {
+			code_commands.add(String.format("\tsw $zero, %d($fp)\n", -44 - 4*i));
+		}
 		code_commands.add(String.format("\tsub $sp, $sp, %d\n", sp_offset));
 		code_commands.add(String.format("%s_body:\n", func_name));
 	}

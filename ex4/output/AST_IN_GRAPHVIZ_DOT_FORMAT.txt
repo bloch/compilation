@@ -1,195 +1,96 @@
 digraph
 {
 graph [ordering = "out"]
-v69 [label = "Program
+v33 [label = "Program
 "];
-v0 [label = "TYPE_STRING
+v0 [label = "TYPE_INT
 "];
 v3 [label = "TYPE_WITH_ID
-ID (s1);
+ID (i);
 "];
 v3 -> v0;
-v1 [label = "STRING('Having')"];
+v1 [label = "INT
+(6)"];
 v2 [label = "varDec_2
 "];
 v2 -> v3;
 v2 -> v1;
 v4 [label = "varDec"];
 v4 -> v2;
-v5 [label = "TYPE_STRING
+v5 [label = "TYPE_VOID
 "];
-v8 [label = "TYPE_WITH_ID
-ID (s2);
-"];
-v8 -> v5;
-v6 [label = "STRING('said')"];
-v7 [label = "varDec_2
-"];
-v7 -> v8;
-v7 -> v6;
-v9 [label = "varDec"];
-v9 -> v7;
-v10 [label = "TYPE_STRING
-"];
-v13 [label = "TYPE_WITH_ID
-ID (s3);
-"];
-v13 -> v10;
-v11 [label = "STRING('that')"];
-v12 [label = "varDec_2
-"];
-v12 -> v13;
-v12 -> v11;
-v14 [label = "varDec"];
-v14 -> v12;
-v15 [label = "TYPE_STRING
-"];
-v16 [label = "ARRAY_TYPE_DEF_1
-ID (StringArray);
-"];
-v16 -> v15;
-v17 [label = "arrayTypeDef"];
-v17 -> v16;
-v18 [label = "TYPE_VOID
-"];
-v62 [label = "TYPE_WITH_ID
+v29 [label = "TYPE_WITH_ID
 ID (main);
 "];
-v62 -> v18;
-v61 [label = "funcDec_1
+v29 -> v5;
+v28 [label = "funcDec_1
 "];
-v19 [label = "TYPE_ID
-(StringArray)
+v26 [label = "WHILE STMT
 "];
-v24 [label = "TYPE_WITH_ID
-ID (names);
+v6 [label = "SIMPLE
+VAR
+(i)"];
+v7 [label = "EXP
+VAR"];
+v7 -> v6;
+v8 [label = "INT
+(1)"];
+v9 [label = "BINOP
+(+)"];
+v9 -> v7;
+v9 -> v8;
+v26 -> v9;
+v10 [label = "TYPE_INT
 "];
-v24 -> v19;
-v20 [label = "TYPE_STRING
+v16 [label = "TYPE_WITH_ID
+ID (j);
 "];
+v16 -> v10;
+v11 [label = "INT
+(8)"];
+v12 [label = "SIMPLE
+VAR
+(i)"];
+v13 [label = "EXP
+VAR"];
+v13 -> v12;
+v14 [label = "BINOP
+(/)"];
+v14 -> v11;
+v14 -> v13;
+v15 [label = "varDec_2
+"];
+v15 -> v16;
+v15 -> v14;
+v17 [label = "STMT_VAR_DEC
+"];
+v17 -> v15;
+v18 [label = "SIMPLE
+VAR
+(i)"];
+v19 [label = "SIMPLE
+VAR
+(i)"];
+v20 [label = "EXP
+VAR"];
+v20 -> v19;
 v21 [label = "INT
-(3)"];
-v22 [label = "newExp_2"];
+(1)"];
+v22 [label = "BINOP
+(-)"];
 v22 -> v20;
 v22 -> v21;
-v23 [label = "varDec_3"];
-v23 -> v24;
+v23 [label = "ASSIGN
+left := right
+"];
+v23 -> v18;
 v23 -> v22;
-v25 [label = "STMT_VAR_DEC
-"];
-v25 -> v23;
-v26 [label = "SIMPLE
-VAR
-(names)"];
-v27 [label = "INT
-(0)"];
-v28 [label = "SUBSCRIPT
-VAR
-...[...]"];
+v26 -> v17;
+v26 -> v23;
 v28 -> v26;
-v28 -> v27;
-v29 [label = "SIMPLE
-VAR
-(s1)"];
-v30 [label = "EXP
-VAR"];
-v30 -> v29;
-v31 [label = "ASSIGN
-left := right
-"];
-v31 -> v28;
-v31 -> v30;
-v32 [label = "SIMPLE
-VAR
-(names)"];
-v33 [label = "INT
-(1)"];
-v34 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v34 -> v32;
-v34 -> v33;
-v35 [label = "STRING('Citroen')"];
-v36 [label = "SIMPLE
-VAR
-(s2)"];
-v37 [label = "EXP
-VAR"];
-v37 -> v36;
-v38 [label = "BINOP
-(+)"];
-v38 -> v35;
-v38 -> v37;
-v39 [label = "ASSIGN
-left := right
-"];
-v39 -> v34;
-v39 -> v38;
-v40 [label = "SIMPLE
-VAR
-(names)"];
-v41 [label = "INT
-(2)"];
-v42 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v42 -> v40;
-v42 -> v41;
-v43 [label = "SIMPLE
-VAR
-(s1)"];
-v44 [label = "EXP
-VAR"];
-v44 -> v43;
-v45 [label = "STRING('said')"];
-v46 [label = "BINOP
-(+)"];
-v46 -> v44;
-v46 -> v45;
-v47 [label = "SIMPLE
-VAR
-(s3)"];
-v48 [label = "EXP
-VAR"];
-v48 -> v47;
-v49 [label = "BINOP
-(+)"];
-v49 -> v46;
-v49 -> v48;
-v50 [label = "ASSIGN
-left := right
-"];
-v50 -> v42;
-v50 -> v49;
-v51 [label = "SIMPLE
-VAR
-(names)"];
-v52 [label = "INT
-(2)"];
-v53 [label = "SUBSCRIPT
-VAR
-...[...]"];
-v53 -> v51;
-v53 -> v52;
-v54 [label = "EXP
-VAR"];
-v54 -> v53;
-v55 [label = "STMT_MODIFY_2
-ID(PrintString)
-(exp);
-"];
-v55 -> v54;
-v61 -> v25;
-v61 -> v31;
-v61 -> v39;
-v61 -> v50;
-v61 -> v55;
-v61 -> v62;
-v63 [label = "funcDec"];
-v63 -> v61;
-v69 -> v4;
-v69 -> v9;
-v69 -> v14;
-v69 -> v17;
-v69 -> v63;
+v28 -> v29;
+v30 [label = "funcDec"];
+v30 -> v28;
+v33 -> v4;
+v33 -> v30;
 }

@@ -1,21 +1,9 @@
+class List {
+    int v;
+    List next;
+}
 
 void main() {
-    PrintInt(-1000 * 2000);
-    PrintInt(100 * 200);
-    PrintInt(1000 * 2000);
-
-    PrintInt(-10000 + -30000);
-    PrintInt(100 + 200);
-    PrintInt(20000 + 20000);
-
-    PrintInt(-10000 - 30000);
-    PrintInt(100 - 200);
-    PrintInt(20000 - -20000);
-
-    PrintInt(-10000 - 30000);
-    PrintInt(100 - 200);
-    PrintInt(20000 - -20000);
-
-    PrintInt(20000 / 20);
-    PrintInt(20502 / 20);
+    List lst;
+    PrintInt(lst.v);
 }

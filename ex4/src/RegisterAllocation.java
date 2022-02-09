@@ -23,10 +23,17 @@ public class RegisterAllocation {
                 String function_name = line.substring(0, line.length() - 1);
                 cfg_list.add(new ArrayList<CFGNode>());
 
-                for (int i = 0; i < 28; i++) {       // ignore prologue of function(NO TEMPs)
+                // ignore prologue of function(NO TEMPs)
+                for (int i = 0; i < 27; i++) {                  // ignore up to sw of $zero to locals.
                     line = buffered_reader.readLine();
                 }
-
+                while(line.trim().startsWith("sw")) {           // ignore all sw of $zeros. I dont know how many...
+                    line = buffered_reader.readLine();
+                }
+                // now we are in sub of offset_sp =  max(4*num of locals, 16)
+                line = buffered_reader.readLine();
+                // now we are in function_name_body label
+                System.out.println(line);
                 while (!line.equals(function_name + "_epilogue:")) {
                     CFGNode cur_node = new CFGNode(line);
 //                    System.out.println(line);
