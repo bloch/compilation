@@ -54,7 +54,7 @@ CUP_FLAGS =                                \
 #########################
 # DEFINITIONS :: PARSER #
 #########################
-INPUT    = ${INPUT_DIR}/Input.txt
+INPUT    = ${INPUT_DIR}/TEST_06_Strings.txt
 # OUTPUT   = ${OUTPUT_DIR}/SemanticStatus.txt
 OUTPUT   = ${OUTPUT_DIR}/MIPS.txt
 

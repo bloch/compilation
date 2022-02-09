@@ -616,6 +616,7 @@ public class MIPSGenerator
 	}
 	public void virtual_call(TEMP object, int offset, TEMP_LIST params, TEMP dst) {
 		int t0 = object.getSerialNumber();
+		code_commands.add(String.format("\tbeq Temp_%d, 0, abort_invalid_pointer_dereference\n", t0));
 		ArrayList<TEMP> temp_list = new ArrayList<TEMP>();
 		while(params != null) {
 			temp_list.add(params.head);
