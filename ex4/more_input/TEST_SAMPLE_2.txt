@@ -1,7 +1,0 @@
-int i := 6;
-void main() {
-    while (i+1) {
-        int j := 8/i;
-        i := i-1;
-    }
-}
