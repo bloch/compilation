@@ -616,6 +616,7 @@ public class MIPSGenerator
 	}
 	public void virtual_call(TEMP object, int offset, TEMP_LIST params, TEMP dst) {
 		int t0 = object.getSerialNumber();
+		code_commands.add(String.format("\tbeq Temp_%d, 0, abort_invalid_pointer_dereference\n", t0));
 		ArrayList<TEMP> temp_list = new ArrayList<TEMP>();
 		while(params != null) {
 			temp_list.add(params.head);
@@ -718,6 +719,9 @@ public class MIPSGenerator
 		for(int i = 0; i < 10; i++) {
 			code_commands.add(String.format("\tsubu $sp, $sp, 4\n"));
 			code_commands.add(String.format("\tsw $t%d, 0($sp)\n", i));
+		}
+		for(int i = 0; i < sp_offset / 4; i++) {
+			code_commands.add(String.format("\tsw $zero, %d($fp)\n", -44 - 4*i));
 		}
 		code_commands.add(String.format("\tsub $sp, $sp, %d\n", sp_offset));
 		code_commands.add(String.format("%s_body:\n", func_name));
